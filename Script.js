@@ -1,25 +1,25 @@
-// Fonction pour changer de page
 function showPage(pageId) {
-    // 1. Cacher toutes les pages
+    // 1. On cible toutes les sections ayant la classe "page"
     const pages = document.querySelectorAll('.page');
+    
+    // 2. On les cache toutes
     pages.forEach(page => {
         page.classList.remove('active');
+        page.style.display = 'none';
     });
 
-    // 2. Afficher la page sélectionnée
-    const selectedPage = document.getElementById(pageId);
-    if (selectedPage) {
-        selectedPage.classList.add('active');
+    // 3. On affiche la page demandée
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
+        targetPage.style.display = 'block';
+        
+        // 4. On remonte en haut de la fenêtre
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // 3. Remonter en haut de la page automatiquement
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
 }
 
-// Initialisation des icônes Lucide (si utilisées)
-if (window.lucide) {
-    lucide.createIcons();
-}
+// Sécurité : Afficher l'accueil par défaut au chargement
+window.onload = function() {
+    showPage('accueil');
+};
