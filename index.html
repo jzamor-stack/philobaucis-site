@@ -5,10 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Philobaucis - Novembre 2026</title>
     <link rel="icon" type="image/png" href="https://i.postimg.cc/fyMwzvYV/philobaucis-logo-(9).png">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background: #f5f5f5; color: #333; }
+
+        header { box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: relative; overflow: hidden; z-index: 100; }
+        .header-top {
+            background: url('https://i.postimg.cc/nhScBrgy/Gemini-Generated-Image-t23ykqt23ykqt23y.png') center/cover;
+            padding: 2rem; position: relative; text-align: center;
+        }
+        .header-top::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+        
+        .logo-container { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; color: white; }
+        .logo-container img { height: 75px; margin-bottom: 10px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+        .site-branding h1 { font-size: 2rem; font-weight: 800; margin: 0; }
+        .site-branding p { font-style: italic; opacity: 0.9; }
+
+        nav { display: flex; flex-wrap: wrap; background: #c41919; width: 100%; }
+        .nav-btn {
+            flex: 1; padding: 1.2rem; border: none; font-size: 0.9rem; font-weight: 700;
+            cursor: pointer; transition: 0.3s; color: white;
+            background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+            border-right: 1px solid rgba(255,255,255,0.15);
+            text-transform: uppercase;
+        }
+        .nav-btn:hover { filter: brightness(1.2); }
+
+        main { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; min-height: 60vh; }
+        
+        /* GESTION DE L'AFFICHAGE DES PAGES */
+        .page { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .page.active { display: block !important; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hero-banner img { width: 100%; border-radius: 24px; height: 300px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 2rem; }
+        h2 { color: #c41919; font-size: 2.5rem; font-weight: 900; margin-bottom: 1.5rem; text-align: center; }
+        .intro-text { font-size: 1.15rem; text-align: center; margin-bottom: 3rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+
+        .calendar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .day-card {
+            padding: 2rem; border-radius: 20px; color: white;
+            background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.3s;
+        }
+        .day-card:hover { transform: translateY(-5px); }
+        .day-title { font-weight: 800; font-size: 1.3rem; margin-bottom: 10px; color: #FFD700; }
+
+        .founder-section { background: white; padding: 2.5rem; border-radius: 20px; border-left: 6px solid #c41919; margin: 3rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .founder-section h3 { color: #c41919; margin-bottom: 1rem; font-size: 1.6rem; }
+
+        .cta-section { background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%); padding: 3rem; border-radius: 24px; text-align: center; color: white; margin-top: 4rem; }
+        .cta-btn { 
+            background: white; color: #c41919; padding: 1.2rem 2.5rem; border-radius: 50px; 
+            border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; 
+            margin-top: 1.5rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; }
+            .nav-btn { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            h2 { font-size: 1.8rem; }
+        }
+    </style>
 </head>
 <body>
+
     <div class="page-container">
         <header>
             <div class="header-top">
@@ -20,47 +84,42 @@
                     </div>
                 </div>
             </div>
-            <div class="header-content">
-                <nav>
-                    <button class="nav-btn" onclick="showPage('accueil')">Le Projet</button>
-                    <button class="nav-btn" onclick="showPage('qui-sommes-nous')">Qui sommes-nous</button>
-                    <button class="nav-btn" onclick="showPage('programme')">Programme</button>
-                    <button class="nav-btn" onclick="showPage('participer')">Association</button>
-                    <button class="nav-btn" onclick="showPage('entreprise')">Entreprise</button>
-                </nav>
-            </div>
+            <nav id="main-nav">
+                <button class="nav-btn" onclick="showPage('accueil')">Le Projet</button>
+                <button class="nav-btn" onclick="showPage('qui-sommes-nous')">Qui sommes-nous</button>
+                <button class="nav-btn" onclick="showPage('programme')">Programme</button>
+                <button class="nav-btn" onclick="showPage('participer')">Association</button>
+                <button class="nav-btn" onclick="showPage('entreprise')">Entreprise</button>
+            </nav>
         </header>
 
-        <main id="main-content">
+        <main>
             <section id="accueil" class="page active">
                 <div class="hero-banner">
-                    <img src="https://i.postimg.cc/VLh4Yw6B/Design-sans-titre-(1).png" alt="Le Projet Philobaucis">
+                    <img src="https://i.postimg.cc/VLh4Yw6B/Design-sans-titre-(1).png" alt="Projet Philobaucis">
                 </div>
                 <h2>Le Projet Philobaucis</h2>
-                <p class="intro-text">En novembre 2026, Philobaucis organise un événement national de 15 jours consacré aux différentes formes de précarités en France. Notre mission : donner une voix aux personnes invisibilisées, valoriser les associations qui oeuvrent au quotidien à leurs côtés.</p>
+                <p class="intro-text">En novembre 2026, Philobaucis organise un événement national de 15 jours consacré aux différentes formes de précarités en France.</p>
                 <div class="calendar-grid">
                     <div class="day-card">
-                        <div class="day-number">🗣️ Notre Mission</div>
-                        <div class="day-title gold-gradient">Témoignages</div>
-                        <p>Recueillir et diffuser les témoignages de personnes touchées par la précarité.</p>
+                        <div class="day-title">🗣️ Témoignages</div>
+                        <p>Recueillir et diffuser les témoignages de personnes touchées par la précarité pour humaniser les statistiques.</p>
                     </div>
                     <div class="day-card">
-                        <div class="day-number">📢 Notre Mission</div>
-                        <div class="day-title gold-gradient">Visibilité</div>
-                        <p>Mettre en lumière la vie des précaires et le travail des associations.</p>
+                        <div class="day-title">📢 Visibilité</div>
+                        <p>Mettre en lumière la vie des précaires et le travail des associations via les réseaux sociaux.</p>
                     </div>
                 </div>
             </section>
 
             <section id="qui-sommes-nous" class="page">
                 <div class="hero-banner">
-                    <img src="https://i.postimg.cc/G3fKVLwy/. . . -n.jpg" alt="Qui Sommes-Nous">
+                    <img src="https://i.postimg.cc/G3fKVLwy/. . . -n.jpg" alt="Jean-Daniel Zamor">
                 </div>
                 <h2>Qui Sommes-Nous</h2>
-                <p class="intro-text">Philobaucis est une ONG française fondée par Jean-Daniel ZAMOR.</p>
                 <div class="founder-section">
                     <h3>👤 Jean-Daniel ZAMOR - Fondateur</h3>
-                    <p>Ancien président du CLAP, expert médiatique avec plus de 300 interviews.</p>
+                    <p>Ancien président du CLAP, consultant pour Harvard et expert médiatique. Philobaucis est né de sa volonté de créer un pont entre les invisibles et le débat public.</p>
                 </div>
             </section>
 
@@ -70,36 +129,67 @@
                 </div>
                 <h2>Programme - Novembre 2026</h2>
                 <div class="calendar-grid">
-                    <div class="day-card"><div class="day-number">Jour 1</div><div class="day-title">Précarité dans la rue</div></div>
-                    <div class="day-card"><div class="day-number">Jour 15</div><div class="day-title">Plateau télé Présidentielle</div></div>
+                    <div class="day-card"><div class="day-title">Jour 1 : Rue</div><p>Focus sur la précarité extrême en milieu urbain.</p></div>
+                    <div class="day-card"><div class="day-title">Jour 15 : TV</div><p>Plateau avec les candidats à la présidentielle.</p></div>
                 </div>
             </section>
 
             <section id="participer" class="page">
                 <div class="hero-banner">
-                    <img src="https://i.postimg.cc/yYdgv9qb/H-(1).png" alt="Association">
+                    <img src="https://i.postimg.cc/yYdgv9qb/H-(1).png" alt="Associations">
                 </div>
                 <h2>Associations Partenaires</h2>
-                <div class="benefits-grid">
-                    <div class="benefit-card"><h3>📺 Couverture Médiatique</h3><p>Accès à TF1, BFM TV, Le Monde...</p></div>
+                <div class="calendar-grid">
+                    <div class="day-card"><div class="day-title">Visibilité</div><p>Accès aux grands médias nationaux.</p></div>
+                    <div class="day-card"><div class="day-title">Impact</div><p>Augmentation réelle de vos capacités d'action.</p></div>
+                </div>
+                <div class="cta-section">
+                    <h3>Devenons Partenaires</h3>
+                    <button class="cta-btn" onclick="window.open('https://calendly.com/j-zamor-philobaucis/premiere-reunion-philobaucis', '_blank')">Prendre Rendez-vous</button>
                 </div>
             </section>
 
             <section id="entreprise" class="page">
                 <div class="hero-banner">
-                    <img src="https://i.postimg.cc/7Lk36Zk8/H.png" alt="Entreprise">
+                    <img src="https://i.postimg.cc/7Lk36Zk8/H.png" alt="Entreprises">
                 </div>
                 <h2>Entreprises Partenaires</h2>
-                <div class="podium-section">
-                    <div class="podium-grid">
-                        <div class="podium-card podium-gold">🥇 Or</div>
-                        <div class="podium-card podium-silver">🥈 Argent</div>
-                        <div class="podium-card podium-bronze">🥉 Bronze</div>
-                    </div>
+                <p class="intro-text">Valorisez votre engagement RSE avec notre système de médailles.</p>
+                <div class="calendar-grid">
+                    <div class="day-card"><div class="day-title">🥇 Or</div><p>Engagement exceptionnel.</p></div>
+                    <div class="day-card"><div class="day-title">🥈 Argent</div><p>Partenariat actif.</p></div>
                 </div>
             </section>
         </main>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        function showPage(pageId) {
+            // Log pour vérifier que le clic fonctionne
+            console.log("Tentative d'affichage de la page : " + pageId);
+
+            // 1. On cache toutes les pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => {
+                p.classList.remove('active');
+                p.style.display = 'none';
+            });
+
+            // 2. On affiche la page demandée
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+                target.style.display = 'block';
+                window.scrollTo(0, 0);
+            } else {
+                console.error("Page non trouvée : " + pageId);
+            }
+        }
+
+        // Au démarrage, on affiche l'accueil
+        window.onload = function() {
+            showPage('accueil');
+        };
+    </script>
 </body>
 </html>
