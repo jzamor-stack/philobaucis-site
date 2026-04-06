@@ -5,149 +5,1486 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Philobaucis - Novembre 2026</title>
   <link rel="icon" type="image/png" href="https://i.postimg.cc/fyMwzvYV/philobaucis-logo-(9).png">
-  
+  <script type='text/javascript' src='https://c42f1a11x4br96cw.canvacode.com/CIuydEMv_Ltr4YfGvSGbcr5qbIIpAjkJ5dIo0MYjuxL3FLVHTO8EcHRwHs48Gd3W88d2fZz0pS_rDFS0QSA6womeBKgVg1w4wAfBWsQRZAx3rslxxeuA6_PuQZS1rV7io0alNTgD8_e-l5TpMRUIlFkKUz9i3XCIfYmkwcMD8GY2PFxCk0b_hZFRQKWWJZqyAeU_LFNQK8v6Tk9PzErSoEKJyDbwBRII84jaWs7qTOnBVGM_QNsXZzlWqh2o7mbt7cKGLK6FIiItLVWe4HPlwCid_PnFSmT6rPLDaSJQx3DUJLqt7OktqzQdm3ukCOL8pxp_3r3ZcD5jWLZI9sXon3hE2yrcvDH-RBc6137g-XF-wuv2LrOfDQkHIt9ZsKFyRBbbC0xUdUCp8g9FlCJta7ATRZ3BFEzI-RYao8uINSHwBgVD9RMTvaIkHVbe7BmB331A2J4a0Aqoqg0p3th8OiyfjHlG2EdS3rbMEQxGGkyZN2mp2L3f7cSObYv9drKq6qlEJotZdRLmGKxNxOdEHvtPmxqeuVEvtehl16bWmaJ3xduWSNaAKtQunN5Jc-pZtHXw7oCNmaKaOuEwU_7ZkFL-Ez0N95Pzidl-UCxit6KrLZev-mZfob3EWHnP8cevOS_FGfMYZVUN92nPwmWzJ4rw'></script><script type="text/javascript" src="https://btzrydhmmze3pzvp.canva-hosted-embed.com/uMBot4g6BsJ2Zag51A-290n0JXh-KdJVPsnUkkx9Sk6pNCC8GwWJVGltPY_-PiNcmdq83onBRogoUnMR7bOrrskJfruw06KZI9ErAEW4rIaNcWWFpGJPEipQPfPi-ml69IfhFQzIaHw_IZw05aKvb8KYMZdoYlWMgp2MycooThs="></script>
+  <script src="/_sdk/element_sdk.js"></script>
   <style>
-    /* TON STYLE D'ORIGINE */
-    body { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background: #f5f5f5; overflow-x: hidden; }
-    * { box-sizing: border-box; }
-    .page-container { min-height: 100%; display: flex; flex-direction: column; }
-    header { padding: 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: relative; overflow: hidden; }
-    .header-top { background: url('https://i.postimg.cc/nhScBrgy/Gemini-Generated-Image-t23ykqt23ykqt23y.png'); background-size: cover; background-position: center 75%; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: center; position: relative; }
-    .header-top::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255, 255, 255, 0.08) 15px, rgba(255, 255, 255, 0.08) 30px); }
-    .logo-container { display: flex; align-items: center; gap: 1.5rem; position: relative; z-index: 1; }
-    .logo-container img { height: 70px; width: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
-    .site-branding { color: white; }
-    .site-branding h1 { margin: 0; font-size: 1.8rem; font-weight: 700; }
-    nav { display: flex; width: 100%; flex-wrap: wrap; }
-    .nav-btn { flex: 1; padding: 1.2rem; border: none; background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%); color: white; font-weight: 600; cursor: pointer; text-transform: uppercase; border-right: 1px solid rgba(255,255,255,0.1); }
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: #f5f5f5;
+    }
     
-    main { flex: 1; padding: 3rem 2rem; max-width: 1200px; margin: 0 auto; width: 100%; }
-    .page { display: none; }
-    .page.active { display: block !important; animation: fadeIn 0.4s ease-in; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    * {
+      box-sizing: border-box;
+    }
 
-    .hero-banner { margin: 0 0 2rem 0; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
-    .hero-banner img { width: 100%; height: 200px; object-fit: cover; }
+    .page-container {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-    /* --- LA CORRECTION POUR TA PHOTO --- */
-    #qui-sommes-nous .hero-banner img { object-position: center 10% !important; }
+    header {
+      padding: 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
 
-    /* Tes autres styles (Grilles, Cartes, Podium, etc.) */
-    .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
-    .day-card { padding: 1.8rem; border-radius: 16px; background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%); color: white; }
-    .founder-section { margin: 2rem 0; padding: 2rem; border-radius: 20px; background: rgba(196, 25, 25, 0.05); border-left: 5px solid #c41919; }
-    .podium-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-    .podium-card { padding: 20px; background: white; border-radius: 20px; text-align: center; border-top: 5px solid #d4af37; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .logo-black-card { display: flex; align-items: center; gap: 20px; padding: 20px; background: #eee; border-radius: 15px; }
-    .logo-black-img { width: 80px; }
+    .header-top {
+      background: url('https://i.postimg.cc/nhScBrgy/Gemini-Generated-Image-t23ykqt23ykqt23y.png');
+      background-size: cover;
+      background-position: center 75%;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .header-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 15px,
+        rgba(255, 255, 255, 0.08) 15px,
+        rgba(255, 255, 255, 0.08) 30px
+      );
+      opacity: 1;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-container img {
+      height: 70px;
+      width: auto;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .site-branding {
+      color: white;
+    }
+
+    .site-branding h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      line-height: 1.2;
+    }
+
+    .site-branding p {
+      margin: 0.25rem 0 0 0;
+      font-size: 0.95rem;
+      opacity: 0.95;
+      font-style: italic;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .header-content {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      gap: 0;
+      width: 100%;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 1.2rem 1.5rem;
+      border: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+    }
+
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-btn:hover::before {
+      left: 100%;
+    }
+
+    .nav-btn:last-child {
+      border-right: none;
+    }
+
+    .nav-btn:hover {
+      background: linear-gradient(135deg, #d41f1f 0%, #7a2369 100%);
+      box-shadow: inset 0 -3px 0 rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:active {
+      transform: translateY(0);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    main {
+      flex: 1;
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInFromTop {
+      from { 
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-container {
+      animation: slideInFromTop 0.8s ease-out;
+    }
+
+    .nav-btn {
+      animation: fadeIn 0.6s ease-out backwards;
+    }
+
+    .nav-btn:nth-child(1) { animation-delay: 0.1s; }
+    .nav-btn:nth-child(2) { animation-delay: 0.2s; }
+    .nav-btn:nth-child(3) { animation-delay: 0.3s; }
+    .nav-btn:nth-child(4) { animation-delay: 0.4s; }
+
+    .hero-banner {
+      margin: 0 0 2rem 0;
+      padding: 0;
+      border-radius: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(0,0,0,0.03) 10px,
+        rgba(0,0,0,0.03) 20px
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      border-radius: 24px;
+    }
+
+    #accueil .hero-banner img {
+      object-position: center 35%;
+    }
+
+    #qui-sommes-nous .hero-banner img {
+      object-position: center 25%;
+    }
+
+    #programme .hero-banner img {
+      object-position: center 30%;
+    }
+
+    #participer .hero-banner img {
+      object-position: center 15%;
+    }
+
+    #entreprise .hero-banner img {
+      object-position: center top;
+    }
+
+    .card-icon {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    h2 {
+      color: #c41919;
+      font-size: 2rem;
+      margin: 0 0 1.5rem 0;
+      font-weight: 900;
+    }
+
+    .intro-text {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .mission-card {
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff !important;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+
+    .mission-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transition: transform 0.6s ease;
+      transform: scale(0);
+    }
+
+    .mission-card:hover::before {
+      transform: scale(1);
+    }
+
+    .mission-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(196, 25, 25, 0.4);
+    }
     
-    @media (max-width: 768px) { nav { flex-direction: column; } .nav-btn { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); } }
+    .mission-card h3,
+    .mission-card p {
+      color: #ffffff !important;
+    }
+
+    .mission-card h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+    }
+
+    .mission-card p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .founder-section {
+      margin: 3rem 0;
+      padding: 2.5rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(196, 25, 25, 0.1) 0%, rgba(107, 30, 95, 0.1) 100%);
+      border-left: 5px solid #c41919;
+    }
+
+    .founder-section h3 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: #c41919;
+      font-weight: 700;
+    }
+
+    .founder-section p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 0;
+      color: #333;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .day-card {
+      padding: 1.8rem;
+      border-radius: 16px;
+      border-left: 5px solid rgba(255,255,255,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff !important;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .day-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      border-radius: 0 16px 0 100%;
+    }
+
+    .day-card .day-number,
+    .day-card .day-title {
+      color: #ffffff !important;
+      position: relative;
+      z-index: 1;
+    }
+
+    .day-card:hover {
+      transform: translateX(8px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(196, 25, 25, 0.3);
+      border-left-color: rgba(255,255,255,0.6);
+    }
+
+    .day-number {
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .day-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .benefit-card {
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff !important;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid rgba(255,255,255,0.15);
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+      transition: transform 0.6s ease;
+    }
+
+    .benefit-card:hover::before {
+      transform: scale(1.2);
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(107, 30, 95, 0.35);
+    }
+    
+    .benefit-card h3,
+    .benefit-card p {
+      color: #ffffff !important;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefit-card h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .cta-section {
+      margin: 3rem 0;
+      padding: 3rem;
+      border-radius: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.03) 10px,
+        rgba(255,255,255,0.03) 20px
+      );
+    }
+
+    @keyframes shimmer {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50%, 50%); }
+    }
+
+    .cta-section h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.8rem;
+      position: relative;
+      z-index: 1;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .cta-section p {
+      margin: 0 0 2rem 0;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      opacity: 0.95;
+    }
+
+    .cta-btn {
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      background: #ffffff;
+      color: #c41919;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(196, 25, 25, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .cta-btn:hover::before {
+      width: 300%;
+      height: 300%;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .cta-buttons-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .podium-section {
+      padding: 72px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin: 2rem -2rem;
+    }
+
+    .podium-container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+    }
+
+    .podium-header {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .podium-header h3 {
+      font-size: clamp(26px, 2.6vw, 38px);
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #B8860B;
+    }
+
+    .podium-subtitle {
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: #555;
+    }
+
+    .podium-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .podium-card {
+      position: relative;
+      border-radius: 22px;
+      padding: 28px 22px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .podium-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 65px rgba(0,0,0,0.15);
+    }
+
+    .podium-gold   { border-top: 6px solid #d4af37; }
+    .podium-silver { border-top: 6px solid #bfc1c2; }
+    .podium-bronze { border-top: 6px solid #cd7f32; }
+
+    .podium-top {
+      text-align: center;
+    }
+
+    .podium-medal {
+      font-size: 44px;
+      margin-bottom: 8px;
+    }
+
+    .podium-rank {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #777;
+    }
+
+    .podium-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-top: 6px;
+      color: #333;
+    }
+
+    .podium-divider {
+      height: 1px;
+      width: 60%;
+      margin: 18px auto;
+      background: linear-gradient(90deg, transparent, #ccc, transparent);
+    }
+
+    .podium-benefits {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .podium-benefits li {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      padding: 12px;
+      background: #f6f6f6;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .podium-ico {
+      font-size: 18px;
+    }
+
+    .podium-shine {
+      position: absolute;
+      inset: -60%;
+      background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255,255,255,0.35) 50%,
+        transparent 60%
+      );
+      transform: rotate(22deg);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .podium-card:hover .podium-shine {
+      opacity: 1;
+    }
+
+    .podium-glow {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      top: -120px;
+      right: -120px;
+      filter: blur(20px);
+    }
+
+    .podium-gold   .podium-glow { background: rgba(212,175,55,0.35); }
+    .podium-silver .podium-glow { background: rgba(191,193,194,0.35); }
+    .podium-bronze .podium-glow { background: rgba(205,127,50,0.35); }
+
+    .logo-black-card {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      border-left: 4px solid #FFD700;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .logo-black-img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .logo-container {
+        flex-direction: column;
+      }
+
+      nav {
+        flex-direction: column;
+      }
+
+      .nav-btn {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .nav-btn:last-child {
+        border-bottom: none;
+      }
+
+      main {
+        padding: 2rem 1rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .mission-grid,
+      .calendar-grid,
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .podium-section {
+        padding: 48px 0;
+        margin: 2rem -1rem;
+      }
+
+      .podium-header h3 {
+        font-size: 24px;
+      }
+
+      .podium-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .podium-medal {
+        font-size: 36px;
+      }
+
+      .logo-black-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 1.25rem;
+      }
+
+      .logo-black-img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .cta-buttons-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cta-btn {
+        width: 100%;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+    }
   </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
  </head>
  <body>
   <div class="page-container">
    <header>
     <div class="header-top">
      <div class="logo-container">
-      <img src="https://i.postimg.cc/gkz1wGGw/philobaucis-logo-(9).png" alt="Logo">
-      <div class="site-branding"><h1>Philobaucis</h1><p>15 jours pour faire entendre les voix invisibles</p></div>
+      <img src="https://i.postimg.cc/gkz1wGGw/philobaucis-logo-(9).png" alt="Logo Philobaucis">
+      <div class="site-branding">
+       <h1>Philobaucis</h1>
+       <p>15 jours pour faire entendre les voix invisibles</p>
+      </div>
      </div>
     </div>
-    <nav>
-      <button class="nav-btn" onclick="showPage('accueil')">Le Projet</button>
-      <button class="nav-btn" onclick="showPage('qui-sommes-nous')">Qui sommes-nous</button>
-      <button class="nav-btn" onclick="showPage('programme')">Programme</button>
-      <button class="nav-btn" onclick="showPage('participer')">Association</button>
-      <button class="nav-btn" onclick="showPage('entreprise')">Entreprise</button>
-    </nav>
+    <div class="header-content">
+     <nav>
+      <button class="nav-btn" onclick="showPage('accueil')">Le Projet</button> <button class="nav-btn" onclick="showPage('qui-sommes-nous')">Qui sommes-nous</button> <button class="nav-btn" onclick="showPage('programme')">Programme</button> <button class="nav-btn" onclick="showPage('participer')">Association</button> <button class="nav-btn" onclick="showPage('entreprise')">Entreprise</button>
+     </nav>
+    </div>
    </header>
-
    <main>
     <div id="accueil" class="page active">
-     <div class="hero-banner"><img src="https://i.postimg.cc/VLh4Yw6B/Design-sans-titre-(1).png"></div>
-     <h2>Le Projet Philobaucis</h2>
+     <div class="hero-banner">
+      <img src="https://i.postimg.cc/VLh4Yw6B/Design-sans-titre-(1).png" alt="Le Projet Philobaucis" onerror="this.style.display='none';">
+     </div>
+     <h2 style="font-weight: 900;">Le Projet Philobaucis</h2>
      <p class="intro-text">En novembre 2026, Philobaucis organise un événement national de 15 jours consacré aux différentes formes de précarités en France. Notre mission : donner une voix aux personnes invisibilisées, valoriser les associations qui oeuvrent au quotidien à leurs côtés, et faire parler les différents candidats à la présidentielle en les mettant face à ces précarités, grâce à nos relais médiatiques et une campagne d'ampleur sur les réseaux sociaux.</p>
      <div class="calendar-grid">
-        <div class="day-card"><div class="day-title">🗣️ Témoignages</div><p>Recueillir et diffuser les témoignages de personnes touchées par la précarité.</p></div>
-        <div class="day-card"><div class="day-title">📢 Visibilité</div><p>Mettre en lumière la vie des précaires et le travail des associations.</p></div>
-        <div class="day-card"><div class="day-title">💪 Action</div><p>Proposer une solution innovante pour augmenter la capacité d'action.</p></div>
-        <div class="day-card"><div class="day-title">🗳️ Politique</div><p>Pousser les candidats à la présidentielle à proposer des solutions.</p></div>
+      <div class="day-card">
+       <div class="day-number">
+        🗣️ Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Témoignages
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Recueillir et diffuser les témoignages de personnes touchées par la précarité pour humaniser les statistiques.</p>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        📢 Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Visibilité
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Mettre en lumière la vie des précaires et le travail des associations en s'appuyant sur les réseaux sociaux et nos relais médiatiques nationaux et internationaux.</p>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        💪 Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Capacité d'action
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Proposer une solution innovante pour augmenter de façon significative la capacité d'action des associations partenaires.</p>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        🗳️ Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Engagement politique
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Pousser les candidats à la présidentielle à proposer des solutions concrètes face à ces différentes formes de précarité et les confronter aux réalités du terrain.</p>
+      </div>
+     </div>
+     <div class="founder-section">
+      <h3>🎯 Pourquoi cet événement</h3>
+      <p>La précarité en France prend de nombreuses formes et touche des millions de personnes. Pourtant, ces réalités restent souvent invisibles dans le débat public. Pendant 15 jours en novembre 2026, Philobaucis donnera une voix à ceux qu'on n'entend pas et mettra en lumière les associations qui oeuvrent quotidiennement à leurs côtés, avec l'objectif de créer une prise de conscience collective et d'amplifier l'impact des acteurs de terrain.</p>
      </div>
     </div>
-
     <div id="qui-sommes-nous" class="page">
-     <div class="hero-banner"><img src="https://i.postimg.cc/G3fKVLwy/. . . -n.jpg"></div>
-     <h2>Qui Sommes-Nous</h2>
-     <p class="intro-text">Philobaucis est une ONG française qui oeuvre pour une démocratie où chacun a sa place. Fondée par Jean-Daniel ZAMOR, notre organisation s'appuie sur une expérience reconnue de plaidoyer médiatique.</p>
+     <div class="hero-banner">
+      <img src="https://i.postimg.cc/G3fKVLwy/. . . -n.jpg" alt="Qui Sommes-Nous" onerror="this.style.display='none';">
+     </div>
+     <h2 style="font-weight: 900;">Qui Sommes-Nous</h2>
+     <p class="intro-text">Philobaucis est une ONG française qui oeuvre pour une démocratie où chacun a sa place. Notre conviction : on ne peut parler de démocratie véritable tant que la précarité exclut des millions de personnes de la vie collective. Fondée par Jean-Daniel ZAMOR, notre organisation s'appuie sur une expérience reconnue de plaidoyer médiatique et d'engagement social pour amplifier les voix invisibilisées et soutenir concrètement les associations de terrain.</p>
      <div class="founder-section">
       <h3>👤 Jean-Daniel ZAMOR - Fondateur</h3>
-      <p>Engagé depuis l'âge de 18 ans, Jean-Daniel ZAMOR a développé une expertise en plaidoyer médiatique (TF1, BBC, Le Monde, New York Times). Ancien président du CLAP, consultant pour Harvard et la Commission Européenne.</p>
+      <p style="margin-bottom: 1rem;">Engagé depuis l'âge de 18 ans dans des maraudes de rue et aux côtés de plusieurs associations de terrain, Jean-Daniel ZAMOR a développé une expertise reconnue en plaidoyer médiatique et mobilisation sociale.</p>
+      <p style="margin-bottom: 2rem;"><span style="font-weight: 600;">Son parcours et son expertise :</span></p>
+      <div class="calendar-grid">
+       <div class="day-card">
+        <div class="day-number">
+         👔 Leadership associatif
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Ancien président CLAP
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Collectif des Livreurs Autonomes Parisiens - Leadership d'une mobilisation sociale majeure pour les droits des travailleurs précaires</p>
+       </div>
+       <div class="day-card">
+        <div class="day-number">
+         🌍 Consultant international
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Harvard, Commission UE
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">A travaillé pour Harvard University, la Commission européenne et consultant pour des syndicats internationaux</p>
+       </div>
+       <div class="day-card">
+        <div class="day-number">
+         📰 Lanceur d'alerte
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Une du New York Times
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Premier lanceur d'alerte mondial sur l'exploitation des travailleurs de plateformes, mis en une du New York Times pour avoir dénoncé des situations d'esclavage, y compris le travail de mineurs parfois âgés de 10 ans</p>
+       </div>
+       <div class="day-card">
+        <div class="day-number">
+         🏆 Récompense Politico
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Politico 28 Class of 2020
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Sélectionné par Politico pour son travail et ses projets sur la cause des travailleurs de plateformes, aux côtés de Macron, Greta Thunberg, Christine Lagarde...</p>
+       </div>
+       <div class="day-card">
+        <div class="day-number">
+         🎙️ Expert médiatique
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         300+ interviews médias
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">TF1, BFM TV, Le Monde, France Inter, BBC, The Guardian et de nombreux autres médias français et internationaux</p>
+       </div>
+       <div class="day-card">
+        <div class="day-number">
+         🎤 Conférencier
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Démocratie &amp; précarité
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Conférencier spécialisé sur les questions des travailleurs précaires, de la gig economy et surtout de la démocratie</p>
+       </div>
+       <div class="day-card">
+        <div class="day-number">
+         👔 Direction associative &amp; Réseau international
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Leadership &amp; Acteurs mondiaux
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Direction de plusieurs associations et projets d'envergure avec une expérience éprouvée en gestion et coordination d'initiatives sociales. Rencontres avec de nombreux acteurs associatifs à l'international lors de conférences et événements</p>
+       </div>
+       <div class="day-card">
+        <div class="day-number">
+         🏢 Directeur d'ONG
+        </div>
+        <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Genèse du projet Philobaucis
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Directeur dans une ONG où l'idée du projet Philobaucis est née dans le cadre de son travail. Convaincu de son potentiel, il a souhaité développer ce concept pour en faire profiter le plus grand nombre et créer un impact à l'échelle nationale</p>
+       </div>
+      </div>
+     </div>
+     <div class="founder-section">
+      <h3>🎯 Notre Mission</h3>
+      <p>Philobaucis a pour mission de créer un pont entre les personnes en situation de précarité, les associations qui les accompagnent, et les médias qui peuvent amplifier leur voix. En novembre 2026, nous orchestrerons un événement national de 15 jours pour :</p>
+     </div>
+     <div class="calendar-grid">
+      <div class="day-card">
+       <div class="day-number">
+        💬 Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Humaniser la précarité
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Transformer les statistiques en histoires humaines à travers des témoignages authentiques et respectueux.</p>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        🔍 Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Valoriser les associations
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Mettre en lumière le travail remarquable des associations grâce à notre réseau médiatique national et international.</p>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        💪 Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Renforcer l'impact
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Proposer une solution concrète pour augmenter les ressources des associations partenaires.</p>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        🎯 Notre Mission
+       </div>
+       <div class="day-title" style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+        Interpeller les décideurs
+       </div>
+       <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9; color: #ffffff;">Confronter les candidats à la présidentielle aux réalités de la précarité et les inciter à s'engager sur des actions concrètes et mesurables.</p>
+      </div>
+     </div>
+     <div class="founder-section">
+      <h3>💡 Pourquoi « Philobaucis » ?</h3>
+      <p>Notre nom s'inspire du mythe grec de <strong>Philémon et Baucis</strong>, un couple modeste qui accueillit avec générosité Zeus et Hermès déguisés en voyageurs. Alors que tous les habitants riches d'un village avaient refusé de les héberger, ce couple humble leur offrit le peu qu'ils possédaient.<br><br>
+        Cette légende illustre parfaitement nos valeurs fondamentales :<br><br>
+        • <strong>La générosité</strong> - Donner même quand on a peu, partager ce qu'on possède<br>
+        • <strong>L'humilité</strong> - Reconnaître la dignité en chacun sans jugement ni condescendance<br>
+        • <strong>La solidarité</strong> - Agir ensemble pour un monde plus juste<br><br>
+        Comme Philémon et Baucis, nous croyons que la vraie richesse réside dans notre capacité à tendre la main à ceux qui en ont besoin.</p>
+     </div>
+     <div class="founder-section">
+      <h3>🌟 Nos Valeurs</h3>
+      <p><strong>Dignité</strong> - Chaque personne mérite respect et reconnaissance.<br><br><strong>Authenticité</strong> - Nous privilégions les témoignages vrais et les actions concrètes aux discours creux.<br><br><strong>Solidarité</strong> - Nous croyons en la force du collectif et en l'intelligence collaborative.<br><br><strong>Impact</strong> - Nos actions doivent avoir des résultats mesurables et bénéfiques pour les personnes concernées.</p>
+     </div>
+     <div class="cta-section">
+      <h3>Rejoignez Notre Mission</h3>
+      <p>Associations, bénévoles, donateurs : ensemble, faisons entendre les voix invisibles</p>
+      <div class="cta-buttons-container">
+       <button class="cta-btn" onclick="window.open('https://calendly.com/j-zamor-philobaucis/premiere-reunion-philobaucis', '_blank', 'noopener,noreferrer')">Prendre Rendez-vous</button> <button class="cta-btn" onclick="window.open('mailto:j.zamor@philobaucis.fr', '_blank', 'noopener,noreferrer')">Envoyer un Email</button>
+      </div>
      </div>
     </div>
-
     <div id="programme" class="page">
-     <div class="hero-banner"><img src="https://i.postimg.cc/sXnNF0N7/H-(2).png"></div>
-     <h2>Programme - Novembre 2026</h2>
+     <div class="hero-banner">
+      <img src="https://i.postimg.cc/sXnNF0N7/H-(2).png" alt="Programme" onerror="this.style.display='none';">
+     </div>
+     <h2 style="font-weight: 900;">Programme - Novembre 2026</h2>
+     <p class="intro-text">Pendant 15 jours, chaque journée mettra en lumière une forme spécifique de précarité à travers des témoignages authentiques, des reportages avec les associations partenaires, et une couverture médiatique nationale.</p>
+     <p class="intro-text" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(196, 25, 25, 0.1) 0%, rgba(107, 30, 95, 0.1) 100%); border-radius: 12px; border-left: 4px solid #c41919;"><strong>⚠️ Programme évolutif :</strong> Le programme ci-dessous est susceptible d'évoluer en fonction des associations partenaires qui rejoindront le projet et de la conclusion ou non des partenariats actuellement en discussion. Le programme définitif sera co-construit avec l'ensemble de nos partenaires associatifs confirmés.</p>
      <div class="calendar-grid">
-      <div class="day-card"><div class="day-title">Jour 1 : Rue</div></div>
-      <div class="day-card"><div class="day-title">Jour 2 : Rural</div></div>
-      <div class="day-card"><div class="day-title">Jour 15 : Présidentielle</div></div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 1
+       </div>
+       <div class="day-title">
+        Précarité dans la rue
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 2
+       </div>
+       <div class="day-title">
+        Précarité rurale
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 3
+       </div>
+       <div class="day-title">
+        Précarité énergétique
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 4
+       </div>
+       <div class="day-title">
+        Précarité environnementale
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 5
+       </div>
+       <div class="day-title">
+        Précarité numérique
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 6
+       </div>
+       <div class="day-title">
+        Précarité menstruelle
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 7
+       </div>
+       <div class="day-title">
+        Précarité des travailleurs précaires
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 8
+       </div>
+       <div class="day-title">
+        Précarité économique
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 9
+       </div>
+       <div class="day-title">
+        Précarité migratoire
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 10
+       </div>
+       <div class="day-title">
+        Précarité des seniors
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 11
+       </div>
+       <div class="day-title">
+        Précarité alimentaire
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 12
+       </div>
+       <div class="day-title">
+        Précarité culturelle et illettrisme
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 13
+       </div>
+       <div class="day-title">
+        Précarité étudiante
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 14
+       </div>
+       <div class="day-title">
+        Précarité des personnes en situation de handicap
+       </div>
+      </div>
+      <div class="day-card">
+       <div class="day-number">
+        Jour 15
+       </div>
+       <div class="day-title">
+        Plateau télé avec les candidats à la présidentielle
+       </div>
+      </div>
      </div>
     </div>
-
     <div id="participer" class="page">
-     <div class="hero-banner"><img src="https://i.postimg.cc/yYdgv9qb/H-(1).png"></div>
-     <h2>Associations Partenaires</h2>
-     <div class="calendar-grid">
-        <div class="day-card"><h3>📺 Médias</h3><p>Visibilité nationale et internationale.</p></div>
-        <div class="day-card"><h3>🚀 Impact</h3><p>Augmentation significative de vos ressources.</p></div>
+     <div class="hero-banner">
+      <img src="https://i.postimg.cc/yYdgv9qb/H-(1).png" alt="Association" onerror="this.style.display='none';">
+     </div>
+     <h2 style="font-weight: 900;">Associations Partenaires</h2>
+     <p class="intro-text">Vous êtes une association qui lutte contre la précarité ? Philobaucis vous propose un partenariat unique combinant visibilité médiatique nationale et augmentation concrète de votre impact. Ensemble, faisons entendre les voix invisibles et renforçons votre action sur le terrain.</p>
+     <div class="benefits-grid">
+      <div class="benefit-card">
+       <h3>📺 Couverture Médiatique</h3>
+       <p>Bénéficiez de notre réseau de contacts médiatiques (TF1, BFM TV, Le Monde, New York Times...) pour faire connaître vos actions et témoignages à l'échelle nationale et internationale.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>🎤 Témoignages Valorisés</h3>
+       <p>Vos bénéficiaires qui le souhaitent pourront partager leur histoire dans un cadre respectueux, contribuant à humaniser les enjeux de précarité et à créer de l'empathie collective.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>🚀 Augmentation de l'Impact</h3>
+       <p>Nous avons développé une proposition innovante permettant aux associations partenaires d'augmenter significativement leur impact pour mieux accomplir leurs missions.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>🤝 Réseau Solidaire</h3>
+       <p>Rejoignez un réseau national d'associations engagées, partagez vos bonnes pratiques et créez des synergies pour démultiplier votre impact sur le terrain.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>📱 Campagne Réseaux Sociaux</h3>
+       <p>Participez à notre campagne d'appels à témoignages sur les réseaux sociaux pour toucher un public jeune et engagé, potentiels futurs bénévoles et donateurs. Un appel au don national sera organisé et les fonds collectés seront divisés à parts égales entre toutes les associations partenaires.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>🤲 Accompagnement Personnalisé</h3>
+       <p>Notre équipe vous accompagne tout au long du projet : préparation des témoignages, coordination médiatique, et déploiement de la solution d'augmentation de l'impact.</p>
+      </div>
+     </div>
+     <div class="cta-section">
+      <h3>Devenons Partenaires</h3>
+      <p>Réservez un créneau de 30 minutes pour découvrir notre proposition en détail</p>
+      <div class="cta-buttons-container">
+       <button class="cta-btn" onclick="window.open('https://calendly.com/j-zamor-philobaucis/premiere-reunion-philobaucis', '_blank', 'noopener,noreferrer')">Prendre Rendez-vous</button> <button class="cta-btn" onclick="window.open('mailto:j.zamor@philobaucis.fr', '_blank', 'noopener,noreferrer')">Envoyer un Email</button>
+      </div>
      </div>
     </div>
-
     <div id="entreprise" class="page">
-     <div class="hero-banner"><img src="https://i.postimg.cc/7Lk36Zk8/H.png"></div>
-     <h2>Entreprises Partenaires</h2>
-     <div class="podium-grid">
-        <div class="podium-card" style="border-color:#d4af37">🥇 Or</div>
-        <div class="podium-card" style="border-color:#bfc1c2">🥈 Argent</div>
-        <div class="podium-card" style="border-color:#cd7f32">🥉 Bronze</div>
+     <div class="hero-banner">
+      <img src="https://i.postimg.cc/7Lk36Zk8/H.png" alt="Entreprise" onerror="this.style.display='none';">
      </div>
-     <div class="logo-black-card">
-        <img src="https://i.postimg.cc/X7CbyvDb/Chat-GPT-Image-3-dec-2025-16-44-12.png" class="logo-black-img">
-        <p><strong>Logo noir Philobaucis :</strong> Chaque action compte. C'est la somme de toutes ces gouttes qui forme l'océan du changement.</p>
+     <h2 style="font-weight: 900;">Entreprises Partenaires</h2>
+     <p class="intro-text">Vous êtes une entreprise engagée dans la responsabilité sociale ? Face à une précarité si grandissante, nous demandons un engagement long terme et pas seulement occasionnel aux entreprises. Pour récompenser les engagements les plus intenses et long-termistes, nous avons mis en place un système de médailles valorisant votre contribution exceptionnelle.</p>
+     <div class="founder-section">
+      <h3>🏅 Système de Médailles d'Engagement</h3>
+      <p>Pour honorer les entreprises qui s'engagent durablement dans la lutte contre la précarité, Philobaucis a créé un système de reconnaissance par médailles. Chaque niveau reflète l'intensité et la durée de votre engagement aux côtés des associations partenaires.</p>
+      <p style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 12px; border-left: 4px solid #FFD700;"><strong>📢 Visibilité Garantie :</strong> Toutes les entreprises médaillées seront publiées sur un site web dédié accessible au public et partagé avec l'ensemble de nos contacts journalistes nationaux et internationaux. Votre engagement sera reconnu et valorisé auprès des médias, de vos parties prenantes et du grand public.</p>
+      <div class="logo-black-card">
+       <img src="https://i.postimg.cc/X7CbyvDb/Chat-GPT-Image-3-dec-2025-16-44-12.png" alt="Logo Noir Philobaucis" class="logo-black-img" onerror="this.style.display='none';">
+       <div>
+        <p style="margin: 0;"><strong>La Force des Petites Actions :</strong> Chaque entreprise qui participe reçoit notre <strong>logo noir</strong>. Car <strong>chaque action compte</strong>. Une petite contribution, multipliée par des centaines d'acteurs, crée un <strong>impact collectif massif</strong>. C'est la somme de toutes ces gouttes qui forme l'océan du changement.</p>
+       </div>
+      </div>
+     </div>
+     <div class="calendar-grid">
+      <div class="day-card" style="display: flex; align-items: center; gap: 1.5rem;">
+       <img src="https://i.postimg.cc/5Nx0bfmY/philobaucis-logo-(6).png" alt="Médaille Bronze" style="width: 60px; height: 60px; object-fit: contain; flex-shrink: 0;" onerror="this.style.display='none';">
+       <div>
+        <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Bronze
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">
+         Soutien régulier mensuel et premiers engagements
+        </div>
+       </div>
+      </div>
+      <div class="day-card" style="display: flex; align-items: center; gap: 1.5rem;">
+       <img src="https://i.postimg.cc/tCy1J39F/philobaucis-logo-(7).png" alt="Médaille Argent" style="width: 60px; height: 60px; object-fit: contain; flex-shrink: 0;" onerror="this.style.display='none';">
+       <div>
+        <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Argent
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">
+         Partenariat actif et soutien régulier
+        </div>
+       </div>
+      </div>
+      <div class="day-card" style="display: flex; align-items: center; gap: 1.5rem;">
+       <img src="https://i.postimg.cc/fyMwzvYV/philobaucis-logo-(9).png" alt="Médaille Or" style="width: 60px; height: 60px; object-fit: contain; flex-shrink: 0;" onerror="this.style.display='none';">
+       <div>
+        <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Or
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">
+         Engagement fort et impact significatif
+        </div>
+       </div>
+      </div>
+      <div class="day-card" style="display: flex; align-items: center; gap: 1.5rem;">
+       <img src="https://i.postimg.cc/yYdHLxPm/philobaucis-logo-(10).png" alt="Médaille Diamant" style="width: 60px; height: 60px; object-fit: contain; flex-shrink: 0;" onerror="this.style.display='none';">
+       <div>
+        <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+         Diamant
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">
+         Engagement exceptionnel et partenariat stratégique
+        </div>
+       </div>
+      </div>
+     </div>
+     <section class="podium-section">
+      <div class="podium-container">
+       <div class="podium-header">
+        <h3>Podium des Plus Grands Donneurs</h3>
+        <p class="podium-subtitle">Les 3 entreprises championnes de la solidarité bénéficieront d'une reconnaissance exceptionnelle</p>
+       </div>
+       <div class="podium-grid">
+        <!-- GOLD -->
+        <div class="podium-card podium-gold">
+         <div class="podium-top">
+          <div class="podium-medal">
+           🥇
+          </div>
+          <div class="podium-rank">
+           1ère Place
+          </div>
+          <div class="podium-title">
+           Champion de la Solidarité
+          </div>
+         </div>
+         <div class="podium-divider"></div>
+         <ul class="podium-benefits">
+          <li><span class="podium-ico">🏆</span> <span>Remise de médaille en direct pendant le prime time devant des millions de téléspectateurs</span></li>
+          <li><span class="podium-ico">📺</span> <span>Reportage dédié de 3 minutes diffusé pendant le prime time présentant vos actions et leur impact</span></li>
+          <li><span class="podium-ico">📱</span> <span>Mise en avant sur l'ensemble de nos réseaux sociaux</span></li>
+         </ul>
+         <div class="podium-shine"></div>
+         <div class="podium-glow"></div>
+        </div><!-- SILVER -->
+        <div class="podium-card podium-silver">
+         <div class="podium-top">
+          <div class="podium-medal">
+           🥈
+          </div>
+          <div class="podium-rank">
+           2ème Place
+          </div>
+          <div class="podium-title">
+           Partenaire d'Excellence
+          </div>
+         </div>
+         <div class="podium-divider"></div>
+         <ul class="podium-benefits">
+          <li><span class="podium-ico">🏆</span> <span>Remise de médaille en direct pendant le prime time avec reconnaissance nationale</span></li>
+          <li><span class="podium-ico">📺</span> <span>Reportage de 2 minutes pendant le prime time montrant vos actions solidaires</span></li>
+          <li><span class="podium-ico">📱</span> <span>Mise en avant sur l'ensemble de nos réseaux sociaux</span></li>
+         </ul>
+         <div class="podium-shine"></div>
+         <div class="podium-glow"></div>
+        </div><!-- BRONZE -->
+        <div class="podium-card podium-bronze">
+         <div class="podium-top">
+          <div class="podium-medal">
+           🥉
+          </div>
+          <div class="podium-rank">
+           3ème Place
+          </div>
+          <div class="podium-title">
+           Acteur Majeur
+          </div>
+         </div>
+         <div class="podium-divider"></div>
+         <ul class="podium-benefits">
+          <li><span class="podium-ico">🏆</span> <span>Remise de médaille en direct pendant le prime time célébrant votre contribution</span></li>
+          <li><span class="podium-ico">📺</span> <span>Reportage de 1 minute pendant le prime time présentant votre engagement</span></li>
+          <li><span class="podium-ico">📱</span> <span>Mise en avant sur l'ensemble de nos réseaux sociaux</span></li>
+         </ul>
+         <div class="podium-shine"></div>
+         <div class="podium-glow"></div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <div class="founder-section" style="background: linear-gradient(135deg, rgba(245, 222, 179, 0.3) 0%, rgba(222, 184, 135, 0.3) 100%); border-left: 5px solid #DEB887;">
+      <h3 style="font-weight: 600;">💡 Transparence et Impact Mesurable</h3>
+      <p>Ce projet est conçu pour permettre aux <strong>citoyens</strong>, aux <strong>travailleurs</strong>, aux <strong>personnes aidées</strong>, aux <strong>journalistes</strong> et à toutes les parties prenantes de pouvoir estimer et comprendre clairement l'impact réel de chaque engagement. Nous croyons en une responsabilité sociale transparente et mesurable, où chacun peut évaluer concrètement les résultats et la portée des actions menées.</p>
+      <p style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(255,255,255,0.2); border-radius: 12px; border-left: 4px solid #DEB887;"><strong>📊 Rapports Publics :</strong> Pour chaque aide apportée et chaque action entreprise, un rapport détaillé sera publié et accessible au public. Cette documentation complète permettra à tous de suivre précisément comment les ressources sont utilisées, quelles actions sont menées, et quels résultats concrets sont obtenus sur le terrain. Une traçabilité totale pour une confiance totale.</p>
+     </div>
+     <div class="benefits-grid">
+      <div class="benefit-card">
+       <h3>🎯 Impact Mesurable</h3>
+       <p>Contribuez directement à un projet national de 15 jours qui donne la voix aux personnes en situation de précarité et soutient les associations de terrain.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>📢 Visibilité Positive</h3>
+       <p>Associez votre marque à un événement médiatique d'envergure nationale avec une couverture dans les plus grands médias français et internationaux.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>🤝 Partenariat Authentique</h3>
+       <p>Engagez-vous dans un projet transparent et authentique qui valorise votre responsabilité sociale auprès de vos collaborateurs, clients et investisseurs.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>💡 Innovation Sociale</h3>
+       <p>Participez au déploiement d'une solution innovante qui permet d'augmenter durablement les ressources des associations partenaires.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>👥 Engagement Collaborateurs</h3>
+       <p>Mobilisez vos équipes autour d'un projet de solidarité concret qui renforce le sens et l'engagement au sein de votre entreprise.</p>
+      </div>
+      <div class="benefit-card">
+       <h3>📊 Reporting RSE</h3>
+       <p>Intégrez un projet d'impact social concret dans vos rapports RSE avec des résultats mesurables et une visibilité nationale.</p>
+      </div>
+     </div>
+     <div class="cta-section">
+      <h3>Devenons Partenaires</h3>
+      <p>Réservez un créneau de 30 minutes pour découvrir comment votre entreprise peut s'engager</p>
+      <div class="cta-buttons-container">
+       <button class="cta-btn" onclick="window.open('https://calendly.com/j-zamor-philobaucis/premiere-reunion-philobaucis', '_blank', 'noopener,noreferrer')">Prendre Rendez-vous</button> <button class="cta-btn" onclick="window.open('mailto:j.zamor@philobaucis.fr', '_blank', 'noopener,noreferrer')">Envoyer un Email</button>
+      </div>
      </div>
     </div>
    </main>
   </div>
-
   <script>
     const pageOrder = ['accueil', 'qui-sommes-nous', 'programme', 'participer', 'entreprise'];
-    let currentIndex = 0;
+    let currentPageIndex = 0;
 
-    function showPage(id) {
+    function showPage(pageId) {
       const pages = document.querySelectorAll('.page');
-      pages.forEach(p => p.classList.remove('active'));
-      const target = document.getElementById(id);
-      if(target) {
-          target.classList.add('active');
-          window.scrollTo(0,0);
-          currentIndex = pageOrder.indexOf(id);
+      pages.forEach(page => page.classList.remove('active'));
+      
+      const selectedPage = document.getElementById(pageId);
+      if (selectedPage) {
+        selectedPage.classList.add('active');
+      }
+
+      currentPageIndex = pageOrder.indexOf(pageId);
+    }
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    const mainElement = document.querySelector('main');
+
+    mainElement.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    mainElement.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, { passive: true });
+
+    let pointerStartX = 0;
+    let pointerEndX = 0;
+    let pointerStartY = 0;
+    let pointerEndY = 0;
+    let isPointerDown = false;
+
+    mainElement.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        isPointerDown = true;
+        pointerStartX = e.screenX;
+        pointerStartY = e.screenY;
+      }
+    });
+
+    mainElement.addEventListener('pointerup', (e) => {
+      if (isPointerDown && (e.pointerType === 'touch' || e.pointerType === 'pen')) {
+        isPointerDown = false;
+        pointerEndX = e.screenX;
+        pointerEndY = e.screenY;
+        handlePointerSwipe();
+      }
+    });
+
+    mainElement.addEventListener('pointercancel', () => {
+      isPointerDown = false;
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const horizontalSwipe = Math.abs(touchEndX - touchStartX);
+      const verticalSwipe = Math.abs(touchEndY - touchStartY);
+
+      if (horizontalSwipe > swipeThreshold && horizontalSwipe > verticalSwipe) {
+        if (touchEndX < touchStartX) {
+          navigateToPage(1);
+        }
+        
+        if (touchEndX > touchStartX) {
+          navigateToPage(-1);
+        }
       }
     }
 
-    /* --- LE SCRIPT DE SWIPE --- */
-    let startX = 0;
-    document.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive: true});
-    document.addEventListener('touchend', e => {
-      let endX = e.changedTouches[0].clientX;
-      let diff = startX - endX;
-      if (Math.abs(diff) > 70) {
-        if (diff > 0 && currentIndex < pageOrder.length - 1) showPage(pageOrder[currentIndex + 1]);
-        else if (diff < 0 && currentIndex > 0) showPage(pageOrder[currentIndex - 1]);
-      }
-    }, {passive: true});
+    function handlePointerSwipe() {
+      const swipeThreshold = 50;
+      const horizontalSwipe = Math.abs(pointerEndX - pointerStartX);
+      const verticalSwipe = Math.abs(pointerEndY - pointerStartY);
 
-    window.onload = () => showPage('accueil');
+      if (horizontalSwipe > swipeThreshold && horizontalSwipe > verticalSwipe) {
+        if (pointerEndX < pointerStartX) {
+          navigateToPage(1);
+        }
+        
+        if (pointerEndX > pointerStartX) {
+          navigateToPage(-1);
+        }
+      }
+    }
+
+    function navigateToPage(direction) {
+      const newIndex = currentPageIndex + direction;
+      
+      if (newIndex >= 0 && newIndex < pageOrder.length) {
+        showPage(pageOrder[newIndex]);
+      }
+    }
   </script>
- </body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e71116005ee6fa2',t:'MTc3NTMxMzYyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
