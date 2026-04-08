@@ -1,0 +1,1503 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ligue Humanitaire - Solidarité Nationale</title>
+  <script type='text/javascript' src='https://c42f2jbbtdz8mnt6.canvacode.com/3soBJvj0JK5Q63RT98Pby6dmEexbozrBS1iAscZMNy_4AXzjs1KN9DGweU1o91JDJynSjn8_6jM-sAPlTYHVdZ7POPj2EHit01l5uRChtcAqXiwFASPYooBkckoaL1RAXYH_s80KZdOW01qNHaZuS3N9tPY4GVL6cwKZGFRzRm04Yt3lc6gXPIWvabMCs2W9aZhFdClwAyZMuDVdnCzm9XGQVLIXQiMBsqXWwqImASUwajQFOt35AVxaDNdARpbvqh-mCggHqYr8-JUrG-iOFaTSyMi8ikg8dwYBnvbbY3tBI2xqgbSRXpohCaBDLxpNQd3OpP7B8z4NiQYk1DX8xF4nYTaHC84N2C474JPthkqmzJG92911Z27f8KNlLIVMSGUeTsuhmldwpGsNsuByZNH32nvDRui6XW8lMbH6f5DaJ0e8DdZwoleCwHlviXANLGfSV3YtCpGBmGvFEq2rUmDqNDo-yoAcvwqm3q8aZHdsLd0fAtLKtbYDJrqqK28kqJokxvXJyKM_46ApZn-OFrUg2ykMZ8X6u5SnbaA9GT-D2VaN3DTb9vML-_SCDvVwgZzDAc6wRkbMDRxOPFiKhBkUZAd0-i9B7BuiBkE5xWyK95ZlqFYlxFM7ymlI5vYpEDvh-t8eGDmi2qmSXXljOQwp'></script><script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333333;
+      line-height: 1.6;
+    }
+    
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInFromTop {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+    
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    @keyframes shimmer {
+      from {
+        left: -100%;
+      }
+      to {
+        left: 100%;
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.4s ease-in forwards;
+    }
+    
+    .slide-in-top {
+      animation: slideInFromTop 0.8s ease-out forwards;
+    }
+    
+    /* CONTAINER PRINCIPAL */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    /* HEADER */
+    .header-top {
+      background-image: url('https://i.postimg.cc/tCX0cV06/731801281426-n.jpg');
+      background-size: cover;
+      background-position: center 45%;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 15px,
+        rgba(255, 255, 255, 0.08) 15px,
+        rgba(255, 255, 255, 0.08) 30px
+      );
+      pointer-events: none;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      height: 70px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+    
+    .header-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .header-text h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 0.3rem;
+      text-align: center;
+    }
+    
+    .header-text p {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    
+    /* NAVIGATION */
+    .navigation {
+      display: flex;
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+    }
+    
+    .nav-button {
+      flex: 1;
+      padding: 1.2rem 1.5rem;
+      background: none;
+      border: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-button:last-child {
+      border-right: none;
+    }
+    
+    .nav-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .nav-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 -3px 0 rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+    
+    .nav-button:hover::before {
+      left: 100%;
+    }
+    
+    .nav-button:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    
+    .nav-button:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .nav-button:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+    
+    .nav-button:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+    
+    /* BANNIÈRE HERO */
+    .hero-banner {
+      margin: 0 0 2rem 0;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      height: 200px;
+      background-image: url('https://i.postimg.cc/jdNXyM3v/960867323454-n.jpg');
+      background-size: cover;
+      background-position: center center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 15px,
+        rgba(255, 255, 255, 0.08) 15px,
+        rgba(255, 255, 255, 0.08) 30px
+      );
+      pointer-events: none;
+    }
+    
+    /* SECTIONS */
+    .section {
+      margin: 3rem 0;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #c41919;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .intro-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #333333;
+    }
+    
+    /* GRILLES */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    /* CARTES MISSION/BENEFITS */
+    .mission-card, .benefit-card {
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border: 2px solid rgba(255,255,255,0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* PHOTO CARDS */
+    .photo-card {
+      background-size: cover;
+      background-position: center;
+      min-height: 320px;
+      display: flex;
+      align-items: flex-end;
+      border: 3px solid transparent;
+      border-radius: 20px;
+      background-clip: padding-box;
+      position: relative;
+    }
+    
+    .photo-card::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      border-radius: 20px;
+      z-index: -1;
+    }
+    
+    .photo-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+      z-index: 1;
+    }
+    
+    .card-content {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
+    
+    .mission-card::before, .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transform: scale(0);
+      transition: transform 0.6s ease;
+    }
+    
+    .mission-card:hover::before, .benefit-card:hover::before {
+      transform: scale(1);
+    }
+    
+    .mission-card:hover, .benefit-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(196, 25, 25, 0.4);
+    }
+    
+    .mission-card h3, .benefit-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+    
+    .mission-card p, .benefit-card p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #ffffff;
+    }
+    
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    /* EXPERTISE CARDS */
+    .expertise-card {
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border: 2px solid rgba(255,255,255,0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .expertise-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transform: scale(0);
+      transition: transform 0.6s ease;
+    }
+    
+    .expertise-card:hover::before {
+      transform: scale(1);
+    }
+    
+    .expertise-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(196, 25, 25, 0.4);
+    }
+    
+    .expertise-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+    
+    .expertise-card p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #ffffff;
+    }
+    
+    /* DAY CARDS */
+    .day-card {
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      color: #ffffff;
+      padding: 1.8rem;
+      border-radius: 16px;
+      border-left: 5px solid rgba(255,255,255,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .day-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      border-radius: 0 16px 0 100%;
+    }
+    
+    .day-card:hover {
+      transform: translateX(8px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(196, 25, 25, 0.3);
+      border-left-color: rgba(255,255,255,0.6);
+    }
+    
+    .day-card h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    
+    .day-card p {
+      font-size: 0.9rem;
+      color: #ffffff;
+    }
+    
+    /* CUSTOM MAP STYLES */
+    #w{background:transparent;display:flex;gap:14px;align-items:flex-start;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    #l{width:320px;display:flex;flex-direction:column;gap:10px}
+    .i{display:flex;align-items:center;gap:12px;padding:10px 8px;border-radius:18px;border:1px solid rgba(0,0,0,.10);background:rgba(255,255,255,.72);backdrop-filter:blur(8px);cursor:pointer;transition:.18s}
+    .i:hover{transform:translateY(-1px);border-color:rgba(0,0,0,.18);background:rgba(255,255,255,.84)}
+    .i.on{transform:translateY(-1px);border-color:rgba(0,0,0,.18);background:rgba(255,255,255,.84)}
+    .r{width:34px;height:34px;border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:12px;color:#fff;background:linear-gradient(135deg,rgba(196,25,25,.85),rgba(107,30,95,.85))}
+    .n{font-weight:900;color:rgba(0,0,0,.86);letter-spacing:.2px}
+    #s{flex:1;min-height:520px;width:100%;height:auto;border-radius:22px;overflow:hidden;background:transparent}
+    .dot{fill:#fff;stroke:rgba(0,0,0,.35);stroke-width:1.4}
+    .h{fill:none;stroke:rgba(255,255,255,.8);stroke-width:2;opacity:0}
+    .on .h{opacity:1}
+    .on .dot{filter:drop-shadow(0 0 14px rgba(196,25,25,.45)) drop-shadow(0 0 18px rgba(107,30,95,.35))}
+    
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      padding: 3rem;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      color: #ffffff;
+      margin: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.03) 10px,
+        rgba(255, 255, 255, 0.03) 20px
+      );
+      pointer-events: none;
+    }
+    
+    .cta-section h2 {
+      position: relative;
+      z-index: 1;
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+    
+    .cta-section p {
+      position: relative;
+      z-index: 1;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #ffffff;
+    }
+    
+    .cta-button {
+      position: relative;
+      z-index: 1;
+      background: #ffffff;
+      color: #c41919;
+      padding: 1.2rem 3rem;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(196, 25, 25, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+    
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .cta-button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    /* PODIUM SECTION */
+    .podium-container {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .trophy-icon {
+      font-size: 2.5rem;
+      display: block;
+      text-align: center;
+      margin-bottom: 1rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    
+    .medals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .medal-card {
+      background: #ffffff;
+      padding: 1.25rem;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .medal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.7s ease;
+    }
+    
+    .medal-card:hover::before {
+      left: 100%;
+    }
+    
+    .medal-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .medal-gold {
+      border: none;
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .medal-silver {
+      border: none;
+      box-shadow: 0 8px 20px rgba(192, 192, 192, 0.3);
+    }
+    
+    .medal-bronze {
+      border: none;
+      box-shadow: 0 8px 20px rgba(205, 127, 50, 0.3);
+    }
+    
+    .medal-diamond {
+      border: none;
+      box-shadow: 0 8px 20px rgba(135, 206, 235, 0.3);
+    }
+    
+    .medal-emoji {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .medal-card h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: #333333;
+    }
+    
+    .medal-card p {
+      font-size: 0.85rem;
+      color: #333333;
+    }
+    
+    /* Gradient text styles */
+    .gradient-gold {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .gradient-silver {
+      background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .gradient-bronze {
+      background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .gradient-primary {
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .gradient-diamond {
+      background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* MARAUDE SHOWCASE STYLES */
+    .maraude-showcase {
+      max-width: 1050px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 20px;
+    }
+    
+    .maraude-left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .maraude-item {
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      color: #fff;
+      font: 800 16px system-ui;
+      background: linear-gradient(135deg, rgba(196,25,25,.85), rgba(107,30,95,.85));
+      backdrop-filter: blur(6px);
+      transition: .15s ease;
+    }
+    
+    .maraude-item:hover {
+      transform: translateX(6px);
+      filter: brightness(1.05);
+    }
+    
+    .maraude-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    #preview {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 16px;
+      transition: opacity .15s;
+      object-fit: contain;
+    }
+    
+    .close-preview {
+      display: none;
+    }
+    
+    @media(max-width: 860px) {
+      .maraude-showcase {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* FOUNDER SECTION */
+    .founder-box {
+      background: linear-gradient(135deg, rgba(196, 25, 25, 0.1) 0%, rgba(107, 30, 95, 0.1) 100%);
+      border-left: 5px solid #c41919;
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+    }
+    
+    .founder-box h3 {
+      color: #c41919;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .founder-box p {
+      color: #333333;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    
+    /* PRACTICAL INFO CARDS - Beige with Gradient Borders */
+    .practical-card-gold,
+    .practical-card-blue,
+    .practical-card-green {
+      background: #f5e6d3;
+      color: #1a1a1a;
+      padding: 2.5rem;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      border: 3px solid transparent;
+      background-clip: padding-box;
+    }
+    
+    .practical-card-gold::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      border-radius: 24px;
+      z-index: -1;
+    }
+    
+    .practical-card-blue::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      border-radius: 24px;
+      z-index: -1;
+    }
+    
+    .practical-card-green::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      border-radius: 24px;
+      z-index: -1;
+    }
+    
+    .practical-card-gold:hover,
+    .practical-card-blue:hover,
+    .practical-card-green:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(196, 25, 25, 0.3);
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 980px) {
+      #w{flex-direction:column}
+      #l{width:100%}
+    }
+    
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 2rem 1rem;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .logo {
+        height: 60px;
+      }
+      
+      .header-text h1 {
+        font-size: 1.5rem;
+      }
+      
+      .navigation {
+        flex-direction: column;
+      }
+      
+      .nav-button {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      
+      .nav-button:last-child {
+        border-bottom: none;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+      }
+      
+      .mission-grid,
+      .benefits-grid,
+      .calendar-grid,
+      .medals-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cta-section h2 {
+        font-size: 1.8rem;
+      }
+      
+      .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto">
+   <!-- HEADER -->
+   <header class="header-top">
+    <div class="header-content slide-in-top">
+     <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Logo Philobaucis" class="logo" onerror="this.src=''; this.style.display='none';">
+     <div class="header-text">
+      <h1 id="main-title">Mécénat de maraude</h1>
+      <p id="hero-subtitle">Avec la ligue humanitaire</p>
+     </div><img src="https://i.postimg.cc/5yQdJGB5/Introduction-mecenat-maraude-(1).png" alt="Logo Ligue Humanitaire" class="logo" onerror="this.src=''; this.style.display='none';">
+    </div>
+   </header><!-- NAVIGATION -->
+   <nav class="navigation">
+    <button class="nav-button fade-in">Présentation</button> <button class="nav-button fade-in">Déroulement</button> <button class="nav-button fade-in">Impact RSE</button> <button class="nav-button fade-in">Labels</button>
+   </nav><!-- MAIN CONTENT -->
+   <main class="main-container">
+    <!-- PAGE 1: PRÉSENTATION -->
+    <div id="page-presentation">
+     <!-- HERO BANNER -->
+     <div class="hero-banner fade-in"></div><!-- SECTION VILLES AVEC CARTE INTERACTIVE -->
+     <section class="section fade-in">
+      <div style="padding: 0; margin: 2rem 0;">
+       <!-- Titre intégré dans la carte -->
+       <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; font-weight: 900; color: #c41919; margin-bottom: 0.5rem;" id="cities-title">10 Villes, 1 Engagement</h2>
+        <p style="font-size: 1.1rem; color: #333333;">Nous déployons nos maraudes dans les principales métropoles françaises</p>
+       </div>
+       <div id="w">
+        <div id="l"></div>
+        <svg id="s" viewbox="0 0 900 980" aria-label="France">
+         <defs>
+          <lineargradient id="g" x1="0" y1="0" x2="1" y2="1">
+           <stop offset="0" stop-color="#c41919" />
+           <stop offset="1" stop-color="#6b1e5f" />
+          </lineargradient>
+          <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+           <fedropshadow dx="0" dy="10" stddeviation="10" flood-color="rgba(0,0,0,.35)" />
+          </filter>
+         </defs> <g id="v">
+          <path id="f" fill="url(#g)" stroke="rgba(0,0,0,.25)" stroke-width="1.2" filter="url(#sh)"></path>
+          <g id="c"></g>
+          <g id="t" visibility="hidden">
+           <rect id="tb" rx="12" ry="12" fill="#f1e3c6" stroke="rgba(36,26,18,.28)" stroke-width="1" style="filter:drop-shadow(0 12px 26px rgba(0,0,0,.25))" />
+           <text id="tt" fill="#241a12" font-size="12" font-weight="900"></text>
+          </g>
+         </g>
+        </svg>
+       </div>
+      </div>
+     </section><!-- INTRODUCTION MARAUDES -->
+     <section class="section fade-in">
+      <h2 class="section-title">Les Maraudes Sponsorisées</h2>
+      <p class="intro-text">Des actions solidaires encadrées par la Ligue Humanitaire, forte de près de 500 maraudes réalisées</p>
+     </section><!-- FOUNDER BOX - À PROPOS -->
+     <div class="founder-box fade-in">
+      <h3>🎯 Notre Mission</h3>
+      <p>Les maraudes sponsorisées sont encadrées par l'association Ligue Humanitaire avec à son actif près de 500 maraudes. Le but de l'action est d'aider les personnes sans abris et précaires en leur délivrant de la nourriture, à boire, des vêtements et un kit d'hygiène. Nous agissons dans 10 villes en France avec une expérience qui permet d'assurer la sécurité de vos collaborateurs et vous permet de mettre en place des actions concrètes et impactantes.</p>
+     </div><!-- NOTRE EXPERTISE -->
+     <section class="section fade-in">
+      <h2 class="section-title">Notre Expertise à Votre Service</h2>
+      <div class="benefits-grid">
+       <div class="expertise-card">
+        <span class="card-icon">📊</span>
+        <h3>500 Maraudes</h3>
+        <p>Une expérience solide et reconnue sur le terrain, avec des actions menées dans toute la France.</p>
+       </div>
+       <div class="expertise-card">
+        <span class="card-icon">🛡️</span>
+        <h3>Sécurité Garantie</h3>
+        <p>Protection maximale de vos collaborateurs avec des protocoles éprouvés et un encadrement constant.</p>
+       </div>
+       <div class="expertise-card">
+        <span class="card-icon">🤝</span>
+        <h3>Échanges Bienveillants</h3>
+        <p>Contrairement aux distributions classiques, nous prenons le temps de discuter avec les sans-abris. Notre format met tout le monde à l'aise : les personnes timides pourront progressivement échanger à leur rythme, dans un cadre bienveillant et sans pression.</p>
+       </div>
+      </div>
+     </section><!-- CTA FINALE -->
+     <section class="cta-section fade-in">
+      <h2>Prêt à Faire la Différence ?</h2>
+      <p>Rejoignez-nous dès aujourd'hui et devenez acteur du changement</p><button class="cta-button" id="cta-button">Participer Maintenant</button>
+     </section>
+    </div><!-- FIN PAGE 1 --> <!-- PAGE 2: DÉROULEMENT -->
+    <div id="page-deroulement" style="display: none;">
+     <!-- HERO BANNER -->
+     <div class="hero-banner fade-in"></div><!-- CE QUE NOUS APPORTONS -->
+     <section class="section fade-in">
+      <h2 class="section-title">Ce Que Nous Apportons aux Personnes dans le Besoin</h2>
+      <div class="maraude-showcase">
+       <div class="maraude-left">
+        <button class="maraude-item" data-img="https://i.postimg.cc/Zn5XtmFY/382418158563-n.jpg" data-alt="Distribution de nourriture"> 🍲 <span>Nourriture</span> </button> <button class="maraude-item" data-img="https://images.unsplash.com/photo-1541544181051-e46607bc22a4?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" data-alt="Distribution de boissons"> 💧 <span>Boissons</span> </button> <button class="maraude-item" data-img="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" data-alt="Distribution de vêtements"> 👕 <span>Vêtements</span> </button> <button class="maraude-item" data-img="https://i.postimg.cc/J0zSV8c8/0628c49e-628e-4332-a644-46bdbaaabfd2.jpg" data-alt="Kit d'hygiène"> 🧼 <span>Kit d'Hygiène</span> </button> <button class="maraude-item" data-img="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" data-alt="Téléphones solidaires"> 📱 <span>Téléphones</span> </button>
+       </div>
+       <div class="maraude-right">
+        <button class="close-preview">✕</button> <img id="preview" src="https://i.postimg.cc/ydM196WS/Introduction-mecenat-maraude.png" alt="Logo association" onerror="this.src=''; this.style.display='none';">
+       </div>
+      </div>
+     </section><!-- INFORMATIONS PRATIQUES -->
+     <section class="section fade-in">
+      <h2 class="section-title">Informations Pratiques</h2>
+      <div class="benefits-grid">
+       <div class="practical-card-gold">
+        <span class="card-icon" style="font-size: 3rem; color: #1a1a1a;">⏱️</span>
+        <h3 style="color: #1a1a1a; font-size: 1.4rem; margin-bottom: 1rem;">Durée de l'Action</h3>
+        <p style="color: #1a1a1a; font-size: 1.05rem;">Chaque maraude dure 2 heures, un format idéal pour une mobilisation efficace de vos équipes.</p>
+       </div>
+       <div class="practical-card-blue">
+        <span class="card-icon" style="font-size: 3rem; color: #1a1a1a;">💰</span>
+        <h3 style="color: #1a1a1a; font-size: 1.4rem; margin-bottom: 1rem;">Tarif Ponctuel</h3>
+        <p style="color: #1a1a1a; font-size: 1.05rem;">900€ par créneau après déduction fiscale pour une action ponctuelle et impactante.</p>
+       </div>
+       <div class="practical-card-green">
+        <span class="card-icon" style="font-size: 3rem; color: #1a1a1a;">🔄</span>
+        <h3 style="color: #1a1a1a; font-size: 1.4rem; margin-bottom: 1rem;">Engagement Récurrent</h3>
+        <p style="color: #1a1a1a; font-size: 1.05rem;">800€ par créneau après déduction fiscale pour un engagement régulier et durable.</p>
+       </div>
+      </div>
+     </section><!-- PROGRAMME CALENDRIER -->
+     <section class="section fade-in">
+      <h2 class="section-title">Déroulement</h2>
+      <div class="calendar-grid">
+       <div class="day-card">
+        <h4>🕐 00h00 - Accueil</h4>
+        <p>Accueil de vos équipes et présentation du déroulé</p>
+       </div>
+       <div class="day-card">
+        <h4>🕐 00h15 - Briefing</h4>
+        <p>Consignes de sécurité et répartition des rôles</p>
+       </div>
+       <div class="day-card">
+        <h4>🕐 00h30 - Action Terrain</h4>
+        <p>Distribution et échanges avec les bénéficiaires</p>
+       </div>
+       <div class="day-card">
+        <h4>🕐 01h45 - Débriefing</h4>
+        <p>Retour d'expérience et bilan de l'action</p>
+       </div>
+      </div>
+     </section><!-- CTA FINALE -->
+     <section class="cta-section fade-in">
+      <h2>Prêt à Faire la Différence ?</h2>
+      <p>Rejoignez-nous dès aujourd'hui et devenez acteur du changement</p><button class="cta-button" id="cta-button-deroulement">Participer Maintenant</button>
+     </section>
+    </div><!-- FIN PAGE 2 --> <!-- PAGE 3: S'ENGAGER (SUIVI RSE) -->
+    <div id="page-engager" style="display: none;">
+     <!-- HERO BANNER -->
+     <div class="hero-banner fade-in"></div><!-- SECTION SUIVI RSE -->
+     <section class="section fade-in">
+      <h2 class="section-title">Suivi &amp; Rapports RSE</h2>
+      <p class="intro-text">Un accompagnement complet pour valoriser votre engagement solidaire</p>
+      <div class="founder-box">
+       <h3>📊 Reporting Professionnel</h3>
+       <p>Après chaque maraude, nous vous fournissons un rapport RSE détaillé comprenant le nombre de personnes aidées, les ressources distribuées, des photos de l'action et les témoignages de vos collaborateurs. Ces rapports sont parfaits pour votre communication interne et externe.</p>
+      </div>
+     </section><!-- STATISTIQUES IMPACT COLLABORATEURS -->
+     <section class="section fade-in">
+      <h2 class="section-title">L'Impact sur Vos Collaborateurs</h2>
+      <p class="intro-text">Des résultats concrets et mesurables pour votre entreprise</p>
+      <div class="benefits-grid">
+       <div class="benefit-card">
+        <span class="card-icon">❤️</span>
+        <h3>77% Attachement</h3>
+        <p>Des salariés ayant participé estiment que cette expérience a augmenté leur attachement à l'égard de l'entreprise.</p>
+       </div>
+       <div class="benefit-card">
+        <span class="card-icon">💪</span>
+        <h3>37% Remotivés</h3>
+        <p>Des salariés impliqués estiment que l'expérience les a remotivés dans leur travail quotidien.</p>
+       </div>
+       <div class="benefit-card">
+        <span class="card-icon">🤝</span>
+        <h3>65% Partenariat</h3>
+        <p>Estiment que l'expérience a renforcé leur sentiment d'appartenance au monde de l'entreprise.</p>
+       </div>
+      </div>
+     </section><!-- ENGAGEMENT AUTHENTIQUE -->
+     <section class="section fade-in">
+      <h2 class="section-title">Un Engagement Authentique</h2>
+      <div class="podium-container">
+       <span class="trophy-icon">🎯</span>
+       <div class="medals-grid">
+        <div class="medal-card medal-gold">
+         <span class="medal-emoji">🎯</span>
+         <h4>Action Ciblée</h4>
+         <p>Un partenariat unique et engagé</p>
+        </div>
+        <div class="medal-card medal-diamond">
+         <span class="medal-emoji">🤝</span>
+         <h4>Implication Réelle</h4>
+         <p>L'entreprise s'engage directement</p>
+        </div>
+        <div class="medal-card medal-silver">
+         <span class="medal-emoji">🚫</span>
+         <h4>Pas de Marketplace</h4>
+         <p>Évitez la dilution de l'engagement</p>
+        </div>
+        <div class="medal-card medal-bronze">
+         <span class="medal-emoji">✨</span>
+         <h4>Impact Visible</h4>
+         <p>Une cause concrète et mesurable</p>
+        </div>
+       </div>
+      </div>
+      <div class="founder-box" style="margin-top: 2rem;">
+       <h3>💡 Pourquoi Choisir un Partenariat Dédié ?</h3>
+       <p>Contrairement à une marketplace d'associations où vos collaborateurs choisissent parmi des dizaines de causes, notre partenariat ciblé montre que votre entreprise s'implique réellement. Vous créez une identité solidaire forte et cohérente, plutôt qu'une impression de désengagement.</p>
+      </div>
+     </section><!-- CTA FINALE -->
+     <section class="cta-section fade-in">
+      <h2>Rejoignez Notre Mission</h2>
+      <p>Construisons ensemble un impact durable et mesurable</p><button class="cta-button" id="cta-button-2">Nous Contacter</button>
+     </section>
+    </div><!-- FIN PAGE 3 --> <!-- PAGE 4: LABELS & RECONNAISSANCE -->
+    <div id="page-labels" style="display: none;">
+     <!-- HERO BANNER -->
+     <div class="hero-banner fade-in"></div><!-- QUINZAINE DE PRÉCARITÉ -->
+     <section class="section fade-in">
+      <h2 class="section-title">La Quinzaine de Précarité</h2>
+      <p class="intro-text">Un événement national majeur qui met en lumière toutes les formes de précarité</p>
+      <div class="founder-box">
+       <h3>🎬 Un Événement Médiatique d'Envergure</h3>
+       <p>En participant à nos maraudes, votre entreprise contribue à la Quinzaine de Précarité (novembre 2026), un événement national qui rassemble les plus grands influenceurs français pour sensibiliser le public aux différentes formes de précarité. Cette mobilisation collective culmine avec un prime-time exceptionnel et une cérémonie de remise des médailles pour les entreprises les plus engagées.</p>
+      </div>
+      <div class="benefits-grid">
+       <div class="benefit-card">
+        <span class="card-icon">🎥</span>
+        <h3>Visibilité Nationale</h3>
+        <p>Les plus grands influenceurs français se mobilisent pour donner de la visibilité à cette cause.</p>
+       </div>
+       <div class="benefit-card">
+        <span class="card-icon">📺</span>
+        <h3>Prime-Time</h3>
+        <p>Un événement télévisé en prime-time pour célébrer l'engagement solidaire des entreprises.</p>
+       </div>
+       <div class="benefit-card">
+        <span class="card-icon">🏆</span>
+        <h3>Remise des Médailles</h3>
+        <p>Reconnaissance officielle des entreprises ayant le plus contribué à la lutte contre la précarité.</p>
+       </div>
+      </div>
+     </section><!-- SYSTÈME DE MÉDAILLES PAR PALIERS -->
+     <section class="section fade-in">
+      <h2 class="section-title">🏅 Système de Reconnaissance par Médailles</h2>
+      <p class="intro-text">Votre engagement est récompensé ! Plus vous sponsorisez de maraudes, plus votre médaille gagne en prestige.</p>
+      <div class="founder-box">
+       <h3>🏅 Comment Ça Marche ?</h3>
+       <p>En fonction du nombre de maraudes sponsorisées par votre entreprise, vous obtenez une médaille de reconnaissance officielle. Ces médailles symbolisent votre engagement solidaire et peuvent être valorisées dans votre communication RSE. Les paliers sont adaptés selon la taille de votre entreprise.</p>
+      </div><!-- GRANDES ENTREPRISES -->
+      <div style="margin-top: 3rem;">
+       <h3 style="text-align: center; color: #c41919; font-size: 1.8rem; margin-bottom: 2rem;">🏢 Grandes Entreprises (500+ employés)</h3>
+       <div class="medals-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="medal-card medal-bronze">
+         <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Médaille Bronze" style="width: 100px; height: 100px; margin: 0 auto 1rem auto; display: block; object-fit: contain;" onerror="this.src=''; this.style.display='none';">
+         <h4 class="gradient-bronze">🥉 Médaille Bronze</h4>
+         <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem;" class="gradient-bronze">Créneau mensuel</p>
+         <p style="margin-top: 0.5rem;" class="gradient-bronze">Engagement mensuel régulier</p>
+         <p style="margin-top: 0.3rem; font-size: 0.8rem;" class="gradient-bronze">12 maraudes par an</p>
+        </div>
+        <div class="medal-card medal-silver">
+         <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Médaille Argent" style="width: 100px; height: 100px; margin: 0 auto 1rem auto; display: block; object-fit: contain;" onerror="this.src=''; this.style.display='none';">
+         <h4 class="gradient-silver">🥈 Médaille Argent</h4>
+         <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem;" class="gradient-silver">Plus de 12 créneaux</p>
+         <p style="margin-top: 0.5rem;" class="gradient-silver">Moins de 52 créneaux par an</p>
+         <p style="margin-top: 0.3rem; font-size: 0.8rem;" class="gradient-silver">Engagement régulier dans 1 ville</p>
+        </div>
+        <div class="medal-card medal-gold">
+         <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Médaille Or" style="width: 100px; height: 100px; margin: 0 auto 1rem auto; display: block; object-fit: contain;" onerror="this.src=''; this.style.display='none';">
+         <h4 class="gradient-gold">🥇 Médaille Or</h4>
+         <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem;" class="gradient-gold">52 créneaux ou +</p>
+         <p style="margin-top: 0.5rem;" class="gradient-gold">Engagement annuel complet</p>
+         <p style="margin-top: 0.3rem; font-size: 0.8rem;" class="gradient-gold">Une maraude par semaine pendant un an</p>
+        </div>
+        <div class="medal-card medal-diamond">
+         <img src="https://i.postimg.cc/bNb8Xjr3/philobaucis-logo-(10).png" alt="Médaille Diamant" style="width: 100px; height: 100px; margin: 0 auto 1rem auto; display: block; object-fit: contain;" onerror="this.src=''; this.style.display='none';">
+         <h4 class="gradient-diamond">💎 Médaille Diamant</h4>
+         <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem;" class="gradient-diamond">52 créneaux dans 10 villes</p>
+         <p style="margin-top: 0.5rem;" class="gradient-diamond">Déploiement national</p>
+         <p style="margin-top: 0.3rem; font-size: 0.8rem;" class="gradient-diamond">Impact solidaire à l'échelle nationale</p>
+        </div>
+       </div>
+      </div><!-- PME/TPE -->
+      <div style="margin-top: 4rem;">
+       <h3 style="text-align: center; color: #c41919; font-size: 1.8rem; margin-bottom: 2rem;">🏪 PME/TPE (moins de 500 employés)</h3>
+       <div class="medals-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); max-width: 800px; margin: 0 auto;">
+        <div class="medal-card medal-silver">
+         <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Médaille Argent" style="width: 100px; height: 100px; margin: 0 auto 1rem auto; display: block; object-fit: contain;" onerror="this.src=''; this.style.display='none';">
+         <h4 class="gradient-silver">🥈 Médaille Argent</h4>
+         <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem;" class="gradient-silver">Créneau régulier</p>
+         <p style="margin-top: 0.5rem;" class="gradient-silver">Engagement mensuel ou trimestriel</p>
+         <p style="margin-top: 0.3rem; font-size: 0.8rem;" class="gradient-silver">Solidarité adaptée à votre taille</p>
+        </div>
+        <div class="medal-card medal-gold">
+         <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Médaille Or" style="width: 100px; height: 100px; margin: 0 auto 1rem auto; display: block; object-fit: contain;" onerror="this.src=''; this.style.display='none';">
+         <h4 class="gradient-gold">🥇 Médaille Or</h4>
+         <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem;" class="gradient-gold">52 créneaux par an</p>
+         <p style="margin-top: 0.5rem;" class="gradient-gold">Engagement annuel exceptionnel</p>
+         <p style="margin-top: 0.3rem; font-size: 0.8rem;" class="gradient-gold">Leadership RSE pour les PME/TPE</p>
+        </div>
+       </div>
+      </div>
+      <div class="founder-box" style="margin-top: 3rem;">
+       <h3>✨ Avantages des Médailles</h3>
+       <p>• Reconnaissance officielle lors de la cérémonie nationale de la Quinzaine de Précarité<br>
+         • Logo de médaille à afficher sur vos supports de communication<br>
+         • Certificat officiel d'engagement solidaire<br>
+         • Valorisation auprès de vos clients, partenaires et collaborateurs<br>
+         • Paliers adaptés à la taille de votre entreprise pour un système équitable</p>
+      </div>
+     </section><!-- CTA FINALE -->
+     <section class="cta-section fade-in">
+      <h2>Participez à Cet Événement</h2>
+      <p>Soyez reconnu pour votre engagement solidaire au niveau national</p><button class="cta-button" id="cta-button-3">Rejoindre le Mouvement</button>
+     </section>
+    </div><!-- FIN PAGE 4 -->
+   </main>
+  </div>
+  <script>
+    let currentPage = 'presentation';
+
+    const defaultConfig = {
+      background_color: "#f5f5f5",
+      surface_color: "#ffffff",
+      text_color: "#333333",
+      primary_action_color: "#c41919",
+      secondary_action_color: "#6b1e5f",
+      font_family: "Segoe UI",
+      font_size: 16,
+      main_title: "Mécénat de maraude",
+      hero_subtitle: "Avec la ligue humanitaire",
+      cities_title: "10 Villes, 1 Engagement",
+      cta_button: "Participer Maintenant"
+    };
+
+    async function onConfigChange(config) {
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'Tahoma, Geneva, Verdana, sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+
+      document.body.style.backgroundColor = backgroundColor;
+      document.body.style.color = textColor;
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+      const mainTitle = document.getElementById('main-title');
+      if (mainTitle) {
+        mainTitle.textContent = config.main_title || defaultConfig.main_title;
+        mainTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        mainTitle.style.fontSize = `${baseSize * 1.8}px`;
+      }
+
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      if (heroSubtitle) {
+        heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+        heroSubtitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        heroSubtitle.style.fontSize = `${baseSize * 0.95}px`;
+      }
+
+      const citiesTitle = document.getElementById('cities-title');
+      if (citiesTitle) {
+        citiesTitle.textContent = config.cities_title || defaultConfig.cities_title;
+        citiesTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        citiesTitle.style.fontSize = `${baseSize * 2}px`;
+      }
+
+      const ctaButton = document.getElementById('cta-button');
+      if (ctaButton) {
+        ctaButton.textContent = config.cta_button || defaultConfig.cta_button;
+        ctaButton.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        ctaButton.style.fontSize = `${baseSize * 1.15}px`;
+      }
+
+      const ctaButtonDeroulement = document.getElementById('cta-button-deroulement');
+      if (ctaButtonDeroulement) {
+        ctaButtonDeroulement.textContent = config.cta_button || defaultConfig.cta_button;
+        ctaButtonDeroulement.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        ctaButtonDeroulement.style.fontSize = `${baseSize * 1.15}px`;
+      }
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => {
+                config.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => {
+                config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => {
+                config.secondary_action_color = value;
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+          ["cities_title", config.cities_title || defaultConfig.cities_title],
+          ["cta_button", config.cta_button || defaultConfig.cta_button]
+        ])
+      });
+    }
+
+    onConfigChange(window.elementSdk ? window.elementSdk.config : defaultConfig);
+
+    // Button click handlers
+    document.getElementById('cta-button').addEventListener('click', () => {
+      window.open('https://philobaucis/Calendrierlfh', '_blank', 'noopener,noreferrer');
+    });
+
+    document.getElementById('cta-button-deroulement').addEventListener('click', () => {
+      window.open('https://philobaucis/Calendrierlfh', '_blank', 'noopener,noreferrer');
+    });
+
+    document.getElementById('cta-button-2').addEventListener('click', () => {
+      window.open('https://philobaucis/Calendrierlfh', '_blank', 'noopener,noreferrer');
+    });
+
+    document.getElementById('cta-button-3').addEventListener('click', () => {
+      window.open('https://philobaucis/Calendrierlfh', '_blank', 'noopener,noreferrer');
+    });
+
+    // Navigation entre pages
+    const pages = ['presentation', 'deroulement', 'engager', 'labels'];
+    let currentPageIndex = 0;
+
+    function showPage(pageName) {
+      currentPage = pageName;
+      currentPageIndex = pages.indexOf(pageName);
+      document.getElementById('page-presentation').style.display = pageName === 'presentation' ? 'block' : 'none';
+      document.getElementById('page-deroulement').style.display = pageName === 'deroulement' ? 'block' : 'none';
+      document.getElementById('page-engager').style.display = pageName === 'engager' ? 'block' : 'none';
+      document.getElementById('page-labels').style.display = pageName === 'labels' ? 'block' : 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function nextPage() {
+      if (currentPageIndex < pages.length - 1) {
+        showPage(pages[currentPageIndex + 1]);
+      }
+    }
+
+    function prevPage() {
+      if (currentPageIndex > 0) {
+        showPage(pages[currentPageIndex - 1]);
+      }
+    }
+
+    // Event listeners pour les boutons de navigation
+    const navButtons = document.querySelectorAll('.nav-button');
+    navButtons[0].addEventListener('click', () => showPage('presentation'));
+    navButtons[1].addEventListener('click', () => showPage('deroulement'));
+    navButtons[2].addEventListener('click', () => showPage('engager'));
+    navButtons[3].addEventListener('click', () => showPage('labels'));
+
+    // Swipe gesture support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    const minSwipeDistance = 50;
+
+    const app = document.getElementById('app');
+
+    app.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    app.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const horizontalDistance = touchEndX - touchStartX;
+      const verticalDistance = Math.abs(touchEndY - touchStartY);
+      
+      // Only trigger swipe if horizontal movement is greater than vertical
+      if (Math.abs(horizontalDistance) > verticalDistance && Math.abs(horizontalDistance) > minSwipeDistance) {
+        if (horizontalDistance > 0) {
+          // Swipe right - go to previous page
+          prevPage();
+        } else {
+          // Swipe left - go to next page
+          nextPage();
+        }
+      }
+    }
+    
+    // MARAUDE SHOWCASE SCRIPT
+    (()=>{
+      const p=document.getElementById("preview"),r=document.querySelector(".maraude-right"),c=document.querySelector(".close-preview");
+      if (!p || !r || !c) return;
+      const d=p.src;
+      document.querySelectorAll(".maraude-item").forEach(b=>{
+        const s=b.dataset.img,a=b.dataset.alt;
+        const show=()=>{p.style.opacity=0;setTimeout(()=>{p.src=s;p.alt=a;p.style.opacity=1;r.classList.add("active")},120)};
+        b.onmouseenter=()=>matchMedia("(hover:hover)").matches&&show();
+        b.onclick=show;
+      });
+      const reset=()=>{p.style.opacity=0;setTimeout(()=>{p.src=d;p.style.opacity=1;r.classList.remove("active")},120)};
+      c.onclick=reset;
+      r.onclick=e=>e.target!==c&&r.classList.contains("active")&&reset();
+    })();
+
+    // INTERACTIVE MAP SCRIPT
+    (async()=>{
+      const A=[["Paris",48.8566,2.3522],["Marseille",43.2965,5.3698],["Lyon",45.764,4.8357],["Toulouse",43.6047,1.4442],["Nice",43.7102,7.262],["Nantes",47.2184,-1.5536],["Montpellier",43.6119,3.8772],["Strasbourg",48.5734,7.7521],["Bordeaux",44.8378,-0.5792],["Lille",50.6292,3.0573]];
+      const l=document.getElementById("l"),s=d3.select("#s"),c=d3.select("#c");
+      const f=document.getElementById("f"),t=document.getElementById("t"),tb=document.getElementById("tb"),tt=document.getElementById("tt");
+      A.forEach((d,i)=>{const e=document.createElement("div");e.className="i";e.dataset.id=d[0];e.innerHTML=`<div class="r">${i+1}</div><div class="n">${d[0]}</div>`;e.onmouseenter=()=>on(d[0],1);e.onmouseleave=()=>off(d[0]);l.appendChild(e);});
+      const topo=await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then(r=>r.json());
+      const g=topojson.feature(topo,topo.objects.countries).features.find(x=>x.properties&&x.properties.name==="France");
+      const P=d3.geoMercator().center([2.3,46.25]).scale(2200).translate([450,490]);
+      const path=d3.geoPath(P); f.setAttribute("d",path(g));
+      const G=c.selectAll("g").data(A).enter().append("g").attr("data-id",d=>d[0]).attr("transform",d=>{const p=P([d[2],d[1]]);return`translate(${p[0]},${p[1]})`})
+      .on("mousemove",(ev,d)=>{on(d[0]);tip(ev,d[0])}).on("mouseleave",(ev,d)=>{off(d[0]);t.setAttribute("visibility","hidden")});
+      G.append("circle").attr("class","h").attr("r",15);G.append("circle").attr("class","dot").attr("r",6.6);
+      function q(n){return l.querySelector(`.i[data-id="${CSS.escape(n)}"]`)}
+      function on(n,fromList){c.selectAll("g").filter(d=>d[0]===n).classed("on",1);q(n)?.classList.add("on");if(fromList){const d=A.find(x=>x[0]===n),p=P([d[2],d[1]]);tipXY(p[0],p[1],n)}}
+      function off(n){c.selectAll("g").filter(d=>d[0]===n).classed("on",0);q(n)?.classList.remove("on")}
+      function pt(ev){const node=s.node(),p=node.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(node.getScreenCTM().inverse())}
+      function tip(ev,txt){const p=pt(ev);tipXY(p.x,p.y,txt)}
+      function tipXY(x,y,txt){tt.textContent=txt;tt.setAttribute("x",x+14);tt.setAttribute("y",y-16);t.setAttribute("visibility","visible");const b=tt.getBBox(),px=12,py=8;tb.setAttribute("x",b.x-px);tb.setAttribute("y",b.y-py);tb.setAttribute("width",b.width+px*2);tb.setAttribute("height",b.height+py*2)}
+    })();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e92dd8c45949ebb',t:'MTc3NTY2ODAxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
