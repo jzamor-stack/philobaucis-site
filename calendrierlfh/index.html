@@ -1,0 +1,2383 @@
+<!doctype html>
+<html lang="fr">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendrier d'Inscription</title>
+  <script type='text/javascript' src='https://c42fg7cg2qrevme2.canvacode.com/ET3JTUTjBYkr98LZ6s9M36_6PVsxCberTzQew6w5vumMme9mQ8kbvmNeoTxD-a41WzRIn2CayXpz6EyKndbB09h8crYtgF36s1fCn56m9LcnK0HiihM_uUY4AkuGZEx8Yl1OIWnoDkGHKLmIisoxqnSFza6x3dTI0NHB0sglmMR7nwAbjOwOS2z2WPpJ9vIaXpDljnp7OtMlIefYO9yDigoAfLo8GYKpiF_9SBF3Klr4DgdVodQq7BAjYLgOwG3FsNiA71g3G17LPNqyIeBR4xR0-YyqLA6f9yJbXGyFcEB-LOjP8LyzYXZsN518yuma4ZMrFlXkgWsIZZLwZEimbvqeihqLwXPGqgp6QxdQf-B2i-Er-7ICztVrLSDtiWNgKsqP70SX-IlZHvUP7o_ncC6CCXQgCTvryrzGg9byeutqWJl7SnItU1QQ-5acrSPo5QL3BqUOyVWUOgjM190YmIm0ZR4GWKyDBD5odORCnodwZV69inHuHYN7n-KhzrxP9BBobkBmJHluxpqzCzsurGLDxlkt8WhA3YbXQTOELQm7MDXDJMWA9IXJf95Sj8KFKXG5T3p9jhLBqi_fS4CvemzAnvvhoMzr2zdYB5laNdPSScxCXO3lBrG4T-KU9mAu4VR4-dfxIZEshtILjEbHeLzI'></script><script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8efea;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #f0e4d7;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 1200px;
+      width: 100%;
+      padding: 32px;
+    }
+
+    h1 {
+      color: #e52b2b;
+      margin: 0 0 8px 0;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #731919;
+      margin: 0 0 32px 0;
+      font-size: 16px;
+    }
+
+    /* Sélection de ville */
+    .city-selection {
+      text-align: center;
+    }
+
+    .cities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .city-card {
+      background: linear-gradient(180deg, #731919, #e52b2b);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .city-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    .city-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* Vue calendrier */
+    .calendar-view, .booking-type-selection {
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .header-with-city {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-change-city, .btn-back {
+      background: #fef2f2;
+      color: #731919;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-change-city:hover, .btn-back:hover {
+      background: #fee2e2;
+    }
+
+    /* Types de réservation */
+    .booking-types-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 32px;
+      justify-content: center;
+    }
+
+    .booking-type-card {
+      background: linear-gradient(180deg, #731919, #e52b2b);
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      width: 280px;
+      flex-shrink: 0;
+    }
+
+    .booking-type-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+    }
+
+    .booking-type-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .booking-type-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .booking-type-description {
+      font-size: 13px;
+      color: #f7fafc;
+      line-height: 1.4;
+    }
+
+    /* Sélection de patterns */
+    .patterns-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .pattern-card {
+      background: linear-gradient(180deg, #731919, #e52b2b);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      position: relative;
+    }
+
+    .pattern-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    .pattern-card.selected {
+      border-color: #48bb78;
+      background: linear-gradient(180deg, #2f855a, #48bb78);
+    }
+
+    .pattern-card .checkmark {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 24px;
+      display: none;
+    }
+
+    .pattern-card.selected .checkmark {
+      display: block;
+    }
+
+    .pattern-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .pattern-count {
+      font-size: 14px;
+      color: #ffd700;
+      font-weight: 600;
+    }
+
+    .total-count-banner {
+      background: #48bb78;
+      color: white;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .total-count-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .achievement-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      display: none;
+    }
+
+    .confirm-patterns-btn {
+      background: #48bb78;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: block;
+      margin: 24px auto;
+    }
+
+    .confirm-patterns-btn:hover {
+      background: #38a169;
+    }
+
+    .confirm-patterns-btn:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+    }
+
+    .pattern-time-section {
+      background: #fef2f2;
+      border: 2px solid #fca5a5;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .pattern-time-section h3 {
+      color: #731919;
+      margin: 0 0 16px 0;
+      font-size: 18px;
+    }
+
+    .time-slots-selection {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .time-slot-option {
+      background: linear-gradient(180deg, #731919, #e52b2b);
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: white;
+      font-weight: 600;
+    }
+
+    .time-slot-option:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+
+    .time-slot-option.selected {
+      background: #48bb78;
+      border-color: #48bb78;
+    }
+
+    /* Jours de la semaine */
+    .weekdays-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .weekday-card {
+      background: linear-gradient(180deg, #731919, #e52b2b);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .weekday-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    .weekday-card.selected {
+      background: #667eea;
+      border-color: #667eea;
+      color: white;
+    }
+
+    .weekday-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .selected-city-info {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 24px;
+      color: #731919;
+      font-size: 14px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .date-card {
+      background: linear-gradient(180deg, #731919, #e52b2b);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .date-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    .date-card.selected {
+      background: #667eea;
+      border-color: #667eea;
+      color: white;
+    }
+
+    .date-card .day {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: white;
+    }
+
+    .date-card .date {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .time-slots-view {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .time-slots-view.active {
+      display: block;
+    }
+
+    .time-slots h2 {
+      color: #e52b2b;
+      font-size: 20px;
+      margin: 0 0 16px 0;
+    }
+
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .slot-card {
+      background: linear-gradient(180deg, #731919, #e52b2b);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .slot-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+
+    .slot-card.full {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .slot-card.full:hover {
+      transform: none;
+      border-color: #e2e8f0;
+    }
+
+    .slot-time {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .slot-participants {
+      font-size: 14px;
+      color: #f7fafc;
+    }
+
+    .slot-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffd700;
+      margin-top: 4px;
+    }
+
+    .slot-participants-list {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #f7fafc;
+    }
+
+    .participant-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .remove-btn {
+      background: #fc8181;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .remove-btn:hover {
+      background: #f56565;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal-content h3 {
+      margin: 0 0 8px 0;
+      color: #e52b2b;
+      font-size: 24px;
+    }
+
+    .modal-content p {
+      margin: 0 0 24px 0;
+      color: #731919;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #731919;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #fef2f2;
+      color: #731919;
+      border: 1px solid #fca5a5;
+    }
+
+    .btn-secondary:hover {
+      background: #fee2e2;
+    }
+
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .error-message {
+      background: #fed7d7;
+      color: #c53030;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container"><!-- Page de bienvenue - Sélection taille d'entreprise -->
+   <div id="welcome-page" class="city-selection">
+    <h1>Bienvenue</h1>
+    <p class="subtitle">Sélectionnez la taille de votre entreprise pour accéder au calendrier d'inscription</p>
+    <div class="booking-types-grid">
+     <div class="booking-type-card" onclick="selectCompanySize('large')">
+      <div class="booking-type-icon">
+       🏢
+      </div>
+      <div class="booking-type-title">
+       Grande entreprise
+      </div>
+      <div class="booking-type-description">
+       Plus de 500 employés en France
+      </div>
+     </div>
+     <div class="booking-type-card" onclick="selectCompanySize('small')">
+      <div class="booking-type-icon">
+       🏬
+      </div>
+      <div class="booking-type-title">
+       PME/TPE
+      </div>
+      <div class="booking-type-description">
+       Moins de 500 employés en France
+      </div>
+     </div>
+    </div>
+   </div><!-- Sélection du type de créneau -->
+   <div id="booking-type-selection" class="booking-type-selection" style="display: none;">
+    <div class="header-with-city">
+     <div>
+      <h1>Type de réservation</h1>
+      <p class="subtitle">Choisissez le type de créneau que vous souhaitez réserver</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToWelcome()">← Retour</button>
+     </div>
+    </div>
+    <div class="booking-types-grid">
+     <div class="booking-type-card" onclick="selectBookingType('unit')">
+      <div class="booking-type-icon">
+       📅
+      </div>
+      <div class="booking-type-title">
+       Créneau à l'unité
+      </div>
+      <div class="booking-type-description" id="unit-price-description">
+       Réservez une date précise pour une intervention ponctuelle<br><br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">900 € par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>
+      </div>
+     </div>
+     <div class="booking-type-card" onclick="selectBookingType('regular')">
+      <div class="booking-type-icon" style="display: flex; justify-content: center; align-items: center; margin-bottom: 0;"><img id="regular-booking-logo" src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Logo régulier" style="width: 120px; height: 120px; object-fit: contain;" onerror="this.src=''; this.alt='Image non disponible'; this.style.display='none';">
+      </div>
+      <div class="booking-type-title">
+       Créneau régulier
+      </div>
+      <div class="booking-type-description" id="regular-price-description">
+       Réservez des jours récurrents mensuels de novembre 2026 à novembre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">800 € par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>
+      </div>
+     </div>
+     <div class="booking-type-card" onclick="selectBookingType('yearly')">
+      <div class="booking-type-icon" style="display: flex; justify-content: center; align-items: center; margin-bottom: 0;"><img id="yearly-booking-logo" src="https://lh3.googleusercontent.com/d/1IG11xWWJXDo_yZv0E_5JArkKE0grioz0=s0" alt="Logo année" style="width: 120px; height: 120px; object-fit: contain;" onerror="this.src=''; this.alt='Image non disponible'; this.style.display='none';">
+      </div>
+      <div class="booking-type-title">
+       Créneau à l'année
+      </div>
+      <div class="booking-type-description" id="yearly-price-description">
+       Réservez un jour de la semaine récurrent de novembre 2026 à novembre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">800 € par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>
+      </div>
+     </div>
+     <div class="booking-type-card" id="national-booking-card" onclick="selectBookingType('national')">
+      <div class="booking-type-icon" style="display: flex; justify-content: center; align-items: center; margin-bottom: 0;"><img src="https://lh3.googleusercontent.com/d/1JHrg39oMXBUKOw3k-Bxv-9jUy4q5Tp2W=s0" alt="Logo national" style="width: 120px; height: 120px; object-fit: contain;" onerror="this.src=''; this.alt='Image non disponible'; this.style.display='none';">
+      </div>
+      <div class="booking-type-title">
+       Couverture nationale à l'année
+      </div>
+      <div class="booking-type-description" id="national-price-description">
+       Réservez un jour de la semaine récurrent dans toutes les villes (novembre 2026 à novembre 2027)<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">800 € par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>
+      </div>
+     </div>
+    </div>
+   </div><!-- Sélection de ville -->
+   <div id="city-selection" class="city-selection" style="display: none;">
+    <h1>Sélectionnez votre ville</h1>
+    <p class="subtitle">Choisissez la ville pour accéder au calendrier d'inscription</p>
+    <div class="nav-buttons" style="justify-content: flex-end; margin-bottom: 24px;"><button class="btn-back" onclick="backToBookingType()">← Retour</button>
+    </div>
+    <div class="cities-grid">
+     <div class="city-card" onclick="selectCity('Paris')">
+      <div class="city-name">
+       Paris
+      </div>
+     </div>
+     <div class="city-card" onclick="selectCity('Nantes')">
+      <div class="city-name">
+       Nantes
+      </div>
+     </div>
+     <div class="city-card" onclick="selectCity('Lille')">
+      <div class="city-name">
+       Lille
+      </div>
+     </div>
+     <div class="city-card" onclick="selectCity('Strasbourg')">
+      <div class="city-name">
+       Strasbourg
+      </div>
+     </div>
+     <div class="city-card" onclick="selectCity('Marseille')">
+      <div class="city-name">
+       Marseille
+      </div>
+     </div>
+     <div class="city-card" onclick="selectCity('Lyon')">
+      <div class="city-name">
+       Lyon
+      </div>
+     </div>
+     <div class="city-card" onclick="selectCity('Bordeaux')">
+      <div class="city-name">
+       Bordeaux
+      </div>
+     </div>
+    </div>
+   </div><!-- Sélection de patterns réguliers -->
+   <div id="regular-patterns-view" class="calendar-view" style="display: none;">
+    <div class="header-with-city">
+     <div>
+      <h1>Sélection des créneaux réguliers</h1>
+      <p class="subtitle">Choisissez un ou plusieurs jours récurrents du mois (ex: 1er lundi, 2ème lundi, etc.)</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-regular"></strong> - Créneau régulier</span>
+    </div>
+    <div id="previous-selections-display" style="display: none; background: #e0f2fe; border: 2px solid #0284c7; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+     <h3 style="margin: 0 0 12px 0; color: #0284c7; font-size: 16px;">✓ Villes déjà sélectionnées :</h3>
+     <div id="previous-selections-list" style="font-size: 14px; color: #075985;"></div>
+    </div>
+    <div id="total-count-display" class="total-count-banner" style="display: none;">
+     <div class="total-count-content"><span>Total: <span id="total-count-number">0</span> maraudes sur l'année</span> <img id="achievement-logo" src="" alt="Logo achievement" class="achievement-logo" onerror="this.style.display='none';">
+     </div>
+    </div>
+    <div class="patterns-grid" id="patterns-grid"></div>
+    <div style="display: flex; gap: 16px; justify-content: center; margin-top: 24px;"><button class="confirm-patterns-btn" id="add-city-btn" onclick="addAnotherCity()" disabled style="margin: 0; background: #667eea;"> Ajouter une autre ville </button> <button class="confirm-patterns-btn" id="confirm-patterns-btn" onclick="confirmPatterns()" disabled style="margin: 0;"> Finaliser ma sélection </button>
+    </div>
+   </div><!-- Choix type d'horaires -->
+   <div id="time-choice-view" class="booking-type-selection" style="display: none;">
+    <div class="header-with-city">
+     <div>
+      <h1>Type d'horaires</h1>
+      <p class="subtitle">Comment souhaitez-vous gérer vos horaires pour ces créneaux ?</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToRegularPatterns()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Patterns sélectionnés : <strong id="patterns-summary"></strong></span>
+    </div>
+    <div class="booking-types-grid">
+     <div class="booking-type-card" onclick="selectTimeChoice('same')">
+      <div class="booking-type-icon">
+       🕐
+      </div>
+      <div class="booking-type-title">
+       Mêmes horaires
+      </div>
+      <div class="booking-type-description">
+       Utiliser le même créneau horaire pour tous les jours sélectionnés
+      </div>
+     </div>
+     <div class="booking-type-card" onclick="selectTimeChoice('different')">
+      <div class="booking-type-icon">
+       ⏰
+      </div>
+      <div class="booking-type-title">
+       Horaires différents
+      </div>
+      <div class="booking-type-description">
+       Choisir un horaire spécifique pour chaque jour sélectionné
+      </div>
+     </div>
+    </div>
+   </div><!-- Sélection horaires par pattern -->
+   <div id="pattern-times-view" class="calendar-view" style="display: none;">
+    <div class="header-with-city">
+     <div>
+      <h1>Sélection des horaires</h1>
+      <p class="subtitle">Choisissez un créneau horaire pour chaque jour sélectionné</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToTimeChoice()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-pattern-times"></strong> - Créneau régulier</span>
+    </div>
+    <div id="pattern-times-container"></div><button class="confirm-patterns-btn" id="confirm-pattern-times-btn" onclick="confirmPatternTimes()" disabled> Confirmer les horaires </button>
+   </div><!-- Calendrier unitaire -->
+   <div id="unit-calendar-view" class="calendar-view" style="display: none;">
+    <div class="header-with-city">
+     <div>
+      <h1 id="calendar-title">Calendrier d'inscription</h1>
+      <p class="subtitle" id="instructions-text">Sélectionnez une date et un créneau pour vous inscrire</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-unit"></strong> - Créneau à l'unité</span>
+    </div>
+    <div class="calendar-grid" id="calendar-grid"></div>
+   </div><!-- Calendrier annuel -->
+   <div id="yearly-calendar-view" class="calendar-view" style="display: none;">
+    <div class="header-with-city">
+     <div>
+      <h1>Créneaux à l'année</h1>
+      <p class="subtitle">Sélectionnez un jour de la semaine pour votre créneau récurrent (novembre 2026 à novembre 2027)</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-yearly"></strong> - Créneau à l'année</span>
+    </div>
+    <div class="weekdays-grid" id="weekdays-grid">
+     <div class="weekday-card" onclick="selectWeekday('Lundi')">
+      <div class="weekday-name">
+       Lundi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectWeekday('Mardi')">
+      <div class="weekday-name">
+       Mardi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectWeekday('Mercredi')">
+      <div class="weekday-name">
+       Mercredi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectWeekday('Jeudi')">
+      <div class="weekday-name">
+       Jeudi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectWeekday('Vendredi')">
+      <div class="weekday-name">
+       Vendredi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectWeekday('Samedi')">
+      <div class="weekday-name">
+       Samedi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectWeekday('Dimanche')">
+      <div class="weekday-name">
+       Dimanche
+      </div>
+     </div>
+    </div>
+   </div><!-- Calendrier national -->
+   <div id="national-calendar-view" class="calendar-view" style="display: none;">
+    <div class="header-with-city">
+     <div>
+      <h1>Couverture nationale à l'année</h1>
+      <p class="subtitle">Sélectionnez un jour de la semaine pour votre créneau récurrent dans toutes les villes (octobre 2026 à octobre 2027)</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong> - Créneau national à l'année</span>
+    </div>
+    <div class="weekdays-grid" id="national-weekdays-grid">
+     <div class="weekday-card" onclick="selectNationalWeekday('Lundi')">
+      <div class="weekday-name">
+       Lundi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectNationalWeekday('Mardi')">
+      <div class="weekday-name">
+       Mardi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectNationalWeekday('Mercredi')">
+      <div class="weekday-name">
+       Mercredi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectNationalWeekday('Jeudi')">
+      <div class="weekday-name">
+       Jeudi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectNationalWeekday('Vendredi')">
+      <div class="weekday-name">
+       Vendredi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectNationalWeekday('Samedi')">
+      <div class="weekday-name">
+       Samedi
+      </div>
+     </div>
+     <div class="weekday-card" onclick="selectNationalWeekday('Dimanche')">
+      <div class="weekday-name">
+       Dimanche
+      </div>
+     </div>
+    </div>
+   </div><!-- Page créneaux unitaires -->
+   <div id="unit-slots-view" class="time-slots-view">
+    <div class="header-with-city">
+     <div>
+      <h1>Créneaux disponibles</h1>
+      <p class="subtitle" id="selected-date-info"></p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToUnitCalendar()">← Retour au calendrier</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-unit-slots"></strong> - Créneau à l'unité</span>
+    </div>
+    <div class="slots-grid" id="slots-grid"></div>
+   </div><!-- Page créneaux réguliers -->
+   <div id="regular-slots-view" class="time-slots-view">
+    <div class="header-with-city">
+     <div>
+      <h1>Créneaux disponibles</h1>
+      <p class="subtitle" id="selected-patterns-info"></p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToRegularPatterns()">← Retour aux patterns</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-regular-slots"></strong> - Créneau régulier (<span id="patterns-count-display">0</span> maraudes)</span>
+    </div>
+    <div class="slots-grid" id="regular-slots-grid"></div>
+   </div><!-- Page créneaux par pattern individuel -->
+   <div id="pattern-individual-slots-view" class="time-slots-view">
+    <div class="header-with-city">
+     <div>
+      <h1>Confirmez vos inscriptions</h1>
+      <p class="subtitle">Vérifiez et confirmez vos créneaux sélectionnés</p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToPatternTimes()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-pattern-individual"></strong> - Créneau régulier</span>
+    </div>
+    <div id="pattern-individual-container"></div>
+   </div><!-- Page créneaux annuels -->
+   <div id="yearly-slots-view" class="time-slots-view">
+    <div class="header-with-city">
+     <div>
+      <h1>Créneaux disponibles</h1>
+      <p class="subtitle" id="selected-weekday-info"></p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToYearlyCalendar()">← Retour aux jours</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-yearly-slots"></strong> - Créneau à l'année</span>
+    </div>
+    <div class="slots-grid" id="yearly-slots-grid"></div>
+   </div><!-- Page créneaux nationaux -->
+   <div id="national-slots-view" class="time-slots-view">
+    <div class="header-with-city">
+     <div>
+      <h1>Créneaux nationaux disponibles</h1>
+      <p class="subtitle" id="selected-national-weekday-info"></p>
+     </div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToNationalCalendar()">← Retour aux jours</button>
+     </div>
+    </div>
+    <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong> - Créneau national à l'année</span>
+    </div>
+    <div class="slots-grid" id="national-slots-grid"></div>
+   </div>
+  </div>
+  <div class="modal" id="registration-modal">
+   <div class="modal-content">
+    <h3>S'inscrire</h3>
+    <p id="modal-slot-info" style="white-space: pre-line;"></p>
+    <div id="error-container"></div>
+    <form id="registration-form">
+     <div class="form-group"><label for="company-name">Nom de l'entreprise</label> <input type="text" id="company-name" required placeholder="Nom de votre entreprise">
+     </div>
+     <div class="form-group"><label for="contact-name">Nom du contact</label> <input type="text" id="contact-name" required placeholder="Votre nom">
+     </div>
+     <div class="form-group"><label for="role">Rôle au sein de l'entreprise</label> <input type="text" id="role" required placeholder="Votre fonction">
+     </div>
+     <div class="form-group"><label for="email">Email</label> <input type="email" id="email" required placeholder="votre@email.com">
+     </div>
+     <div class="form-group"><label for="phone">Numéro de téléphone</label> <input type="tel" id="phone" required placeholder="01 23 45 67 89">
+     </div>
+     <div class="button-group"><button type="button" class="btn btn-secondary" id="cancel-btn">Annuler</button> <button type="submit" class="btn btn-primary" id="submit-btn">Confirmer</button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <script>
+    const TIME_SLOTS = ['8h - 10h', '10h - 12h', '12h - 14h', '14h - 16h', '16h - 18h', '18h - 20h', '20h - 22h'];
+    const MAX_PARTICIPANTS_PER_SLOT = 1;
+    const CITIES = ['Paris', 'Nantes', 'Lille', 'Strasbourg', 'Marseille', 'Lyon', 'Bordeaux'];
+    const WEEKDAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    const WEEKDAY_MAP = { 'Lundi': 1, 'Mardi': 2, 'Mercredi': 3, 'Jeudi': 4, 'Vendredi': 5, 'Samedi': 6, 'Dimanche': 0 };
+    const ACHIEVEMENT_THRESHOLD = 52;
+
+    const defaultConfig = {
+      calendar_title: 'Calendrier d\'inscription',
+      instructions_text: 'Sélectionnez une date et un créneau pour vous inscrire',
+      background_color: '#f8efea',
+      surface_color: '#f7fafc',
+      text_color: '#e52b2b',
+      primary_action_color: '#667eea',
+      secondary_action_color: '#fc8181',
+      font_family: 'Inter',
+      font_size: 16
+    };
+
+    let registrations = [];
+    let selectedDate = null;
+    let selectedWeekday = null;
+    let selectedSlot = null;
+    let selectedCity = null;
+    let bookingType = null;
+    let companySize = null;
+    let isLoading = false;
+    let selectedPatterns = [];
+    let patternTimeSlots = {};
+    let multiCitySelections = [];
+
+    function calculateOccurrences(weekNumber, weekday) {
+      const startDate = new Date(2026, 10, 1);
+      const endDate = new Date(2027, 10, 31);
+      let count = 0;
+      
+      let currentDate = new Date(startDate);
+      while (currentDate <= endDate) {
+        const month = currentDate.getMonth();
+        const year = currentDate.getFullYear();
+        
+        const firstDay = new Date(year, month, 1);
+        const targetWeekday = WEEKDAY_MAP[weekday];
+        let daysUntilTarget = (targetWeekday - firstDay.getDay() + 7) % 7;
+        let nthDay = new Date(year, month, 1 + daysUntilTarget + (weekNumber - 1) * 7);
+        
+        if (nthDay.getMonth() === month && nthDay >= startDate && nthDay <= endDate) {
+          count++;
+        }
+        
+        currentDate = new Date(year, month + 1, 1);
+      }
+      
+      return count;
+    }
+
+    function generatePatterns() {
+      const patterns = [];
+      const weekNumbers = ['1er', '2ème', '3ème', '4ème'];
+      
+      WEEKDAYS.forEach(weekday => {
+        weekNumbers.forEach((weekLabel, index) => {
+          const weekNumber = index + 1;
+          const count = calculateOccurrences(weekNumber, weekday);
+          if (count > 0) {
+            patterns.push({
+              id: `${weekNumber}-${weekday}`,
+              label: `${weekLabel} ${weekday}`,
+              weekNumber: weekNumber,
+              weekday: weekday,
+              count: count
+            });
+          }
+        });
+      });
+      
+      return patterns;
+    }
+
+    function selectCompanySize(size) {
+      companySize = size;
+      updatePricing();
+      document.getElementById('welcome-page').style.display = 'none';
+      document.getElementById('booking-type-selection').style.display = 'block';
+    }
+
+    function backToWelcome() {
+      companySize = null;
+      selectedCity = null;
+      selectedDate = null;
+      selectedWeekday = null;
+      selectedSlot = null;
+      bookingType = null;
+      selectedPatterns = [];
+      document.getElementById('welcome-page').style.display = 'block';
+      document.getElementById('city-selection').style.display = 'none';
+      document.getElementById('booking-type-selection').style.display = 'none';
+      document.getElementById('unit-calendar-view').style.display = 'none';
+      document.getElementById('yearly-calendar-view').style.display = 'none';
+      document.getElementById('national-calendar-view').style.display = 'none';
+      document.getElementById('regular-patterns-view').style.display = 'none';
+      document.getElementById('unit-slots-view').classList.remove('active');
+      document.getElementById('yearly-slots-view').classList.remove('active');
+      document.getElementById('national-slots-view').classList.remove('active');
+      document.getElementById('regular-slots-view').classList.remove('active');
+    }
+
+    function updatePricing() {
+      const unitPrice = '900 €';
+      const yearlyPrice = '800 €';
+      const nationalPrice = '800 €';
+      const regularPrice = '800 €';
+      
+      document.getElementById('unit-price-description').innerHTML = 
+        `Réservez une date précise pour une intervention ponctuelle<br><br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${unitPrice} par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>`;
+      
+      document.getElementById('regular-price-description').innerHTML = 
+        `Réservez des jours récurrents mensuels d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>`;
+      
+      document.getElementById('yearly-price-description').innerHTML = 
+        `Réservez un jour de la semaine récurrent d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${yearlyPrice} par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>`;
+      
+      document.getElementById('national-price-description').innerHTML = 
+        `Réservez un jour de la semaine récurrent dans toutes les villes<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${nationalPrice} par maraude</span><br><span style="color: #ffd700; font-size: 11px;">prix après déduction fiscale</span>`;
+      
+      const nationalCard = document.getElementById('national-booking-card');
+      if (companySize === 'small') {
+        nationalCard.style.display = 'none';
+      } else {
+        nationalCard.style.display = 'block';
+      }
+
+      const regularLogo = document.getElementById('regular-booking-logo');
+      const yearlyLogo = document.getElementById('yearly-booking-logo');
+      
+      if (companySize === 'small') {
+        regularLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png';
+        yearlyLogo.src = 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png';
+      } else {
+        regularLogo.src = 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png';
+        yearlyLogo.src = 'https://lh3.googleusercontent.com/d/1IG11xWWJXDo_yZv0E_5JArkKE0grioz0=s0';
+      }
+    }
+
+    function selectCity(city) {
+      selectedCity = city;
+      document.getElementById('current-city-unit').textContent = city;
+      document.getElementById('current-city-yearly').textContent = city;
+      document.getElementById('current-city-regular').textContent = city;
+      document.getElementById('city-selection').style.display = 'none';
+      
+      if (bookingType === 'unit') {
+        document.getElementById('unit-calendar-view').style.display = 'block';
+        renderCalendar();
+      } else if (bookingType === 'yearly') {
+        document.getElementById('yearly-calendar-view').style.display = 'block';
+        renderWeekdays();
+      } else if (bookingType === 'regular') {
+        document.getElementById('regular-patterns-view').style.display = 'block';
+        renderPatterns();
+      }
+    }
+
+    function selectBookingType(type) {
+      bookingType = type;
+      document.getElementById('booking-type-selection').style.display = 'none';
+      
+      if (type === 'unit') {
+        document.getElementById('city-selection').style.display = 'block';
+      } else if (type === 'yearly') {
+        document.getElementById('city-selection').style.display = 'block';
+      } else if (type === 'regular') {
+        document.getElementById('city-selection').style.display = 'block';
+      } else if (type === 'national') {
+        selectedCity = 'National';
+        document.getElementById('national-calendar-view').style.display = 'block';
+        renderNationalWeekdays();
+      }
+    }
+
+    function backToBookingType() {
+      document.getElementById('city-selection').style.display = 'none';
+      document.getElementById('unit-calendar-view').style.display = 'none';
+      document.getElementById('yearly-calendar-view').style.display = 'none';
+      document.getElementById('national-calendar-view').style.display = 'none';
+      document.getElementById('regular-patterns-view').style.display = 'none';
+      document.getElementById('unit-slots-view').classList.remove('active');
+      document.getElementById('yearly-slots-view').classList.remove('active');
+      document.getElementById('national-slots-view').classList.remove('active');
+      document.getElementById('regular-slots-view').classList.remove('active');
+      document.getElementById('booking-type-selection').style.display = 'block';
+      selectedDate = null;
+      selectedWeekday = null;
+      selectedSlot = null;
+      selectedCity = null;
+      selectedPatterns = [];
+    }
+
+    function backToUnitCalendar() {
+      document.getElementById('unit-slots-view').classList.remove('active');
+      document.getElementById('unit-calendar-view').style.display = 'block';
+      selectedSlot = null;
+    }
+
+    function backToYearlyCalendar() {
+      document.getElementById('yearly-slots-view').classList.remove('active');
+      document.getElementById('yearly-calendar-view').style.display = 'block';
+      selectedSlot = null;
+    }
+
+    function backToNationalCalendar() {
+      document.getElementById('national-slots-view').classList.remove('active');
+      document.getElementById('national-calendar-view').style.display = 'block';
+      selectedSlot = null;
+    }
+
+    function backToRegularPatterns() {
+      document.getElementById('regular-slots-view').classList.remove('active');
+      document.getElementById('time-choice-view').style.display = 'none';
+      document.getElementById('pattern-times-view').style.display = 'none';
+      document.getElementById('regular-patterns-view').style.display = 'block';
+      selectedSlot = null;
+      
+      if (multiCitySelections.length > 0) {
+        multiCitySelections = [];
+        selectedPatterns = [];
+        patternTimeSlots = {};
+        updateTotalCount();
+      }
+    }
+
+    function backToTimeChoice() {
+      document.getElementById('pattern-times-view').style.display = 'none';
+      document.getElementById('time-choice-view').style.display = 'block';
+      patternTimeSlots = {};
+    }
+
+    function selectTimeChoice(choice) {
+      if (choice === 'same') {
+        const totalCount = multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0);
+        const allPatterns = multiCitySelections.flatMap(sel => 
+          sel.patterns.map(p => `${sel.city} - ${p.label}`)
+        );
+        
+        document.getElementById('selected-patterns-info').textContent = allPatterns.join(', ');
+        document.getElementById('current-city-regular-slots').textContent = 'Multi-villes';
+        document.getElementById('patterns-count-display').textContent = totalCount;
+        
+        document.getElementById('time-choice-view').style.display = 'none';
+        document.getElementById('regular-slots-view').classList.add('active');
+        renderRegularTimeSlotsMultiCity();
+      } else {
+        document.getElementById('time-choice-view').style.display = 'none';
+        document.getElementById('pattern-times-view').style.display = 'block';
+        document.getElementById('current-city-pattern-times').textContent = 'Multi-villes';
+        renderPatternTimeSelectionMultiCity();
+      }
+    }
+
+    function renderPatternTimeSelectionMultiCity() {
+      const container = document.getElementById('pattern-times-container');
+      container.innerHTML = '';
+      
+      multiCitySelections.forEach(citySelection => {
+        citySelection.patterns.forEach(pattern => {
+          const section = document.createElement('div');
+          section.className = 'pattern-time-section';
+          
+          section.innerHTML = `
+            <h3>${citySelection.city} - ${pattern.label} (${pattern.count} maraudes)</h3>
+            <div class="time-slots-selection" id="time-slots-${citySelection.city}-${pattern.id}"></div>
+          `;
+          
+          container.appendChild(section);
+          
+          const slotsGrid = document.getElementById(`time-slots-${citySelection.city}-${pattern.id}`);
+          TIME_SLOTS.forEach(slot => {
+            const option = document.createElement('div');
+            option.className = 'time-slot-option';
+            option.textContent = slot;
+            option.onclick = () => selectPatternTimeSlot(`${citySelection.city}-${pattern.id}`, slot);
+            slotsGrid.appendChild(option);
+          });
+        });
+      });
+      
+      updatePatternTimesButton();
+    }
+
+    function renderPatternTimeSelection() {
+      const container = document.getElementById('pattern-times-container');
+      container.innerHTML = '';
+      
+      multiCitySelections.forEach(citySelection => {
+        citySelection.patterns.forEach(pattern => {
+          const section = document.createElement('div');
+          section.className = 'pattern-time-section';
+          
+          section.innerHTML = `
+            <h3>${citySelection.city} - ${pattern.label} (${pattern.count} maraudes)</h3>
+            <div class="time-slots-selection" id="time-slots-${citySelection.city}-${pattern.id}"></div>
+          `;
+          
+          container.appendChild(section);
+          
+          const slotsGrid = document.getElementById(`time-slots-${citySelection.city}-${pattern.id}`);
+          TIME_SLOTS.forEach(slot => {
+            const option = document.createElement('div');
+            option.className = 'time-slot-option';
+            option.textContent = slot;
+            option.onclick = () => selectPatternTimeSlot(`${citySelection.city}-${pattern.id}`, slot);
+            slotsGrid.appendChild(option);
+          });
+        });
+      });
+      
+      updatePatternTimesButton();
+    }
+
+    function selectPatternTimeSlot(patternId, timeSlot) {
+      patternTimeSlots[patternId] = timeSlot;
+      
+      const slotsGrid = document.getElementById(`time-slots-${patternId}`);
+      Array.from(slotsGrid.children).forEach(option => {
+        if (option.textContent === timeSlot) {
+          option.classList.add('selected');
+        } else {
+          option.classList.remove('selected');
+        }
+      });
+      
+      updatePatternTimesButton();
+    }
+
+    function updatePatternTimesButton() {
+      const btn = document.getElementById('confirm-pattern-times-btn');
+      const allPatterns = multiCitySelections.flatMap(sel => 
+        sel.patterns.map(p => `${sel.city}-${p.id}`)
+      );
+      const allSelected = allPatterns.every(key => patternTimeSlots[key]);
+      btn.disabled = !allSelected;
+    }
+
+    function confirmPatternTimes() {
+      const allPatterns = multiCitySelections.flatMap(sel => 
+        sel.patterns.map(p => `${sel.city}-${p.id}`)
+      );
+      if (allPatterns.some(key => !patternTimeSlots[key])) return;
+
+      openGroupRegistrationModal();
+    }
+
+    function backToPatternTimes() {
+      document.getElementById('pattern-individual-slots-view').classList.remove('active');
+      document.getElementById('pattern-times-view').style.display = 'block';
+    }
+
+    function renderPatternIndividualSlots() {
+      const container = document.getElementById('pattern-individual-container');
+      container.innerHTML = '';
+      
+      selectedPatterns.forEach(pattern => {
+        const timeSlot = patternTimeSlots[pattern.id];
+        const slotRegistrations = getRegistrationsForPatternSlot(selectedCity, pattern.id, timeSlot);
+        const isFull = slotRegistrations.length >= MAX_PARTICIPANTS_PER_SLOT;
+
+        const section = document.createElement('div');
+        section.className = 'pattern-time-section';
+        
+        let participantsList = '';
+        if (slotRegistrations.length > 0) {
+          participantsList = '<div class="slot-participants-list">';
+          slotRegistrations.forEach(reg => {
+            participantsList += `
+              <div class="participant-item">
+                <span>${reg.company_name} - ${reg.contact_name}</span>
+                <button class="remove-btn" onclick="removeRegistration('${reg.__backendId}', event)">✕</button>
+              </div>
+            `;
+          });
+          participantsList += '</div>';
+        }
+
+        const slotCard = `
+          <div class="slot-card ${isFull ? 'full' : ''}" ${!isFull ? `onclick="openPatternRegistrationModal('${pattern.id}', '${timeSlot}')"` : ''} style="max-width: 300px; cursor: ${isFull ? 'not-allowed' : 'pointer'};">
+            <div class="slot-time">${timeSlot}</div>
+            <div class="slot-participants">${slotRegistrations.length}/${MAX_PARTICIPANTS_PER_SLOT} place disponible</div>
+            <div class="slot-price">800 €</div>
+            ${participantsList}
+          </div>
+        `;
+
+        section.innerHTML = `
+          <h3>${pattern.label} (${pattern.count} maraudes)</h3>
+          ${slotCard}
+        `;
+        
+        container.appendChild(section);
+      });
+    }
+
+    function getRegistrationsForPatternSlot(city, patternId, timeSlot) {
+      return registrations.filter(r => 
+        r.city === city && 
+        r.booking_type === 'regular_individual' && 
+        r.pattern_id === patternId &&
+        r.time_slot === timeSlot
+      );
+    }
+
+    function openGroupRegistrationModal() {
+      let summary = `Inscription groupée multi-villes\n\n`;
+      
+      multiCitySelections.forEach(citySelection => {
+        summary += `${citySelection.city} :\n`;
+        citySelection.patterns.forEach(pattern => {
+          const timeSlot = patternTimeSlots[`${citySelection.city}-${pattern.id}`];
+          summary += `  • ${pattern.label} : ${timeSlot} (${pattern.count} maraudes)\n`;
+        });
+        summary += '\n';
+      });
+      
+      const totalCount = multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0);
+      summary += `Total : ${totalCount} maraudes`;
+      
+      document.getElementById('modal-slot-info').textContent = summary;
+      document.getElementById('modal-slot-info').dataset.groupRegistration = 'true';
+      document.getElementById('company-name').value = '';
+      document.getElementById('contact-name').value = '';
+      document.getElementById('role').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('error-container').innerHTML = '';
+      document.getElementById('registration-modal').classList.add('active');
+    }
+
+    function openPatternRegistrationModal(patternId, timeSlot) {
+      const pattern = selectedPatterns.find(p => p.id === patternId);
+      if (!pattern) return;
+
+      selectedSlot = timeSlot;
+      
+      const modalInfo = `${selectedCity} - ${pattern.label} (${pattern.count} maraudes) - ${timeSlot}`;
+      
+      document.getElementById('modal-slot-info').textContent = modalInfo;
+      document.getElementById('modal-slot-info').dataset.patternId = patternId;
+      document.getElementById('modal-slot-info').dataset.groupRegistration = '';
+      document.getElementById('company-name').value = '';
+      document.getElementById('contact-name').value = '';
+      document.getElementById('role').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('error-container').innerHTML = '';
+      document.getElementById('registration-modal').classList.add('active');
+    }
+
+    function changeCity() {
+      selectedCity = null;
+      selectedDate = null;
+      selectedWeekday = null;
+      selectedSlot = null;
+      selectedPatterns = [];
+      bookingType = null;
+      document.getElementById('city-selection').style.display = 'block';
+      document.getElementById('booking-type-selection').style.display = 'none';
+      document.getElementById('unit-calendar-view').style.display = 'none';
+      document.getElementById('yearly-calendar-view').style.display = 'none';
+      document.getElementById('national-calendar-view').style.display = 'none';
+      document.getElementById('regular-patterns-view').style.display = 'none';
+      document.getElementById('unit-slots-view').classList.remove('active');
+      document.getElementById('yearly-slots-view').classList.remove('active');
+      document.getElementById('national-slots-view').classList.remove('active');
+      document.getElementById('regular-slots-view').classList.remove('active');
+    }
+
+    function renderPatterns() {
+      const grid = document.getElementById('patterns-grid');
+      grid.innerHTML = '';
+      const patterns = generatePatterns();
+      
+      const previousDisplay = document.getElementById('previous-selections-display');
+      const previousList = document.getElementById('previous-selections-list');
+      
+      if (multiCitySelections.length > 0) {
+        previousDisplay.style.display = 'block';
+        let html = '';
+        multiCitySelections.forEach(sel => {
+          const total = sel.patterns.reduce((sum, p) => sum + p.count, 0);
+          const patternNames = sel.patterns.map(p => p.label).join(', ');
+          html += `<div style="margin-bottom: 8px;"><strong>${sel.city}</strong> : ${patternNames} (${total} maraudes)</div>`;
+        });
+        previousList.innerHTML = html;
+      } else {
+        previousDisplay.style.display = 'none';
+      }
+
+      patterns.forEach(pattern => {
+        const card = document.createElement('div');
+        card.className = 'pattern-card';
+        card.setAttribute('data-pattern-id', pattern.id);
+        
+        const isSelected = selectedPatterns.some(p => p.id === pattern.id);
+        if (isSelected) {
+          card.classList.add('selected');
+        }
+
+        card.innerHTML = `
+          <div class="checkmark">✓</div>
+          <div class="pattern-name">${pattern.label}</div>
+          <div class="pattern-count">${pattern.count} maraudes/an</div>
+        `;
+
+        card.onclick = () => togglePattern(pattern);
+        grid.appendChild(card);
+      });
+
+      updateTotalCount();
+    }
+
+    function togglePattern(pattern) {
+      const index = selectedPatterns.findIndex(p => p.id === pattern.id);
+      
+      if (index > -1) {
+        selectedPatterns.splice(index, 1);
+      } else {
+        selectedPatterns.push(pattern);
+      }
+
+      renderPatterns();
+    }
+
+    function updateTotalCount() {
+      const previousTotal = multiCitySelections.reduce((sum, sel) => 
+        sum + sel.patterns.reduce((citySum, p) => citySum + p.count, 0), 0);
+      
+      const currentTotal = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
+      const total = previousTotal + currentTotal;
+      
+      document.getElementById('total-count-number').textContent = total;
+      
+      const banner = document.getElementById('total-count-display');
+      const btn = document.getElementById('confirm-patterns-btn');
+      const addCityBtn = document.getElementById('add-city-btn');
+      const achievementLogo = document.getElementById('achievement-logo');
+      
+      if (total > 0) {
+        banner.style.display = 'block';
+        btn.disabled = currentTotal === 0;
+        
+        if (companySize === 'large') {
+          addCityBtn.disabled = currentTotal === 0;
+          addCityBtn.style.display = 'block';
+        } else {
+          addCityBtn.style.display = 'none';
+        }
+        
+        if (total >= ACHIEVEMENT_THRESHOLD) {
+          if (companySize === 'large') {
+            achievementLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png';
+          } else {
+            achievementLogo.src = 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png';
+          }
+        } else {
+          if (companySize === 'large') {
+            achievementLogo.src = 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png';
+          } else {
+            achievementLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png';
+          }
+        }
+        achievementLogo.style.display = 'block';
+      } else {
+        banner.style.display = 'none';
+        btn.disabled = true;
+        if (addCityBtn) addCityBtn.disabled = true;
+        achievementLogo.style.display = 'none';
+      }
+    }
+
+    function addAnotherCity() {
+      if (selectedPatterns.length === 0) return;
+      
+      multiCitySelections.push({
+        city: selectedCity,
+        patterns: [...selectedPatterns]
+      });
+      
+      selectedPatterns = [];
+      selectedCity = null;
+      
+      document.getElementById('regular-patterns-view').style.display = 'none';
+      document.getElementById('city-selection').style.display = 'block';
+    }
+
+    function confirmPatterns() {
+      if (selectedPatterns.length === 0) return;
+      
+      multiCitySelections.push({
+        city: selectedCity,
+        patterns: [...selectedPatterns]
+      });
+      
+      if (multiCitySelections.length === 1 && selectedPatterns.length === 1) {
+        const totalCount = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
+        const patternsText = selectedPatterns.map(p => p.label).join(', ');
+        
+        document.getElementById('selected-patterns-info').textContent = patternsText;
+        document.getElementById('current-city-regular-slots').textContent = selectedCity;
+        document.getElementById('patterns-count-display').textContent = totalCount;
+        
+        document.getElementById('regular-patterns-view').style.display = 'none';
+        document.getElementById('regular-slots-view').classList.add('active');
+        renderRegularTimeSlots();
+      } else {
+        document.getElementById('regular-patterns-view').style.display = 'none';
+        document.getElementById('time-choice-view').style.display = 'block';
+        
+        const allPatterns = multiCitySelections.flatMap(sel => 
+          sel.patterns.map(p => `${sel.city} - ${p.label}`)
+        );
+        document.getElementById('patterns-summary').textContent = allPatterns.join(', ');
+      }
+    }
+
+    function generateDates() {
+      const dates = [];
+      const startDate = new Date(2027, 0, 1);
+      for (let i = 0; i < 31; i++) {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+        dates.push(date);
+      }
+      return dates;
+    }
+
+    function formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatDisplayDate(date) {
+      const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+      const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+      return {
+        day: days[date.getDay()],
+        date: date.getDate(),
+        month: months[date.getMonth()]
+      };
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendar-grid');
+      grid.innerHTML = '';
+      const dates = generateDates();
+
+      dates.forEach(date => {
+        const dateStr = formatDate(date);
+        const display = formatDisplayDate(date);
+        const card = document.createElement('div');
+        card.className = 'date-card';
+        if (selectedDate === dateStr) {
+          card.classList.add('selected');
+        }
+        card.innerHTML = `
+          <div class="day">${display.day} ${display.month}</div>
+          <div class="date">${display.date}</div>
+        `;
+        card.onclick = () => selectDate(dateStr);
+        grid.appendChild(card);
+      });
+    }
+
+    function renderWeekdays() {
+      const grid = document.getElementById('weekdays-grid');
+      grid.innerHTML = '';
+
+      WEEKDAYS.forEach(weekday => {
+        const card = document.createElement('div');
+        card.className = 'weekday-card';
+        if (selectedWeekday === weekday) {
+          card.classList.add('selected');
+        }
+        card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
+        card.onclick = () => selectWeekday(weekday);
+        grid.appendChild(card);
+      });
+    }
+
+    function selectDate(dateStr) {
+      selectedDate = dateStr;
+      const dateObj = new Date(selectedDate + 'T00:00:00Z');
+      const display = formatDisplayDate(dateObj);
+      const year = dateObj.getUTCFullYear();
+      document.getElementById('selected-date-info').textContent = 
+        `${display.day} ${display.date} ${display.month} ${year}`;
+      document.getElementById('current-city-unit-slots').textContent = selectedCity;
+      
+      document.getElementById('unit-calendar-view').style.display = 'none';
+      document.getElementById('unit-slots-view').classList.add('active');
+      renderTimeSlots();
+    }
+
+    function selectWeekday(weekday) {
+      selectedWeekday = weekday;
+      document.getElementById('selected-weekday-info').textContent = 
+        `Tous les ${weekday} (octobre 2026 à octobre 2027)`;
+      document.getElementById('current-city-yearly-slots').textContent = selectedCity;
+      
+      document.getElementById('yearly-calendar-view').style.display = 'none';
+      document.getElementById('yearly-slots-view').classList.add('active');
+      renderYearlyTimeSlots();
+    }
+
+    function renderRegularTimeSlotsMultiCity() {
+      const grid = document.getElementById('regular-slots-grid');
+      grid.innerHTML = '';
+
+      TIME_SLOTS.forEach(slot => {
+        const card = document.createElement('div');
+        card.className = 'slot-card';
+
+        card.innerHTML = `
+          <div class="slot-time">${slot}</div>
+          <div class="slot-participants">Disponible pour toutes vos sélections</div>
+          <div class="slot-price">800 €</div>
+        `;
+
+        card.onclick = () => openMultiCityRegistrationModal(slot);
+
+        grid.appendChild(card);
+      });
+    }
+
+    function openMultiCityRegistrationModal(slot) {
+      selectedSlot = slot;
+      
+      let summary = `Inscription groupée - ${slot}\n\n`;
+      
+      multiCitySelections.forEach(citySelection => {
+        summary += `${citySelection.city} :\n`;
+        citySelection.patterns.forEach(pattern => {
+          summary += `  • ${pattern.label} (${pattern.count} maraudes)\n`;
+        });
+        summary += '\n';
+      });
+      
+      const totalCount = multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0);
+      summary += `Total : ${totalCount} maraudes`;
+      
+      document.getElementById('modal-slot-info').textContent = summary;
+      document.getElementById('modal-slot-info').dataset.multiCity = 'true';
+      document.getElementById('company-name').value = '';
+      document.getElementById('contact-name').value = '';
+      document.getElementById('role').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('error-container').innerHTML = '';
+      document.getElementById('registration-modal').classList.add('active');
+    }
+
+    function selectNationalWeekday(weekday) {
+      selectedWeekday = weekday;
+      document.getElementById('selected-national-weekday-info').textContent = 
+        `Tous les ${weekday} dans toutes les villes (octobre 2026 à octobre 2027)`;
+      
+      document.getElementById('national-calendar-view').style.display = 'none';
+      document.getElementById('national-slots-view').classList.add('active');
+      renderNationalTimeSlots();
+    }
+
+    function renderNationalWeekdays() {
+      const grid = document.getElementById('national-weekdays-grid');
+      grid.innerHTML = '';
+
+      WEEKDAYS.forEach(weekday => {
+        const card = document.createElement('div');
+        card.className = 'weekday-card';
+        if (selectedWeekday === weekday) {
+          card.classList.add('selected');
+        }
+        card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
+        card.onclick = () => selectNationalWeekday(weekday);
+        grid.appendChild(card);
+      });
+    }
+
+    function getRegistrationsForSlot(city, bookingType, dateOrWeekdayOrPatterns, timeSlot) {
+      if (bookingType === 'unit') {
+        return registrations.filter(r => 
+          r.city === city && 
+          r.booking_type === 'unit' && 
+          r.date === dateOrWeekdayOrPatterns && 
+          r.time_slot === timeSlot
+        );
+      } else if (bookingType === 'yearly') {
+        return registrations.filter(r => 
+          r.city === city && 
+          r.booking_type === 'yearly' && 
+          r.weekday === dateOrWeekdayOrPatterns && 
+          r.time_slot === timeSlot
+        );
+      } else if (bookingType === 'national') {
+        return registrations.filter(r => 
+          r.booking_type === 'national' && 
+          r.weekday === dateOrWeekdayOrPatterns && 
+          r.time_slot === timeSlot
+        );
+      } else if (bookingType === 'regular') {
+        return registrations.filter(r => 
+          r.city === city && 
+          r.booking_type === 'regular' && 
+          r.patterns === dateOrWeekdayOrPatterns &&
+          r.time_slot === timeSlot
+        );
+      }
+    }
+
+    function renderTimeSlots() {
+      if (!selectedDate || !selectedCity) return;
+
+      const grid = document.getElementById('slots-grid');
+      grid.innerHTML = '';
+
+      TIME_SLOTS.forEach(slot => {
+        const slotRegistrations = getRegistrationsForSlot(selectedCity, 'unit', selectedDate, slot);
+        const isFull = slotRegistrations.length >= MAX_PARTICIPANTS_PER_SLOT;
+
+        const card = document.createElement('div');
+        card.className = 'slot-card';
+        if (isFull) {
+          card.classList.add('full');
+        }
+
+        let participantsList = '';
+        if (slotRegistrations.length > 0) {
+          participantsList = '<div class="slot-participants-list">';
+          slotRegistrations.forEach(reg => {
+            participantsList += `
+              <div class="participant-item">
+                <span>${reg.company_name} - ${reg.contact_name}</span>
+                <button class="remove-btn" onclick="removeRegistration('${reg.__backendId}', event)">✕</button>
+              </div>
+            `;
+          });
+          participantsList += '</div>';
+        }
+
+        card.innerHTML = `
+          <div class="slot-time">${slot}</div>
+          <div class="slot-participants">${slotRegistrations.length}/${MAX_PARTICIPANTS_PER_SLOT} place disponible</div>
+          <div class="slot-price">900 €</div>
+          ${participantsList}
+        `;
+
+        if (!isFull) {
+          card.onclick = () => openRegistrationModal(slot, 'unit');
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    function renderRegularTimeSlots() {
+      if (selectedPatterns.length === 0 || !selectedCity) return;
+
+      const grid = document.getElementById('regular-slots-grid');
+      grid.innerHTML = '';
+
+      const patternsString = JSON.stringify(selectedPatterns.map(p => p.id).sort());
+
+      TIME_SLOTS.forEach(slot => {
+        const slotRegistrations = getRegistrationsForSlot(selectedCity, 'regular', patternsString, slot);
+        const isFull = slotRegistrations.length >= MAX_PARTICIPANTS_PER_SLOT;
+
+        const card = document.createElement('div');
+        card.className = 'slot-card';
+        if (isFull) {
+          card.classList.add('full');
+        }
+
+        let participantsList = '';
+        if (slotRegistrations.length > 0) {
+          participantsList = '<div class="slot-participants-list">';
+          slotRegistrations.forEach(reg => {
+            participantsList += `
+              <div class="participant-item">
+                <span>${reg.company_name} - ${reg.contact_name}</span>
+                <button class="remove-btn" onclick="removeRegistration('${reg.__backendId}', event)">✕</button>
+              </div>
+            `;
+          });
+          participantsList += '</div>';
+        }
+
+        card.innerHTML = `
+          <div class="slot-time">${slot}</div>
+          <div class="slot-participants">${slotRegistrations.length}/${MAX_PARTICIPANTS_PER_SLOT} place disponible</div>
+          <div class="slot-price">800 €</div>
+          ${participantsList}
+        `;
+
+        if (!isFull) {
+          card.onclick = () => openRegistrationModal(slot, 'regular');
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    function renderYearlyTimeSlots() {
+      if (!selectedWeekday || !selectedCity) return;
+
+      const grid = document.getElementById('yearly-slots-grid');
+      grid.innerHTML = '';
+
+      TIME_SLOTS.forEach(slot => {
+        const slotRegistrations = getRegistrationsForSlot(selectedCity, 'yearly', selectedWeekday, slot);
+        const isFull = slotRegistrations.length >= MAX_PARTICIPANTS_PER_SLOT;
+
+        const card = document.createElement('div');
+        card.className = 'slot-card';
+        if (isFull) {
+          card.classList.add('full');
+        }
+
+        let participantsList = '';
+        if (slotRegistrations.length > 0) {
+          participantsList = '<div class="slot-participants-list">';
+          slotRegistrations.forEach(reg => {
+            participantsList += `
+              <div class="participant-item">
+                <span>${reg.company_name} - ${reg.contact_name}</span>
+                <button class="remove-btn" onclick="removeRegistration('${reg.__backendId}', event)">✕</button>
+              </div>
+            `;
+          });
+          participantsList += '</div>';
+        }
+
+        card.innerHTML = `
+          <div class="slot-time">${slot}</div>
+          <div class="slot-participants">${slotRegistrations.length}/${MAX_PARTICIPANTS_PER_SLOT} place disponible</div>
+          <div class="slot-price">800 €</div>
+          ${participantsList}
+        `;
+
+        if (!isFull) {
+          card.onclick = () => openRegistrationModal(slot, 'yearly');
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    function renderNationalTimeSlots() {
+      if (!selectedWeekday) return;
+
+      const grid = document.getElementById('national-slots-grid');
+      grid.innerHTML = '';
+
+      TIME_SLOTS.forEach(slot => {
+        const slotRegistrations = getRegistrationsForSlot('National', 'national', selectedWeekday, slot);
+        const isFull = slotRegistrations.length >= MAX_PARTICIPANTS_PER_SLOT;
+
+        const card = document.createElement('div');
+        card.className = 'slot-card';
+        if (isFull) {
+          card.classList.add('full');
+        }
+
+        let participantsList = '';
+        if (slotRegistrations.length > 0) {
+          participantsList = '<div class="slot-participants-list">';
+          slotRegistrations.forEach(reg => {
+            participantsList += `
+              <div class="participant-item">
+                <span>${reg.company_name} - ${reg.contact_name}</span>
+                <button class="remove-btn" onclick="removeRegistration('${reg.__backendId}', event)">✕</button>
+              </div>
+            `;
+          });
+          participantsList += '</div>';
+        }
+
+        card.innerHTML = `
+          <div class="slot-time">${slot}</div>
+          <div class="slot-participants">${slotRegistrations.length}/${MAX_PARTICIPANTS_PER_SLOT} place disponible</div>
+          <div class="slot-price">800 €</div>
+          ${participantsList}
+        `;
+
+        if (!isFull) {
+          card.onclick = () => openRegistrationModal(slot, 'national');
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    function openRegistrationModal(slot, type) {
+      selectedSlot = slot;
+      
+      let modalInfo = '';
+      if (type === 'unit') {
+        const dateObj = new Date(selectedDate);
+        const display = formatDisplayDate(dateObj);
+        modalInfo = `${selectedCity} - ${display.day} ${display.date} ${display.month} - ${slot}`;
+      } else if (type === 'yearly') {
+        modalInfo = `${selectedCity} - Tous les ${selectedWeekday} (novembre 2026 à novembre 2027) - ${slot}`;
+      } else if (type === 'national') {
+        modalInfo = `Toutes les villes - Tous les ${selectedWeekday} (novembre 2026 à novembre 2027) - ${slot}`;
+      } else if (type === 'regular') {
+        const totalCount = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
+        const patternsText = selectedPatterns.map(p => p.label).join(', ');
+        modalInfo = `${selectedCity} - ${patternsText} (${totalCount} maraudes) - ${slot}`;
+      }
+      
+      document.getElementById('modal-slot-info').textContent = modalInfo;
+      document.getElementById('company-name').value = '';
+      document.getElementById('contact-name').value = '';
+      document.getElementById('role').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('error-container').innerHTML = '';
+      document.getElementById('registration-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('registration-modal').classList.remove('active');
+      document.getElementById('modal-slot-info').dataset.patternId = '';
+      document.getElementById('modal-slot-info').dataset.groupRegistration = '';
+      document.getElementById('modal-slot-info').dataset.multiCity = '';
+      selectedSlot = null;
+    }
+
+    async function submitRegistration(event) {
+      event.preventDefault();
+      
+      if (isLoading) return;
+      
+      const companyName = document.getElementById('company-name').value.trim();
+      const contactName = document.getElementById('contact-name').value.trim();
+      const role = document.getElementById('role').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      
+      if (!companyName || !contactName || !role || !email || !phone) return;
+
+      const modalInfo = document.getElementById('modal-slot-info');
+      const isGroupRegistration = modalInfo.dataset.groupRegistration === 'true';
+      const isMultiCity = modalInfo.dataset.multiCity === 'true';
+
+      if (isGroupRegistration || isMultiCity) {
+        const totalInscriptions = multiCitySelections.flatMap(sel => sel.patterns).length;
+        if (registrations.length + totalInscriptions >= 999) {
+          showError('Limite maximale de 999 inscriptions atteinte. Veuillez supprimer des inscriptions existantes.');
+          return;
+        }
+      } else {
+        if (registrations.length >= 999) {
+          showError('Limite maximale de 999 inscriptions atteinte. Veuillez supprimer des inscriptions existantes.');
+          return;
+        }
+      }
+
+      isLoading = true;
+      document.getElementById('submit-btn').disabled = true;
+      document.getElementById('submit-btn').textContent = 'Inscription...';
+
+      const patternId = modalInfo.dataset.patternId;
+
+      if (isMultiCity) {
+        let allSuccess = true;
+        
+        for (const citySelection of multiCitySelections) {
+          for (const pattern of citySelection.patterns) {
+            const registrationData = {
+              city: citySelection.city,
+              booking_type: 'regular_individual',
+              company_size: companySize,
+              time_slot: selectedSlot,
+              company_name: companyName,
+              contact_name: contactName,
+              role: role,
+              email: email,
+              phone: phone,
+              date: null,
+              weekday: null,
+              patterns: null,
+              pattern_id: pattern.id,
+              created_at: new Date().toISOString()
+            };
+
+            const result = await window.dataSdk.create(registrationData);
+            
+            if (!result.isOk) {
+              allSuccess = false;
+              break;
+            }
+          }
+          if (!allSuccess) break;
+        }
+
+        isLoading = false;
+        document.getElementById('submit-btn').disabled = false;
+        document.getElementById('submit-btn').textContent = 'Confirmer';
+
+        if (allSuccess) {
+          closeModal();
+          document.getElementById('regular-slots-view').classList.remove('active');
+          document.getElementById('booking-type-selection').style.display = 'block';
+          selectedPatterns = [];
+          multiCitySelections = [];
+          patternTimeSlots = {};
+        } else {
+          showError('Erreur lors de l\'inscription multi-villes. Veuillez réessayer.');
+        }
+      } else if (isGroupRegistration) {
+        let allSuccess = true;
+        
+        for (const citySelection of multiCitySelections) {
+          for (const pattern of citySelection.patterns) {
+            const timeSlot = patternTimeSlots[`${citySelection.city}-${pattern.id}`];
+            
+            const registrationData = {
+              city: citySelection.city,
+              booking_type: 'regular_individual',
+              company_size: companySize,
+              time_slot: timeSlot,
+              company_name: companyName,
+              contact_name: contactName,
+              role: role,
+              email: email,
+              phone: phone,
+              date: null,
+              weekday: null,
+              patterns: null,
+              pattern_id: pattern.id,
+              created_at: new Date().toISOString()
+            };
+
+            const result = await window.dataSdk.create(registrationData);
+            
+            if (!result.isOk) {
+              allSuccess = false;
+              break;
+            }
+          }
+          if (!allSuccess) break;
+        }
+
+        isLoading = false;
+        document.getElementById('submit-btn').disabled = false;
+        document.getElementById('submit-btn').textContent = 'Confirmer';
+
+        if (allSuccess) {
+          closeModal();
+          document.getElementById('pattern-times-view').style.display = 'none';
+          document.getElementById('booking-type-selection').style.display = 'block';
+          selectedPatterns = [];
+          multiCitySelections = [];
+          patternTimeSlots = {};
+        } else {
+          showError('Erreur lors de l\'inscription groupée. Veuillez réessayer.');
+        }
+      } else {
+        const registrationData = {
+          city: bookingType === 'national' ? 'National' : selectedCity,
+          booking_type: patternId ? 'regular_individual' : bookingType,
+          company_size: companySize,
+          time_slot: selectedSlot,
+          company_name: companyName,
+          contact_name: contactName,
+          role: role,
+          email: email,
+          phone: phone,
+          created_at: new Date().toISOString()
+        };
+
+        if (bookingType === 'unit') {
+          registrationData.date = selectedDate;
+          registrationData.weekday = null;
+          registrationData.patterns = null;
+          registrationData.pattern_id = null;
+        } else if (bookingType === 'regular' && patternId) {
+          registrationData.date = null;
+          registrationData.weekday = null;
+          registrationData.patterns = null;
+          registrationData.pattern_id = patternId;
+        } else if (bookingType === 'regular') {
+          registrationData.date = null;
+          registrationData.weekday = null;
+          registrationData.patterns = JSON.stringify(selectedPatterns.map(p => p.id).sort());
+          registrationData.pattern_id = null;
+        } else {
+          registrationData.date = null;
+          registrationData.weekday = selectedWeekday;
+          registrationData.patterns = null;
+          registrationData.pattern_id = null;
+        }
+
+        const result = await window.dataSdk.create(registrationData);
+
+        isLoading = false;
+        document.getElementById('submit-btn').disabled = false;
+        document.getElementById('submit-btn').textContent = 'Confirmer';
+
+        if (result.isOk) {
+          closeModal();
+        } else {
+          showError('Erreur lors de l\'inscription. Veuillez réessayer.');
+        }
+      }
+    }
+
+    async function removeRegistration(backendId, event) {
+      event.stopPropagation();
+      
+      if (isLoading) return;
+
+      const registration = registrations.find(r => r.__backendId === backendId);
+      if (!registration) return;
+
+      isLoading = true;
+      const result = await window.dataSdk.delete(registration);
+      isLoading = false;
+
+      if (!result.isOk) {
+        showError('Erreur lors de la suppression. Veuillez réessayer.');
+      }
+    }
+
+    function showError(message) {
+      const container = document.getElementById('error-container');
+      container.innerHTML = `<div class="error-message">${message}</div>`;
+    }
+
+    const dataHandler = {
+      onDataChanged(data) {
+        registrations = data;
+        if (bookingType === 'unit') {
+          renderTimeSlots();
+        } else if (bookingType === 'yearly') {
+          renderYearlyTimeSlots();
+        } else if (bookingType === 'national') {
+          renderNationalTimeSlots();
+        } else if (bookingType === 'regular') {
+          renderRegularTimeSlots();
+        }
+        
+        if (document.getElementById('pattern-individual-slots-view').classList.contains('active')) {
+          renderPatternIndividualSlots();
+        }
+      }
+    };
+
+    async function onConfigChange(config) {
+      const titleElement = document.getElementById('calendar-title');
+      const instructionsElement = document.getElementById('instructions-text');
+      
+      titleElement.textContent = config.calendar_title || defaultConfig.calendar_title;
+      instructionsElement.textContent = config.instructions_text || defaultConfig.instructions_text;
+
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      titleElement.style.fontSize = `${baseSize * 2}px`;
+      instructionsElement.style.fontSize = `${baseSize}px`;
+
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+      document.body.style.background = backgroundColor;
+      
+      document.querySelectorAll('.date-card, .slot-card, .city-card, .booking-type-card, .weekday-card, .pattern-card').forEach(card => {
+        if (!card.classList.contains('selected')) {
+          card.style.background = 'linear-gradient(180deg, #731919, #e52b2b)';
+        }
+      });
+
+      document.querySelectorAll('.date-card.selected, .weekday-card.selected').forEach(card => {
+        card.style.background = primaryColor;
+        card.style.borderColor = primaryColor;
+      });
+
+      document.querySelectorAll('h1').forEach(h1 => {
+        h1.style.color = textColor;
+      });
+
+      document.querySelectorAll('.btn-primary').forEach(btn => {
+        btn.style.background = primaryColor;
+      });
+
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.style.background = secondaryColor;
+      });
+    }
+
+    document.getElementById('cancel-btn').onclick = closeModal;
+    document.getElementById('registration-form').onsubmit = submitRegistration;
+
+    if (window.dataSdk) {
+      window.dataSdk.init(dataHandler);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig: defaultConfig,
+        onConfigChange: onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => {
+                config.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => {
+                config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => {
+                config.secondary_action_color = value;
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['calendar_title', config.calendar_title || defaultConfig.calendar_title],
+          ['instructions_text', config.instructions_text || defaultConfig.instructions_text]
+        ])
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e92ce2ec1bd9ebb',t:'MTc3NTY2NzM4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
