@@ -3,194 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programme Apporteur Philobaucis | Officiel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Calculateur La Poste - IA Logistique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
-        :root {
-            --grad: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
-            --glow: rgba(196, 25, 25, 0.15);
-            --dark: #0a0a0c;
-            --card: #141418;
-            --text: #ffffff;
-            --muted: #a1a1aa;
-            --border: rgba(255, 255, 255, 0.08);
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: inner-spin-button !important;
+            opacity: 1 !important; display: block !important; height: auto !important; cursor: pointer;
         }
-
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        
-        /* SIDEBAR */
-        .sidebar { width: 300px; background: #000; padding: 40px 20px; display: flex; flex-direction: column; border-right: 1px solid var(--border); flex-shrink: 0; }
-        .logo { font-weight: 800; font-size: 1.3rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; }
-        .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-group { display: flex; flex-direction: column; gap: 8px; }
-        .nav-item { padding: 12px 18px; border-radius: 10px; cursor: pointer; transition: 0.3s; color: var(--muted); font-weight: 600; font-size: 0.9rem; }
-        .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
-        .nav-item.active { background: var(--grad); color: white; }
-
-        /* MAIN VIEW */
-        .main-view { flex: 1; padding: 40px 60px; overflow-y: auto; background: radial-gradient(circle at top right, rgba(196, 25, 25, 0.05), transparent); scroll-behavior: smooth; }
-        .tab-content { display: none; max-width: 1000px; animation: fadeIn 0.4s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
-        h2 { color: #c41919; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; font-weight: 800; }
-        p { font-size: 1.05rem; line-height: 1.6; color: #d1d5db; margin-bottom: 20px; }
-
-        /* EFFET HALO SURVOL */
-        .glow-card { background: var(--card); border: 1px solid var(--border); transition: all 0.3s ease; border-radius: 16px; }
-        .glow-card:hover { border-color: #c41919; background: var(--glow); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(196, 25, 25, 0.1); }
-
-        /* TABLEAU DES 4 PALIERS */
-        .example-container { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-top: 10px; }
-        .example-header { background: rgba(255,255,255,0.03); padding: 15px 20px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 150px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; color: var(--muted); }
-        .example-row { padding: 12px 20px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 150px; align-items: center; transition: 0.2s; }
-        .example-row img { width: 40px; height: auto; }
-        .medal-name { font-weight: 700; font-size: 1.1rem; color: #fff; }
-        .commission-val { color: #c41919; font-weight: 800; font-size: 1.3rem; }
-        .recurring-badge { background: var(--grad); padding: 3px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 800; display: inline-block; margin-top: 4px; }
-
-        /* CARTES STRATÉGIE (QUI VISER) */
-        .target-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
-        .target-card { padding: 30px 20px; display: flex; flex-direction: column; }
-        .target-icon { font-size: 2.2rem; margin-bottom: 15px; display: block; }
-        .target-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; color: #fff; text-transform: uppercase; }
-        .target-card ul { padding: 0; list-style: none; margin-top: 15px; }
-        .target-card li { font-size: 0.9rem; color: #d1d5db; margin-bottom: 8px; padding-left: 15px; position: relative; }
-        .target-card li::before { content: '→'; position: absolute; left: 0; color: #c41919; font-weight: bold; }
-        .badge-budget { display: inline-block; background: rgba(196, 25, 25, 0.2); color: #ff4d4d; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-top: auto; align-self: flex-start; }
-
-        /* ÉTAPES */
-        .step-item { display: flex; gap: 20px; margin-bottom: 15px; padding: 25px; }
-        .step-num { width: 40px; height: 40px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
-        .legal-box { margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px dashed #c41919; border-radius: 8px; font-size: 0.9rem; color: #ff4d4d; }
-
-        .btn-main { background: var(--grad); color: white; padding: 18px 35px; border-radius: 10px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 25px; transition: 0.3s; }
-        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(196, 25, 25, 0.3); }
-
-        @media (max-width: 1100px) { body { flex-direction: column; overflow: auto; } .sidebar { width: 100%; height: auto; } .main-view { padding: 30px 20px; } .target-container, .example-row { grid-template-columns: 1fr; } }
+        .bar-gap {
+            background-color: #facc15;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.4) 5px, rgba(255,255,255,0.4) 10px);
+        }
+        .rotate-180 { transform: rotate(180deg); }
+        .unlock-anim { animation: fadeOutUp 0.5s forwards; }
+        @keyframes fadeOutUp { to { opacity: 0; transform: translateY(-50px); visibility: hidden; pointer-events: none; } }
+        .hole-rect { cursor: crosshair; transition: opacity 0.2s; }
+        .hole-rect:hover { opacity: 0.9 !important; stroke: #854d0e; stroke-width: 3px; }
     </style>
 </head>
-<body>
+<body class="p-0 text-slate-800 relative h-screen w-screen overflow-hidden" id="main-body">
 
-    <aside class="sidebar">
-        <div class="logo">PHILO<span>BAUCIS</span></div>
-        <div class="nav-group">
-            <div class="nav-item active" onclick="openTab(event, 'home')">Initiative & Gains</div>
-            <div class="nav-item" onclick="openTab(event, 'cible')">🎯 Stratégie</div>
-            <div class="nav-item" onclick="openTab(event, 'steps')">⚙️ Comment ça marche ?</div>
-        </div>
-        <div style="margin-top: auto; font-size: 0.75rem; color: var(--muted);">
-            Lancement Novembre 2026<br>
-            j.zamor@philobaucis.fr
-        </div>
-    </aside>
-
-    <main class="main-view">
-        
-        <div id="home" class="tab-content active">
-            <h2>L'opportunité Novembre 2026</h2>
-            <h1>Parole aux PRÉCAIRES : <br><span style="color: #c41919;">Bâtissez votre rente.</span></h1>
-            <p>Initiative nationale historique pour soutenir les associations. Nous récompensons votre réseau avec une rente cumulative illimitée.</p>
-            
-            <div class="example-container">
-                <div class="example-header">
-                    <div>Médaille</div>
-                    <div>Palier</div>
-                    <div>Valeur Contrat</div>
-                    <div>Votre Rente / an</div>
-                </div>
-                <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/4y3qP2DX/philobaucis-logo-(10).png" alt="Diamant">
-                    <div class="medal-name">Diamant</div>
-                    <div class="contract-val">2 080 000 €</div>
-                    <div><div class="commission-val">104 000 €</div><span class="recurring-badge">RÉCURRENT</span></div>
-                </div>
-                <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Or">
-                    <div class="medal-name">Or</div>
-                    <div class="contract-val">1 040 000 €</div>
-                    <div><div class="commission-val">52 000 €</div><span class="recurring-badge">RÉCURRENT</span></div>
-                </div>
-                <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Argent">
-                    <div class="medal-name">Argent</div>
-                    <div class="contract-val">104 000 €</div>
-                    <div><div class="commission-val">5 200 €</div><span class="recurring-badge">RÉCURRENT</span></div>
-                </div>
-                <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Bronze">
-                    <div class="medal-name">Bronze</div>
-                    <div class="contract-val">24 000 €</div>
-                    <div><div class="commission-val">1 200 €</div><span class="recurring-badge">RÉCURRENT</span></div>
-                </div>
+    <div id="auth-screen" class="absolute inset-0 z-[999] bg-slate-900 flex flex-col items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full border-t-4 border-teal-500 text-center">
+            <div class="text-4xl mb-2">📍</div>
+            <h1 class="text-2xl font-extrabold text-slate-800">Accès Sécurisé</h1>
+            <p class="text-sm text-slate-500 mb-6">Validation sur site par GPS</p>
+            <div class="space-y-4">
+                <select id="auth-site" class="w-full p-3 border border-slate-300 rounded-lg bg-slate-50 text-sm font-bold focus:ring-teal-500 outline-none"></select>
+                <div id="auth-error" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-3 text-xs font-bold rounded"></div>
+                <button onclick="attemptLogin()" id="btn-login" class="w-full py-3 bg-gradient-to-r from-teal-600 to-cyan-700 text-white font-bold rounded-lg shadow-lg">Vérifier et Accéder</button>
             </div>
         </div>
+    </div>
 
-        <div id="cible" class="tab-content">
-            <h2>Stratégie de Contact</h2>
-            <h1>Quels profils activer ?</h1>
-            <div class="target-container">
-                <div class="target-card glow-card">
-                    <span class="target-icon">🏆</span>
-                    <h3>PME & Grands Groupes</h3>
-                    <p>Dès 50 salariés, le potentiel financier est déjà considérable pour changer votre vie.</p>
-                    <span class="badge-budget">Toutes tailles acceptées</span>
-                </div>
-                <div class="target-card glow-card">
-                    <span class="target-icon">🤝</span>
-                    <h3>Décideurs Clés</h3>
-                    <ul>
-                        <li>Directions Générales</li>
-                        <li>Directeurs Com & RH</li>
-                    </ul>
-                </div>
-                <div class="target-card glow-card">
-                    <span class="target-icon">💡</span>
-                    <h3>Arguments</h3>
-                    <ul>
-                        <li>Visibilité Prime-Time TV</li>
-                        <li>Caution Sociale Forte</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div id="app-content" class="h-full overflow-y-auto p-4 md:p-8 opacity-0 transition-opacity duration-700">
+        <div id="hole-tooltip" class="absolute pointer-events-none hidden bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-xl z-50 border border-slate-600 transform -translate-x-1/2 -translate-y-[120%]"></div>
 
-        <div id="steps" class="tab-content">
-            <h2>Processus</h2>
-            <div class="step-item glow-card">
-                <div class="step-num">1</div>
-                <div class="step-text"><h3>Validation</h3><p>Contactez-nous pour valider votre prospect.</p></div>
+        <div class="max-w-7xl mx-auto space-y-6">
+            <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-8 text-white shadow-xl text-center">
+                <h1 class="text-3xl font-extrabold">🚚 Calculateur de Chargement</h1>
+                <p class="text-teal-100">Semi-Remorque 13,30m x 2,40m</p>
             </div>
-            <div class="step-item glow-card">
-                <div class="step-num">2</div>
-                <div class="step-text"><h3>Mise en Relation</h3><p>Introduction avec le décideur. Un simple mail suffit.</p></div>
-            </div>
-            <div class="step-item glow-card" style="border-left: 4px solid #c41919;">
-                <div class="step-num">4</div>
-                <div class="step-text">
-                    <h3>Rente & Structure</h3>
-                    <p>Percevez 5% chaque année de manière récurrente.</p>
-                    <div class="legal-box">
-                        <strong>⚠️ IMPORTANT :</strong> Structure juridique (Auto-entreprise, etc.) obligatoire pour facturer.
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <div class="xl:col-span-2 space-y-6">
+                    
+                    <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
+                        <h2 class="text-xl font-bold mb-4">📦 Éléments Obligatoires (Pleins)</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                                <h3 class="font-bold text-blue-900 mb-2 border-b border-blue-200">CPR (0.84x0.60)</h3>
+                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
+                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
+                                    <span class="font-bold">SOL</span><input type="number" id="cpr-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cpr-n-larg" class="w-full p-1 border rounded calc-trigger">
+                                    <span class="font-bold">GERBÉ</span><input type="number" id="cpr-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cpr-g-larg" class="w-full p-1 border rounded calc-trigger">
+                                </div>
+                            </div>
+                            <div class="bg-green-50 p-3 rounded-xl border border-green-200">
+                                <h3 class="font-bold text-green-900 mb-2 border-b border-green-200">Palette (1.20x0.80)</h3>
+                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
+                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
+                                    <span class="font-bold">SOL</span><input type="number" id="pal-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="pal-n-larg" class="w-full p-1 border rounded calc-trigger">
+                                    <span class="font-bold">GERBÉ</span><input type="number" id="pal-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="pal-g-larg" class="w-full p-1 border rounded calc-trigger">
+                                </div>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
+                                <h3 class="font-bold text-purple-900 mb-2 border-b border-purple-200">CP (1.20x0.84)</h3>
+                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
+                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
+                                    <span class="font-bold">SOL</span><input type="number" id="cp-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cp-n-larg" class="w-full p-1 border rounded calc-trigger">
+                                    <span class="font-bold">GERBÉ</span><input type="number" id="cp-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cp-g-larg" class="w-full p-1 border rounded calc-trigger">
+                                </div>
+                            </div>
+                            <div class="bg-pink-50 p-3 rounded-xl border border-pink-200">
+                                <h3 class="font-bold text-pink-900 mb-2 border-b border-pink-200">CE (1.00x0.50)</h3>
+                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
+                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
+                                    <span class="font-bold">SOL</span><input type="number" id="ce-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="ce-n-larg" class="w-full p-1 border rounded calc-trigger">
+                                    <span class="font-bold">GERBÉ</span><input type="number" id="ce-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="ce-g-larg" class="w-full p-1 border rounded calc-trigger">
+                                </div>
+                            </div>
+                            <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
+                                <h3 class="font-bold text-indigo-900 mb-2 border-b border-indigo-200">CDP (1.20x1.00)</h3>
+                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
+                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
+                                    <span class="font-bold">SOL</span><input type="number" id="cdp-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cdp-n-larg" class="w-full p-1 border rounded calc-trigger">
+                                    <span class="font-bold">GERBÉ</span><input type="number" id="cdp-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cdp-g-larg" class="w-full p-1 border rounded calc-trigger">
+                                </div>
+                            </div>
+                            <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
+                                <h3 class="font-bold text-orange-900 mb-2 border-b border-orange-200">Kubs (0.60x0.60)</h3>
+                                <div class="grid grid-cols-2 gap-2 text-[10px] items-center">
+                                    <span></span><span class="text-center font-bold text-orange-800">CARRÉ</span>
+                                    <span class="font-bold">SOL</span><input type="number" id="kub-n-long" class="w-full p-1 border rounded calc-trigger">
+                                    <span class="font-bold">GERBÉ</span><input type="number" id="kub-g-long" class="w-full p-1 border rounded calc-trigger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+                        <button onclick="toggleSection('empty-block-content', 'empty-toggle-icon')" class="w-full p-5 text-left hover:bg-slate-50 flex justify-between items-center outline-none">
+                            <div>
+                                <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2>
+                                <p class="text-xs text-slate-500">Kubs (max 5/pile) et Palettes vides.</p>
+                            </div>
+                            <div class="bg-slate-100 p-2 rounded-full">
+                                <svg id="empty-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </button>
+                        <div id="empty-block-content" class="hidden px-5 pb-5 border-t border-slate-100 pt-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 border-dashed">
+                                    <h4 class="font-bold text-orange-900 mb-1">Kubs Vides</h4>
+                                    <input type="number" id="kubv-tot" class="w-full p-2 border border-orange-200 rounded text-sm calc-trigger" placeholder="Quantité totale">
+                                </div>
+                                <div class="bg-green-50 p-3 rounded-xl border border-green-200 border-dashed">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <h4 class="font-bold text-green-900">Palettes Vides</h4>
+                                        <div class="flex gap-1">
+                                            <button class="px-2 py-0.5 rounded text-[10px] border bg-green-600 text-white font-bold" onclick="setOri('palv', 'long', 'green', this)">LONG.</button>
+                                            <button class="px-2 py-0.5 rounded text-[10px] border bg-white text-green-600" onclick="setOri('palv', 'larg', 'green', this)">LARG.</button>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <input type="number" id="palv-tot" class="w-1/2 p-2 border border-green-200 rounded text-sm calc-trigger" placeholder="Tot.">
+                                        <input type="number" id="palv-stk" class="w-1/2 p-2 border border-green-200 rounded text-sm calc-trigger" placeholder="Par pile">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md border-2 border-indigo-200 overflow-hidden">
+                        <button onclick="toggleSection('custom-block-content', 'custom-toggle-icon')" class="w-full p-5 text-left hover:bg-slate-50 flex justify-between items-center">
+                            <h2 class="text-lg font-bold text-indigo-900">🎨 Forcer un Bloc Mixte</h2>
+                            <div class="bg-indigo-100 p-2 rounded-full"><svg id="custom-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                        </button>
+                        <div id="custom-block-content" class="hidden px-5 pb-5 border-t border-indigo-100 pt-4">
+                            <div id="custom-inputs" class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-3">
+                                <div class="text-[10px]"><label class="font-bold">CPR</label><input type="number" id="c-cpr" class="w-full border rounded p-1 custom-trigger"></div>
+                                <div class="text-[10px]"><label class="font-bold">PAL</label><input type="number" id="c-pal" class="w-full border rounded p-1 custom-trigger"></div>
+                                <div class="text-[10px]"><label class="font-bold">CP</label><input type="number" id="c-cp" class="w-full border rounded p-1 custom-trigger"></div>
+                                <div class="text-[10px]"><label class="font-bold">KUB</label><input type="number" id="c-kub" class="w-full border rounded p-1 custom-trigger"></div>
+                                <div class="text-[10px]"><label class="font-bold">CE</label><input type="number" id="c-ce" class="w-full border rounded p-1 custom-trigger"></div>
+                                <div class="text-[10px]"><label class="font-bold">CDP</label><input type="number" id="c-cdp" class="w-full border rounded p-1 custom-trigger"></div>
+                            </div>
+                            <button id="btn-add-custom" onclick="addCustomRow()" class="w-full py-2 bg-indigo-600 text-white text-xs font-bold rounded shadow disabled:bg-slate-300">➕ AJOUTER LE BLOC</button>
+                            <div id="custom-list" class="mt-2 space-y-1"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 rounded-xl shadow-md border border-orange-200 overflow-hidden">
+                        <button onclick="toggleSection('stock-block-content', 'stock-toggle-icon')" class="w-full p-5 text-left hover:bg-orange-100/50 flex justify-between items-center">
+                            <h2 class="text-lg font-bold text-orange-900">🎯 Compléter avec le Stock</h2>
+                            <div class="bg-orange-200 p-2 rounded-full"><svg id="stock-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                        </button>
+                        <div id="stock-block-content" class="hidden px-5 pb-5 border-t border-orange-200 pt-4">
+                            <div class="grid grid-cols-4 md:grid-cols-7 gap-2 mb-4">
+                                <div><label class="text-[9px] font-bold block">CPR</label><input type="number" id="stk-cpr" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">PAL</label><input type="number" id="stk-pal" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">CP</label><input type="number" id="stk-cp" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">KUB</label><input type="number" id="stk-kub" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">CE</label><input type="number" id="stk-ce" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">CDP</label><input type="number" id="stk-cdp" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">KV</label><input type="number" id="stk-kubv" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                            </div>
+                            <div id="stock-summary" class="bg-white p-2 rounded border border-orange-200 text-[10px] hidden"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-br from-emerald-600 to-green-700 text-white p-6 rounded-2xl shadow-2xl sticky top-6">
+                        <h2 class="text-xl font-bold mb-4">📊 Remplissage</h2>
+                        <div class="flex justify-between items-end mb-2">
+                            <div><div class="text-[10px] font-bold uppercase">Utilisé</div><div class="text-3xl font-bold" id="res-used">0.00 m</div></div>
+                            <div class="text-right"><div class="text-[10px] font-bold uppercase">Restant</div><div class="text-3xl font-bold text-yellow-300" id="res-remain">13.30 m</div></div>
+                        </div>
+                        <div class="w-full bg-black/20 rounded-full h-6 overflow-hidden mb-6">
+                            <div id="main-progress-bar" class="bg-white h-full flex items-center justify-center text-[10px] font-bold text-green-800 transition-all duration-500" style="width: 0%">0%</div>
+                        </div>
+                        <div class="pt-4 border-t border-green-500/50">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] font-bold uppercase">Plan de chargement</span>
+                            </div>
+                            <div class="overflow-x-auto bg-slate-50 p-2 rounded-lg border-2 border-green-500" id="svg-container"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div style="text-align: center;"><a href="mailto:j.zamor@philobaucis.fr" class="btn-main">DEVENIR APPORTEUR</a></div>
         </div>
-
-    </main>
+    </div>
 
     <script>
-        function openTab(evt, tabName) {
-            var i, tabcontent, navitems;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
-            navitems = document.getElementsByClassName("nav-item");
-            for (i = 0; i < navitems.length; i++) { navitems[i].classList.remove("active"); }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.classList.add("active");
+        // --- 1. CONFIGURATION & DONNÉES ---
+        const TRUCK_L = 1330; const TRUCK_W = 240;
+        const DIMS = {
+            cpr: { long: {w: 60, d: 84}, larg: {w: 84, d: 60} },
+            pal: { long: {w: 80, d: 120}, larg: {w: 120, d: 80} },
+            cp:  { long: {w: 84, d: 120}, larg: {w: 120, d: 84} },
+            kub: { long: {w: 60, d: 60}, larg: {w: 60, d: 60} },
+            ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },
+            cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }
+        };
+        const LABELS = { cpr:'CPR', pal:'PAL', cp:'CP', kub:'KUB', ce:'CE', cdp:'CDP', kubv:'Kub V' };
+        const COLORS = { cpr:'#3b82f6', pal:'#22c55e', cp:'#a855f7', kub:'#f97316', ce:'#ec4899', cdp:'#6366f1' };
+        
+        let STATE = { palv: 'long' };
+        let customRows = [];
+
+        const SITES_BDD = {
+            "pic_lognes": { nom: "PIC Paris Lognes", lat: 48.835, lng: 2.628, rayon: 500 },
+            "test_mode": { nom: "Mode Test (Partout)", lat: 0, lng: 0, rayon: 99999999 }
+        };
+
+        // --- 2. FONCTIONS UI ---
+        function toggleSection(contentId, iconId) {
+            document.getElementById(contentId).classList.toggle('hidden');
+            document.getElementById(iconId).classList.toggle('rotate-180');
         }
+
+        function setOri(prod, ori, color, btn) {
+            STATE[prod] = ori;
+            Array.from(btn.parentNode.children).forEach(b => b.className = "px-2 py-0.5 rounded text-[10px] border bg-white text-green-600");
+            btn.className = `px-2 py-0.5 rounded text-[10px] border bg-${color}-600 text-white font-bold`;
+            calc();
+        }
+
+        // --- 3. MOTEUR DE CALCUL (ALGORITHME) ---
+        function getVal(id) {
+            const el = document.getElementById(id);
+            if(!el) return 0;
+            const val = parseInt(el.value);
+            return isNaN(val) || val < 0 ? 0 : val;
+        }
+
+        function calc() {
+            let itemsToPlace = [];
+            
+            // A. Ajout des éléments Pleins
+            const addManual = (type, ori, qN, qG, ratio = 2) => {
+                const d = DIMS[type][ori];
+                for(let i=0; i<qN; i++) itemsToPlace.push({ type, w: d.w, d: d.d, stacked: false });
+                if(qG > 0) {
+                    const piles = Math.ceil(qG / ratio);
+                    for(let i=0; i<piles; i++) itemsToPlace.push({ type, w: d.w, d: d.d, stacked: true, count: ratio });
+                }
+            };
+
+            addManual('cpr', 'long', getVal('cpr-n-long'), getVal('cpr-g-long'));
+            addManual('cpr', 'larg', getVal('cpr-n-larg'), getVal('cpr-g-larg'));
+            addManual('pal', 'long', getVal('pal-n-long'), getVal('pal-g-long'));
+            addManual('pal', 'larg', getVal('pal-n-larg'), getVal('pal-g-larg'));
+            addManual('cp', 'long', getVal('cp-n-long'), getVal('cp-g-long'));
+            addManual('cp', 'larg', getVal('cp-n-larg'), getVal('cp-g-larg'));
+            addManual('ce', 'long', getVal('ce-n-long'), getVal('ce-g-long'));
+            addManual('ce', 'larg', getVal('ce-n-larg'), getVal('ce-g-larg'));
+            addManual('cdp', 'long', getVal('cdp-n-long'), getVal('cdp-g-long'));
+            addManual('cdp', 'larg', getVal('cdp-n-larg'), getVal('cdp-g-larg'));
+            addManual('kub', 'long', getVal('kub-n-long'), getVal('kub-g-long'));
+
+            // B. Ajout du Matériel Vide (Accordéon)
+            const kubv = getVal('kubv-tot');
+            if(kubv > 0) {
+                const piles = Math.ceil(kubv / 5);
+                for(let i=0; i<piles; i++) itemsToPlace.push({ type:'kub', w:60, d:60, stacked: true, isVide: true, count: 5 });
+            }
+            const palv = getVal('palv-tot');
+            const palvStk = getVal('palv-stk') || 10;
+            if(palv > 0) {
+                const piles = Math.ceil(palv / palvStk);
+                const d = DIMS.pal[STATE.palv];
+                for(let i=0; i<piles; i++) itemsToPlace.push({ type:'pal', w: d.w, d: d.d, stacked: true, isVide: true, count: palvStk });
+            }
+
+            // C. Tri et Packing (Skyline)
+            itemsToPlace.sort((a,b) => (b.w * b.d) - (a.w * a.d));
+            let skyline = new Array(TRUCK_W).fill(0);
+            let placed = [];
+
+            itemsToPlace.forEach(item => {
+                let bestY = -1; let minX = Infinity;
+                for(let y = 0; y <= TRUCK_W - item.w; y++) {
+                    let maxX = 0;
+                    for(let i = y; i < y + item.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
+                    if(maxX < minX) { minX = maxX; bestY = y; }
+                }
+                if(bestY !== -1) {
+                    for(let i = bestY; i < bestY + item.w; i++) skyline[i] = minX + item.d;
+                    placed.push({ ...item, x: minX, y: bestY });
+                }
+            });
+
+            // D. Mise à jour Interface
+            const used = Math.max(...skyline);
+            document.getElementById('res-used').innerText = (used/100).toFixed(2) + " m";
+            document.getElementById('res-remain').innerText = ((TRUCK_L - used)/100).toFixed(2) + " m";
+            const pct = Math.min(100, (used/TRUCK_L)*100);
+            document.getElementById('main-progress-bar').style.width = pct + "%";
+            document.getElementById('main-progress-bar').innerText = pct.toFixed(1) + "%";
+            
+            draw(placed);
+        }
+
+        function draw(rects) {
+            let svg = `<svg viewBox="0 0 1330 240" class="w-full bg-slate-100 rounded border">`;
+            rects.forEach(r => {
+                const col = COLORS[r.type] || '#64748b';
+                svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${col}" opacity="${r.stacked?0.7:1}" stroke="white" rx="2"/>`;
+                svg += `<text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="10" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${LABELS[r.isVide ? 'kubv' : r.type]}</text>`;
+            });
+            svg += `</svg>`;
+            document.getElementById('svg-container').innerHTML = svg;
+        }
+
+        // --- 4. GPS & INIT ---
+        function attemptLogin() {
+            const site = SITES_BDD[document.getElementById('auth-site').value];
+            document.getElementById('auth-screen').classList.add('unlock-anim');
+            document.getElementById('app-content').classList.remove('opacity-0');
+            document.getElementById('main-body').classList.remove('overflow-hidden');
+        }
+
+        window.onload = () => {
+            const sel = document.getElementById('auth-site');
+            Object.entries(SITES_BDD).forEach(([k,v]) => sel.add(new Option(v.nom, k)));
+            
+            // Re-lier les événements calc-trigger dynamiquement
+            document.querySelectorAll('.calc-trigger').forEach(el => {
+                el.addEventListener('input', calc);
+            });
+            calc();
+        };
+
+        function addCustomRow() { /* Logique bloc mixte ... */ }
     </script>
 </body>
 </html>
