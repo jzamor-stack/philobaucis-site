@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur La Poste - IA Logistique</title>
+    <title>Calculateur La Poste - IA Logistique 3D</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -24,11 +24,9 @@
 
     <div id="auth-screen" class="absolute inset-0 z-[999] bg-slate-900 flex flex-col items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full border-t-4 border-teal-500 text-center">
-            <div class="text-4xl mb-2">📍</div>
             <h1 class="text-2xl font-extrabold text-slate-800">Accès Sécurisé</h1>
-            <p class="text-sm text-slate-500 mb-6">Validation sur site par GPS</p>
-            <select id="auth-site" class="w-full p-3 border rounded-lg mb-4 text-sm font-bold outline-none"></select>
-            <button onclick="attemptLogin()" class="w-full py-3 bg-gradient-to-r from-teal-600 to-cyan-700 text-white font-bold rounded-lg shadow-lg">Vérifier et Accéder</button>
+            <p class="text-sm text-slate-500 mb-6">Validation sur site</p>
+            <button onclick="attemptLogin()" class="w-full py-3 bg-teal-600 text-white font-bold rounded-lg shadow-lg">Accéder au Quai</button>
         </div>
     </div>
 
@@ -36,15 +34,15 @@
         <div class="max-w-7xl mx-auto space-y-6">
             
             <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-8 text-white shadow-xl text-center">
-                <h1 class="text-3xl font-extrabold mb-2">🚚 Calculateur de Chargement</h1>
-                <p class="text-teal-100 font-medium">Semi-Remorque 13,30m x 2,40m</p>
+                <h1 class="text-3xl font-bold mb-2">🚚 Calculateur Logistique 3D</h1>
+                <p class="text-teal-100">Optimisation spatiale Semi-Remorque (13,30m)</p>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                 <div class="xl:col-span-2 space-y-6">
                     
                     <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
-                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">📦 Éléments à placer obligatoirement</h2>
+                        <h2 class="text-xl font-bold text-slate-800 mb-6">📦 Chargement Obligatoire</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
                                 <h3 class="font-bold text-blue-900 text-xs mb-2 border-b border-blue-200">CPR (0.84x0.60)</h3>
@@ -87,11 +85,11 @@
                                 </div>
                             </div>
                             <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
-                                <h3 class="font-bold text-orange-900 text-xs mb-2 border-b border-orange-200">KUBS (0.60x0.60)</h3>
+                                <h3 class="font-bold text-orange-900 text-xs mb-2 border-b border-orange-200">KUBS</h3>
                                 <div class="grid grid-cols-2 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold uppercase text-orange-800">Carré</span>
-                                    <span class="font-bold text-slate-500">SOL</span><input type="number" id="kub-n-long" class="w-full p-1 border rounded calc-trigger">
-                                    <span class="font-bold text-slate-500">GERBÉ</span><input type="number" id="kub-g-long" class="w-full p-1 border rounded calc-trigger">
+                                    <span></span><span class="text-center font-bold">CARRÉ</span>
+                                    <span class="font-bold">SOL</span><input type="number" id="kub-n-long" class="w-full p-1 border rounded calc-trigger">
+                                    <span class="font-bold">GERBÉ</span><input type="number" id="kub-g-long" class="w-full p-1 border rounded calc-trigger">
                                 </div>
                             </div>
                         </div>
@@ -99,14 +97,14 @@
 
                     <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
                         <button onclick="toggleSection('empty-block-content', 'empty-toggle-icon')" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-none">
-                            <div><h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2><p class="text-sm text-slate-500">Gestion des piles de retours.</p></div>
+                            <div><h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2><p class="text-sm text-slate-500">Optimisation des piles de retour.</p></div>
                             <div class="bg-slate-100 p-2 rounded-full"><svg id="empty-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </button>
                         <div id="empty-block-content" class="hidden px-6 pb-6 border-t pt-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 border-dashed">
-                                    <h4 class="font-bold text-orange-900 mb-1 text-sm">Kubs Vides (Max 5)</h4>
-                                    <input type="number" id="kubv-tot" class="w-full p-2 border border-orange-200 rounded text-sm calc-trigger" placeholder="Qté totale">
+                                    <h4 class="font-bold text-orange-900 mb-1 text-sm">Kubs Vides (5/pile)</h4>
+                                    <input type="number" id="kubv-tot" class="w-full p-2 border border-orange-200 rounded text-sm calc-trigger" placeholder="Quantité totale">
                                 </div>
                                 <div class="bg-green-50 p-3 rounded-xl border border-green-200 border-dashed">
                                     <div class="flex justify-between items-center mb-1"><h4 class="font-bold text-green-900 text-sm">Palettes Vides</h4><div class="flex gap-1"><button class="px-2 py-0.5 rounded text-[10px] border bg-green-600 text-white font-bold" onclick="setOri('palv', 'long', 'green', this)">LONG.</button><button class="px-2 py-0.5 rounded text-[10px] border bg-white text-green-600" onclick="setOri('palv', 'larg', 'green', this)">LARG.</button></div></div>
@@ -117,85 +115,52 @@
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md border-2 border-orange-300 overflow-hidden">
-                        <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 transition-colors flex justify-between items-center outline-none">
-                            <div>
-                                <h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - Compléter le stock</h2>
-                                <p class="text-sm text-orange-700">Demandez à l'IA d'optimiser le remplissage par priorité.</p>
-                            </div>
-                            <div class="bg-orange-200 p-2 rounded-full shadow-sm">
-                                <svg id="gide-toggle-icon" class="w-5 h-5 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
+                        <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-orange-100 transition-colors flex justify-between items-center outline-none">
+                            <div><h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - Assistant IA</h2><p class="text-sm text-orange-700">Remplissage intelligent par priorités 3D.</p></div>
+                            <div class="bg-orange-200 p-2 rounded-full shadow-sm"><svg id="gide-toggle-icon" class="w-5 h-5 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </button>
-                        
-                        <div id="gide-block-content" class="hidden p-8 border-t border-orange-200 bg-white">
-                            <div class="space-y-8">
-                                <div class="flex flex-wrap items-center gap-3 text-lg text-slate-800 font-medium">
-                                    <span class="text-orange-600 font-bold">Gidé,</span>
-                                    <span>combien de</span>
-                                    <select id="gide-q1-ref" class="bg-white border-2 border-orange-300 rounded-lg px-3 py-1 font-bold text-orange-900 focus:ring-2 ring-orange-400 outline-none calc-trigger">
+                        <div id="gide-block-content" class="hidden p-8 border-t border-orange-200">
+                            <div class="space-y-6">
+                                <div class="flex flex-wrap items-center gap-2 text-lg text-slate-800">
+                                    <span class="text-orange-600 font-bold">Gidé,</span> combien de 
+                                    <select id="gide-q1-ref" class="border-2 border-orange-300 rounded px-2 py-1 font-bold calc-trigger">
                                         <option value="none">-- Choisir --</option>
                                         <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
-                                        <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
+                                        <option value="ce">CE</option><option value="cdp">CDP</option><option value="kub">Kubs</option>
                                     </select>
-                                    <span>je peux mettre pour remplir mon camion ?</span>
+                                    puis-je mettre pour remplir mon camion ?
                                 </div>
-
-                                <div class="border-t border-slate-100 pt-6">
-                                    <div class="text-lg text-slate-800 font-medium mb-4">
-                                        <span class="text-orange-600 font-bold">Gidé,</span> j'ai plusieurs références, en priorité je dois mettre :
-                                    </div>
-                                    
-                                    <div id="gide-priority-container" class="space-y-3">
+                                <div class="border-t pt-4">
+                                    <p class="mb-4 font-medium text-slate-800"><span class="text-orange-600 font-bold">Gidé,</span> j'ai des priorités :</p>
+                                    <div id="gide-priority-container" class="space-y-2">
                                         <div class="flex items-center gap-3">
-                                            <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-sm">1</span>
-                                            <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] hover:border-orange-300 transition-colors calc-trigger">
-                                                <option value="none">-- Aucune référence --</option>
+                                            <span class="w-6 h-6 bg-orange-500 text-white rounded-full text-center text-xs leading-6 font-bold">1</span>
+                                            <select class="prio-select border-2 border-slate-200 rounded px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
+                                                <option value="none">-- Aucune --</option>
                                                 <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
-                                                <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
+                                                <option value="ce">CE</option><option value="cdp">CDP</option><option value="kub">Kubs</option>
                                             </select>
                                         </div>
                                     </div>
-
-                                    <button onclick="addPriorityStep()" class="mt-5 flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-800 transition-colors">
-                                        <span class="bg-orange-100 p-1.5 rounded-full">➕</span> Ajouter une priorité secondaire
-                                    </button>
+                                    <button onclick="addPriorityStep()" class="mt-4 text-orange-600 font-bold text-sm flex items-center gap-1"><span>➕</span> Ajouter une priorité</button>
                                 </div>
+                                <div id="stock-summary" class="bg-orange-50 p-4 border-l-4 border-orange-500 rounded text-orange-900 font-bold hidden italic"></div>
                             </div>
-                            
-                            <div id="stock-summary" class="mt-8 bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-xl text-orange-900 font-bold hidden shadow-sm italic"></div>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
-                        <button onclick="toggleSection('custom-block-content', 'custom-toggle-icon')" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-none">
-                            <div><h2 class="text-xl font-bold text-indigo-900">🎨 Bloc Mixte</h2><p class="text-sm text-slate-500 mt-1">Lier plusieurs objets ensemble.</p></div>
-                            <div class="bg-indigo-100 p-2 rounded-full"><svg id="custom-toggle-icon" class="w-5 h-5 text-indigo-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
-                        </button>
-                        <div id="custom-block-content" class="hidden px-6 pb-6 border-t pt-4">
-                            <div class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-3">
-                                <div class="text-[10px]"><label class="font-bold">CPR</label><input type="number" id="c-cpr" class="w-full border rounded p-1"></div>
-                                <div class="text-[10px]"><label class="font-bold">PAL</label><input type="number" id="c-pal" class="w-full border rounded p-1"></div>
-                                <div class="text-[10px]"><label class="font-bold">CP</label><input type="number" id="c-cp" class="w-full border rounded p-1"></div>
-                                <div class="text-[10px]"><label class="font-bold">KUB</label><input type="number" id="c-kub" class="w-full border rounded p-1"></div>
-                                <div class="text-[10px]"><label class="font-bold">CE</label><input type="number" id="c-ce" class="w-full border rounded p-1"></div>
-                                <div class="text-[10px]"><label class="font-bold">CDP</label><input type="number" id="c-cdp" class="w-full border rounded p-1"></div>
-                            </div>
-                            <button onclick="addCustomRow()" class="w-full py-2 bg-indigo-600 text-white text-xs font-bold rounded">AJOUTER LE BLOC</button>
-                            <div id="custom-list" class="mt-2 space-y-1"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="space-y-6">
                     <div class="bg-gradient-to-br from-emerald-600 to-green-700 text-white p-6 rounded-2xl shadow-2xl sticky top-6">
                         <h2 class="text-xl font-bold mb-4">📊 Remplissage</h2>
-                        <div class="flex justify-between items-end mb-2">
-                            <div><div class="text-[10px] font-bold text-green-100 uppercase">Utilisé</div><div class="text-3xl font-bold" id="res-used">0.00 m</div></div>
-                            <div class="text-right"><div class="text-[10px] font-bold text-green-100 uppercase">Restant</div><div class="text-3xl font-bold text-yellow-300" id="res-remain">13.30 m</div></div>
+                        <div class="flex justify-between items-end mb-4">
+                            <div><div class="text-xs font-bold text-green-100 uppercase">Utilisé</div><div class="text-3xl font-bold" id="res-used">0.00 m</div></div>
+                            <div class="text-right"><div class="text-xs font-bold text-green-100 uppercase">Restant</div><div class="text-3xl font-bold text-yellow-300" id="res-remain">13.30 m</div></div>
                         </div>
                         <div class="w-full bg-black/20 rounded-full h-8 overflow-hidden mb-6"><div id="main-progress-bar" class="bg-white h-full flex items-center justify-center text-xs font-bold text-green-800 transition-all duration-500">0%</div></div>
                         <div class="pt-4 border-t border-green-500/50">
-                            <h3 class="text-xs font-bold uppercase mb-2">Vue de dessus</h3>
+                            <h3 class="text-xs font-bold uppercase mb-2">Vue de dessus dynamique</h3>
                             <div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto"></div>
                         </div>
                     </div>
@@ -241,14 +206,12 @@
             const count = container.children.length + 1;
             const div = document.createElement('div');
             div.className = "flex items-center gap-3";
-            div.innerHTML = `
-                <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-sm">${count}</span>
-                <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] hover:border-orange-300 transition-colors calc-trigger">
-                    <option value="none">-- Aucune référence --</option>
+            div.innerHTML = `<span class="w-6 h-6 bg-orange-500 text-white rounded-full text-center text-xs leading-6 font-bold">${count}</span>
+                <select class="prio-select border-2 border-slate-200 rounded px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
+                    <option value="none">-- Aucune --</option>
                     <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
-                    <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
-                </select>
-            `;
+                    <option value="ce">CE</option><option value="cdp">CDP</option><option value="kub">Kubs</option>
+                </select>`;
             container.appendChild(div);
             div.querySelector('select').addEventListener('change', calc);
             calc();
@@ -257,19 +220,21 @@
         function calc() {
             let items = [];
             
-            // OBLIGATOIRES
-            const add = (type, ori, qN, qG) => {
-                const d = DIMS[type][ori];
-                for(let i=0; i<qN; i++) items.push({ type, w: d.w, d: d.d, stacked: false });
-                if(qG > 0) for(let i=0; i<Math.ceil(qG/2); i++) items.push({ type, w: d.w, d: d.d, stacked: true });
-            };
-            ['cpr','pal','cp','ce','cdp'].forEach(t => {
-                add(t, 'long', getVal(t+'-n-long'), getVal(t+'-g-long'));
-                add(t, 'larg', getVal(t+'-n-larg'), getVal(t+'-g-larg'));
+            // A. CHARGEMENT PLEIN (3D via Gerbage)
+            const types = ['cpr','pal','cp','ce','cdp'];
+            types.forEach(t => {
+                const qN_long = getVal(t+'-n-long'); const qN_larg = getVal(t+'-n-larg');
+                const qG_long = getVal(t+'-g-long'); const qG_larg = getVal(t+'-g-larg');
+                for(let i=0; i<qN_long; i++) items.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:false });
+                for(let i=0; i<qN_larg; i++) items.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:false });
+                if(qG_long > 0) for(let i=0; i<Math.ceil(qG_long/2); i++) items.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:true });
+                if(qG_larg > 0) for(let i=0; i<Math.ceil(qG_larg/2); i++) items.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:true });
             });
-            add('kub', 'long', getVal('kub-n-long'), getVal('kub-g-long'));
+            const kn = getVal('kub-n-long'); const kg = getVal('kub-g-long');
+            for(let i=0; i<kn; i++) items.push({ type:'kub', w:60, d:60, stacked:false });
+            for(let i=0; i<Math.ceil(kg/2); i++) items.push({ type:'kub', w:60, d:60, stacked:true });
 
-            // VIDE
+            // B. VIDE
             const kv = getVal('kubv-tot');
             if(kv > 0) for(let i=0; i<Math.ceil(kv/5); i++) items.push({ type:'kub', w:60, d:60, stacked: true, label:'KV' });
             const pv = getVal('palv-tot');
@@ -280,29 +245,37 @@
                 for(let i=0; i<piles; i++) items.push({ type:'pal', w:d.w, d:d.d, stacked: true, label:'PV' });
             }
 
-            // PACKING
-            items.sort((a,b) => (b.w * b.d) - (a.w * a.d));
+            // ALGO DE PLACEMENT (Teste les 2 sens pour optimiser l'espace)
             let skyline = new Array(TRUCK_W).fill(0);
             let placed = [];
 
             const place = (item, isAuto = false) => {
-                let bestY = -1; let minX = Infinity;
-                for(let y = 0; y <= TRUCK_W - item.w; y++) {
-                    let maxX = 0;
-                    for(let i = y; i < y + item.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
-                    if(maxX + item.d <= TRUCK_L && maxX < minX) { minX = maxX; bestY = y; }
-                }
-                if(bestY !== -1) {
-                    for(let i = bestY; i < bestY + item.w; i++) skyline[i] = minX + item.d;
-                    placed.push({ ...item, x: minX, y: bestY, auto: isAuto });
+                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d}] : [{w:item.w, d:item.d}, {w:item.d, d:item.w}];
+                let bestFit = null;
+
+                orientations.forEach(ori => {
+                    let bestY = -1; let minX = Infinity;
+                    for(let y = 0; y <= TRUCK_W - ori.w; y++) {
+                        let maxX = 0;
+                        for(let i = y; i < y + ori.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
+                        if(maxX + ori.d <= TRUCK_L && maxX < minX) { minX = maxX; bestY = y; }
+                    }
+                    if(bestY !== -1) {
+                        if(!bestFit || minX < bestFit.minX) { bestFit = { minX, bestY, w:ori.w, d:ori.d }; }
+                    }
+                });
+
+                if(bestFit) {
+                    for(let i = bestFit.bestY; i < bestFit.bestY + bestFit.w; i++) skyline[i] = bestFit.minX + bestFit.d;
+                    placed.push({ ...item, x: bestFit.minX, y: bestFit.bestY, w: bestFit.w, d: bestFit.d, auto: isAuto });
                     return true;
                 }
                 return false;
             };
 
-            items.forEach(it => place(it));
+            items.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
 
-            // GIDÉ IA
+            // C. GIDÉ IA 3D
             let stockSummary = {};
             const q1Ref = document.getElementById('gide-q1-ref').value;
             if(q1Ref !== 'none') {
@@ -321,7 +294,7 @@
 
             const sumBox = document.getElementById('stock-summary');
             if(Object.keys(stockSummary).length > 0) {
-                sumBox.innerHTML = `✨ <b>Gidé :</b> "En complétant votre camion, je peux rajouter : ${Object.entries(stockSummary).map(([k, v]) => `${v} ${LABELS[k]}`).join(', ')}."`;
+                sumBox.innerHTML = `✨ <b>Gidé :</b> "En optimisant l'espace, je peux ajouter : ${Object.entries(stockSummary).map(([k, v]) => `${v} ${LABELS[k]}`).join(', ')}."`;
                 sumBox.classList.remove('hidden');
             } else { sumBox.classList.add('hidden'); }
 
@@ -336,14 +309,11 @@
         }
 
         function draw(rects) {
-            let svg = `<svg viewBox="0 0 1330 240" class="w-full">
-                <rect width="1330" height="240" fill="#f8fafc"/>
-                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>
-                <rect width="1330" height="240" fill="url(#grid)"/>`;
+            let svg = `<svg viewBox="0 0 1330 240" class="w-full bg-white"><rect width="1330" height="240" fill="#f8fafc"/>`;
             rects.forEach(r => {
                 const col = COLORS[r.type];
                 svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${col}" opacity="${r.auto?0.5:r.stacked?0.8:1}" stroke="white" rx="2"/>`;
-                svg += `<text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="9" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${r.label || LABELS[r.type]}</text>`;
+                svg += `<text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="8" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${r.label || LABELS[r.type]}</text>`;
             });
             svg += `</svg>`;
             document.getElementById('svg-container').innerHTML = svg;
@@ -356,12 +326,8 @@
         }
 
         window.onload = () => {
-            const sel = document.getElementById('auth-site');
-            sel.add(new Option("PIC Lognes", "pic")); sel.add(new Option("Mode Test", "test"));
-            document.querySelectorAll('.calc-trigger').forEach(el => {
-                el.addEventListener('input', calc);
-                el.addEventListener('change', calc);
-            });
+            document.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('input', calc));
+            document.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('change', calc));
             calc();
         };
     </script>
