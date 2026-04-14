@@ -34,7 +34,7 @@
         <div class="max-w-7xl mx-auto space-y-6">
             <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-8 text-white shadow-xl text-center">
                 <h1 class="text-3xl md:text-4xl font-extrabold mb-2">🚚 Calculateur de Chargement</h1>
-                <p class="text-teal-100 text-lg font-medium">Semi-Remorque 13,30m x 2,40m - Optimisation 3D</p>
+                <p class="text-teal-100 text-lg font-medium">Semi-Remorque 13,30m x 2,40m - Optimisation Spatiale</p>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -43,7 +43,7 @@
                     <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
                         <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">📦 Éléments à placer obligatoirement</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 shadow-sm">
                                 <div class="flex justify-between items-center border-b border-blue-200 pb-1 mb-2">
                                     <h3 class="font-bold text-blue-900">CPR</h3>
                                     <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-blue-600 font-bold border border-blue-100">0.84 x 0.60</span>
@@ -58,7 +58,7 @@
                                     <input type="number" id="cpr-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-green-50 p-3 rounded-xl border border-green-200">
+                            <div class="bg-green-50 p-3 rounded-xl border border-green-200 shadow-sm">
                                 <div class="flex justify-between items-center border-b border-green-200 pb-1 mb-2">
                                     <h3 class="font-bold text-green-900">Palette</h3>
                                     <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-green-600 font-bold border border-green-100">1.20 x 0.80</span>
@@ -73,7 +73,7 @@
                                     <input type="number" id="pal-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
+                            <div class="bg-purple-50 p-3 rounded-xl border border-purple-200 shadow-sm">
                                 <div class="flex justify-between items-center border-b border-purple-200 pb-1 mb-2">
                                     <h3 class="font-bold text-purple-900">CP</h3>
                                     <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-purple-600 font-bold border border-purple-100">1.20 x 0.84</span>
@@ -88,7 +88,7 @@
                                     <input type="number" id="cp-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-pink-50 p-3 rounded-xl border border-pink-200">
+                            <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 shadow-sm">
                                 <div class="flex justify-between items-center border-b border-pink-200 pb-1 mb-2">
                                     <h3 class="font-bold text-pink-900">CE</h3>
                                     <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-pink-600 font-bold border border-pink-100">1.00 x 0.50</span>
@@ -101,9 +101,9 @@
                                     <input type="number" id="ce-g-long" class="w-full p-1 border rounded text-center calc-trigger"><input type="number" id="ce-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
+                            <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200 shadow-sm">
                                 <div class="flex justify-between items-center border-b border-indigo-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-indigo-900">CDP / Magnum</h3>
+                                    <h3 class="font-bold text-indigo-900">CDP</h3>
                                     <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-indigo-600 font-bold border border-indigo-100">1.20 x 1.00</span>
                                 </div>
                                 <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
@@ -114,16 +114,16 @@
                                     <input type="number" id="cdp-g-long" class="w-full p-1 border rounded text-center calc-trigger"><input type="number" id="cdp-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
+                            <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 shadow-sm">
                                 <div class="flex justify-between items-center border-b border-orange-200 pb-1 mb-2">
                                     <h3 class="font-bold text-orange-900">Kubs</h3>
                                     <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-orange-600 font-bold border border-orange-100">0.60 x 0.60</span>
                                 </div>
                                 <div class="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[10px] items-center">
                                     <span></span><div class="text-center font-bold text-orange-800 uppercase">Carré</div>
-                                    <div class="text-right font-bold text-slate-500">Sol</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Sol</div>
                                     <input type="number" id="kub-n-long" class="w-full p-1 border rounded text-center calc-trigger">
-                                    <div class="text-right font-bold text-slate-500">Gerbé</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Gerbé</div>
                                     <input type="number" id="kub-g-long" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
@@ -142,7 +142,10 @@
                                     <input type="number" id="kubv-tot" class="w-full p-2 border border-orange-200 rounded text-sm calc-trigger" placeholder="Qté totale de Kubs">
                                 </div>
                                 <div class="bg-green-50 p-3 rounded-xl border border-green-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1"><h4 class="font-bold text-green-900 text-sm">Palettes Vides</h4><div class="flex gap-1"><button class="px-2 py-0.5 rounded text-[10px] border bg-green-600 text-white font-bold" onclick="setOri('palv', 'long', 'green', this)">LONG.</button><button class="px-2 py-0.5 rounded text-[10px] border bg-white text-green-600" onclick="setOri('palv', 'larg', 'green', this)">LARG.</button></div></div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <h4 class="font-bold text-green-900 text-sm">Palettes Vides</h4>
+                                        <div class="flex gap-1"><button class="px-2 py-0.5 rounded text-[10px] border bg-green-600 text-white font-bold" onclick="setOri('palv', 'long', 'green', this)">LONG.</button><button class="px-2 py-0.5 rounded text-[10px] border bg-white text-green-600" onclick="setOri('palv', 'larg', 'green', this)">LARG.</button></div>
+                                    </div>
                                     <div class="flex gap-2"><input type="number" id="palv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Tot."><input type="number" id="palv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Pile de (déf:1)"></div>
                                 </div>
                             </div>
@@ -151,7 +154,7 @@
 
                     <div class="bg-white rounded-xl shadow-md border-2 border-orange-300 overflow-hidden">
                         <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 transition-colors flex justify-between items-center outline-none">
-                            <div><h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - Compléter le stock</h2><p class="text-sm text-orange-700">Demandes intelligentes par priorités.</p></div>
+                            <div><h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - Compléter le stock</h2><p class="text-sm text-orange-700">L'IA optimise le remplissage par priorités.</p></div>
                             <div class="bg-orange-200 p-2 rounded-full shadow-sm"><svg id="gide-toggle-icon" class="w-5 h-5 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </button>
                         <div id="gide-block-content" class="hidden p-8 border-t border-orange-200 bg-white">
@@ -166,47 +169,42 @@
                                     </select>
                                     <span>je peux mettre pour remplir mon camion ?</span>
                                 </div>
-
                                 <div class="border-t border-slate-100 pt-6">
-                                    <div class="text-lg text-slate-800 font-medium mb-4">
-                                        <span class="text-orange-600 font-black italic">Gidé,</span> j'ai plusieurs références, en priorité je dois mettre :
-                                    </div>
+                                    <div class="text-lg text-slate-800 font-medium mb-4"><span class="text-orange-600 font-black italic">Gidé,</span> j'ai plusieurs références, en priorité je dois mettre :</div>
                                     <div id="gide-priority-container" class="space-y-3">
                                         <div class="flex items-center gap-3">
                                             <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-sm">1</span>
-                                            <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] hover:border-orange-300 transition-colors calc-trigger">
+                                            <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
                                                 <option value="none">-- Aucune référence --</option>
                                                 <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
                                                 <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <button onclick="addPriorityStep()" class="mt-5 flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-800 transition-colors">
-                                        <span class="bg-orange-100 p-1.5 rounded-full">➕</span> Ajouter une priorité secondaire
-                                    </button>
+                                    <button onclick="addPriorityStep()" class="mt-5 flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-800 transition-colors"><span class="bg-orange-100 p-1.5 rounded-full">➕</span> Ajouter une priorité secondaire</button>
                                 </div>
                             </div>
-                            <div id="stock-summary" class="mt-8 bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-xl text-orange-900 font-bold hidden shadow-sm italic"></div>
+                            <div id="stock-summary" class="mt-8 bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-xl text-orange-900 font-bold hidden italic shadow-sm"></div>
                         </div>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md border-2 border-indigo-200 relative overflow-hidden">
                         <div class="absolute top-0 right-0 bg-indigo-100 text-indigo-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg z-10 pointer-events-none uppercase">Mode Avancé</div>
                         <button onclick="toggleSection('custom-block-content', 'custom-toggle-icon')" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-none">
-                            <div><h2 class="text-xl font-bold text-indigo-900">🎨 Forcer un Bloc Mixte</h2><p class="text-sm text-slate-500 mt-1">Lier plusieurs objets ensemble.</p></div>
-                            <div class="bg-indigo-100 p-2 rounded-full shadow-sm"><svg id="custom-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                            <div><h2 class="text-xl font-bold text-indigo-900">🎨 Ligne Mixte</h2><p class="text-sm text-slate-500 mt-1">Forcer des objets à rester côte à côte.</p></div>
+                            <div class="bg-indigo-100 p-2 rounded-full shadow-sm"><svg id="custom-toggle-icon" class="w-5 h-5 text-indigo-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </button>
                         <div id="custom-block-content" class="hidden px-6 pb-6 border-t pt-4">
                             <div class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-3">
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CPR</label><input type="number" id="c-cpr" class="w-full border rounded p-1 mb-1"><select id="o-cpr" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">PAL</label><input type="number" id="c-pal" class="w-full border rounded p-1 mb-1"><select id="o-pal" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CP</label><input type="number" id="c-cp" class="w-full border rounded p-1 mb-1"><select id="o-cp" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">KUB</label><input type="number" id="c-kub" class="w-full border rounded p-1 mt-3"></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CE</label><input type="number" id="c-ce" class="w-full border rounded p-1 mb-1"><select id="o-ce" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CDP</label><input type="number" id="c-cdp" class="w-full border rounded p-1 mb-1"><select id="o-cdp" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
+                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CPR</label><input type="number" id="c-cpr" class="w-full border rounded p-1 mb-1 text-center"><select id="o-cpr" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
+                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">PAL</label><input type="number" id="c-pal" class="w-full border rounded p-1 mb-1 text-center"><select id="o-pal" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
+                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CP</label><input type="number" id="c-cp" class="w-full border rounded p-1 mb-1 text-center"><select id="o-cp" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
+                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">KUB</label><input type="number" id="c-kub" class="w-full border rounded p-1 mt-3 text-center"></div>
+                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CE</label><input type="number" id="c-ce" class="w-full border rounded p-1 mb-1 text-center"><select id="o-ce" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
+                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CDP</label><input type="number" id="c-cdp" class="w-full border rounded p-1 mb-1 text-center"><select id="o-cdp" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
                             </div>
-                            <button onclick="addCustomRow()" class="w-full py-2 bg-indigo-600 text-white text-xs font-bold rounded">AJOUTER LE BLOC</button>
-                            <div id="custom-list" class="mt-2 space-y-1"></div>
+                            <button onclick="addCustomLine()" class="w-full py-2 bg-indigo-600 text-white text-xs font-bold rounded shadow-md hover:bg-indigo-700 transition-all">➕ AJOUTER LA LIGNE</button>
+                            <div id="custom-list" class="mt-4 space-y-2"></div>
                         </div>
                     </div>
                 </div>
@@ -239,9 +237,11 @@
             ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },
             cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }
         };
-        const LABELS = { cpr:'CPR', pal:'PAL', cp:'CP', kub:'KUB', ce:'CE', cdp:'CDP' };
+        const LABELS = { cpr:'CPR', pal:'PAL', cp:'CP', kub:'KUB', ce:'CE', cdp:'CDP', kubv:'KV' };
         const COLORS = { cpr:'#3b82f6', pal:'#22c55e', cp:'#a855f7', kub:'#f97316', ce:'#ec4899', cdp:'#6366f1' };
-        let STATE = { palv: 'long' }; let customRows = [];
+        
+        let STATE = { palv: 'long' };
+        let customLines = [];
 
         function toggleSection(id, icon) {
             document.getElementById(id).classList.toggle('hidden');
@@ -260,13 +260,49 @@
             return (el && el.value !== "") ? Math.max(0, parseInt(el.value)) : 0;
         }
 
+        // FONCTION LIGNE MIXTE
+        function addCustomLine() {
+            let lineItems = [];
+            let refs = ['cpr','pal','cp','kub','ce','cdp'];
+            refs.forEach(r => {
+                let q = getVal('c-'+r);
+                if(q > 0) {
+                    let o = (r === 'kub') ? 'long' : document.getElementById('o-'+r).value;
+                    for(let i=0; i<q; i++) lineItems.push({ type: r, w: DIMS[r][o].w, d: DIMS[r][o].d });
+                }
+            });
+
+            if(lineItems.length > 0) {
+                customLines.push(lineItems);
+                refs.forEach(r => document.getElementById('c-'+r).value = ""); // Reset
+                renderCustomList();
+                calc();
+            }
+        }
+
+        function removeLine(index) {
+            customLines.splice(index, 1);
+            renderCustomList();
+            calc();
+        }
+
+        function renderCustomList() {
+            const container = document.getElementById('custom-list');
+            container.innerHTML = customLines.map((line, idx) => `
+                <div class="flex justify-between items-center bg-indigo-50 p-2 rounded border border-indigo-200 text-[10px] font-bold">
+                    <span>Ligne ${idx+1} : ${line.length} objets</span>
+                    <button onclick="removeLine(${idx})" class="text-red-500 px-2">Supprimer</button>
+                </div>
+            `).join('');
+        }
+
         function addPriorityStep() {
             const container = document.getElementById('gide-priority-container');
             const count = container.children.length + 1;
             const div = document.createElement('div');
             div.className = "flex items-center gap-3";
             div.innerHTML = `<span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-sm">${count}</span>
-                <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] hover:border-orange-300 transition-colors calc-trigger">
+                <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
                     <option value="none">-- Aucune référence --</option>
                     <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
                     <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
@@ -289,38 +325,39 @@
         });
 
         function calc() {
-            let items = [];
+            let itemsToPlace = [];
             
-            // OBLIGATOIRES
-            ['cpr','pal','cp','ce','cdp'].forEach(t => {
+            // 1. OBLIGATOIRES (Teste 2 orientations pour optimiser)
+            const types = ['cpr','pal','cp','ce','cdp'];
+            types.forEach(t => {
                 const qnl = getVal(t+'-n-long'); const qnw = getVal(t+'-n-larg');
                 const qgl = getVal(t+'-g-long'); const qgw = getVal(t+'-g-larg');
-                for(let i=0; i<qnl; i++) items.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d });
-                for(let i=0; i<qnw; i++) items.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d });
-                if(qgl > 0) for(let i=0; i<Math.ceil(qgl/2); i++) items.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:true });
-                if(qgw > 0) for(let i=0; i<Math.ceil(qgw/2); i++) items.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:true });
+                for(let i=0; i<qnl; i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d });
+                for(let i=0; i<qnw; i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d });
+                if(qgl > 0) for(let i=0; i<Math.ceil(qgl/2); i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:true });
+                if(qgw > 0) for(let i=0; i<Math.ceil(qgw/2); i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:true });
             });
             const kn = getVal('kub-n-long'); const kg = getVal('kub-g-long');
-            for(let i=0; i<kn; i++) items.push({ type:'kub', w:60, d:60 });
-            for(let i=0; i<Math.ceil(kg/2); i++) items.push({ type:'kub', w:60, d:60, stacked:true });
+            for(let i=0; i<kn; i++) itemsToPlace.push({ type:'kub', w:60, d:60 });
+            for(let i=0; i<Math.ceil(kg/2); i++) itemsToPlace.push({ type:'kub', w:60, d:60, stacked:true });
 
-            // VIDE
+            // 2. VIDE
             const kv = getVal('kubv-tot');
-            if(kv > 0) for(let i=0; i<Math.ceil(kv/5); i++) items.push({ type:'kub', w:60, d:60, stacked: true, label:'KV' });
+            if(kv > 0) for(let i=0; i<Math.ceil(kv/5); i++) itemsToPlace.push({ type:'kub', w:60, d:60, stacked: true, label:'KV' });
             const pv = getVal('palv-tot'); const pvRatio = getVal('palv-stk') || 1;
             if(pv > 0) {
                 const piles = Math.ceil(pv / pvRatio);
                 const d = DIMS.pal[STATE.palv];
-                for(let i=0; i<piles; i++) items.push({ type:'pal', w:d.w, d:d.d, stacked: true, label:'PV' });
+                for(let i=0; i<piles; i++) itemsToPlace.push({ type:'pal', w:d.w, d:d.d, stacked: true, label:'PV' });
             }
 
             let skyline = new Array(TRUCK_W).fill(0);
             let placed = [];
 
             const place = (item, isAuto = false) => {
-                const oris = (item.w === item.d) ? [{w:item.w, d:item.d}] : [{w:item.w, d:item.d}, {w:item.d, d:item.w}];
+                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d}] : [{w:item.w, d:item.d}, {w:item.d, d:item.w}];
                 let best = null;
-                oris.forEach(o => {
+                orientations.forEach(o => {
                     let bestY = -1; let minX = Infinity;
                     for(let y = 0; y <= TRUCK_W - o.w; y++) {
                         let maxX = 0; for(let i=y; i<y+o.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
@@ -336,10 +373,15 @@
                 return false;
             };
 
-            items.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
-            customRows.forEach(r => r.items.forEach(it => place(it)));
+            // Placement Objets de base
+            itemsToPlace.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
 
-            // GIDÉ
+            // Placement LIGNES MIXTES
+            customLines.forEach(line => {
+                line.forEach(it => place(it));
+            });
+
+            // GIDÉ IA
             let stockSummary = {};
             const q1 = document.getElementById('gide-q1-ref').value;
             if(q1 !== 'none') while(place({ type: q1, w: DIMS[q1].long.w, d: DIMS[q1].long.d }, true)) stockSummary[q1] = (stockSummary[q1] || 0) + 1;
@@ -375,7 +417,7 @@
                 });
                 return [...new Set(s)].slice(0,3).join('<br>');
             };
-            let svg = `<svg viewBox="0 0 1330 240" class="w-full">
+            let svg = `<svg viewBox="0 0 1330 240" class="w-full shadow-inner">
                 <defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>
                 <pattern id="hole" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#facc15"/><line x1="0" y1="0" x2="0" y2="10" stroke="rgba(255,255,255,0.4)" stroke-width="5"/></pattern></defs>
                 <rect width="1330" height="240" fill="url(#grid)"/>`;
