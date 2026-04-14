@@ -49,7 +49,7 @@
                         <h2 class="text-xl font-bold mb-4 flex items-center gap-2">📦 Éléments Obligatoires</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
-                                <h3 class="font-bold text-blue-900 mb-2 border-b border-blue-200">CPR (0.84x0.60)</h3>
+                                <h3 class="font-bold text-blue-900 mb-2 border-b border-blue-200 text-xs">CPR (0.84x0.60)</h3>
                                 <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
                                     <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
                                     <span class="font-bold">SOL</span><input type="number" id="cpr-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cpr-n-larg" class="w-full p-1 border rounded calc-trigger">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="bg-green-50 p-3 rounded-xl border border-green-200">
-                                <h3 class="font-bold text-green-900 mb-2 border-b border-green-200">Palette (1.20x0.80)</h3>
+                                <h3 class="font-bold text-green-900 mb-2 border-b border-green-200 text-xs">Palette (1.20x0.80)</h3>
                                 <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
                                     <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
                                     <span class="font-bold">SOL</span><input type="number" id="pal-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="pal-n-larg" class="w-full p-1 border rounded calc-trigger">
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
-                                <h3 class="font-bold text-purple-900 mb-2 border-b border-purple-200">CP (1.20x0.84)</h3>
+                                <h3 class="font-bold text-purple-900 mb-2 border-b border-purple-200 text-xs">CP (1.20x0.84)</h3>
                                 <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
                                     <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
                                     <span class="font-bold">SOL</span><input type="number" id="cp-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cp-n-larg" class="w-full p-1 border rounded calc-trigger">
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="bg-pink-50 p-3 rounded-xl border border-pink-200">
-                                <h3 class="font-bold text-pink-900 mb-2 border-b border-pink-200">CE (1.00x0.50)</h3>
+                                <h3 class="font-bold text-pink-900 mb-2 border-b border-pink-200 text-xs">CE (1.00x0.50)</h3>
                                 <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
                                     <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
                                     <span class="font-bold">SOL</span><input type="number" id="ce-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="ce-n-larg" class="w-full p-1 border rounded calc-trigger">
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-                                <h3 class="font-bold text-indigo-900 mb-2 border-b border-indigo-200">CDP (1.20x1.00)</h3>
+                                <h3 class="font-bold text-indigo-900 mb-2 border-b border-indigo-200 text-xs">CDP (1.20x1.00)</h3>
                                 <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
                                     <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
                                     <span class="font-bold">SOL</span><input type="number" id="cdp-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cdp-n-larg" class="w-full p-1 border rounded calc-trigger">
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                             <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
-                                <h3 class="font-bold text-orange-900 mb-2 border-b border-orange-200">Kubs (0.60x0.60)</h3>
+                                <h3 class="font-bold text-orange-900 mb-2 border-b border-orange-200 text-xs">Kubs (0.60x0.60)</h3>
                                 <div class="grid grid-cols-2 gap-2 text-[10px] items-center">
                                     <span></span><span class="text-center font-bold text-orange-800">CARRÉ</span>
                                     <span class="font-bold">SOL</span><input type="number" id="kub-n-long" class="w-full p-1 border rounded calc-trigger">
@@ -103,7 +103,7 @@
                         <button onclick="toggleSection('empty-block-content', 'empty-toggle-icon')" class="w-full p-5 text-left hover:bg-slate-50 flex justify-between items-center outline-none">
                             <div>
                                 <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2>
-                                <p class="text-xs text-slate-500">Gestion des piles (Kubs et Palettes).</p>
+                                <p class="text-xs text-slate-500">Gestion des retours (Kubs/Palettes).</p>
                             </div>
                             <div class="bg-slate-100 p-2 rounded-full">
                                 <svg id="empty-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -136,7 +136,7 @@
 
                     <div class="bg-white rounded-xl shadow-md border-2 border-indigo-200 overflow-hidden">
                         <button onclick="toggleSection('custom-block-content', 'custom-toggle-icon')" class="w-full p-5 text-left hover:bg-slate-50 flex justify-between items-center">
-                            <h2 class="text-lg font-bold text-indigo-900">🎨 Bloc Mixte</h2>
+                            <h2 class="text-lg font-bold text-indigo-900">🎨 Forcer un Bloc Mixte</h2>
                             <div class="bg-indigo-100 p-2 rounded-full"><svg id="custom-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </button>
                         <div id="custom-block-content" class="hidden px-5 pb-5 border-t border-indigo-100 pt-4">
@@ -150,6 +150,30 @@
                             </div>
                             <button onclick="addCustomRow()" class="w-full py-2 bg-indigo-600 text-white text-xs font-bold rounded">AJOUTER LE BLOC</button>
                             <div id="custom-list" class="mt-2 space-y-1"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl shadow-md border border-orange-200 overflow-hidden">
+                        <button onclick="toggleSection('stock-block-content', 'stock-toggle-icon')" class="w-full p-5 text-left hover:bg-orange-100/50 flex justify-between items-center outline-none">
+                            <div>
+                                <h2 class="text-lg font-bold text-orange-900 flex items-center gap-2">🎯 Compléter avec le Stock</h2>
+                                <p class="text-xs text-orange-700">Remplir les zones vides automatiquement.</p>
+                            </div>
+                            <div class="bg-orange-200 p-2 rounded-full">
+                                <svg id="stock-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </button>
+                        <div id="stock-block-content" class="hidden px-5 pb-5 border-t border-orange-200 pt-4">
+                            <div class="grid grid-cols-4 md:grid-cols-7 gap-2 mb-4">
+                                <div><label class="text-[9px] font-bold block">CPR</label><input type="number" id="stk-cpr" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">PAL</label><input type="number" id="stk-pal" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">CP</label><input type="number" id="stk-cp" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">KUB</label><input type="number" id="stk-kub" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">CE</label><input type="number" id="stk-ce" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">CDP</label><input type="number" id="stk-cdp" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                                <div><label class="text-[9px] font-bold block">KV</label><input type="number" id="stk-kubv" class="w-full text-xs border border-orange-300 rounded p-1 calc-trigger"></div>
+                            </div>
+                            <div id="stock-summary" class="bg-white p-2 rounded border border-orange-200 text-[10px] hidden"></div>
                         </div>
                     </div>
 
@@ -211,7 +235,7 @@
         function calc() {
             let items = [];
             
-            // Pleins
+            // A. OBJETS PLEINS (Obligatoires)
             const add = (type, ori, qN, qG) => {
                 const d = DIMS[type][ori];
                 for(let i=0; i<qN; i++) items.push({ type, w: d.w, d: d.d, stacked: false });
@@ -233,22 +257,21 @@
             add('cdp', 'larg', getVal('cdp-n-larg'), getVal('cdp-g-larg'));
             add('kub', 'long', getVal('kub-n-long'), getVal('kub-g-long'));
 
-            // Vides
+            // B. MATÉRIEL VIDE
             const kv = getVal('kubv-tot');
             if(kv > 0) {
                 const piles = Math.ceil(kv / 5);
                 for(let i=0; i<piles; i++) items.push({ type:'kub', w:60, d:60, stacked: true, vide: true });
             }
-            
             const pv = getVal('palv-tot');
-            const pvStk = getVal('palv-stk') || 1; // ICI : Par défaut 1 si vide
+            const pvStk = getVal('palv-stk') || 1; // RÈGLE : 1 par défaut
             if(pv > 0) {
                 const piles = Math.ceil(pv / pvStk);
                 const d = DIMS.pal[STATE.palv];
                 for(let i=0; i<piles; i++) items.push({ type:'pal', w:d.w, d:d.d, stacked: true, vide: true });
             }
 
-            // Algo Packing
+            // C. PACKING (Algo Skyline simple)
             items.sort((a,b) => (b.w * b.d) - (a.w * a.d));
             let skyline = new Array(TRUCK_W).fill(0);
             let placed = [];
@@ -266,6 +289,34 @@
                 }
             });
 
+            // D. STOCK AUTO (Seulement si le camion n'est pas déjà plein)
+            const stkData = [
+                { id:'stk-cpr', type:'cpr', ori:'long' },
+                { id:'stk-pal', type:'pal', ori:'long' },
+                { id:'stk-cp', type:'cp', ori:'long' },
+                { id:'stk-ce', type:'ce', ori:'long' },
+                { id:'stk-cdp', type:'cdp', ori:'long' }
+            ];
+
+            stkData.forEach(s => {
+                let q = getVal(s.id);
+                if(q > 0) {
+                    const d = DIMS[s.type][s.ori];
+                    for(let i=0; i<q; i++) {
+                        let bestY = -1; let minX = Infinity;
+                        for(let y = 0; y <= TRUCK_W - d.w; y++) {
+                            let maxX = 0;
+                            for(let j = y; j < y + d.w; j++) if(skyline[j] > maxX) maxX = skyline[j];
+                            if(maxX + d.d <= TRUCK_L && maxX < minX) { minX = maxX; bestY = y; }
+                        }
+                        if(bestY !== -1) {
+                            for(let j = bestY; j < bestY + d.w; j++) skyline[j] = minX + d.d;
+                            placed.push({ type: s.type, x: minX, y: bestY, w: d.w, d: d.d, auto: true });
+                        }
+                    }
+                }
+            });
+
             const used = Math.max(...skyline);
             document.getElementById('res-used').innerText = (used/100).toFixed(2) + " m";
             document.getElementById('res-remain').innerText = ((TRUCK_L - used)/100).toFixed(2) + " m";
@@ -280,8 +331,8 @@
             let svg = `<svg viewBox="0 0 1330 240" class="w-full bg-slate-100 rounded">`;
             rects.forEach(r => {
                 const col = COLORS[r.type] || '#64748b';
-                svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${col}" opacity="${r.stacked?0.7:1}" stroke="white" rx="2"/>`;
-                svg += `<text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="10" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${LABELS[r.vide ? 'kubv' : r.type]}</text>`;
+                svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${col}" opacity="${r.auto?0.5:1}" stroke="white" rx="2"/>`;
+                svg += `<text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="8" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${LABELS[r.vide ? 'kubv' : r.type]}</text>`;
             });
             svg += `</svg>`;
             document.getElementById('svg-container').innerHTML = svg;
