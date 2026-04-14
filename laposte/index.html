@@ -28,14 +28,13 @@
             <h1 class="text-2xl font-extrabold text-slate-800">Accès Sécurisé</h1>
             <p class="text-sm text-slate-500 mb-6">Validation sur site par GPS</p>
             <select id="auth-site" class="w-full p-3 border rounded-lg mb-4 text-sm font-bold outline-none"></select>
-            <button onclick="attemptLogin()" class="w-full py-3 bg-gradient-to-r from-teal-600 to-cyan-700 text-white font-bold rounded-lg shadow-lg">Accéder</button>
+            <button onclick="attemptLogin()" class="w-full py-3 bg-gradient-to-r from-teal-600 to-cyan-700 text-white font-bold rounded-lg shadow-lg">Vérifier et Accéder</button>
         </div>
     </div>
 
     <div id="app-content" class="h-full overflow-y-auto p-4 md:p-8 opacity-0 transition-opacity duration-700">
-        <div id="hole-tooltip" class="absolute pointer-events-none hidden bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-xl z-50 border border-slate-600 transform -translate-x-1/2 -translate-y-[120%] transition-opacity duration-100"></div>
-
         <div class="max-w-7xl mx-auto space-y-6">
+            
             <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-8 text-white shadow-xl text-center">
                 <h1 class="text-3xl font-extrabold mb-2">🚚 Calculateur de Chargement</h1>
                 <p class="text-teal-100 font-medium">Semi-Remorque 13,30m x 2,40m</p>
@@ -90,7 +89,7 @@
                             <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
                                 <h3 class="font-bold text-orange-900 text-xs mb-2 border-b border-orange-200">KUBS (0.60x0.60)</h3>
                                 <div class="grid grid-cols-2 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold uppercase">Carré</span>
+                                    <span></span><span class="text-center font-bold uppercase text-orange-800">Carré</span>
                                     <span class="font-bold text-slate-500">SOL</span><input type="number" id="kub-n-long" class="w-full p-1 border rounded calc-trigger">
                                     <span class="font-bold text-slate-500">GERBÉ</span><input type="number" id="kub-g-long" class="w-full p-1 border rounded calc-trigger">
                                 </div>
@@ -117,47 +116,74 @@
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-r from-amber-50 to-orange-100 rounded-2xl shadow-lg border-2 border-orange-300 overflow-hidden relative">
-                        <div class="absolute top-0 right-0 bg-orange-600 text-white text-[10px] font-bold px-4 py-1 rounded-bl-xl shadow-sm">GIDÉ - IA LOGISTIQUE</div>
-                        <div class="p-8">
-                            <h2 class="text-2xl font-black text-orange-900 mb-6 flex items-center gap-3">✨ Demander à Gidé</h2>
-                            
+                    <div class="bg-white rounded-xl shadow-md border-2 border-orange-300 overflow-hidden">
+                        <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 transition-colors flex justify-between items-center outline-none">
+                            <div>
+                                <h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - Compléter le stock</h2>
+                                <p class="text-sm text-orange-700">Demandez à l'IA d'optimiser le remplissage par priorité.</p>
+                            </div>
+                            <div class="bg-orange-200 p-2 rounded-full shadow-sm">
+                                <svg id="gide-toggle-icon" class="w-5 h-5 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </button>
+                        
+                        <div id="gide-block-content" class="hidden p-8 border-t border-orange-200 bg-white">
                             <div class="space-y-8">
-                                <div class="flex flex-wrap items-center gap-3 text-lg text-orange-900 font-medium">
-                                    <span>Gidé, combien de</span>
-                                    <select id="gide-q1-ref" class="bg-white border-2 border-orange-300 rounded-lg px-3 py-1 font-bold focus:ring-2 ring-orange-400 outline-none calc-trigger">
+                                <div class="flex flex-wrap items-center gap-3 text-lg text-slate-800 font-medium">
+                                    <span class="text-orange-600 font-bold">Gidé,</span>
+                                    <span>combien de</span>
+                                    <select id="gide-q1-ref" class="bg-white border-2 border-orange-300 rounded-lg px-3 py-1 font-bold text-orange-900 focus:ring-2 ring-orange-400 outline-none calc-trigger">
+                                        <option value="none">-- Choisir --</option>
                                         <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
                                         <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
                                     </select>
                                     <span>je peux mettre pour remplir mon camion ?</span>
                                 </div>
 
-                                <div class="border-t border-orange-200 pt-6">
-                                    <div class="text-lg text-orange-900 font-medium mb-4">
-                                        Gidé, j'ai plusieurs références, en priorité je dois mettre :
+                                <div class="border-t border-slate-100 pt-6">
+                                    <div class="text-lg text-slate-800 font-medium mb-4">
+                                        <span class="text-orange-600 font-bold">Gidé,</span> j'ai plusieurs références, en priorité je dois mettre :
                                     </div>
                                     
                                     <div id="gide-priority-container" class="space-y-3">
                                         <div class="flex items-center gap-3">
-                                            <span class="bg-orange-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                                            <select class="prio-select bg-white border-2 border-orange-300 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
-                                                <option value="none">-- Aucune --</option>
+                                            <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-sm">1</span>
+                                            <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] hover:border-orange-300 transition-colors calc-trigger">
+                                                <option value="none">-- Aucune référence --</option>
                                                 <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
                                                 <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
                                             </select>
                                         </div>
                                     </div>
 
-                                    <button onclick="addPriorityStep()" class="mt-4 flex items-center gap-2 text-sm font-bold text-orange-700 hover:text-orange-900 transition-colors">
-                                        <span class="bg-orange-200 p-1 rounded-full text-orange-800">➕</span> Ajouter une priorité secondaire
+                                    <button onclick="addPriorityStep()" class="mt-5 flex items-center gap-2 text-sm font-bold text-orange-600 hover:text-orange-800 transition-colors">
+                                        <span class="bg-orange-100 p-1.5 rounded-full">➕</span> Ajouter une priorité secondaire
                                     </button>
                                 </div>
                             </div>
                             
-                            <div id="stock-summary" class="mt-8 bg-white/80 border-2 border-orange-300 p-4 rounded-xl text-orange-950 font-bold hidden shadow-inner"></div>
+                            <div id="stock-summary" class="mt-8 bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-xl text-orange-900 font-bold hidden shadow-sm italic"></div>
                         </div>
                     </div>
 
+                    <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+                        <button onclick="toggleSection('custom-block-content', 'custom-toggle-icon')" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-none">
+                            <div><h2 class="text-xl font-bold text-indigo-900">🎨 Bloc Mixte</h2><p class="text-sm text-slate-500 mt-1">Lier plusieurs objets ensemble.</p></div>
+                            <div class="bg-indigo-100 p-2 rounded-full"><svg id="custom-toggle-icon" class="w-5 h-5 text-indigo-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                        </button>
+                        <div id="custom-block-content" class="hidden px-6 pb-6 border-t pt-4">
+                            <div class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-3">
+                                <div class="text-[10px]"><label class="font-bold">CPR</label><input type="number" id="c-cpr" class="w-full border rounded p-1"></div>
+                                <div class="text-[10px]"><label class="font-bold">PAL</label><input type="number" id="c-pal" class="w-full border rounded p-1"></div>
+                                <div class="text-[10px]"><label class="font-bold">CP</label><input type="number" id="c-cp" class="w-full border rounded p-1"></div>
+                                <div class="text-[10px]"><label class="font-bold">KUB</label><input type="number" id="c-kub" class="w-full border rounded p-1"></div>
+                                <div class="text-[10px]"><label class="font-bold">CE</label><input type="number" id="c-ce" class="w-full border rounded p-1"></div>
+                                <div class="text-[10px]"><label class="font-bold">CDP</label><input type="number" id="c-cdp" class="w-full border rounded p-1"></div>
+                            </div>
+                            <button onclick="addCustomRow()" class="w-full py-2 bg-indigo-600 text-white text-xs font-bold rounded">AJOUTER LE BLOC</button>
+                            <div id="custom-list" class="mt-2 space-y-1"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="space-y-6">
@@ -168,7 +194,10 @@
                             <div class="text-right"><div class="text-[10px] font-bold text-green-100 uppercase">Restant</div><div class="text-3xl font-bold text-yellow-300" id="res-remain">13.30 m</div></div>
                         </div>
                         <div class="w-full bg-black/20 rounded-full h-8 overflow-hidden mb-6"><div id="main-progress-bar" class="bg-white h-full flex items-center justify-center text-xs font-bold text-green-800 transition-all duration-500">0%</div></div>
-                        <div class="pt-4 border-t border-green-500/50"><div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto"></div></div>
+                        <div class="pt-4 border-t border-green-500/50">
+                            <h3 class="text-xs font-bold uppercase mb-2">Vue de dessus</h3>
+                            <div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -213,44 +242,36 @@
             const div = document.createElement('div');
             div.className = "flex items-center gap-3";
             div.innerHTML = `
-                <span class="bg-orange-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">${count}</span>
-                <select class="prio-select bg-white border-2 border-orange-300 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
-                    <option value="none">-- Aucune --</option>
+                <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-sm">${count}</span>
+                <select class="prio-select bg-white border-2 border-slate-200 rounded-lg px-4 py-2 font-bold text-sm min-w-[200px] hover:border-orange-300 transition-colors calc-trigger">
+                    <option value="none">-- Aucune référence --</option>
                     <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
                     <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="kub">Kubs</option>
                 </select>
             `;
             container.appendChild(div);
-            div.querySelector('.calc-trigger').addEventListener('change', calc);
+            div.querySelector('select').addEventListener('change', calc);
             calc();
         }
 
         function calc() {
             let items = [];
             
-            // A. ÉLÉMENTS OBLIGATOIRES
+            // OBLIGATOIRES
             const add = (type, ori, qN, qG) => {
                 const d = DIMS[type][ori];
                 for(let i=0; i<qN; i++) items.push({ type, w: d.w, d: d.d, stacked: false });
                 if(qG > 0) for(let i=0; i<Math.ceil(qG/2); i++) items.push({ type, w: d.w, d: d.d, stacked: true });
             };
-
-            add('cpr', 'long', getVal('cpr-n-long'), getVal('cpr-g-long'));
-            add('cpr', 'larg', getVal('cpr-n-larg'), getVal('cpr-g-larg'));
-            add('pal', 'long', getVal('pal-n-long'), getVal('pal-g-long'));
-            add('pal', 'larg', getVal('pal-n-larg'), getVal('pal-g-larg'));
-            add('cp', 'long', getVal('cp-n-long'), getVal('cp-g-long'));
-            add('cp', 'larg', getVal('cp-n-larg'), getVal('cp-g-larg'));
-            add('ce', 'long', getVal('ce-n-long'), getVal('ce-g-long'));
-            add('ce', 'larg', getVal('ce-n-larg'), getVal('ce-g-larg'));
-            add('cdp', 'long', getVal('cdp-n-long'), getVal('cdp-g-long'));
-            add('cdp', 'larg', getVal('cdp-n-larg'), getVal('cdp-g-larg'));
+            ['cpr','pal','cp','ce','cdp'].forEach(t => {
+                add(t, 'long', getVal(t+'-n-long'), getVal(t+'-g-long'));
+                add(t, 'larg', getVal(t+'-n-larg'), getVal(t+'-g-larg'));
+            });
             add('kub', 'long', getVal('kub-n-long'), getVal('kub-g-long'));
 
-            // B. MATÉRIEL VIDE
+            // VIDE
             const kv = getVal('kubv-tot');
             if(kv > 0) for(let i=0; i<Math.ceil(kv/5); i++) items.push({ type:'kub', w:60, d:60, stacked: true, label:'KV' });
-            
             const pv = getVal('palv-tot');
             const pvRatio = getVal('palv-stk') || 1;
             if(pv > 0) {
@@ -259,7 +280,7 @@
                 for(let i=0; i<piles; i++) items.push({ type:'pal', w:d.w, d:d.d, stacked: true, label:'PV' });
             }
 
-            // PACKING INITIAL
+            // PACKING
             items.sort((a,b) => (b.w * b.d) - (a.w * a.d));
             let skyline = new Array(TRUCK_W).fill(0);
             let placed = [];
@@ -281,37 +302,26 @@
 
             items.forEach(it => place(it));
 
-            // C. IA GIDÉ : COMPLÉTER LE STOCK PAR PRIORITÉ
+            // GIDÉ IA
             let stockSummary = {};
-            
-            // Priorité 1 : Question simple "Combien de X ?"
             const q1Ref = document.getElementById('gide-q1-ref').value;
-            let q1Count = 0;
-            const d1 = DIMS[q1Ref].long;
-            while(place({ type: q1Ref, w: d1.w, d: d1.d, stacked: false }, true)) {
-                q1Count++;
-                stockSummary[q1Ref] = (stockSummary[q1Ref] || 0) + 1;
+            if(q1Ref !== 'none') {
+                while(place({ type: q1Ref, w: DIMS[q1Ref].long.w, d: DIMS[q1Ref].long.d, stacked: false }, true)) {
+                    stockSummary[q1Ref] = (stockSummary[q1Ref] || 0) + 1;
+                }
             }
-
-            // Priorité 2 : Liste prioritaire
-            const prioSelects = document.querySelectorAll('.prio-select');
-            prioSelects.forEach(sel => {
+            document.querySelectorAll('.prio-select').forEach(sel => {
                 const ref = sel.value;
                 if(ref !== 'none') {
-                    const d = DIMS[ref].long;
-                    while(place({ type: ref, w: d.w, d: d.d, stacked: false }, true)) {
+                    while(place({ type: ref, w: DIMS[ref].long.w, d: DIMS[ref].long.d, stacked: false }, true)) {
                         stockSummary[ref] = (stockSummary[ref] || 0) + 1;
                     }
                 }
             });
 
-            // Affichage résumé Gidé
             const sumBox = document.getElementById('stock-summary');
             if(Object.keys(stockSummary).length > 0) {
-                let html = `✨ <b>Gidé :</b> "D'après mes calculs, je peux rajouter : `;
-                html += Object.entries(stockSummary).map(([k, v]) => `${v} ${LABELS[k]}`).join(', ');
-                html += `."`;
-                sumBox.innerHTML = html;
+                sumBox.innerHTML = `✨ <b>Gidé :</b> "En complétant votre camion, je peux rajouter : ${Object.entries(stockSummary).map(([k, v]) => `${v} ${LABELS[k]}`).join(', ')}."`;
                 sumBox.classList.remove('hidden');
             } else { sumBox.classList.add('hidden'); }
 
@@ -328,7 +338,8 @@
         function draw(rects) {
             let svg = `<svg viewBox="0 0 1330 240" class="w-full">
                 <rect width="1330" height="240" fill="#f8fafc"/>
-                <path d="M0 0h1330v240H0z" fill="url(#grid)"/>`;
+                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>
+                <rect width="1330" height="240" fill="url(#grid)"/>`;
             rects.forEach(r => {
                 const col = COLORS[r.type];
                 svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${col}" opacity="${r.auto?0.5:r.stacked?0.8:1}" stroke="white" rx="2"/>`;
@@ -345,10 +356,12 @@
         }
 
         window.onload = () => {
-            const sites = Object.entries({ "pic": "PIC Lognes", "test": "Mode Test" });
-            sites.forEach(([k,v]) => document.getElementById('auth-site').add(new Option(v, k)));
-            document.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('input', calc));
-            document.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('change', calc));
+            const sel = document.getElementById('auth-site');
+            sel.add(new Option("PIC Lognes", "pic")); sel.add(new Option("Mode Test", "test"));
+            document.querySelectorAll('.calc-trigger').forEach(el => {
+                el.addEventListener('input', calc);
+                el.addEventListener('change', calc);
+            });
             calc();
         };
     </script>
