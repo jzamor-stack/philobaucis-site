@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur La Poste - IA Logistique 3D</title>
+    <title>Calculateur La Poste - IA Logistique</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -13,83 +13,137 @@
             -webkit-appearance: inner-spin-button !important;
             opacity: 1 !important; display: block !important; height: auto !important; cursor: pointer;
         }
+        input[type="number"] { appearance: auto !important; }
+        
+        .bar-gap {
+            background-color: #facc15;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.4) 5px, rgba(255,255,255,0.4) 10px);
+            display: flex; align-items: center; justify-content: center; color: #713f12; font-size: 10px; font-weight: bold;
+        }
+
         .rotate-180 { transform: rotate(180deg); }
-        .unlock-anim { animation: fadeOutUp 0.5s forwards; }
-        @keyframes fadeOutUp { to { opacity: 0; transform: translateY(-50px); visibility: hidden; pointer-events: none; } }
         .hole-rect { cursor: crosshair; transition: opacity 0.2s; }
         .hole-rect:hover { opacity: 0.9 !important; stroke: #854d0e; stroke-width: 3px; }
+        .unlock-anim { animation: fadeOutUp 0.5s forwards; }
+        @keyframes fadeOutUp { to { opacity: 0; transform: translateY(-50px); visibility: hidden; pointer-events: none; } }
     </style>
 </head>
 <body class="p-0 text-slate-800 relative h-screen w-screen overflow-hidden" id="main-body">
 
     <div id="auth-screen" class="absolute inset-0 z-[999] bg-slate-900 flex flex-col items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full border-t-4 border-teal-500 text-center">
+            <div class="text-4xl mb-2">📍</div>
             <h1 class="text-2xl font-extrabold text-slate-800">Accès Sécurisé</h1>
-            <p class="text-sm text-slate-500 mb-6">Validation sur site</p>
-            <button onclick="attemptLogin()" class="w-full py-3 bg-teal-600 text-white font-bold rounded-lg shadow-lg">Accéder au Quai</button>
+            <p class="text-sm text-slate-500 mb-6">Validation sur site par GPS</p>
+            <div class="space-y-4">
+                <select id="auth-site" class="w-full p-3 border border-slate-300 rounded-lg bg-slate-50 text-sm font-bold focus:border-teal-500 outline-none"></select>
+                <div id="auth-error" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-3 text-xs font-bold rounded"></div>
+                <button onclick="attemptLogin()" id="btn-login" class="w-full py-3 bg-gradient-to-r from-teal-600 to-cyan-700 text-white font-bold rounded-lg shadow-lg hover:from-teal-700 transition-all">Vérifier ma position et Accéder</button>
+            </div>
         </div>
     </div>
 
     <div id="app-content" class="h-full overflow-y-auto p-4 md:p-8 opacity-0 transition-opacity duration-700">
+        <div id="hole-tooltip" class="absolute pointer-events-none hidden bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-xl z-50 border border-slate-600 transform -translate-x-1/2 -translate-y-[120%] transition-opacity duration-100"></div>
+
         <div class="max-w-7xl mx-auto space-y-6">
-            
             <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-8 text-white shadow-xl text-center">
-                <h1 class="text-3xl font-bold mb-2">🚚 Calculateur Logistique 3D</h1>
-                <p class="text-teal-100">Optimisation spatiale Semi-Remorque (13,30m)</p>
+                <h1 class="text-3xl md:text-4xl font-extrabold mb-2">🚚 Calculateur de Chargement</h1>
+                <p class="text-teal-100 text-lg font-medium">Semi-Remorque 13,30m x 2,40m - Intelligence Spatiale</p>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                 <div class="xl:col-span-2 space-y-6">
                     
                     <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
-                        <h2 class="text-xl font-bold text-slate-800 mb-6">📦 Chargement Obligatoire</h2>
+                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">📦 Éléments à placer obligatoirement</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
-                                <h3 class="font-bold text-blue-900 text-xs mb-2 border-b border-blue-200">CPR (0.84x0.60)</h3>
-                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
-                                    <span class="font-bold">SOL</span><input type="number" id="cpr-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cpr-n-larg" class="w-full p-1 border rounded calc-trigger">
-                                    <span class="font-bold">GERBÉ</span><input type="number" id="cpr-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cpr-g-larg" class="w-full p-1 border rounded calc-trigger">
+                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 shadow-sm">
+                                <div class="flex justify-between items-center border-b border-blue-200 pb-1 mb-2">
+                                    <h3 class="font-bold text-blue-900">CPR</h3>
+                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-blue-600 font-bold border border-blue-100">0.84 x 0.60</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
+                                    <span></span><div class="text-center font-bold text-blue-800 uppercase">Long.</div><div class="text-center font-bold text-blue-800 uppercase">Larg.</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
+                                    <input type="number" id="cpr-n-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="cpr-n-larg" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
+                                    <input type="number" id="cpr-g-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="cpr-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-green-50 p-3 rounded-xl border border-green-200">
-                                <h3 class="font-bold text-green-900 text-xs mb-2 border-b border-green-200">PALETTE (1.20x0.80)</h3>
-                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
-                                    <span class="font-bold">SOL</span><input type="number" id="pal-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="pal-n-larg" class="w-full p-1 border rounded calc-trigger">
-                                    <span class="font-bold">GERBÉ</span><input type="number" id="pal-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="pal-g-larg" class="w-full p-1 border rounded calc-trigger">
+                            <div class="bg-green-50 p-3 rounded-xl border border-green-200 shadow-sm">
+                                <div class="flex justify-between items-center border-b border-green-200 pb-1 mb-2">
+                                    <h3 class="font-bold text-green-900">Palette</h3>
+                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-green-600 font-bold border border-green-100">1.20 x 0.80</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
+                                    <span></span><div class="text-center font-bold text-green-800 uppercase">Long.</div><div class="text-center font-bold text-green-800 uppercase">Larg.</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
+                                    <input type="number" id="pal-n-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="pal-n-larg" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
+                                    <input type="number" id="pal-g-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="pal-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
-                                <h3 class="font-bold text-purple-900 text-xs mb-2 border-b border-purple-200">CP (1.20x0.84)</h3>
-                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
-                                    <span class="font-bold">SOL</span><input type="number" id="cp-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cp-n-larg" class="w-full p-1 border rounded calc-trigger">
-                                    <span class="font-bold">GERBÉ</span><input type="number" id="cp-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cp-g-larg" class="w-full p-1 border rounded calc-trigger">
+                            <div class="bg-purple-50 p-3 rounded-xl border border-purple-200 shadow-sm">
+                                <div class="flex justify-between items-center border-b border-purple-200 pb-1 mb-2">
+                                    <h3 class="font-bold text-purple-900">CP</h3>
+                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-purple-600 font-bold border border-purple-100">1.20 x 0.84</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
+                                    <span></span><div class="text-center font-bold text-purple-800 uppercase">Long.</div><div class="text-center font-bold text-purple-800 uppercase">Larg.</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
+                                    <input type="number" id="cp-n-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="cp-n-larg" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
+                                    <input type="number" id="cp-g-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="cp-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-pink-50 p-3 rounded-xl border border-pink-200">
-                                <h3 class="font-bold text-pink-900 text-xs mb-2 border-b border-pink-200">CE (1.00x0.50)</h3>
-                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
-                                    <span class="font-bold">SOL</span><input type="number" id="ce-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="ce-n-larg" class="w-full p-1 border rounded calc-trigger">
-                                    <span class="font-bold">GERBÉ</span><input type="number" id="ce-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="ce-g-larg" class="w-full p-1 border rounded calc-trigger">
+                            <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 shadow-sm">
+                                <div class="flex justify-between items-center border-b border-pink-200 pb-1 mb-2">
+                                    <h3 class="font-bold text-pink-900">CE</h3>
+                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-pink-600 font-bold border border-pink-100">1.00 x 0.50</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
+                                    <span></span><div class="text-center font-bold text-pink-800 uppercase">Long.</div><div class="text-center font-bold text-pink-800 uppercase">Larg.</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
+                                    <input type="number" id="ce-n-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="ce-n-larg" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
+                                    <input type="number" id="ce-g-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="ce-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-                                <h3 class="font-bold text-indigo-900 text-xs mb-2 border-b border-indigo-200">CDP (1.20x1.00)</h3>
-                                <div class="grid grid-cols-3 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold">LONG.</span><span class="text-center font-bold">LARG.</span>
-                                    <span class="font-bold">SOL</span><input type="number" id="cdp-n-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cdp-n-larg" class="w-full p-1 border rounded calc-trigger">
-                                    <span class="font-bold">GERBÉ</span><input type="number" id="cdp-g-long" class="w-full p-1 border rounded calc-trigger"><input type="number" id="cdp-g-larg" class="w-full p-1 border rounded calc-trigger">
+                            <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200 shadow-sm">
+                                <div class="flex justify-between items-center border-b border-indigo-200 pb-1 mb-2">
+                                    <h3 class="font-bold text-indigo-900">CDP / Magnum</h3>
+                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-indigo-600 font-bold border border-indigo-100">1.20 x 1.00</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
+                                    <span></span><div class="text-center font-bold text-indigo-800 uppercase">Long.</div><div class="text-center font-bold text-indigo-800 uppercase">Larg.</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
+                                    <input type="number" id="cdp-n-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="cdp-n-larg" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
+                                    <input type="number" id="cdp-g-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <input type="number" id="cdp-g-larg" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
-                            <div class="bg-orange-50 p-3 rounded-xl border border-orange-200">
-                                <h3 class="font-bold text-orange-900 text-xs mb-2 border-b border-orange-200">KUBS</h3>
-                                <div class="grid grid-cols-2 gap-2 text-[10px] items-center">
-                                    <span></span><span class="text-center font-bold">CARRÉ</span>
-                                    <span class="font-bold">SOL</span><input type="number" id="kub-n-long" class="w-full p-1 border rounded calc-trigger">
-                                    <span class="font-bold">GERBÉ</span><input type="number" id="kub-g-long" class="w-full p-1 border rounded calc-trigger">
+                            <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 shadow-sm">
+                                <div class="flex justify-between items-center border-b border-orange-200 pb-1 mb-2">
+                                    <h3 class="font-bold text-orange-900">Kubs</h3>
+                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-orange-600 font-bold border border-orange-100">0.60 x 0.60</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[10px] items-center">
+                                    <span></span><div class="text-center font-bold text-orange-800 uppercase">Carré</div>
+                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
+                                    <input type="number" id="kub-n-long" class="w-full p-1 border rounded text-center calc-trigger">
+                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
+                                    <input type="number" id="kub-g-long" class="w-full p-1 border rounded text-center calc-trigger">
                                 </div>
                             </div>
                         </div>
@@ -97,239 +151,55 @@
 
                     <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
                         <button onclick="toggleSection('empty-block-content', 'empty-toggle-icon')" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-none">
-                            <div><h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2><p class="text-sm text-slate-500">Optimisation des piles de retour.</p></div>
-                            <div class="bg-slate-100 p-2 rounded-full"><svg id="empty-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                            <div>
+                                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2>
+                                <p class="text-sm text-slate-500 mt-1">Gestion des piles de Kubs et palettes vides.</p>
+                            </div>
+                            <div class="bg-slate-100 p-2 rounded-full shadow-sm">
+                                <svg id="empty-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
                         </button>
-                        <div id="empty-block-content" class="hidden px-6 pb-6 border-t pt-4">
+                        <div id="empty-block-content" class="hidden px-6 pb-6 border-t border-slate-100 pt-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 border-dashed">
-                                    <h4 class="font-bold text-orange-900 mb-1 text-sm">Kubs Vides (5/pile)</h4>
-                                    <input type="number" id="kubv-tot" class="w-full p-2 border border-orange-200 rounded text-sm calc-trigger" placeholder="Quantité totale">
+                                    <h4 class="font-bold text-orange-900 mb-1 text-sm">Kubs Vides (Max 5/pile)</h4>
+                                    <input type="number" id="kubv-tot" class="w-full p-2 border border-orange-200 rounded text-sm calc-trigger" placeholder="Qté totale de Kubs">
                                 </div>
                                 <div class="bg-green-50 p-3 rounded-xl border border-green-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1"><h4 class="font-bold text-green-900 text-sm">Palettes Vides</h4><div class="flex gap-1"><button class="px-2 py-0.5 rounded text-[10px] border bg-green-600 text-white font-bold" onclick="setOri('palv', 'long', 'green', this)">LONG.</button><button class="px-2 py-0.5 rounded text-[10px] border bg-white text-green-600" onclick="setOri('palv', 'larg', 'green', this)">LARG.</button></div></div>
-                                    <div class="flex gap-2"><input type="number" id="palv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Tot."><input type="number" id="palv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Pile de (déf:1)"></div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <h4 class="font-bold text-green-900 text-sm">Palettes Vides</h4>
+                                        <div class="flex gap-1">
+                                            <button class="px-2 py-0.5 rounded text-[10px] border bg-green-600 text-white font-bold" onclick="setOri('palv', 'long', 'green', this)">LONG.</button>
+                                            <button class="px-2 py-0.5 rounded text-[10px] border bg-white text-green-600" onclick="setOri('palv', 'larg', 'green', this)">LARG.</button>
+                                        </div>
+                                    </div>
+                                    <p class="text-[10px] text-green-600 mb-2 italic">Par défaut : 1 par pile</p>
+                                    <div class="flex gap-2">
+                                        <input type="number" id="palv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Qté totale">
+                                        <input type="number" id="palv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Par pile (déf:1)">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md border-2 border-orange-300 overflow-hidden">
-                        <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-orange-100 transition-colors flex justify-between items-center outline-none">
-                            <div><h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - Assistant IA</h2><p class="text-sm text-orange-700">Remplissage intelligent par priorités 3D.</p></div>
-                            <div class="bg-orange-200 p-2 rounded-full shadow-sm"><svg id="gide-toggle-icon" class="w-5 h-5 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                        <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 transition-colors flex justify-between items-center outline-none">
+                            <div>
+                                <h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - Compléter le stock</h2>
+                                <p class="text-sm text-orange-700">L'IA optimise le remplissage par priorités.</p>
+                            </div>
+                            <div class="bg-orange-200 p-2 rounded-full shadow-sm">
+                                <svg id="gide-toggle-icon" class="w-5 h-5 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
                         </button>
-                        <div id="gide-block-content" class="hidden p-8 border-t border-orange-200">
-                            <div class="space-y-6">
-                                <div class="flex flex-wrap items-center gap-2 text-lg text-slate-800">
-                                    <span class="text-orange-600 font-bold">Gidé,</span> combien de 
-                                    <select id="gide-q1-ref" class="border-2 border-orange-300 rounded px-2 py-1 font-bold calc-trigger">
+                        
+                        <div id="gide-block-content" class="hidden p-8 border-t border-orange-200 bg-white">
+                            <div class="space-y-8">
+                                <div class="flex flex-wrap items-center gap-3 text-lg text-slate-800">
+                                    <span class="text-orange-600 font-black italic">Gidé,</span>
+                                    <span>combien de</span>
+                                    <select id="gide-q1-ref" class="bg-white border-2 border-orange-300 rounded-lg px-3 py-1 font-bold text-orange-900 outline-none calc-trigger">
                                         <option value="none">-- Choisir --</option>
                                         <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
-                                        <option value="ce">CE</option><option value="cdp">CDP</option><option value="kub">Kubs</option>
-                                    </select>
-                                    puis-je mettre pour remplir mon camion ?
-                                </div>
-                                <div class="border-t pt-4">
-                                    <p class="mb-4 font-medium text-slate-800"><span class="text-orange-600 font-bold">Gidé,</span> j'ai des priorités :</p>
-                                    <div id="gide-priority-container" class="space-y-2">
-                                        <div class="flex items-center gap-3">
-                                            <span class="w-6 h-6 bg-orange-500 text-white rounded-full text-center text-xs leading-6 font-bold">1</span>
-                                            <select class="prio-select border-2 border-slate-200 rounded px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
-                                                <option value="none">-- Aucune --</option>
-                                                <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
-                                                <option value="ce">CE</option><option value="cdp">CDP</option><option value="kub">Kubs</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button onclick="addPriorityStep()" class="mt-4 text-orange-600 font-bold text-sm flex items-center gap-1"><span>➕</span> Ajouter une priorité</button>
-                                </div>
-                                <div id="stock-summary" class="bg-orange-50 p-4 border-l-4 border-orange-500 rounded text-orange-900 font-bold hidden italic"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="space-y-6">
-                    <div class="bg-gradient-to-br from-emerald-600 to-green-700 text-white p-6 rounded-2xl shadow-2xl sticky top-6">
-                        <h2 class="text-xl font-bold mb-4">📊 Remplissage</h2>
-                        <div class="flex justify-between items-end mb-4">
-                            <div><div class="text-xs font-bold text-green-100 uppercase">Utilisé</div><div class="text-3xl font-bold" id="res-used">0.00 m</div></div>
-                            <div class="text-right"><div class="text-xs font-bold text-green-100 uppercase">Restant</div><div class="text-3xl font-bold text-yellow-300" id="res-remain">13.30 m</div></div>
-                        </div>
-                        <div class="w-full bg-black/20 rounded-full h-8 overflow-hidden mb-6"><div id="main-progress-bar" class="bg-white h-full flex items-center justify-center text-xs font-bold text-green-800 transition-all duration-500">0%</div></div>
-                        <div class="pt-4 border-t border-green-500/50">
-                            <h3 class="text-xs font-bold uppercase mb-2">Vue de dessus dynamique</h3>
-                            <div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const TRUCK_L = 1330; const TRUCK_W = 240;
-        const DIMS = {
-            cpr: { long: {w: 60, d: 84}, larg: {w: 84, d: 60} },
-            pal: { long: {w: 80, d: 120}, larg: {w: 120, d: 80} },
-            cp:  { long: {w: 84, d: 120}, larg: {w: 120, d: 84} },
-            kub: { long: {w: 60, d: 60}, larg: {w: 60, d: 60} },
-            ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },
-            cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }
-        };
-        const LABELS = { cpr:'CPR', pal:'PAL', cp:'CP', kub:'KUB', ce:'CE', cdp:'CDP' };
-        const COLORS = { cpr:'#3b82f6', pal:'#22c55e', cp:'#a855f7', kub:'#f97316', ce:'#ec4899', cdp:'#6366f1' };
-        
-        let STATE = { palv: 'long' };
-
-        function toggleSection(id, icon) {
-            document.getElementById(id).classList.toggle('hidden');
-            document.getElementById(icon).classList.toggle('rotate-180');
-        }
-
-        function setOri(prod, ori, color, btn) {
-            STATE[prod] = ori;
-            Array.from(btn.parentNode.children).forEach(b => b.className = "px-2 py-0.5 rounded text-[10px] border bg-white text-green-600");
-            btn.className = `px-2 py-0.5 rounded text-[10px] border bg-${color}-600 text-white font-bold`;
-            calc();
-        }
-
-        function getVal(id) {
-            const el = document.getElementById(id);
-            return (el && el.value !== "") ? Math.max(0, parseInt(el.value)) : 0;
-        }
-
-        function addPriorityStep() {
-            const container = document.getElementById('gide-priority-container');
-            const count = container.children.length + 1;
-            const div = document.createElement('div');
-            div.className = "flex items-center gap-3";
-            div.innerHTML = `<span class="w-6 h-6 bg-orange-500 text-white rounded-full text-center text-xs leading-6 font-bold">${count}</span>
-                <select class="prio-select border-2 border-slate-200 rounded px-4 py-2 font-bold text-sm min-w-[200px] calc-trigger">
-                    <option value="none">-- Aucune --</option>
-                    <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cp">CP</option>
-                    <option value="ce">CE</option><option value="cdp">CDP</option><option value="kub">Kubs</option>
-                </select>`;
-            container.appendChild(div);
-            div.querySelector('select').addEventListener('change', calc);
-            calc();
-        }
-
-        function calc() {
-            let items = [];
-            
-            // A. CHARGEMENT PLEIN (3D via Gerbage)
-            const types = ['cpr','pal','cp','ce','cdp'];
-            types.forEach(t => {
-                const qN_long = getVal(t+'-n-long'); const qN_larg = getVal(t+'-n-larg');
-                const qG_long = getVal(t+'-g-long'); const qG_larg = getVal(t+'-g-larg');
-                for(let i=0; i<qN_long; i++) items.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:false });
-                for(let i=0; i<qN_larg; i++) items.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:false });
-                if(qG_long > 0) for(let i=0; i<Math.ceil(qG_long/2); i++) items.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:true });
-                if(qG_larg > 0) for(let i=0; i<Math.ceil(qG_larg/2); i++) items.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:true });
-            });
-            const kn = getVal('kub-n-long'); const kg = getVal('kub-g-long');
-            for(let i=0; i<kn; i++) items.push({ type:'kub', w:60, d:60, stacked:false });
-            for(let i=0; i<Math.ceil(kg/2); i++) items.push({ type:'kub', w:60, d:60, stacked:true });
-
-            // B. VIDE
-            const kv = getVal('kubv-tot');
-            if(kv > 0) for(let i=0; i<Math.ceil(kv/5); i++) items.push({ type:'kub', w:60, d:60, stacked: true, label:'KV' });
-            const pv = getVal('palv-tot');
-            const pvRatio = getVal('palv-stk') || 1;
-            if(pv > 0) {
-                const piles = Math.ceil(pv / pvRatio);
-                const d = DIMS.pal[STATE.palv];
-                for(let i=0; i<piles; i++) items.push({ type:'pal', w:d.w, d:d.d, stacked: true, label:'PV' });
-            }
-
-            // ALGO DE PLACEMENT (Teste les 2 sens pour optimiser l'espace)
-            let skyline = new Array(TRUCK_W).fill(0);
-            let placed = [];
-
-            const place = (item, isAuto = false) => {
-                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d}] : [{w:item.w, d:item.d}, {w:item.d, d:item.w}];
-                let bestFit = null;
-
-                orientations.forEach(ori => {
-                    let bestY = -1; let minX = Infinity;
-                    for(let y = 0; y <= TRUCK_W - ori.w; y++) {
-                        let maxX = 0;
-                        for(let i = y; i < y + ori.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
-                        if(maxX + ori.d <= TRUCK_L && maxX < minX) { minX = maxX; bestY = y; }
-                    }
-                    if(bestY !== -1) {
-                        if(!bestFit || minX < bestFit.minX) { bestFit = { minX, bestY, w:ori.w, d:ori.d }; }
-                    }
-                });
-
-                if(bestFit) {
-                    for(let i = bestFit.bestY; i < bestFit.bestY + bestFit.w; i++) skyline[i] = bestFit.minX + bestFit.d;
-                    placed.push({ ...item, x: bestFit.minX, y: bestFit.bestY, w: bestFit.w, d: bestFit.d, auto: isAuto });
-                    return true;
-                }
-                return false;
-            };
-
-            items.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
-
-            // C. GIDÉ IA 3D
-            let stockSummary = {};
-            const q1Ref = document.getElementById('gide-q1-ref').value;
-            if(q1Ref !== 'none') {
-                while(place({ type: q1Ref, w: DIMS[q1Ref].long.w, d: DIMS[q1Ref].long.d, stacked: false }, true)) {
-                    stockSummary[q1Ref] = (stockSummary[q1Ref] || 0) + 1;
-                }
-            }
-            document.querySelectorAll('.prio-select').forEach(sel => {
-                const ref = sel.value;
-                if(ref !== 'none') {
-                    while(place({ type: ref, w: DIMS[ref].long.w, d: DIMS[ref].long.d, stacked: false }, true)) {
-                        stockSummary[ref] = (stockSummary[ref] || 0) + 1;
-                    }
-                }
-            });
-
-            const sumBox = document.getElementById('stock-summary');
-            if(Object.keys(stockSummary).length > 0) {
-                sumBox.innerHTML = `✨ <b>Gidé :</b> "En optimisant l'espace, je peux ajouter : ${Object.entries(stockSummary).map(([k, v]) => `${v} ${LABELS[k]}`).join(', ')}."`;
-                sumBox.classList.remove('hidden');
-            } else { sumBox.classList.add('hidden'); }
-
-            const used = Math.max(...skyline);
-            document.getElementById('res-used').innerText = (used/100).toFixed(2) + " m";
-            document.getElementById('res-remain').innerText = ((TRUCK_L - used)/100).toFixed(2) + " m";
-            const pct = Math.min(100, (used/TRUCK_L)*100);
-            const bar = document.getElementById('main-progress-bar');
-            bar.style.width = pct + "%"; bar.innerText = pct.toFixed(1) + "%";
-            
-            draw(placed);
-        }
-
-        function draw(rects) {
-            let svg = `<svg viewBox="0 0 1330 240" class="w-full bg-white"><rect width="1330" height="240" fill="#f8fafc"/>`;
-            rects.forEach(r => {
-                const col = COLORS[r.type];
-                svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${col}" opacity="${r.auto?0.5:r.stacked?0.8:1}" stroke="white" rx="2"/>`;
-                svg += `<text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="8" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${r.label || LABELS[r.type]}</text>`;
-            });
-            svg += `</svg>`;
-            document.getElementById('svg-container').innerHTML = svg;
-        }
-
-        function attemptLogin() {
-            document.getElementById('auth-screen').classList.add('unlock-anim');
-            document.getElementById('app-content').classList.remove('opacity-0');
-            document.getElementById('main-body').classList.remove('overflow-hidden');
-        }
-
-        window.onload = () => {
-            document.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('input', calc));
-            document.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('change', calc));
-            calc();
-        };
-    </script>
-</body>
-</html>
+                                        <option value="ce">
