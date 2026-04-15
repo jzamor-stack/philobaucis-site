@@ -17,75 +17,40 @@
             align-items: center; min-height: 100vh; padding: 15px;
         }
         .container {
-            width: 100%; max-width: 950px; background: white;
-            border-radius: 20px; display: flex; overflow: hidden;
+            width: 100%; max-width: 1100px; background: white;
+            border-radius: 24px; display: flex; overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);
-            min-height: 450px;
+            height: 700px; /* Fixé pour éviter le double scroll */
         }
         .info-panel {
-            flex: 1; background: var(--gradient); padding: 30px; color: white;
+            flex: 0.8; background: var(--gradient); padding: 40px; color: white;
             display: flex; flex-direction: column; justify-content: space-between;
         }
-        .logo { width: 60px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); margin-bottom: 15px; }
+        .logo { width: 70px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); margin-bottom: 20px; }
         
         .booking-panel { 
-            flex: 1.5; padding: 30px; background: white; 
-            display: flex; flex-direction: column;
+            flex: 1.5; background: white; position: relative;
         }
 
-        #step-1 {
-            flex: 1; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        h1 { font-size: 1.6rem; margin: 8px 0; font-weight: 800; line-height: 1.2; }
-        h2 { color: var(--primary-purple); font-weight: 700; margin-top: 0; font-size: 1.3rem; }
+        h1 { font-size: 1.8rem; margin: 10px 0; font-weight: 800; line-height: 1.2; }
+        p { font-size: 1rem; opacity: 0.9; line-height: 1.5; }
         
-        .btn-action {
-            background: var(--gradient); color: white; border: none;
-            padding: 14px 28px; border-radius: 50px; cursor: pointer;
-            font-weight: bold; width: auto; min-width: 220px; transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(196, 25, 25, 0.25); font-size: 0.95rem;
-        }
-        .btn-action:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(196, 25, 25, 0.35); }
-        
-        .slot-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 10px; margin-top: 20px; width: 100%;
-        }
-        .slot {
-            border: 1.5px solid var(--primary-red); color: var(--primary-red);
-            padding: 8px; border-radius: 8px; text-align: center;
-            cursor: pointer; font-weight: 700; transition: all 0.2s; font-size: 0.9rem;
-        }
-        .slot:hover, .slot.selected { background: var(--primary-red); color: white; }
-        
-        #booking-form { display: none; margin-top: 15px; width: 100%; animation: fadeIn 0.5s; }
-        .form-group { margin-bottom: 12px; text-align: left; }
-        label { display: block; font-size: 0.8rem; color: #666; margin-bottom: 4px; font-weight: 600; }
-        input {
-            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;
-            box-sizing: border-box; font-family: inherit; font-size: 0.9rem;
-        }
-        
-        .radio-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-        .radio-option { flex: 1; min-width: 100px; }
-        .radio-option label {
-            display: block; padding: 8px; text-align: center; border: 1px solid #ddd;
-            border-radius: 6px; cursor: pointer; background: #fff; transition: 0.2s;
-            font-weight: 500; font-size: 0.75rem; color: #555;
-        }
-        .radio-option input:checked + label {
-            background: var(--primary-purple); color: white; border-color: var(--primary-purple);
-        }
-
         .badge-info {
-            background: rgba(255,255,255,0.12); padding: 12px; border-radius: 10px; 
-            font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.1); margin-top: 20px;
+            background: rgba(255,255,255,0.12); padding: 15px; border-radius: 12px; 
+            font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1);
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 768px) { .container { flex-direction: column; min-height: auto; } }
+        @media (max-width: 850px) { 
+            .container { flex-direction: column; height: auto; min-height: 100vh; }
+            .info-panel { flex: none; }
+            .booking-panel { height: 700px; }
+        }
     </style>
 </head>
 <body>
@@ -94,129 +59,22 @@
     <div class="info-panel">
         <div>
             <img src="https://i.postimg.cc/gkz1wGGw/philobaucis-logo-(9).png" class="logo">
-            <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; font-weight: bold; opacity: 0.8;">Jean-Daniel Zamor</p>
+            <p style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; font-weight: bold; opacity: 0.8; margin-bottom: 5px;">Jean-Daniel Zamor</p>
             <h1>S'engager avec Philobaucis</h1>
-            <p style="font-size: 0.95rem; opacity: 0.9; line-height: 1.4;">Vous souhaitez plus d'informations ? N'hésitez pas à prendre rendez-vous avec Jean-Daniel ZAMOR, Président du projet.</p>
+            <p>Vous souhaitez plus d'informations ? N'hésitez pas à prendre rendez-vous avec Jean-Daniel ZAMOR, Président du projet.</p>
         </div>
+        
         <div class="badge-info">
-            🕒 30 min | 🎥 Google Meet
+            🕒 30 min | 🎥 Visioconférence Google Meet
+            <br><br>
+            <span style="font-size: 0.8rem; opacity: 0.7;">Confirmation immédiate par e-mail après réservation.</span>
         </div>
     </div>
 
     <div class="booking-panel">
-        <div id="step-1">
-            <h2>Disponibilités</h2>
-            <p style="color: #555; font-size: 0.9rem; margin-bottom: 20px;">Choisissez un créneau horaire :</p>
-            <button id="auth_button" class="btn-action">Consulter mon agenda</button>
-            <div id="status" style="font-size: 0.75rem; color: #999; margin-top: 10px;"></div>
-            <div id="slots" class="slot-grid"></div>
-        </div>
-
-        <div id="booking-form">
-            <h2 id="selected-time-title" style="font-size: 1.1rem; text-align: center; margin-bottom: 15px;">Confirmation</h2>
-            <div class="form-group">
-                <label>Type de structure</label>
-                <div class="radio-group">
-                    <div class="radio-option"><input type="radio" name="type_org" id="type_ent" value="Entreprise"><label for="type_ent">Entreprise</label></div>
-                    <div class="radio-option"><input type="radio" name="type_org" id="type_ass" value="Association"><label for="type_ass">Association</label></div>
-                    <div class="radio-option"><input type="radio" name="type_org" id="type_app" value="Apporteur d'affaire"><label for="type_app">Apporteur</label></div>
-                </div>
-            </div>
-            <div class="form-group" style="display: flex; gap: 8px;">
-                <div style="flex: 1;"><label>Prénom</label><input type="text" id="prenom" required></div>
-                <div style="flex: 1;"><label>Nom</label><input type="text" id="nom" required></div>
-            </div>
-            <div class="form-group"><label>Organisation</label><input type="text" id="organisation" required></div>
-            <div class="form-group" style="display: flex; gap: 8px;">
-                <div style="flex: 1.2;"><label>Email</label><input type="email" id="email" required></div>
-                <div style="flex: 1;"><label>Téléphone</label><input type="tel" id="tel" required></div>
-            </div>
-            <button class="btn-action" style="width: 100%; margin-top: 5px;" onclick="sendBooking()">Envoyer la demande</button>
-        </div>
+        <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0XGHcPQyeeXp08giFPsgSBp2d8x2bHpmRU6hDxhmnq_6tIgH1exesLWAMlTU6rxG0Nr-KC7X3-?gv=true"></iframe>
     </div>
 </div>
 
-<script>
-    // TES CODES GOOGLE
-    const CLIENT_ID = '169519767322-i6fp67fvvm04uabil6ue0beffrpfboat.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyBwwLs9rIBDDqZ8nq95GHL5WONupq1iVJA'; 
-    const CALENDAR_ID = 'jzam.771@gmail.com'; 
-    let selectedTime = "";
-
-    const DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
-    const SCOPES = "https://www.googleapis.com/auth/calendar.events.readonly";
-
-    let tokenClient;
-    let gapiInited = false;
-    let gsiInited = false;
-
-    function gapiLoaded() { gapi.load('client', async () => { await gapi.client.init({ apiKey: API_KEY, discoveryDocs: [DISCOVERY_DOC] }); gapiInited = true; }); }
-    function gsiLoaded() { tokenClient = google.accounts.oauth2.initTokenClient({ client_id: CLIENT_ID, scope: SCOPES, callback: '', }); gsiInited = true; }
-
-    document.getElementById('auth_button').onclick = () => {
-        tokenClient.callback = async (resp) => { if (resp.error) throw (resp); listAvailableSlots(); };
-        tokenClient.requestAccessToken({prompt: 'consent'});
-    };
-
-    async function listAvailableSlots() {
-        const response = await gapi.client.calendar.events.list({
-            calendarId: CALENDAR_ID,
-            timeMin: (new Date()).toISOString(),
-            timeMax: (new Date(new Date().setHours(19,0,0))).toISOString(),
-            singleEvents: true, orderBy: 'startTime',
-        });
-        const busyEvents = response.result.items;
-        const container = document.getElementById('slots');
-        container.innerHTML = '';
-        document.getElementById('auth_button').style.display = 'none';
-        document.getElementById('step-1').style.justifyContent = 'flex-start';
-
-        const hours = [9, 10, 11, 14, 15, 16, 17, 18];
-        hours.forEach(h => {
-            const isBusy = busyEvents.some(event => {
-                const start = new Date(event.start.dateTime || event.start.date).getHours();
-                return start === h;
-            });
-            if (!isBusy) {
-                const div = document.createElement('div');
-                div.className = 'slot';
-                div.innerText = h + ":00";
-                div.onclick = () => selectSlot(h + ":00", div);
-                container.appendChild(div);
-            }
-        });
-    }
-
-    function selectSlot(time, element) {
-        selectedTime = time;
-        document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
-        element.classList.add('selected');
-        document.getElementById('booking-form').style.display = 'block';
-        document.getElementById('selected-time-title').innerText = "Confirmation (" + time + ")";
-        document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function sendBooking() {
-        const typeEl = document.querySelector('input[name="type_org"]:checked');
-        const data = {
-            type: typeEl ? typeEl.value : "Non précisé",
-            nom: document.getElementById('nom').value,
-            prenom: document.getElementById('prenom').value,
-            org: document.getElementById('organisation').value,
-            mail: document.getElementById('email').value,
-            tel: document.getElementById('tel').value,
-            date: new Date().toLocaleDateString('fr-FR')
-        };
-
-        if(!data.nom || !data.mail || !data.tel) { alert("Merci de remplir tous les champs."); return; }
-
-        // Préparation du message d'envoi
-        const body = `Bonjour Jean-Daniel,%0D%0A%0D%0AUne nouvelle demande de rendez-vous a été faite :%0D%0A%0D%0A- Créneau : ${data.date} à ${selectedTime}%0D%0A- Contact : ${data.prenom} ${data.nom}%0D%0A- Type : ${data.type}%0D%0A- Structure : ${data.org}%0D%0A- E-mail : ${data.mail}%0D%0A- TÉL : ${data.tel}%0D%0A%0D%0A(Note : Ce contact sera ajouté à votre liste de suivi du mardi).`;
-        
-        window.location.href = `mailto:j.zamor@philobaucis.fr?subject=Demande RDV Philobaucis - ${data.org}&body=${body}`;
-    }
-</script>
-<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-<script async defer src="https://accounts.google.com/gsi/client" onload="gsiLoaded()"></script>
 </body>
 </html>
