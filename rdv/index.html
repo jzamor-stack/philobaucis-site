@@ -31,7 +31,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 30px;
-            display: flex; /* Toujours en ligne */
+            display: flex;
             overflow: hidden;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
             border: 1px solid var(--glass-border);
@@ -86,20 +86,21 @@
             filter: contrast(95%) brightness(98%); 
         }
 
-        /* MODIFICATION MOBILE : MAINTIEN DU GAUCHE À DROITE */
+        /* MAINTIEN DU GAUCHE À DROITE SUR MOBILE */
         @media (max-width: 950px) { 
             .container { 
-                flex-direction: row; /* Forcer le mode ligne */
-                height: 500px; /* Hauteur réduite pour mobile */
+                flex-direction: row; 
+                height: 500px; 
             }
             .info-panel { 
                 padding: 20px; 
-                flex: 0.8; /* Ajustement de la largeur pour que les deux logent */
+                flex: 0.8; 
             }
-            .info-panel h1 { font-size: 1.2rem; }
-            .info-panel p { font-size: 0.8rem; }
+            .info-panel h1 { font-size: 1.1rem; }
+            .info-panel p { font-size: 0.75rem; }
             .logo { width: 40px; }
-            .badge-info { padding: 10px; font-size: 0.7rem; }
+            .badge-info { padding: 10px; font-size: 0.65rem; }
+            .badge-info span { font-size: 0.65rem !important; }
             .booking-panel { flex: 1.2; margin: 5px; }
         }
     </style>
@@ -118,11 +119,11 @@
         <div class="badge-info">
             <div style="display: flex; align-items: center; margin-bottom: 10px;">
                 <span style="font-size: 1.2rem; margin-right: 10px;">🕒</span>
-                <span>Session de <strong>30 minutes</strong></span>
+                <span>Session stratégique de <strong>60 minutes</strong></span>
             </div>
             <div style="display: flex; align-items: center; opacity: 0.8;">
                 <span style="font-size: 1.2rem; margin-right: 10px;">🎥</span>
-                <span>Lien Google Meet par e-mail</span>
+                <span>Lien Google Meet envoyé par e-mail</span>
             </div>
         </div>
     </div>
