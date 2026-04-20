@@ -18,8 +18,15 @@
 
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
+        /* HEADER MOBILE & OVERLAY (Cachés sur Desktop) */
+        .mobile-header { display: none; background: #000; padding: 15px 25px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 100; }
+        .mobile-header .logo { margin: 0; font-size: 1.2rem; }
+        .burger-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 0; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; transition: opacity 0.3s ease; }
+        .overlay.active { display: block; opacity: 1; }
+
         /* SIDEBAR */
-        .sidebar { width: 320px; background: #000; padding: 40px 25px; display: flex; flex-direction: column; border-right: 1px solid var(--border); flex-shrink: 0; }
+        .sidebar { width: 320px; background: #000; padding: 40px 25px; display: flex; flex-direction: column; border-right: 1px solid var(--border); flex-shrink: 0; z-index: 999; transition: transform 0.3s ease; }
         .logo { font-weight: 800; font-size: 1.4rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
         .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-group { display: flex; flex-direction: column; gap: 8px; }
@@ -63,13 +70,42 @@
 
         .highlight { color: #fff; font-weight: 700; }
 
-        @media (max-width: 1100px) { body { flex-direction: column; overflow: auto; } .sidebar { width: 100%; height: auto; padding: 20px; } .main-view { padding: 30px 20px; } }
+        /* VERSION MOBILE */
+        @media (max-width: 1100px) { 
+            body { flex-direction: column; } 
+            .mobile-header { display: flex; }
+            .sidebar { 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                height: 100%; 
+                transform: translateX(-100%); /* Caché à gauche par défaut */
+            } 
+            .sidebar.show {
+                transform: translateX(0); /* S'affiche au clic */
+            }
+            .main-view { padding: 30px 20px; } 
+            
+            /* Ajustements typographiques et tableaux pour mobile */
+            h1 { font-size: 2.2rem; }
+            .target-container, .founder-stats { grid-template-columns: 1fr !important; }
+            .example-header { display: none; } /* Cache l'entête sur mobile pour un meilleur design */
+            .example-row { grid-template-columns: 1fr; gap: 10px; text-align: center; padding: 20px; }
+            .example-row img { margin: 0 auto; }
+        }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
+    <div class="overlay" onclick="toggleMenu()"></div>
+
+    <div class="mobile-header">
         <div class="logo">PHILO<span>BAUCIS</span></div>
+        <button class="burger-btn" onclick="toggleMenu()">☰</button>
+    </div>
+
+    <aside class="sidebar" id="sidebarMenu">
+        <div class="logo" style="display: none; @media(min-width: 1101px){display: block;}">PHILO<span>BAUCIS</span></div>
         <div class="nav-group">
             <div class="nav-item active" onclick="openTab(event, 'home')">Le Projet 2026</div>
             <div class="nav-item" onclick="openTab(event, 'gains')">💰 Vos Gains</div>
@@ -207,15 +243,32 @@
     </main>
 
     <script>
+        // Fonction pour ouvrir/fermer le menu mobile
+        function toggleMenu() {
+            document.getElementById('sidebarMenu').classList.toggle('show');
+            document.querySelector('.overlay').classList.toggle('active');
+        }
+
+        // Fonction pour changer d'onglet
         function openTab(evt, tabName) {
             var i, tabcontent, navitems;
+            
+            // Cacher tous les contenus
             tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+            for (i = 0; i < tabcontent.length; i++) { 
+                tabcontent[i].style.display = "none"; 
+            }
+            
+            // Retirer la classe active de tous les boutons
             navitems = document.getElementsByClassName("nav-item");
-            for (i = 0; i < navitems.length; i++) { navitems[i].classList.remove("active"); }
+            for (i = 0; i < navitems.length; i++) { 
+                navitems[i].classList.remove("active"); 
+            }
+            
+            // Afficher l'onglet cliqué
             document.getElementById(tabName).style.display = "block";
             
-            // Gestion du menu actif
+            // Ajouter la classe active au bouton cliqué (gère aussi si cliqué depuis un autre bouton)
             const currentItems = document.querySelectorAll('.nav-item');
             currentItems.forEach(item => {
                 if(item.textContent.includes(tabName === 'home' ? 'Projet' : tabName === 'gains' ? 'Gains' : 'aider')) {
@@ -223,6 +276,12 @@
                 }
             });
             if(evt) evt.currentTarget.classList.add("active");
+
+            // Si on est sur mobile, on referme le menu automatiquement après le clic
+            if(window.innerWidth <= 1100) {
+                document.getElementById('sidebarMenu').classList.remove('show');
+                document.querySelector('.overlay').classList.remove('active');
+            }
         }
     </script>
 </body>
