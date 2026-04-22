@@ -106,63 +106,35 @@
             box-shadow: 0 12px 30px var(--glow); 
         }
 
-        /* CARTES HACHURÉES */
+        /* CARTES AVANTAGES (Remplacement des cartes hachurées) */
         .target-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
         
-        .hatch-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
+        .feature-card {
             padding: 40px 25px;
-            color: white;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 280px;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            min-height: 250px;
         }
-        
-        .hatch-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 10, 12, 0.75);
-            z-index: 1;
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
-
-        .hatch-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 5px,
-                rgba(255, 255, 255, 0.05) 5px,
-                rgba(255, 255, 255, 0.05) 10px
-            );
-            z-index: 2;
-            pointer-events: none;
+        .feature-card h3 { 
+            font-size: 1.25rem; 
+            font-weight: 800; 
+            margin-bottom: 15px; 
+            color: var(--text-dark); 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
         }
-
-        .hatch-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 35px rgba(196, 25, 25, 0.2); 
-            border-color: #c41919;
+        .feature-card p { 
+            font-size: 0.95rem; 
+            margin-bottom: 0; 
+            color: var(--text-muted); 
+            line-height: 1.6; 
         }
-
-        .hatch-content {
-            position: relative;
-            z-index: 3; 
-        }
-
-        .hatch-content h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 15px; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px; }
-        .hatch-content p { font-size: 0.95rem; margin-bottom: 0; color: #e4e4e7; line-height: 1.6; }
 
         /* TABLEAU PALIERS */
         .example-container { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-top: 30px; }
@@ -317,25 +289,22 @@
             <p>Nous offrons à 15 associations comme la vôtre une place centrale dans le débat public pour la présidentielle 2027. L'objectif : une visibilité massive et des ressources durables.</p>
             
             <div class="target-container">
-                <div class="hatch-card" style="background-image: url('https://images.pexels.com/photos/2510599/pexels-photo-2510599.jpeg?auto=compress&cs=tinysrgb&w=800');">
-                    <div class="hatch-content">
-                        <h3>Visibilité Massive</h3>
-                        <p>Vos réalités de terrain deviendront impossibles à ignorer grâce à de puissants relais médiatiques internationaux.</p>
-                    </div>
+                <div class="glow-card feature-card">
+                    <div class="feature-icon">📺</div>
+                    <h3>Visibilité Massive</h3>
+                    <p>Vos réalités de terrain deviendront impossibles à ignorer grâce à de puissants relais médiatiques internationaux.</p>
                 </div>
                 
-                <div class="hatch-card" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop');">
-                    <div class="hatch-content">
-                        <h3>Ressources Pérennes</h3>
-                        <p>Un dispositif conçu pour générer un apport régulier, important et stable qui se construit dans le temps.</p>
-                    </div>
+                <div class="glow-card feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3>Ressources Pérennes</h3>
+                    <p>Un dispositif conçu pour générer un apport régulier, important et stable qui se construit dans le temps.</p>
                 </div>
                 
-                <div class="hatch-card" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=800&auto=format&fit=crop');">
-                    <div class="hatch-content">
-                        <h3>Zéro Frais</h3>
-                        <p>Cet accompagnement est mis à votre disposition sans aucune contrepartie financière de votre part.</p>
-                    </div>
+                <div class="glow-card feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Zéro Frais</h3>
+                    <p>Cet accompagnement est mis à votre disposition sans aucune contrepartie financière de votre part.</p>
                 </div>
             </div>
         </div>
@@ -563,7 +532,7 @@
                 <div class="step-num" style="background: var(--text-dark);">03</div>
                 <div class="step-text">
                     <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">20 Juin 2026</h3>
-                    <h3 style="margin-top: 0;">Clotures définitive des candidatures</h3>
+                    <h3 style="margin-top: 0;">Clôture définitive des candidatures</h3>
                     <p>Date limite absolue pour formaliser la participation. Les accords formels ne seront plus acceptés après cette échéance.</p>
                 </div>
             </div>
