@@ -116,34 +116,68 @@
             box-shadow: 0 12px 30px var(--glow); 
         }
 
-        /* CARTES AVANTAGES */
+        /* NOUVELLES CARTES PREMIUM (Visibilité, Ressources, Zéro Frais) */
         .target-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
         
-        .feature-card {
-            padding: 40px 25px;
-            text-align: center;
+        .premium-feature-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 35px 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            min-height: 250px;
+            justify-content: flex-start;
         }
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        /* Ligne animée en haut de la carte au survol */
+        .premium-feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--grad);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
-        .feature-card h3 { 
-            font-size: 1.25rem; 
-            font-weight: 800; 
-            margin-bottom: 15px; 
-            color: var(--text-dark); 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
+        .premium-feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px rgba(196, 25, 25, 0.08);
+            border-color: transparent;
         }
-        .feature-card p { 
-            font-size: 0.95rem; 
-            margin-bottom: 0; 
-            color: var(--text-muted); 
-            line-height: 1.6; 
+        .premium-feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .pf-icon-wrapper {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            background: rgba(196, 25, 25, 0.06); 
+            color: #c41919;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        .premium-feature-card:hover .pf-icon-wrapper {
+            background: var(--grad);
+            color: white;
+            transform: scale(1.05) rotate(-5deg);
+        }
+        .premium-feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            color: var(--text-dark);
+            letter-spacing: 0px;
+        }
+        .premium-feature-card p {
+            font-size: 0.95rem;
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
 
         /* TABLEAU PALIERS */
@@ -295,20 +329,34 @@
             <p>Nous offrons à 15 associations comme la vôtre une place centrale dans le débat public pour la présidentielle 2027. L'objectif : une visibilité massive et des ressources durables.</p>
             
             <div class="target-container">
-                <div class="glow-card feature-card">
-                    <div class="feature-icon">📺</div>
+                <div class="premium-feature-card">
+                    <div class="pf-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </div>
                     <h3>Visibilité Massive</h3>
                     <p>Vos réalités de terrain deviendront impossibles à ignorer grâce à de puissants relais médiatiques internationaux.</p>
                 </div>
                 
-                <div class="glow-card feature-card">
-                    <div class="feature-icon">💎</div>
+                <div class="premium-feature-card">
+                    <div class="pf-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
                     <h3>Ressources Pérennes</h3>
                     <p>Un dispositif conçu pour générer un apport régulier, important et stable qui se construit dans le temps.</p>
                 </div>
                 
-                <div class="glow-card feature-card">
-                    <div class="feature-icon">🤝</div>
+                <div class="premium-feature-card">
+                    <div class="pf-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
                     <h3>Zéro Frais</h3>
                     <p>Cet accompagnement est mis à votre disposition sans aucune contrepartie financière de votre part.</p>
                 </div>
