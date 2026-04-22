@@ -54,9 +54,9 @@
         .stat-item { font-size: 0.8rem; font-weight: 700; color: #fff; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 6px; text-align: center; }
 
         /* PALIERS TABLE */
-        .example-container { background: var(--card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; margin-top: 20px; }
-        .example-header { background: rgba(255,255,255,0.03); padding: 18px 25px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 150px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); }
-        .example-row { padding: 15px 25px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 150px; align-items: center; }
+        .example-container { background: var(--card); border-radius: 20px; border: 1px solid var(--border); margin-top: 20px; overflow-x: auto; }
+        .example-header { background: rgba(255,255,255,0.03); padding: 18px 25px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 180px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); min-width: 650px; }
+        .example-row { padding: 15px 25px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 180px; align-items: center; min-width: 650px; }
         .medal-name { font-weight: 700; font-size: 1.1rem; }
         .commission-val { color: #c41919; font-weight: 800; font-size: 1.4rem; }
         .recurring-badge { background: var(--grad); padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; display: inline-block; margin-top: 5px; }
@@ -79,19 +79,20 @@
                 top: 0; 
                 left: 0; 
                 height: 100%; 
-                transform: translateX(-100%); /* Caché à gauche par défaut */
+                transform: translateX(-100%); 
             } 
             .sidebar.show {
-                transform: translateX(0); /* S'affiche au clic */
+                transform: translateX(0); 
             }
             .main-view { padding: 30px 20px; } 
             
-            /* Ajustements typographiques et tableaux pour mobile */
             h1 { font-size: 2.2rem; }
             .target-container, .founder-stats { grid-template-columns: 1fr !important; }
-            .example-header { display: none; } /* Cache l'entête sur mobile pour un meilleur design */
-            .example-row { grid-template-columns: 1fr; gap: 10px; text-align: center; padding: 20px; }
-            .example-row img { margin: 0 auto; }
+            
+            /* Ajustement du tableau : sur une ligne, centré, avec défilement */
+            .example-header { grid-template-columns: 60px 1fr 110px 160px; min-width: 580px; text-align: center; padding: 15px 10px; }
+            .example-row { grid-template-columns: 60px 1fr 110px 160px; min-width: 580px; text-align: center; padding: 15px 10px; }
+            .example-row img { margin: 0 auto; width: 35px; }
         }
     </style>
 </head>
