@@ -283,6 +283,9 @@
                 document.getElementById('sidebarMenu').classList.remove('show');
                 document.querySelector('.overlay').classList.remove('active');
             }
+
+            // Remonte systématiquement en haut de la page lors d'un changement d'onglet
+            document.querySelector('.main-view').scrollTop = 0;
         }
     </script>
 </body>
