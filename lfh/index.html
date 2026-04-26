@@ -109,7 +109,6 @@
     .n { font-weight: 700; color: var(--text); }
     #s { 
       flex: 1; 
-      min-height: 520px; 
       width: 100%; 
       height: auto; 
       overflow: visible; 
@@ -199,7 +198,7 @@
         
         <div id="w">
           <div id="l"></div>
-          <svg id="s" viewBox="0 0 900 980" aria-label="France">
+          <svg id="s" viewBox="0 0 900 800" aria-label="France">
             <defs>
               <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#1a1a24" />
@@ -220,7 +219,6 @@
           </svg>
         </div>
       </div>
-
       <div class="founder-box">
         <h3 style="color: var(--primary-color); margin: 0;">🎯 Notre Mission</h3>
         <p style="margin: 0;">Les maraudes sponsorisées sont encadrées par l'association <span class="highlight">Ligue Humanitaire</span> avec à son actif près de 500 maraudes. Le but de l'action est d'aider les personnes sans abris et précaires en leur délivrant de la nourriture, à boire, des vêtements et un kit d'hygiène. Nous agissons dans 10 villes en France pour mettre en place des actions concrètes et impactantes.</p>
@@ -497,7 +495,10 @@
       try {
         const topo=await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then(r=>r.json());
         const g=topojson.feature(topo,topo.objects.countries).features.find(x=>x.properties&&x.properties.name==="France");
-        const P=d3.geoMercator().center([2.3,46.25]).scale(2200).translate([450,490]);
+        
+        // LA MODIFICATION EST ICI : Ajustement du zoom et du placement
+        const P=d3.geoMercator().center([2.3,46.25]).scale(2500).translate([450, 360]);
+        
         const path=d3.geoPath(P); 
         f.setAttribute("d",path(g));
         
@@ -532,7 +533,6 @@
     };
 
     async function onConfigChange(config) {
-      // Met à jour les variables CSS pour garder le thème sombre personnalisable
       const root = document.documentElement;
       if(config.background_color) root.style.setProperty('--dark', config.background_color);
       if(config.surface_color) root.style.setProperty('--card', config.surface_color);
@@ -546,7 +546,6 @@
       const baseFontStack = 'sans-serif';
       document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
 
-      // Met à jour les textes
       const mainTitle = document.getElementById('main-title');
       if (mainTitle) mainTitle.innerHTML = config.main_title || defaultConfig.main_title;
 
@@ -629,7 +628,6 @@
       });
     }
 
-    // Initialiser les valeurs au chargement
     onConfigChange(window.elementSdk ? window.elementSdk.config : defaultConfig);
   </script>
 </body>
