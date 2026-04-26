@@ -258,10 +258,10 @@
       <div class="maraude-showcase">
         <div class="maraude-left">
           <button class="maraude-item" data-img="https://i.postimg.cc/Zn5XtmFY/382418158563-n.jpg" data-alt="Distribution de nourriture"> 🍲 <span>Nourriture</span> </button> 
-          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1541544181051-e46607bc22a4?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" data-alt="Distribution de boissons"> 💧 <span>Boissons</span> </button> 
-          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" data-alt="Distribution de vêtements"> 👕 <span>Vêtements</span> </button> 
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1627916641777-6a4a0f449a03?q=80&w=1600&auto=format&fit=crop" data-alt="Distribution de boissons"> 💧 <span>Boissons</span> </button> 
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?q=80&w=1600&auto=format&fit=crop" data-alt="Distribution de vêtements chauds"> 👕 <span>Vêtements</span> </button> 
           <button class="maraude-item" data-img="https://i.postimg.cc/J0zSV8c8/0628c49e-628e-4332-a644-46bdbaaabfd2.jpg" data-alt="Kit d'hygiène"> 🧼 <span>Kit d'Hygiène</span> </button> 
-          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" data-alt="Téléphones solidaires"> 📱 <span>Téléphones</span> </button>
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1549497538-303791108f94?q=80&w=1600&auto=format&fit=crop" data-alt="Téléphones solidaires"> 📱 <span>Téléphones</span> </button>
         </div>
         <div class="maraude-right">
           <img id="preview" src="https://i.postimg.cc/ydM196WS/Introduction-mecenat-maraude.png" alt="Aperçu maraude" onerror="this.src=''; this.style.display='none';">
@@ -496,7 +496,6 @@
         const topo=await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then(r=>r.json());
         const g=topojson.feature(topo,topo.objects.countries).features.find(x=>x.properties&&x.properties.name==="France");
         
-        // LA MODIFICATION EST ICI : Ajustement du zoom et du placement
         const P=d3.geoMercator().center([2.3,46.25]).scale(2500).translate([450, 360]);
         
         const path=d3.geoPath(P); 
