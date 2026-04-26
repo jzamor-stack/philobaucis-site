@@ -1,0 +1,8 @@
+{
+  "name": "philobaucis-calendrier",
+  "version": "1.0.0",
+  "description": "Calendrier d'inscription Philobaucis",
+  "dependencies": {
+    "resend": "^3.2.0"
+  }
+}
