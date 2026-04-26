@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendrier d'Inscription - Philobaucis</title>
-  
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* VARIABLES DU THEME */
     :root {
       --grad: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
       --glow: rgba(196, 25, 25, 0.3);
@@ -21,84 +19,20 @@
     }
 
     body {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      
-      /* FOND: Couleur de base + Grille subtile */
-      background-color: var(--dark);
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
-      background-attachment: fixed;
-      
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      position: relative;
-      overflow-x: hidden;
+      box-sizing: border-box; margin: 0; padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--dark); color: var(--text);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 20px; position: relative; overflow-x: hidden;
     }
 
-    /* ANIMATIONS DES HALOS LUMINEUX EN ARRIÈRE-PLAN */
-    body::before, body::after {
-      content: '';
-      position: fixed;
-      width: 50vw;
-      height: 50vw;
-      border-radius: 50%;
-      filter: blur(120px);
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.15;
-      animation: float 20s infinite ease-in-out alternate;
-    }
-
-    body::before {
-      top: -10vw;
-      left: -10vw;
-      background: radial-gradient(circle, var(--primary-color), transparent 60%);
-    }
-
-    body::after {
-      bottom: -10vw;
-      right: -10vw;
-      background: radial-gradient(circle, #6b1e5f, transparent 60%);
-      animation-delay: -10s;
-      animation-direction: alternate-reverse;
-    }
-
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(5vw, 5vw) scale(1.1); }
-      100% { transform: translate(-5vw, 2vw) scale(0.9); }
-    }
-
-    .bg-orbs {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      overflow: hidden;
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.6;
-      animation: floatOrb 25s infinite ease-in-out;
-    }
-
+    /* ORBS */
+    .bg-orbs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -2; pointer-events: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5; animation: floatOrb 25s infinite ease-in-out; }
     .orb-1 { width: 55vw; height: 55vw; background: #c41919; top: -20%; left: -10%; animation-delay: 0s; }
     .orb-2 { width: 45vw; height: 45vw; background: #6b1e5f; bottom: -15%; right: -10%; animation-delay: -5s; animation-direction: reverse; }
     .orb-3 { width: 40vw; height: 40vw; background: #ff4d4d; top: 35%; left: 45%; animation-delay: -10s; }
     .orb-4 { width: 45vw; height: 45vw; background: #9b2c8a; bottom: 20%; left: -15%; animation-delay: -15s; animation-direction: reverse; }
-
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
       33% { transform: translate(20vw, -15vh) scale(1.2); }
@@ -106,265 +40,92 @@
       100% { transform: translate(0, 0) scale(1); }
     }
 
-    .bg-grid {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg width='56' height='100' viewBox='0 0 56 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3C/svg%3E");
-      background-size: 90px auto;
-    }
-
-    .container {
-      background: transparent;
-      border-radius: 16px;
-      max-width: 1200px;
-      width: 100%;
-      padding: 32px;
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      color: var(--text);
-      margin: 0 0 8px 0;
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      margin: 0 0 32px 0;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
+    .container { background: transparent; border-radius: 16px; max-width: 1200px; width: 100%; padding: 32px; position: relative; z-index: 1; }
+    h1 { color: var(--text); margin: 0 0 8px 0; font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+    .subtitle { color: var(--muted); margin: 0 0 32px 0; font-size: 16px; line-height: 1.6; }
+    
     .city-selection { text-align: center; }
+    .cities-grid, .patterns-grid, .time-slots-selection, .weekdays-grid, .calendar-grid, .slots-grid { display: grid; gap: 16px; }
+    .cities-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-top: 32px; }
+    .patterns-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-bottom: 32px; }
+    .time-slots-selection { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .weekdays-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); margin-bottom: 32px; }
+    .calendar-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 32px; }
+    .slots-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
 
-    .cities-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    /* CARTES TRANSLUCIDES */
+    /* CARTES */
     .city-card, .booking-type-card, .pattern-card, .weekday-card, .date-card, .slot-card, .time-slot-option {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
-      color: var(--text);
+      background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease; text-align: center; color: var(--text);
     }
-
     .city-card:hover, .booking-type-card:hover, .pattern-card:hover, .weekday-card:hover, .date-card:hover, .slot-card:hover, .time-slot-option:hover {
-      border-color: var(--primary-color);
-      transform: translateY(-4px);
-      box-shadow: 0 15px 40px var(--glow);
-      background: rgba(196, 25, 25, 0.1);
+      border-color: var(--primary-color); transform: translateY(-4px); box-shadow: 0 15px 40px var(--glow); background: rgba(196, 25, 25, 0.1);
     }
 
     .city-name { font-size: 20px; font-weight: 700; color: white; }
+    .calendar-view, .booking-type-selection, .time-slots-view { display: none; animation: fadeIn 0.4s ease-in; }
+    .calendar-view.active, .booking-type-selection.active, .time-slots-view.active { display: block; }
 
-    .calendar-view, .booking-type-selection { animation: fadeIn 0.4s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .header-with-city {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 16px;
-    }
-
+    .header-with-city { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
     .nav-buttons { display: flex; gap: 12px; }
+    .btn-change-city, .btn-back { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-change-city:hover, .btn-back:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); }
 
-    .btn-change-city, .btn-back {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-change-city:hover, .btn-back:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .booking-types-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 32px;
-      justify-content: center;
-    }
-
+    .booking-types-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 32px; justify-content: center; }
     .booking-type-card { padding: 24px 16px; width: 280px; flex-shrink: 0; }
     .booking-type-icon { font-size: 48px; margin-bottom: 15px; }
     .booking-type-title { font-size: 18px; font-weight: 700; color: white; margin-bottom: 10px; }
     .booking-type-description { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
-    .patterns-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
     .pattern-card { padding: 20px; position: relative; }
-    .pattern-card.selected { border-color: var(--primary-color); background: var(--grad); }
+    .pattern-card.selected, .weekday-card.selected, .date-card.selected, .time-slot-option.selected { border-color: var(--primary-color); background: var(--grad); color: white; }
     .pattern-card .checkmark { position: absolute; top: 10px; right: 12px; font-size: 20px; display: none; color: white; }
     .pattern-card.selected .checkmark { display: block; }
     .pattern-name { font-size: 16px; font-weight: 700; color: white; margin-bottom: 8px; }
     .pattern-count { font-size: 14px; color: #FFD700; font-weight: 600; }
 
-    .total-count-banner {
-      background: rgba(14, 14, 18, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--primary-color);
-      color: white;
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 24px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: 700;
-    }
-
+    .total-count-banner { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--primary-color); color: white; padding: 16px; border-radius: 12px; margin-bottom: 24px; text-align: center; font-size: 18px; font-weight: 700; }
     .total-count-content { display: flex; align-items: center; justify-content: center; gap: 12px; }
     .achievement-logo { width: 60px; height: 60px; object-fit: contain; display: none; }
 
-    .confirm-patterns-btn {
-      background: var(--grad);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 16px 32px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: block;
-      margin: 24px auto;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
+    .confirm-patterns-btn { background: var(--grad); color: white; border: none; border-radius: 12px; padding: 16px 32px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; display: block; margin: 24px auto; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .confirm-patterns-btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 15px 30px rgba(196, 25, 25, 0.4); }
+    .confirm-patterns-btn:disabled { background: var(--card-bg); border: 1px solid var(--border); color: var(--muted); cursor: not-allowed; box-shadow: none; }
 
-    .confirm-patterns-btn:hover:not(:disabled) {
-      transform: scale(1.05);
-      box-shadow: 0 15px 30px rgba(196, 25, 25, 0.4);
-    }
-
-    .confirm-patterns-btn:disabled {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .pattern-time-section {
-      background: rgba(20, 20, 24, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-
+    .pattern-time-section { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
     .pattern-time-section h3 { color: white; margin: 0 0 16px 0; font-size: 18px; }
-    .time-slots-selection { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
     .time-slot-option { padding: 12px; font-weight: 600; }
-    .time-slot-option.selected { background: var(--grad); border-color: var(--primary-color); color: white; }
-
-    .weekdays-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .weekday-card.selected { background: var(--grad); border-color: var(--primary-color); color: white; }
     .weekday-name { font-size: 18px; font-weight: 700; color: white; }
 
-    .selected-city-info {
-      background: rgba(196, 25, 25, 0.05);
-      border: 1px solid rgba(196, 25, 25, 0.3);
-      border-left: 4px solid var(--primary-color);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 24px;
-      color: white;
-      font-size: 14px;
-      backdrop-filter: blur(5px);
-    }
-
-    .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 32px; }
+    .selected-city-info { background: rgba(196, 25, 25, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(196, 25, 25, 0.3); border-left: 4px solid var(--primary-color); border-radius: 8px; padding: 16px; margin-bottom: 24px; color: white; font-size: 14px; }
+    
     .date-card { padding: 16px; }
-    .date-card.selected { background: var(--grad); border-color: var(--primary-color); color: white; }
     .date-card .day { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--muted); }
     .date-card.selected .day { color: white; }
     .date-card .date { font-size: 24px; font-weight: 700; color: white; }
 
-    .time-slots-view { display: none; animation: fadeIn 0.3s ease-in; }
-    .time-slots-view.active { display: block; }
     .time-slots h2 { color: var(--primary-color); font-size: 20px; margin: 0 0 16px 0; }
-    .slots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
     .slot-card { padding: 16px; }
-    
     .slot-card.full { opacity: 0.4; cursor: not-allowed; }
     .slot-card.full:hover { transform: none; border-color: var(--border); background: var(--card-bg); box-shadow: none; }
-    
     .slot-time { font-size: 18px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .slot-participants { font-size: 14px; color: var(--muted); }
     .slot-price { font-size: 16px; font-weight: 600; color: #FFD700; margin-top: 6px; }
 
     /* MODAL D'INSCRIPTION */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 1000; }
     .modal.active { display: flex; }
-
-    .modal-content {
-      background: rgba(20, 20, 24, 0.85);
-      backdrop-filter: blur(25px);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      max-width: 450px;
-      width: 90%;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    }
-
+    .modal-content { background: rgba(20, 20, 24, 0.85); backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 450px; width: 90%; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
     .modal-content h3 { margin: 0 0 8px 0; color: white; font-size: 24px; font-weight: 800; }
     .modal-content p { margin: 0 0 24px 0; color: var(--muted); line-height: 1.5; }
 
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; margin-bottom: 8px; color: white; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .form-group input {
-      width: 100%; padding: 14px; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
-      color: white; border-radius: 12px; font-size: 15px; transition: all 0.3s; box-sizing: border-box; font-family: inherit;
-    }
+    .form-group input { width: 100%; padding: 14px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white; border-radius: 12px; font-size: 15px; transition: all 0.3s; box-sizing: border-box; font-family: inherit; }
     .form-group input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(196, 25, 25, 0.2); }
-    .form-group input::placeholder { color: #555; }
-
+    
     .button-group { display: flex; gap: 12px; margin-top: 32px; }
     .btn { flex: 1; padding: 14px 24px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
     .btn-primary { background: var(--grad); color: white; }
@@ -373,22 +134,11 @@
     .btn-secondary { background: transparent; color: white; border: 1px solid var(--border); }
     .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
 
-    .error-message {
-      background: rgba(196, 25, 25, 0.2); color: #ff4444; border: 1px solid rgba(196, 25, 25, 0.4);
-      padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;
-    }
+    .error-message { background: rgba(196, 25, 25, 0.2); color: #ff4444; border: 1px solid rgba(196, 25, 25, 0.4); padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
   </style>
  </head>
  <body>
-  
-  <div class="bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="orb orb-4"></div>
-  </div>
-  
-  <div class="bg-grid"></div>
+  <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
 
   <div class="container">
    <div id="welcome-page" class="city-selection">
@@ -410,10 +160,7 @@
 
    <div id="booking-type-selection" class="booking-type-selection" style="display: none;">
     <div class="header-with-city">
-     <div>
-      <h1>Type de réservation</h1>
-      <p class="subtitle">Choisissez le type de créneau que vous souhaitez réserver</p>
-     </div>
+     <div><h1>Type de réservation</h1><p class="subtitle">Choisissez le type de créneau que vous souhaitez réserver</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToWelcome()">← Retour</button></div>
     </div>
     <div class="booking-types-grid">
@@ -463,10 +210,7 @@
 
    <div id="regular-patterns-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
-     <div>
-      <h1>Sélection des créneaux réguliers</h1>
-      <p class="subtitle">Choisissez un ou plusieurs jours récurrents du mois</p>
-     </div>
+     <div><h1>Sélection des créneaux réguliers</h1><p class="subtitle">Choisissez un ou plusieurs jours récurrents du mois</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-regular"></strong> - Créneau régulier</span></div>
@@ -477,10 +221,7 @@
     </div>
     
     <div id="total-count-display" class="total-count-banner" style="display: none;">
-     <div class="total-count-content">
-         <span>Total: <span id="total-count-number">0</span> maraudes sur l'année</span> 
-         <img id="achievement-logo" src="" alt="Logo achievement" class="achievement-logo">
-     </div>
+     <div class="total-count-content"><span>Total: <span id="total-count-number">0</span> maraudes sur l'année</span> <img id="achievement-logo" src="" alt="Logo achievement" class="achievement-logo"></div>
     </div>
     
     <div class="patterns-grid" id="patterns-grid"></div>
@@ -492,10 +233,7 @@
 
    <div id="time-choice-view" class="booking-type-selection" style="display: none;">
     <div class="header-with-city">
-     <div>
-      <h1>Type d'horaires</h1>
-      <p class="subtitle">Comment souhaitez-vous gérer vos horaires pour ces créneaux ?</p>
-     </div>
+     <div><h1>Type d'horaires</h1><p class="subtitle">Comment souhaitez-vous gérer vos horaires pour ces créneaux ?</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToRegularPatterns()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Patterns sélectionnés : <strong id="patterns-summary"></strong></span></div>
@@ -515,10 +253,7 @@
 
    <div id="pattern-times-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
-     <div>
-      <h1>Sélection des horaires</h1>
-      <p class="subtitle">Choisissez un créneau horaire pour chaque jour sélectionné</p>
-     </div>
+     <div><h1>Sélection des horaires</h1><p class="subtitle">Choisissez un créneau horaire pour chaque jour sélectionné</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToTimeChoice()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-pattern-times"></strong> - Créneau régulier</span></div>
@@ -528,10 +263,7 @@
 
    <div id="unit-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
-     <div>
-      <h1 id="calendar-title">Calendrier d'inscription</h1>
-      <p class="subtitle" id="instructions-text">Sélectionnez une date et un créneau pour vous inscrire</p>
-     </div>
+     <div><h1 id="calendar-title">Calendrier d'inscription</h1><p class="subtitle" id="instructions-text">Sélectionnez une date et un créneau</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-unit"></strong> - Créneau à l'unité</span></div>
@@ -540,10 +272,7 @@
 
    <div id="yearly-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
-     <div>
-      <h1>Créneaux à l'année</h1>
-      <p class="subtitle">Sélectionnez un jour de la semaine pour votre créneau récurrent (novembre 2026 à novembre 2027)</p>
-     </div>
+     <div><h1>Créneaux à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine récurrent (novembre 2026 à novembre 2027)</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-yearly"></strong> - Créneau à l'année</span></div>
@@ -560,13 +289,10 @@
 
    <div id="national-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
-     <div>
-      <h1>Couverture nationale à l'année</h1>
-      <p class="subtitle">Sélectionnez un jour de la semaine pour votre créneau récurrent dans toutes les villes (octobre 2026 à octobre 2027)</p>
-     </div>
+     <div><h1>Couverture nationale à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine pour toutes les villes (oct. 26 à oct. 27)</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button></div>
     </div>
-    <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong> - Créneau national à l'année</span></div>
+    <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong></span></div>
     <div class="weekdays-grid" id="national-weekdays-grid">
      <div class="weekday-card" onclick="selectNationalWeekday('Lundi')"><div class="weekday-name">Lundi</div></div>
      <div class="weekday-card" onclick="selectNationalWeekday('Mardi')"><div class="weekday-name">Mardi</div></div>
@@ -580,11 +306,8 @@
 
    <div id="unit-slots-view" class="time-slots-view">
     <div class="header-with-city">
-     <div>
-      <h1>Créneaux disponibles</h1>
-      <p class="subtitle" id="selected-date-info"></p>
-     </div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToUnitCalendar()">← Retour au calendrier</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div><h1>Créneaux disponibles</h1><p class="subtitle" id="selected-date-info"></p></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToUnitCalendar()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-unit-slots"></strong> - Créneau à l'unité</span></div>
     <div class="slots-grid" id="slots-grid"></div>
@@ -592,23 +315,26 @@
 
    <div id="regular-slots-view" class="time-slots-view">
     <div class="header-with-city">
-     <div>
-      <h1>Créneaux disponibles</h1>
-      <p class="subtitle" id="selected-patterns-info"></p>
-     </div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToRegularPatterns()">← Retour aux patterns</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div><h1>Créneaux disponibles</h1><p class="subtitle" id="selected-patterns-info"></p></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToRegularPatterns()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-regular-slots"></strong> - Créneau régulier (<span id="patterns-count-display">0</span> maraudes)</span></div>
     <div class="slots-grid" id="regular-slots-grid"></div>
    </div>
 
+   <div id="pattern-individual-slots-view" class="time-slots-view">
+    <div class="header-with-city">
+     <div><h1>Confirmez vos inscriptions</h1><p class="subtitle">Vérifiez vos créneaux</p></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToPatternTimes()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+    </div>
+    <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-pattern-individual"></strong> - Créneau régulier</span></div>
+    <div id="pattern-individual-container"></div>
+   </div>
+
    <div id="yearly-slots-view" class="time-slots-view">
     <div class="header-with-city">
-     <div>
-      <h1>Créneaux disponibles</h1>
-      <p class="subtitle" id="selected-weekday-info"></p>
-     </div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToYearlyCalendar()">← Retour aux jours</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div><h1>Créneaux disponibles</h1><p class="subtitle" id="selected-weekday-info"></p></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToYearlyCalendar()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-yearly-slots"></strong> - Créneau à l'année</span></div>
     <div class="slots-grid" id="yearly-slots-grid"></div>
@@ -616,13 +342,10 @@
 
    <div id="national-slots-view" class="time-slots-view">
     <div class="header-with-city">
-     <div>
-      <h1>Créneaux nationaux disponibles</h1>
-      <p class="subtitle" id="selected-national-weekday-info"></p>
-     </div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToNationalCalendar()">← Retour aux jours</button></div>
+     <div><h1>Créneaux nationaux disponibles</h1><p class="subtitle" id="selected-national-weekday-info"></p></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="backToNationalCalendar()">← Retour</button></div>
     </div>
-    <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong> - Créneau national à l'année</span></div>
+    <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong></span></div>
     <div class="slots-grid" id="national-slots-grid"></div>
    </div>
   </div>
@@ -652,64 +375,38 @@
     const WEEKDAY_MAP = { 'Lundi': 1, 'Mardi': 2, 'Mercredi': 3, 'Jeudi': 4, 'Vendredi': 5, 'Samedi': 6, 'Dimanche': 0 };
     const ACHIEVEMENT_THRESHOLD = 52;
 
-    let selectedDate = null;
-    let selectedWeekday = null;
-    let selectedSlot = null;
-    let selectedCity = null;
-    let bookingType = null;
-    let companySize = null;
-    let isLoading = false;
-    let selectedPatterns = [];
-    let patternTimeSlots = {};
-    let multiCitySelections = [];
+    let selectedDate = null; let selectedWeekday = null; let selectedSlot = null; let selectedCity = null;
+    let bookingType = null; let companySize = null; let isLoading = false;
+    let selectedPatterns = []; let patternTimeSlots = {}; let multiCitySelections = [];
 
     function calculateOccurrences(weekNumber, weekday) {
       const startDate = new Date(2026, 10, 1);
       const endDate = new Date(2027, 10, 31);
-      let count = 0;
-      
-      let currentDate = new Date(startDate);
+      let count = 0; let currentDate = new Date(startDate);
       while (currentDate <= endDate) {
-        const month = currentDate.getMonth();
-        const year = currentDate.getFullYear();
-        
-        const firstDay = new Date(year, month, 1);
-        const targetWeekday = WEEKDAY_MAP[weekday];
+        const month = currentDate.getMonth(); const year = currentDate.getFullYear();
+        const firstDay = new Date(year, month, 1); const targetWeekday = WEEKDAY_MAP[weekday];
         let daysUntilTarget = (targetWeekday - firstDay.getDay() + 7) % 7;
         let nthDay = new Date(year, month, 1 + daysUntilTarget + (weekNumber - 1) * 7);
-        
-        if (nthDay.getMonth() === month && nthDay >= startDate && nthDay <= endDate) {
-          count++;
-        }
+        if (nthDay.getMonth() === month && nthDay >= startDate && nthDay <= endDate) count++;
         currentDate = new Date(year, month + 1, 1);
       }
       return count;
     }
 
     function generatePatterns() {
-      const patterns = [];
-      const weekNumbers = ['1er', '2ème', '3ème', '4ème'];
+      const patterns = []; const weekNumbers = ['1er', '2ème', '3ème', '4ème'];
       WEEKDAYS.forEach(weekday => {
         weekNumbers.forEach((weekLabel, index) => {
-          const weekNumber = index + 1;
-          const count = calculateOccurrences(weekNumber, weekday);
-          if (count > 0) {
-            patterns.push({
-              id: `${weekNumber}-${weekday}`,
-              label: `${weekLabel} ${weekday}`,
-              weekNumber: weekNumber,
-              weekday: weekday,
-              count: count
-            });
-          }
+          const weekNumber = index + 1; const count = calculateOccurrences(weekNumber, weekday);
+          if (count > 0) patterns.push({ id: `${weekNumber}-${weekday}`, label: `${weekLabel} ${weekday}`, weekNumber: weekNumber, weekday: weekday, count: count });
         });
       });
       return patterns;
     }
 
     function selectCompanySize(size) {
-      companySize = size;
-      updatePricing();
+      companySize = size; updatePricing();
       document.getElementById('welcome-page').style.display = 'none';
       document.getElementById('booking-type-selection').style.display = 'block';
     }
@@ -717,116 +414,56 @@
     function backToWelcome() {
       companySize = null; selectedCity = null; selectedDate = null; selectedWeekday = null;
       selectedSlot = null; bookingType = null; selectedPatterns = [];
-      document.querySelectorAll('.calendar-view, .booking-type-selection, .time-slots-view').forEach(el => {
-          el.style.display = 'none';
-          el.classList.remove('active');
-      });
+      document.querySelectorAll('.calendar-view, .booking-type-selection, .time-slots-view').forEach(el => { el.style.display = 'none'; el.classList.remove('active'); });
       document.getElementById('city-selection').style.display = 'none';
       document.getElementById('welcome-page').style.display = 'block';
     }
 
     function updatePricing() {
       const unitPrice = '900 €'; const regularPrice = '800 €';
+      document.getElementById('unit-price-description').innerHTML = `Réservez une date précise pour une intervention ponctuelle<br><br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${unitPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
+      document.getElementById('regular-price-description').innerHTML = `Réservez des jours récurrents mensuels d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
+      document.getElementById('yearly-price-description').innerHTML = `Réservez un jour de la semaine récurrent d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
+      document.getElementById('national-price-description').innerHTML = `Réservez un jour de la semaine récurrent dans toutes les villes<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
       
-      document.getElementById('unit-price-description').innerHTML = 
-        `Réservez une date précise pour une intervention ponctuelle<br><br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${unitPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
-      document.getElementById('regular-price-description').innerHTML = 
-        `Réservez des jours récurrents mensuels d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
-      document.getElementById('yearly-price-description').innerHTML = 
-        `Réservez un jour de la semaine récurrent d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
-      document.getElementById('national-price-description').innerHTML = 
-        `Réservez un jour de la semaine récurrent dans toutes les villes<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
-      
-      const nationalCard = document.getElementById('national-booking-card');
-      nationalCard.style.display = companySize === 'small' ? 'none' : 'block';
-
-      const regularLogo = document.getElementById('regular-booking-logo');
-      const yearlyLogo = document.getElementById('yearly-booking-logo');
-      if (companySize === 'small') {
-        regularLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png';
-        yearlyLogo.src = 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png';
-      } else {
-        regularLogo.src = 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png';
-        yearlyLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png'; // Fallback
-      }
+      document.getElementById('national-booking-card').style.display = companySize === 'small' ? 'none' : 'block';
+      const regLogo = document.getElementById('regular-booking-logo'); const yrLogo = document.getElementById('yearly-booking-logo');
+      if (companySize === 'small') { regLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png'; yrLogo.src = 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png'; }
+      else { regLogo.src = 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png'; yrLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png'; }
     }
 
     function selectCity(city) {
       selectedCity = city;
-      document.getElementById('current-city-unit').textContent = city;
-      document.getElementById('current-city-yearly').textContent = city;
-      document.getElementById('current-city-regular').textContent = city;
+      ['current-city-unit', 'current-city-yearly', 'current-city-regular'].forEach(id => document.getElementById(id).textContent = city);
       document.getElementById('city-selection').style.display = 'none';
-      
-      if (bookingType === 'unit') {
-        document.getElementById('unit-calendar-view').style.display = 'block';
-        renderCalendar();
-      } else if (bookingType === 'yearly') {
-        document.getElementById('yearly-calendar-view').style.display = 'block';
-        renderWeekdays();
-      } else if (bookingType === 'regular') {
-        document.getElementById('regular-patterns-view').style.display = 'block';
-        renderPatterns();
-      }
+      if (bookingType === 'unit') { document.getElementById('unit-calendar-view').style.display = 'block'; renderCalendar(); }
+      else if (bookingType === 'yearly') { document.getElementById('yearly-calendar-view').style.display = 'block'; renderWeekdays(); }
+      else if (bookingType === 'regular') { document.getElementById('regular-patterns-view').style.display = 'block'; renderPatterns(); }
     }
 
     function selectBookingType(type) {
-      bookingType = type;
-      document.getElementById('booking-type-selection').style.display = 'none';
-      
-      if (type === 'national') {
-        selectedCity = 'National';
-        document.getElementById('national-calendar-view').style.display = 'block';
-        renderNationalWeekdays();
-      } else {
-        document.getElementById('city-selection').style.display = 'block';
-      }
+      bookingType = type; document.getElementById('booking-type-selection').style.display = 'none';
+      if (type === 'national') { selectedCity = 'National'; document.getElementById('national-calendar-view').style.display = 'block'; renderNationalWeekdays(); }
+      else { document.getElementById('city-selection').style.display = 'block'; }
     }
 
     function backToBookingType() {
-      document.querySelectorAll('.calendar-view, .time-slots-view').forEach(el => {
-          el.style.display = 'none'; el.classList.remove('active');
-      });
+      document.querySelectorAll('.calendar-view, .time-slots-view').forEach(el => { el.style.display = 'none'; el.classList.remove('active'); });
       document.getElementById('city-selection').style.display = 'none';
       document.getElementById('booking-type-selection').style.display = 'block';
       selectedDate = null; selectedWeekday = null; selectedSlot = null; selectedCity = null; selectedPatterns = [];
     }
 
-    function backToUnitCalendar() {
-      document.getElementById('unit-slots-view').classList.remove('active');
-      document.getElementById('unit-calendar-view').style.display = 'block';
-      selectedSlot = null;
-    }
-
-    function backToYearlyCalendar() {
-      document.getElementById('yearly-slots-view').classList.remove('active');
-      document.getElementById('yearly-calendar-view').style.display = 'block';
-      selectedSlot = null;
-    }
-
-    function backToNationalCalendar() {
-      document.getElementById('national-slots-view').classList.remove('active');
-      document.getElementById('national-calendar-view').style.display = 'block';
-      selectedSlot = null;
-    }
-
+    function backToUnitCalendar() { document.getElementById('unit-slots-view').classList.remove('active'); document.getElementById('unit-calendar-view').style.display = 'block'; selectedSlot = null; }
+    function backToYearlyCalendar() { document.getElementById('yearly-slots-view').classList.remove('active'); document.getElementById('yearly-calendar-view').style.display = 'block'; selectedSlot = null; }
+    function backToNationalCalendar() { document.getElementById('national-slots-view').classList.remove('active'); document.getElementById('national-calendar-view').style.display = 'block'; selectedSlot = null; }
     function backToRegularPatterns() {
-      document.getElementById('regular-slots-view').classList.remove('active');
-      document.getElementById('time-choice-view').style.display = 'none';
-      document.getElementById('pattern-times-view').style.display = 'none';
-      document.getElementById('regular-patterns-view').style.display = 'block';
+      document.getElementById('regular-slots-view').classList.remove('active'); document.getElementById('time-choice-view').style.display = 'none';
+      document.getElementById('pattern-times-view').style.display = 'none'; document.getElementById('regular-patterns-view').style.display = 'block';
       selectedSlot = null;
-      if (multiCitySelections.length > 0) {
-        multiCitySelections = []; selectedPatterns = []; patternTimeSlots = {};
-        updateTotalCount();
-      }
+      if (multiCitySelections.length > 0) { multiCitySelections = []; selectedPatterns = []; patternTimeSlots = {}; updateTotalCount(); }
     }
-
-    function backToTimeChoice() {
-      document.getElementById('pattern-times-view').style.display = 'none';
-      document.getElementById('time-choice-view').style.display = 'block';
-      patternTimeSlots = {};
-    }
+    function backToTimeChoice() { document.getElementById('pattern-times-view').style.display = 'none'; document.getElementById('time-choice-view').style.display = 'block'; patternTimeSlots = {}; }
 
     function selectTimeChoice(choice) {
       if (choice === 'same') {
@@ -839,28 +476,22 @@
         document.getElementById('regular-slots-view').classList.add('active');
         renderRegularTimeSlotsMultiCity();
       } else {
-        document.getElementById('time-choice-view').style.display = 'none';
-        document.getElementById('pattern-times-view').style.display = 'block';
-        document.getElementById('current-city-pattern-times').textContent = 'Multi-villes';
-        renderPatternTimeSelectionMultiCity();
+        document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('pattern-times-view').style.display = 'block';
+        document.getElementById('current-city-pattern-times').textContent = 'Multi-villes'; renderPatternTimeSelectionMultiCity();
       }
     }
 
     function renderPatternTimeSelectionMultiCity() {
-      const container = document.getElementById('pattern-times-container');
-      container.innerHTML = '';
-      multiCitySelections.forEach(citySelection => {
-        citySelection.patterns.forEach(pattern => {
-          const section = document.createElement('div');
-          section.className = 'pattern-time-section';
-          section.innerHTML = `<h3>${citySelection.city} - ${pattern.label} (${pattern.count} maraudes)</h3><div class="time-slots-selection" id="time-slots-${citySelection.city}-${pattern.id}"></div>`;
+      const container = document.getElementById('pattern-times-container'); container.innerHTML = '';
+      multiCitySelections.forEach(citySel => {
+        citySel.patterns.forEach(pattern => {
+          const section = document.createElement('div'); section.className = 'pattern-time-section';
+          section.innerHTML = `<h3>${citySel.city} - ${pattern.label} (${pattern.count} maraudes)</h3><div class="time-slots-selection" id="time-slots-${citySel.city}-${pattern.id}"></div>`;
           container.appendChild(section);
-          const slotsGrid = document.getElementById(`time-slots-${citySelection.city}-${pattern.id}`);
+          const slotsGrid = document.getElementById(`time-slots-${citySel.city}-${pattern.id}`);
           TIME_SLOTS.forEach(slot => {
-            const option = document.createElement('div');
-            option.className = 'time-slot-option';
-            option.textContent = slot;
-            option.onclick = () => selectPatternTimeSlot(`${citySelection.city}-${pattern.id}`, slot);
+            const option = document.createElement('div'); option.className = 'time-slot-option'; option.textContent = slot;
+            option.onclick = () => selectPatternTimeSlot(`${citySel.city}-${pattern.id}`, slot);
             slotsGrid.appendChild(option);
           });
         });
@@ -871,10 +502,7 @@
     function selectPatternTimeSlot(patternId, timeSlot) {
       patternTimeSlots[patternId] = timeSlot;
       const slotsGrid = document.getElementById(`time-slots-${patternId}`);
-      Array.from(slotsGrid.children).forEach(option => {
-        if (option.textContent === timeSlot) option.classList.add('selected');
-        else option.classList.remove('selected');
-      });
+      Array.from(slotsGrid.children).forEach(opt => { if (opt.textContent === timeSlot) opt.classList.add('selected'); else opt.classList.remove('selected'); });
       updatePatternTimesButton();
     }
 
@@ -892,10 +520,10 @@
 
     function openGroupRegistrationModal() {
       let summary = `Inscription groupée multi-villes\n\n`;
-      multiCitySelections.forEach(citySelection => {
-        summary += `${citySelection.city} :\n`;
-        citySelection.patterns.forEach(pattern => {
-          const timeSlot = patternTimeSlots[`${citySelection.city}-${pattern.id}`] || selectedSlot;
+      multiCitySelections.forEach(citySel => {
+        summary += `${citySel.city} :\n`;
+        citySel.patterns.forEach(pattern => {
+          const timeSlot = patternTimeSlots[`${citySel.city}-${pattern.id}`] || selectedSlot;
           summary += `  • ${pattern.label} : ${timeSlot} (${pattern.count} maraudes)\n`;
         });
         summary += '\n';
@@ -904,36 +532,28 @@
       summary += `Total : ${totalCount} maraudes`;
       
       document.getElementById('modal-slot-info').textContent = summary;
-      document.getElementById('modal-slot-info').dataset.groupRegistration = 'true';
-      
       document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
       document.getElementById('error-container').innerHTML = '';
       document.getElementById('registration-modal').classList.add('active');
     }
 
     function renderPatterns() {
-      const grid = document.getElementById('patterns-grid');
-      grid.innerHTML = '';
+      const grid = document.getElementById('patterns-grid'); grid.innerHTML = '';
       const patterns = generatePatterns();
-      const previousDisplay = document.getElementById('previous-selections-display');
-      const previousList = document.getElementById('previous-selections-list');
+      const prevDisplay = document.getElementById('previous-selections-display');
+      const prevList = document.getElementById('previous-selections-list');
       
       if (multiCitySelections.length > 0) {
-        previousDisplay.style.display = 'block';
-        let html = '';
+        prevDisplay.style.display = 'block'; let html = '';
         multiCitySelections.forEach(sel => {
           const total = sel.patterns.reduce((sum, p) => sum + p.count, 0);
-          const patternNames = sel.patterns.map(p => p.label).join(', ');
-          html += `<div style="margin-bottom: 8px;"><strong>${sel.city}</strong> : ${patternNames} (${total} maraudes)</div>`;
+          html += `<div style="margin-bottom: 8px;"><strong>${sel.city}</strong> : ${sel.patterns.map(p => p.label).join(', ')} (${total} maraudes)</div>`;
         });
-        previousList.innerHTML = html;
-      } else {
-        previousDisplay.style.display = 'none';
-      }
+        prevList.innerHTML = html;
+      } else { prevDisplay.style.display = 'none'; }
 
       patterns.forEach(pattern => {
-        const card = document.createElement('div');
-        card.className = 'pattern-card';
+        const card = document.createElement('div'); card.className = 'pattern-card';
         if (selectedPatterns.some(p => p.id === pattern.id)) card.classList.add('selected');
         card.innerHTML = `<div class="checkmark">✓</div><div class="pattern-name">${pattern.label}</div><div class="pattern-count">${pattern.count} maraudes/an</div>`;
         card.onclick = () => {
@@ -947,9 +567,9 @@
     }
 
     function updateTotalCount() {
-      const previousTotal = multiCitySelections.reduce((sum, sel) => sum + sel.patterns.reduce((cSum, p) => cSum + p.count, 0), 0);
-      const currentTotal = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
-      const total = previousTotal + currentTotal;
+      const prevTotal = multiCitySelections.reduce((sum, sel) => sum + sel.patterns.reduce((cSum, p) => cSum + p.count, 0), 0);
+      const currTotal = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
+      const total = prevTotal + currTotal;
       
       document.getElementById('total-count-number').textContent = total;
       const banner = document.getElementById('total-count-display');
@@ -958,24 +578,14 @@
       const achievementLogo = document.getElementById('achievement-logo');
       
       if (total > 0) {
-        banner.style.display = 'block';
-        btn.disabled = currentTotal === 0;
-        if (companySize === 'large') {
-          addCityBtn.disabled = currentTotal === 0; addCityBtn.style.display = 'block';
-        } else { addCityBtn.style.display = 'none'; }
-        
-        let logoSrc = '';
-        if (total >= ACHIEVEMENT_THRESHOLD) {
-          logoSrc = companySize === 'large' ? 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png' : 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png';
-        } else {
-          logoSrc = companySize === 'large' ? 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png' : 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png';
-        }
-        achievementLogo.src = logoSrc;
-        achievementLogo.style.display = 'block';
+        banner.style.display = 'block'; btn.disabled = currTotal === 0;
+        if (companySize === 'large') { addCityBtn.disabled = currTotal === 0; addCityBtn.style.display = 'block'; } else { addCityBtn.style.display = 'none'; }
+        let logoSrc = total >= ACHIEVEMENT_THRESHOLD 
+          ? (companySize === 'large' ? 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png' : 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png')
+          : (companySize === 'large' ? 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png' : 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png');
+        achievementLogo.src = logoSrc; achievementLogo.style.display = 'block';
       } else {
-        banner.style.display = 'none'; btn.disabled = true;
-        if (addCityBtn) addCityBtn.disabled = true;
-        achievementLogo.style.display = 'none';
+        banner.style.display = 'none'; btn.disabled = true; if (addCityBtn) addCityBtn.disabled = true; achievementLogo.style.display = 'none';
       }
     }
 
@@ -983,8 +593,7 @@
       if (selectedPatterns.length === 0) return;
       multiCitySelections.push({ city: selectedCity, patterns: [...selectedPatterns] });
       selectedPatterns = []; selectedCity = null;
-      document.getElementById('regular-patterns-view').style.display = 'none';
-      document.getElementById('city-selection').style.display = 'block';
+      document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('city-selection').style.display = 'block';
     }
 
     function confirmPatterns() {
@@ -996,26 +605,17 @@
         document.getElementById('selected-patterns-info').textContent = selectedPatterns.map(p => p.label).join(', ');
         document.getElementById('current-city-regular-slots').textContent = selectedCity;
         document.getElementById('patterns-count-display').textContent = totalCount;
-        
-        document.getElementById('regular-patterns-view').style.display = 'none';
-        document.getElementById('regular-slots-view').classList.add('active');
+        document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('regular-slots-view').classList.add('active');
         renderRegularTimeSlots();
       } else {
-        document.getElementById('regular-patterns-view').style.display = 'none';
-        document.getElementById('time-choice-view').style.display = 'block';
-        const allPatterns = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city} - ${p.label}`));
-        document.getElementById('patterns-summary').textContent = allPatterns.join(', ');
+        document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('time-choice-view').style.display = 'block';
+        document.getElementById('patterns-summary').textContent = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city} - ${p.label}`)).join(', ');
       }
     }
 
     function generateDates() {
-      const dates = [];
-      const startDate = new Date(2027, 0, 1);
-      for (let i = 0; i < 31; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
-        dates.push(date);
-      }
+      const dates = []; const startDate = new Date(2027, 0, 1);
+      for (let i = 0; i < 31; i++) { const date = new Date(startDate); date.setDate(startDate.getDate() + i); dates.push(date); }
       return dates;
     }
 
@@ -1026,21 +626,18 @@
     }
 
     function renderCalendar() {
-      const grid = document.getElementById('calendar-grid');
-      grid.innerHTML = '';
+      const grid = document.getElementById('calendar-grid'); grid.innerHTML = '';
       generateDates().forEach(date => {
         const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
         const display = formatDisplayDate(date);
-        const card = document.createElement('div');
-        card.className = 'date-card';
+        const card = document.createElement('div'); card.className = 'date-card';
         if (selectedDate === dateStr) card.classList.add('selected');
         card.innerHTML = `<div class="day">${display.day} ${display.month}</div><div class="date">${display.date}</div>`;
         card.onclick = () => {
           selectedDate = dateStr;
           document.getElementById('selected-date-info').textContent = `${display.day} ${display.date} ${display.month} ${date.getFullYear()}`;
           document.getElementById('current-city-unit-slots').textContent = selectedCity;
-          document.getElementById('unit-calendar-view').style.display = 'none';
-          document.getElementById('unit-slots-view').classList.add('active');
+          document.getElementById('unit-calendar-view').style.display = 'none'; document.getElementById('unit-slots-view').classList.add('active');
           renderTimeSlots();
         };
         grid.appendChild(card);
@@ -1048,18 +645,15 @@
     }
 
     function renderWeekdays() {
-      const grid = document.getElementById('weekdays-grid');
-      grid.innerHTML = '';
+      const grid = document.getElementById('weekdays-grid'); grid.innerHTML = '';
       WEEKDAYS.forEach(weekday => {
-        const card = document.createElement('div');
-        card.className = 'weekday-card';
+        const card = document.createElement('div'); card.className = 'weekday-card';
         card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
           selectedWeekday = weekday;
-          document.getElementById('selected-weekday-info').textContent = `Tous les ${weekday} (octobre 2026 à octobre 2027)`;
+          document.getElementById('selected-weekday-info').textContent = `Tous les ${weekday} (oct. 2026 à oct. 2027)`;
           document.getElementById('current-city-yearly-slots').textContent = selectedCity;
-          document.getElementById('yearly-calendar-view').style.display = 'none';
-          document.getElementById('yearly-slots-view').classList.add('active');
+          document.getElementById('yearly-calendar-view').style.display = 'none'; document.getElementById('yearly-slots-view').classList.add('active');
           renderYearlyTimeSlots();
         };
         grid.appendChild(card);
@@ -1067,61 +661,34 @@
     }
 
     function renderNationalWeekdays() {
-      const grid = document.getElementById('national-weekdays-grid');
-      grid.innerHTML = '';
+      const grid = document.getElementById('national-weekdays-grid'); grid.innerHTML = '';
       WEEKDAYS.forEach(weekday => {
-        const card = document.createElement('div');
-        card.className = 'weekday-card';
+        const card = document.createElement('div'); card.className = 'weekday-card';
         card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
           selectedWeekday = weekday;
-          document.getElementById('selected-national-weekday-info').textContent = `Tous les ${weekday} dans toutes les villes (octobre 2026 à octobre 2027)`;
-          document.getElementById('national-calendar-view').style.display = 'none';
-          document.getElementById('national-slots-view').classList.add('active');
+          document.getElementById('selected-national-weekday-info').textContent = `Tous les ${weekday} dans toutes les villes (oct. 2026 à oct. 2027)`;
+          document.getElementById('national-calendar-view').style.display = 'none'; document.getElementById('national-slots-view').classList.add('active');
           renderNationalTimeSlots();
         };
         grid.appendChild(card);
       });
     }
 
-    // Fonctions simplifiées pour afficher les créneaux (sans backend Canva)
     function buildSlotCard(slot, type) {
-      const card = document.createElement('div');
-      card.className = 'slot-card';
-      card.innerHTML = `
-        <div class="slot-time">${slot}</div>
-        <div class="slot-participants">Disponible</div>
-        <div class="slot-price">${type === 'unit' ? '900 €' : '800 €'}</div>
-      `;
-      card.onclick = () => openRegistrationModal(slot, type);
-      return card;
+      const card = document.createElement('div'); card.className = 'slot-card';
+      card.innerHTML = `<div class="slot-time">${slot}</div><div class="slot-participants">Disponible</div><div class="slot-price">${type === 'unit' ? '900 €' : '800 €'}</div>`;
+      card.onclick = () => openRegistrationModal(slot, type); return card;
     }
 
-    function renderTimeSlots() {
-      const grid = document.getElementById('slots-grid'); grid.innerHTML = '';
-      TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'unit')));
-    }
-
-    function renderRegularTimeSlots() {
-      const grid = document.getElementById('regular-slots-grid'); grid.innerHTML = '';
-      TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'regular')));
-    }
-
-    function renderYearlyTimeSlots() {
-      const grid = document.getElementById('yearly-slots-grid'); grid.innerHTML = '';
-      TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'yearly')));
-    }
-
-    function renderNationalTimeSlots() {
-      const grid = document.getElementById('national-slots-grid'); grid.innerHTML = '';
-      TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'national')));
-    }
-
+    function renderTimeSlots() { const grid = document.getElementById('slots-grid'); grid.innerHTML = ''; TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'unit'))); }
+    function renderRegularTimeSlots() { const grid = document.getElementById('regular-slots-grid'); grid.innerHTML = ''; TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'regular'))); }
+    function renderYearlyTimeSlots() { const grid = document.getElementById('yearly-slots-grid'); grid.innerHTML = ''; TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'yearly'))); }
+    function renderNationalTimeSlots() { const grid = document.getElementById('national-slots-grid'); grid.innerHTML = ''; TIME_SLOTS.forEach(slot => grid.appendChild(buildSlotCard(slot, 'national'))); }
     function renderRegularTimeSlotsMultiCity() {
       const grid = document.getElementById('regular-slots-grid'); grid.innerHTML = '';
       TIME_SLOTS.forEach(slot => {
-        const card = document.createElement('div');
-        card.className = 'slot-card';
+        const card = document.createElement('div'); card.className = 'slot-card';
         card.innerHTML = `<div class="slot-time">${slot}</div><div class="slot-participants">Disponible pour toutes vos sélections</div><div class="slot-price">800 €</div>`;
         card.onclick = () => { selectedSlot = slot; openGroupRegistrationModal(); };
         grid.appendChild(card);
@@ -1129,19 +696,11 @@
     }
 
     function openRegistrationModal(slot, type) {
-      selectedSlot = slot;
-      let modalInfo = '';
-      if (type === 'unit') {
-        const dateObj = new Date(selectedDate);
-        modalInfo = `${selectedCity} - ${formatDisplayDate(dateObj).day} ${formatDisplayDate(dateObj).date} - ${slot}`;
-      } else if (type === 'yearly') {
-        modalInfo = `${selectedCity} - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`;
-      } else if (type === 'national') {
-        modalInfo = `Toutes les villes - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`;
-      } else if (type === 'regular') {
-        const totalCount = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
-        modalInfo = `${selectedCity} - ${selectedPatterns.map(p => p.label).join(', ')} (${totalCount} maraudes) - ${slot}`;
-      }
+      selectedSlot = slot; let modalInfo = '';
+      if (type === 'unit') { const dateObj = new Date(selectedDate); modalInfo = `${selectedCity} - ${formatDisplayDate(dateObj).day} ${formatDisplayDate(dateObj).date} - ${slot}`; }
+      else if (type === 'yearly') { modalInfo = `${selectedCity} - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`; }
+      else if (type === 'national') { modalInfo = `Toutes les villes - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`; }
+      else if (type === 'regular') { const totalCount = selectedPatterns.reduce((sum, p) => sum + p.count, 0); modalInfo = `${selectedCity} - ${selectedPatterns.map(p => p.label).join(', ')} (${totalCount} maraudes) - ${slot}`; }
       
       document.getElementById('modal-slot-info').textContent = modalInfo;
       document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
@@ -1151,8 +710,7 @@
 
     function closeModal() {
       document.getElementById('registration-modal').classList.remove('active');
-      document.getElementById('modal-slot-info').dataset.groupRegistration = '';
-      selectedSlot = null;
+      document.getElementById('error-container').innerHTML = '';
     }
 
     function showError(message) {
@@ -1160,10 +718,9 @@
       container.innerHTML = `<div class="error-message">${message}</div>`;
     }
 
-    // --- NOUVELLE FONCTION SUBMIT AVEC VERCEL/FETCH ---
+    // --- LE NOYAU : SOUMISSION VIA FETCH VERCEL ---
     async function submitRegistration(event) {
       event.preventDefault();
-      
       if (isLoading) return;
       
       const companyName = document.getElementById('company-name').value.trim();
@@ -1193,12 +750,10 @@
       };
 
       try {
-        // APPEL À TON BACKEND VERCEL
+        // C'est ici que l'on appelle ton fichier Vercel (send-email.js)
         const response = await fetch('/api/send-email', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
 
@@ -1206,12 +761,12 @@
           closeModal();
           alert("Votre demande a bien été envoyée ! Nous vous recontacterons très vite pour finaliser votre inscription.");
           backToWelcome();
-        } else {
-          throw new Error("Erreur serveur");
+        } else { 
+          throw new Error("Erreur lors de la communication avec le serveur."); 
         }
       } catch (error) {
         console.error(error);
-        showError("Erreur lors de l'envoi. Veuillez réessayer ou nous contacter par email.");
+        showError("Erreur lors de l'envoi. Veuillez vérifier votre connexion ou réessayer plus tard.");
       } finally {
         isLoading = false;
         document.getElementById('submit-btn').disabled = false;
