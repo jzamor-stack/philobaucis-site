@@ -1,163 +1,634 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Ligue Humanitaire x Philobaucis</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --primary: #c41919;
-            --dark: #0a0a0c;
-            --card: #141418;
-            --text: #ffffff;
-            --muted: #a1a1aa;
-            --border: rgba(255,255,255,0.1);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ligue Humanitaire - Solidarité Nationale</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script type='text/javascript' src='https://c42f2jbbtdz8mnt6.canvacode.com/3soBJvj0JK5Q63RT98Pby6dmEexbozrBS1iAscZMNy_4AXzjs1KN9DGweU1o91JDJynSjn8_6jM-sAPlTYHVdZ7POPj2EHit01l5uRChtcAqXiwFASPYooBkckoaL1RAXYH_s80KZdOW01qNHaZuS3N9tPY4GVL6cwKZGFRzRm04Yt3lc6gXPIWvabMCs2W9aZhFdClwAyZMuDVdnCzm9XGQVLIXQiMBsqXWwqImASUwajQFOt35AVxaDNdARpbvqh-mCggHqYr8-JUrG-iOFaTSyMi8ikg8dwYBnvbbY3tBI2xqgbSRXpohCaBDLxpNQd3OpP7B8z4NiQYk1DX8xF4nYTaHC84N2C474JPthkqmzJG92911Z27f8KNlLIVMSGUeTsuhmldwpGsNsuByZNH32nvDRui6XW8lMbH6f5DaJ0e8DdZwoleCwHlviXANLGfSV3YtCpGBmGvFEq2rUmDqNDo-yoAcvwqm3q8aZHdsLd0fAtLKtbYDJrqqK28kqJokxvXJyKM_46ApZn-OFrUg2ykMZ8X6u5SnbaA9GT-D2VaN3DTb9vML-_SCDvVwgZzDAc6wRkbMDRxOPFiKhBkUZAd0-i9B7BuiBkE5xWyK95ZlqFYlxFM7ymlI5vYpEDvh-t8eGDmi2qmSXXljOQwp'></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--dark);
-            color: var(--text);
-            margin: 0;
-            line-height: 1.6;
-        }
+  <style>
+    :root {
+      --grad: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      --glow: rgba(196, 25, 25, 0.15);
+      --dark: #0a0a0c;
+      --card: #141418;
+      --text: #ffffff;
+      --muted: #a1a1aa;
+      --border: rgba(255, 255, 255, 0.08);
+      --primary-color: #c41919;
+    }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* HERO SECTION */
-        header {
-            padding: 100px 0 60px;
-            text-align: center;
-            background: radial-gradient(circle at top, rgba(196, 25, 25, 0.15) 0%, transparent 70%);
-        }
+    body { 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      background-color: var(--dark); 
+      color: var(--text); 
+      display: flex; 
+      height: 100vh; 
+      overflow: hidden; 
+    }
+    
+    /* ANIMATIONS */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-        h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -2px; }
-        .tagline { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
-        header p { max-width: 700px; margin: 20px auto; color: var(--muted); font-size: 1.1rem; }
+    /* HEADER MOBILE & OVERLAY */
+    .mobile-header { display: none; background: #000; padding: 15px 25px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 100; }
+    .mobile-header .logo { margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; font-weight: 800;}
+    .mobile-header .logo img { height: 30px; }
+    .burger-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 0; }
+    .overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; transition: opacity 0.3s ease; }
+    .overlay.active { display: block; opacity: 1; }
 
-        /* GRID DES ACTIONS (Vêtements, Portables, etc.) */
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin: 60px 0;
-        }
+    /* SIDEBAR */
+    .sidebar { width: 320px; background: #000; padding: 40px 25px; display: flex; flex-direction: column; border-right: 1px solid var(--border); flex-shrink: 0; z-index: 999; transition: transform 0.3s ease; }
+    .logo-container { margin-bottom: 40px; text-align: center; }
+    .logo-container img { height: 70px; max-width: 100%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+    .nav-group { display: flex; flex-direction: column; gap: 8px; }
+    .nav-item { padding: 14px 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; color: var(--muted); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
+    .nav-item.active { background: var(--grad); color: white; }
 
-        .action-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
+    /* MAIN VIEW */
+    .main-view { flex: 1; padding: 40px 60px; overflow-y: auto; background: radial-gradient(circle at top right, rgba(196, 25, 25, 0.07), transparent); scroll-behavior: smooth; }
+    .tab-content { display: none; max-width: 1000px; margin: 0 auto; animation: fadeIn 0.4s ease; }
+    .tab-content.active { display: block; }
 
-        .action-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(196, 25, 25, 0.1);
-        }
+    h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 10px; letter-spacing: -1.5px; }
+    h2 { color: var(--primary-color); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 15px; font-weight: 800; }
+    h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 15px; }
+    p { font-size: 1.1rem; line-height: 1.7; color: var(--muted); margin-bottom: 25px; }
+    .subtitle { font-size: 1.2rem; font-style: italic; color: var(--text); margin-bottom: 30px;}
 
-        .icon-box {
-            width: 70px;
-            height: 70px;
-            background: rgba(196, 25, 25, 0.1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: var(--primary);
-        }
+    .highlight { color: var(--text); font-weight: 700; }
+    .text-center { text-align: center; }
 
-        .action-card h3 { margin-bottom: 15px; font-size: 1.4rem; }
-        .action-card p { color: var(--muted); font-size: 0.95rem; }
+    /* CARDS & GRIDS */
+    .glow-card { background: var(--card); border: 1px solid var(--border); transition: all 0.3s ease; border-radius: 20px; padding: 25px; }
+    .glow-card:hover { border-color: var(--primary-color); background: var(--glow); transform: translateY(-4px); box-shadow: 0 15px 40px rgba(196, 25, 25, 0.15); }
+    
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 30px 0; }
 
-        /* CTA SECTION */
-        .cta-section {
-            text-align: center;
-            padding: 80px 40px;
-            background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
-            border-radius: 30px;
-            margin-bottom: 100px;
-        }
+    .card-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
 
-        .cta-section h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; }
-        
-        .btn-main {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            text-decoration: none;
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+    /* FOUNDER / INFO BOX */
+    .founder-box { display: flex; flex-direction: column; gap: 15px; padding: 30px; margin: 40px 0; border: 1px solid rgba(196, 25, 25, 0.3); background: rgba(196, 25, 25, 0.03); border-radius: 20px; border-left: 5px solid var(--primary-color);}
 
-        .btn-main:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
+    /* BUTTONS */
+    .btn-main { background: var(--grad); color: white; padding: 18px 35px; border-radius: 14px; border: none; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 20px; transition: 0.3s; font-size: 1.1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+    .btn-main:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(196, 25, 25, 0.4); }
 
-        footer { text-align: center; padding: 40px; color: var(--muted); border-top: 1px solid var(--border); }
-    </style>
+    /* HERO BANNER */
+    .hero-banner { 
+      margin: 0 0 40px 0; 
+      border-radius: 24px; 
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+      height: 300px; 
+      background-size: cover; 
+      background-position: center center; 
+      background-repeat: no-repeat;
+      position: relative; 
+      overflow: hidden; 
+      border: 1px solid var(--border); 
+    }
+
+    /* INTERACTIVE MAP STYLES */
+    #w { background: transparent; display: flex; gap: 20px; align-items: flex-start; margin-top: 30px; }
+    #l { width: 320px; display: flex; flex-direction: column; gap: 10px; }
+    .i { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; border: 1px solid var(--border); background: var(--card); cursor: pointer; transition: .2s; }
+    .i:hover, .i.on { transform: translateX(5px); border-color: var(--primary-color); background: var(--glow); }
+    .r { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-weight: 900; font-size: 12px; color: #fff; background: var(--grad); }
+    .n { font-weight: 700; color: var(--text); }
+    #s { 
+      flex: 1; 
+      width: 100%; 
+      height: auto; 
+      overflow: visible; 
+      background: transparent; 
+    }
+    .dot { fill: #fff; stroke: var(--dark); stroke-width: 2; }
+    .h { fill: none; stroke: rgba(196, 25, 25, 0.8); stroke-width: 3; opacity: 0; }
+    .on .h { opacity: 1; }
+    .on .dot { filter: drop-shadow(0 0 14px rgba(196,25,25,.8)); fill: var(--primary-color); }
+
+    /* MARAUDE SHOWCASE STYLES */
+    .maraude-showcase { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; margin: 30px 0; }
+    .maraude-left { display: flex; flex-direction: column; gap: 12px; }
+    .maraude-item { border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; color: #fff; font: 700 16px 'Plus Jakarta Sans', sans-serif; background: var(--card); transition: .2s ease; }
+    .maraude-item:hover { transform: translateX(6px); border-color: var(--primary-color); background: var(--glow); }
+    .maraude-right { position: relative; display: flex; align-items: center; justify-content: center; min-height: 350px; border-radius: 20px; overflow: hidden; background: var(--card); border: 1px solid var(--border); }
+    #preview { max-width: 100%; max-height: 100%; border-radius: 16px; transition: opacity .2s; object-fit: contain; }
+
+    /* GRADIENT TEXTS */
+    .gradient-gold { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .gradient-silver { background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .gradient-bronze { background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .gradient-diamond { background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .medal-emoji { font-size: 2.5rem; display: block; margin-bottom: 10px; animation: pulse 2s infinite; text-align: center; }
+
+    /* CALENDAR STEPS */
+    .step-item { display: flex; gap: 25px; margin-bottom: 20px; padding: 25px; }
+    .step-num { width: 50px; height: 50px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 5px 15px rgba(196, 25, 25, 0.4); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { 
+      body { flex-direction: column; } 
+      .mobile-header { display: flex; }
+      .sidebar { position: fixed; top: 0; left: 0; height: 100%; transform: translateX(-100%); z-index: 999; } 
+      .sidebar.show { transform: translateX(0); }
+      .main-view { padding: 30px 20px; } 
+      h1 { font-size: 2.2rem; }
+      #w { flex-direction: column; }
+      #l { width: 100%; }
+      .maraude-showcase { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <span class="tagline">La Ligue Humanitaire</span>
-            <h1>Projet Philobaucis</h1>
-            <p>Nous transformons le surplus des entreprises en impact social direct. Rejoignez-nous pour soutenir les plus démunis à travers des actions concrètes.</p>
+  <div class="overlay" onclick="toggleMenu()"></div>
+  <div class="mobile-header">
+    <div class="logo"><img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Logo"> PHILOBAUCIS</div>
+    <button class="burger-btn" onclick="toggleMenu()">☰</button>
+  </div>
+
+  <aside class="sidebar" id="sidebarMenu">
+    <div class="logo-container" style="display: none; @media(min-width: 1101px){display: block;}">
+      <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Logo Philobaucis" onerror="this.style.display='none';">
+      <div style="margin-top:15px; font-weight: 800; font-size:1.2rem; letter-spacing: 1px;">LIGUE <span style="color:var(--primary-color);">HUMANITAIRE</span></div>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-item active" onclick="openTab(event, 'presentation')">🎯 Présentation</div>
+      <div class="nav-item" onclick="openTab(event, 'deroulement')">⏱️ Déroulement</div>
+      <div class="nav-item" onclick="openTab(event, 'engager')">📈 Impact RSE</div>
+      <div class="nav-item" onclick="openTab(event, 'labels')">🏆 Labels & Médailles</div>
+    </div>
+    
+    <div style="margin-top: auto; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px;">
+      <p style="font-size: 0.75rem;">
+        Solidarité Nationale<br>
+        <span style="color: var(--primary-color); font-weight: 700;">Action Mécénat Maraude</span>
+      </p>
+    </div>
+  </aside>
+
+  <main class="main-view">
+    
+    <div id="presentation" class="tab-content active">
+      <div class="hero-banner" style="background-image: url('https://i.postimg.cc/tCX0cV06/731801281426-n.jpg');"></div>
+      
+      <h2>Solidarité Nationale</h2>
+      <h1 id="main-title">Mécénat de <span style="color: var(--primary-color);">Maraude.</span></h1>
+      <p id="hero-subtitle" class="subtitle">Avec la Ligue Humanitaire - Agissons ensemble contre la précarité.</p>
+
+      <div style="margin-top: 40px; margin-bottom: 50px;">
+        <h2>Déploiement National</h2>
+        <h1 id="cities-title">10 Villes, <span style="color: var(--primary-color);">1 Engagement.</span></h1>
+        <p>Nous déployons nos maraudes dans les principales métropoles françaises.</p>
+        
+        <div id="w">
+          <div id="l"></div>
+          <svg id="s" viewBox="0 0 900 800" aria-label="France">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1a1a24" />
+                <stop offset="1" stop-color="#0a0a0c" />
+              </linearGradient>
+              <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="rgba(0,0,0,.8)" />
+              </filter>
+            </defs> 
+            <g id="v">
+              <path id="f" fill="url(#g)" stroke="rgba(255,255,255,.1)" stroke-width="1.2" filter="url(#sh)"></path>
+              <g id="c"></g>
+              <g id="t" visibility="hidden">
+                <rect id="tb" rx="8" ry="8" fill="var(--primary-color)" stroke="rgba(255,255,255,.2)" stroke-width="1" style="filter:drop-shadow(0 10px 20px rgba(0,0,0,.5))" />
+                <text id="tt" fill="#ffffff" font-size="14" font-weight="800"></text>
+              </g>
+            </g>
+          </svg>
         </div>
-    </header>
+      </div>
+      <div class="founder-box">
+        <h3 style="color: var(--primary-color); margin: 0;">🎯 Notre Mission</h3>
+        <p style="margin: 0;">Les maraudes sponsorisées sont encadrées par l'association <span class="highlight">Ligue Humanitaire</span> avec à son actif près de 500 maraudes. Le but de l'action est d'aider les personnes sans abris et précaires en leur délivrant de la nourriture, à boire, des vêtements et un kit d'hygiène. Nous agissons dans 10 villes en France pour mettre en place des actions concrètes et impactantes.</p>
+      </div>
 
-    <div class="container">
-        <div class="actions-grid">
-            <div class="action-card">
-                <div class="icon-box">
-                    <i data-lucide="shirt" size="32"></i>
-                </div>
-                <h3>Vêtements</h3>
-                <p>Don de surplus de stocks, vêtements neufs ou collectes en entreprise pour les maraudes hivernales.</p>
-            </div>
-
-            <div class="action-card">
-                <div class="icon-box">
-                    <i data-lucide="laptop" size="32"></i>
-                </div>
-                <h3>Informatique</h3>
-                <p>Reconditionnement de parcs informatiques (ordinateurs portables, tablettes) pour l'insertion numérique.</p>
-            </div>
-
-            <div class="action-card">
-                <div class="icon-box">
-                    <i data-lucide="package" size="32"></i>
-                </div>
-                <h3>Produits d'hygiène</h3>
-                <p>Kits essentiels pour les familles en situation de précarité et les sans-abris.</p>
-            </div>
+      <h3 style="margin-top: 40px;">Notre Expertise à Votre Service</h3>
+      <div class="grid-3">
+        <div class="glow-card text-center">
+          <span class="card-icon">📊</span>
+          <h3 style="font-size: 1.1rem;">500 Maraudes</h3>
+          <p style="font-size: 0.95rem; margin:0;">Une expérience solide et reconnue sur le terrain, menée dans toute la France.</p>
         </div>
-
-        <div class="cta-section">
-            <h2>Prêt à agir avec nous ?</h2>
-            <p style="margin-bottom: 30px; opacity: 0.9;">Réservez votre créneau de mécénat directement sur notre plateforme dédiée.</p>
-            <a href="https://philobaucis.fr/calendrierlfh" class="btn-main">Accéder au calendrier →</a>
+        <div class="glow-card text-center">
+          <span class="card-icon">🛡️</span>
+          <h3 style="font-size: 1.1rem;">Sécurité Garantie</h3>
+          <p style="font-size: 0.95rem; margin:0;">Protection maximale de vos collaborateurs avec des protocoles éprouvés.</p>
         </div>
+        <div class="glow-card text-center">
+          <span class="card-icon">🤝</span>
+          <h3 style="font-size: 1.1rem;">Échanges Bienveillants</h3>
+          <p style="font-size: 0.95rem; margin:0;">Nous prenons le temps de discuter dans un cadre bienveillant et sans pression.</p>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: 50px;">
+        <button class="btn-main cta-btn" id="cta-button-1">Participer Maintenant</button>
+      </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 La Ligue Humanitaire - Projet Philobaucis</p>
-    </footer>
+    <div id="deroulement" class="tab-content">
+      <div class="hero-banner" style="background-image: url('https://i.postimg.cc/jdNXyM3v/960867323454-n.jpg');"></div>
+      
+      <h2>Action Terrain</h2>
+      <h1>Ce que nous <span style="color: var(--primary-color);">apportons.</span></h1>
+      <p>Aperçu concret des ressources distribuées aux personnes dans le besoin lors de nos actions.</p>
 
-    <script>
-        // Initialisation des icônes Lucide
-        lucide.createIcons();
-    </script>
+      <div class="maraude-showcase">
+        <div class="maraude-left">
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1593113563332-ce147fb1ca65?auto=format&fit=crop&w=800" data-alt="Distribution de nourriture"> 🍲 <span>Nourriture</span> </button> 
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800" data-alt="Distribution de boissons"> 💧 <span>Boissons</span> </button> 
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?auto=format&fit=crop&w=800" data-alt="Distribution de vêtements chauds"> 👕 <span>Vêtements</span> </button> 
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1583947581924-860bda6a5a0d?auto=format&fit=crop&w=800" data-alt="Kit d'hygiène"> 🧼 <span>Kit d'Hygiène</span> </button> 
+          <button class="maraude-item" data-img="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800" data-alt="Téléphones solidaires"> 📱 <span>Téléphones</span> </button>
+        </div>
+        <div class="maraude-right">
+          <img id="preview" src="https://i.postimg.cc/ydM196WS/Introduction-mecenat-maraude.png" alt="Aperçu maraude" onerror="this.src=''; this.style.display='none';">
+        </div>
+      </div>
+
+      <h3 style="margin-top: 50px;">Informations Pratiques</h3>
+      <div class="grid-3">
+        <div class="glow-card">
+          <span class="card-icon">⏱️</span>
+          <h3 style="font-size: 1.2rem;">Durée de l'Action</h3>
+          <p style="font-size: 0.95rem; margin:0;">Chaque maraude dure 2 heures, un format idéal pour une mobilisation efficace.</p>
+        </div>
+        <div class="glow-card">
+          <span class="card-icon">💰</span>
+          <h3 style="font-size: 1.2rem;">Tarif Ponctuel</h3>
+          <p style="font-size: 0.95rem; margin:0;"><span class="highlight">900€</span> par créneau après déduction fiscale pour une action ponctuelle.</p>
+        </div>
+        <div class="glow-card">
+          <span class="card-icon">🔄</span>
+          <h3 style="font-size: 1.2rem;">Engagement Récurrent</h3>
+          <p style="font-size: 0.95rem; margin:0;"><span class="highlight">800€</span> par créneau après déduction fiscale pour un engagement durable.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 50px;">Programme d'une session</h3>
+      <div class="step-item glow-card">
+        <div class="step-num">1</div>
+        <div>
+          <h3 style="margin: 0 0 5px 0;">00h00 - Accueil</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Accueil de vos équipes et présentation globale du déroulé de la soirée.</p>
+        </div>
+      </div>
+      <div class="step-item glow-card">
+        <div class="step-num">2</div>
+        <div>
+          <h3 style="margin: 0 0 5px 0;">00h15 - Briefing</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Rappel strict des consignes de sécurité et répartition claire des rôles.</p>
+        </div>
+      </div>
+      <div class="step-item glow-card">
+        <div class="step-num">3</div>
+        <div>
+          <h3 style="margin: 0 0 5px 0;">00h30 - Action Terrain</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Distribution encadrée et échanges bienveillants avec les bénéficiaires.</p>
+        </div>
+      </div>
+      <div class="step-item glow-card" style="border-left: 5px solid var(--primary-color);">
+        <div class="step-num">4</div>
+        <div>
+          <h3 style="margin: 0 0 5px 0;">01h45 - Débriefing</h3>
+          <p style="margin: 0; font-size: 0.95rem;">Retour d'expérience collectif et bilan humain de l'action menée.</p>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: 40px;">
+        <button class="btn-main cta-btn" id="cta-button-2">Planifier une session</button>
+      </div>
+    </div>
+
+    <div id="engager" class="tab-content">
+      <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1593113563332-ce147fb1ca65?auto=format&fit=crop&w=1600&q=80');"></div>
+      
+      <h2>Bénéfices Entreprise</h2>
+      <h1>Suivi & <span style="color: var(--primary-color);">Impact RSE.</span></h1>
+      <p>Un accompagnement complet pour valoriser votre engagement solidaire en interne comme en externe.</p>
+
+      <div class="founder-box">
+        <h3 style="color: var(--primary-color); margin: 0;">📊 Reporting Professionnel</h3>
+        <p style="margin: 0;">Après chaque maraude, nous vous fournissons un <span class="highlight">rapport RSE détaillé</span> comprenant le nombre de personnes aidées, les ressources distribuées, des photos de l'action et les témoignages de vos collaborateurs. Idéal pour votre bilan annuel.</p>
+      </div>
+
+      <h3 style="margin-top: 40px;">L'Impact sur Vos Collaborateurs</h3>
+      <div class="grid-3">
+        <div class="glow-card text-center">
+          <span class="card-icon">❤️</span>
+          <h3 style="font-size: 1.8rem; color:var(--primary-color);">77%</h3>
+          <p style="font-size: 0.95rem; margin:0;">Ressentent un <span class="highlight">attachement renforcé</span> à l'égard de leur entreprise.</p>
+        </div>
+        <div class="glow-card text-center">
+          <span class="card-icon">💪</span>
+          <h3 style="font-size: 1.8rem; color:var(--primary-color);">37%</h3>
+          <p style="font-size: 0.95rem; margin:0;">Se disent <span class="highlight">remotivés</span> dans leur travail quotidien grâce à cette action.</p>
+        </div>
+        <div class="glow-card text-center">
+          <span class="card-icon">🤝</span>
+          <h3 style="font-size: 1.8rem; color:var(--primary-color);">65%</h3>
+          <p style="font-size: 0.95rem; margin:0;">Constatent un meilleur <span class="highlight">esprit d'équipe</span> et sentiment d'appartenance.</p>
+        </div>
+      </div>
+
+      <div class="glow-card" style="margin-top: 30px; border-left: 4px solid var(--primary-color);">
+        <h3 style="margin-top: 0;">💡 L'Avantage du Partenariat Dédié</h3>
+        <p style="font-size: 0.95rem; margin-bottom: 0;">Contrairement à une marketplace d'associations où vos collaborateurs choisissent parmi des dizaines de causes et diluent l'effort, notre partenariat exclusif prouve que <span class="highlight">votre entreprise s'implique de manière institutionnelle</span>. Vous bâtissez une culture d'entreprise solidaire et cohérente.</p>
+      </div>
+
+      <div class="text-center" style="margin-top: 50px;">
+        <button class="btn-main cta-btn" id="cta-button-3">Nous Contacter</button>
+      </div>
+    </div>
+
+    <div id="labels" class="tab-content">
+      <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1600&q=80');"></div>
+      
+      <h2>Reconnaissance Nationale</h2>
+      <h1>La Quinzaine de <span style="color: var(--primary-color);">Précarité.</span></h1>
+      <p>Un événement médiatique majeur pour mettre en lumière les entreprises engagées.</p>
+
+      <div class="founder-box">
+        <h3 style="color: var(--primary-color); margin: 0;">🎬 Un Prime-Time Exceptionnel</h3>
+        <p style="margin: 0;">En participant, votre entreprise s'associe à la Quinzaine de Précarité (Novembre 2026). Cet événement rassemble influenceurs et médias pour une <span class="highlight">cérémonie officielle de remise des médailles</span> diffusée au niveau national.</p>
+      </div>
+
+      <h3 style="margin-top: 50px; text-align:center;">🏢 Grandes Entreprises (+500 employés)</h3>
+      <div class="grid-4">
+        <div class="glow-card text-center">
+          <span class="medal-emoji">🥉</span>
+          <h4 class="gradient-bronze" style="font-size: 1.2rem; font-weight:800;">Bronze</h4>
+          <p style="margin-top: 10px; font-size:0.9rem;">12 maraudes/an<br><span class="highlight">1 créneau mensuel</span></p>
+        </div>
+        <div class="glow-card text-center">
+          <span class="medal-emoji">🥈</span>
+          <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
+          <p style="margin-top: 10px; font-size:0.9rem;">+ de 12 créneaux<br><span class="highlight">Engagement régulier</span></p>
+        </div>
+        <div class="glow-card text-center">
+          <span class="medal-emoji">🥇</span>
+          <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
+          <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux ou +<br><span class="highlight">1 fois par semaine</span></p>
+        </div>
+        <div class="glow-card text-center" style="border-color: #87CEEB;">
+          <span class="medal-emoji">💎</span>
+          <h4 class="gradient-diamond" style="font-size: 1.2rem; font-weight:800;">Diamant</h4>
+          <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux dans 10 villes<br><span class="highlight">Déploiement national</span></p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 50px; text-align:center;">🏪 PME / TPE (-500 employés)</h3>
+      <div class="grid-3" style="max-width: 600px; margin: 30px auto;">
+        <div class="glow-card text-center">
+          <span class="medal-emoji">🥈</span>
+          <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
+          <p style="margin-top: 10px; font-size:0.9rem;">Créneau mensuel ou trimestriel adapté</p>
+        </div>
+        <div class="glow-card text-center">
+          <span class="medal-emoji">🥇</span>
+          <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
+          <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux/an<br><span class="highlight">Leadership PME</span></p>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: 50px;">
+        <button class="btn-main cta-btn" id="cta-button-4">Rejoindre le Mouvement</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // --- GESTION DES ONGLETS & MENU MOBILE ---
+    function toggleMenu() {
+      document.getElementById('sidebarMenu').classList.toggle('show');
+      document.querySelector('.overlay').classList.toggle('active');
+    }
+
+    function openTab(evt, tabName) {
+      const tabcontent = document.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabcontent.length; i++) { 
+        tabcontent[i].style.display = "none"; 
+        tabcontent[i].classList.remove("active");
+      }
+      
+      const navitems = document.getElementsByClassName("nav-item");
+      for (let i = 0; i < navitems.length; i++) { 
+        navitems[i].classList.remove("active"); 
+      }
+      
+      const activeTab = document.getElementById(tabName);
+      activeTab.style.display = "block";
+      setTimeout(() => activeTab.classList.add("active"), 10);
+      
+      if(evt) evt.currentTarget.classList.add("active");
+
+      if(window.innerWidth <= 1100) {
+        document.getElementById('sidebarMenu').classList.remove('show');
+        document.querySelector('.overlay').classList.remove('active');
+      }
+
+      document.querySelector('.main-view').scrollTop = 0;
+    }
+
+    // --- MISE À JOUR DU LIEN DE REDIRECTION ICI ---
+    document.querySelectorAll('.cta-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.open('https://philobaucis.fr/calendrierlfh', '_blank', 'noopener,noreferrer');
+      });
+    });
+
+    // --- MARAUDE SHOWCASE SCRIPT ---
+    (()=>{
+      const p = document.getElementById("preview");
+      if (!p) return;
+      const defaultSrc = p.src;
+      document.querySelectorAll(".maraude-item").forEach(b => {
+        const s = b.dataset.img, a = b.dataset.alt;
+        b.onmouseenter = () => matchMedia("(hover:hover)").matches && updateImg(s, a);
+        b.onclick = () => updateImg(s, a);
+        b.onmouseleave = () => updateImg(defaultSrc, "Aperçu");
+      });
+      function updateImg(src, alt) {
+        p.style.opacity = 0;
+        setTimeout(() => { p.src = src; p.alt = alt; p.style.opacity = 1; }, 150);
+      }
+    })();
+
+    // --- INTERACTIVE MAP SCRIPT (D3.js) ---
+    (async()=>{
+      const A=[["Paris",48.8566,2.3522],["Marseille",43.2965,5.3698],["Lyon",45.764,4.8357],["Toulouse",43.6047,1.4442],["Nice",43.7102,7.262],["Nantes",47.2184,-1.5536],["Montpellier",43.6119,3.8772],["Strasbourg",48.5734,7.7521],["Bordeaux",44.8378,-0.5792],["Lille",50.6292,3.0573]];
+      const l=document.getElementById("l"),s=d3.select("#s"),c=d3.select("#c");
+      const f=document.getElementById("f"),t=document.getElementById("t"),tb=document.getElementById("tb"),tt=document.getElementById("tt");
+      
+      A.forEach((d,i)=>{
+        const e=document.createElement("div");
+        e.className="i";
+        e.dataset.id=d[0];
+        e.innerHTML=`<div class="r">${i+1}</div><div class="n">${d[0]}</div>`;
+        e.onmouseenter=()=>on(d[0],1);
+        e.onmouseleave=()=>off(d[0]);
+        l.appendChild(e);
+      });
+
+      try {
+        const topo=await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then(r=>r.json());
+        const g=topojson.feature(topo,topo.objects.countries).features.find(x=>x.properties&&x.properties.name==="France");
+        
+        const P=d3.geoMercator().center([2.3,46.25]).scale(2500).translate([450, 360]);
+        
+        const path=d3.geoPath(P); 
+        f.setAttribute("d",path(g));
+        
+        const G=c.selectAll("g").data(A).enter().append("g").attr("data-id",d=>d[0]).attr("transform",d=>{const p=P([d[2],d[1]]);return`translate(${p[0]},${p[1]})`})
+        .on("mousemove",(ev,d)=>{on(d[0]);tip(ev,d[0])}).on("mouseleave",(ev,d)=>{off(d[0]);t.setAttribute("visibility","hidden")});
+        
+        G.append("circle").attr("class","h").attr("r",15);
+        G.append("circle").attr("class","dot").attr("r",6.6);
+        
+        function q(n){return l.querySelector(`.i[data-id="${CSS.escape(n)}"]`)}
+        function on(n,fromList){c.selectAll("g").filter(d=>d[0]===n).classed("on",1);q(n)?.classList.add("on");if(fromList){const d=A.find(x=>x[0]===n),p=P([d[2],d[1]]);tipXY(p[0],p[1],n)}}
+        function off(n){c.selectAll("g").filter(d=>d[0]===n).classed("on",0);q(n)?.classList.remove("on")}
+        function pt(ev){const node=s.node(),p=node.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(node.getScreenCTM().inverse())}
+        function tip(ev,txt){const p=pt(ev);tipXY(p.x,p.y,txt)}
+        function tipXY(x,y,txt){tt.textContent=txt;tt.setAttribute("x",x+14);tt.setAttribute("y",y-16);t.setAttribute("visibility","visible");const b=tt.getBBox(),px=12,py=6;tb.setAttribute("x",b.x-px);tb.setAttribute("y",b.y-py);tb.setAttribute("width",b.width+px*2);tb.setAttribute("height",b.height+py*2)}
+      } catch(e) { console.error("Map loading error", e); }
+    })();
+
+    // --- ELEMENT SDK CONFIG RESTAURATION ---
+    const defaultConfig = {
+      background_color: "#0a0a0c",
+      surface_color: "#141418",
+      text_color: "#ffffff",
+      primary_action_color: "#c41919",
+      secondary_action_color: "#6b1e5f",
+      font_family: "Plus Jakarta Sans",
+      font_size: 16,
+      main_title: "Mécénat de maraude",
+      hero_subtitle: "Avec la Ligue Humanitaire - Agissons ensemble contre la précarité.",
+      cities_title: "10 Villes, 1 Engagement.",
+      cta_button: "Participer Maintenant"
+    };
+
+    async function onConfigChange(config) {
+      const root = document.documentElement;
+      if(config.background_color) root.style.setProperty('--dark', config.background_color);
+      if(config.surface_color) root.style.setProperty('--card', config.surface_color);
+      if(config.text_color) root.style.setProperty('--text', config.text_color);
+      if(config.primary_action_color) {
+        root.style.setProperty('--primary-color', config.primary_action_color);
+        root.style.setProperty('--grad', `linear-gradient(135deg, ${config.primary_action_color} 0%, ${config.secondary_action_color || '#6b1e5f'} 100%)`);
+      }
+
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'sans-serif';
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+      const mainTitle = document.getElementById('main-title');
+      if (mainTitle) mainTitle.innerHTML = config.main_title || defaultConfig.main_title;
+
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+
+      const citiesTitle = document.getElementById('cities-title');
+      if (citiesTitle) citiesTitle.innerHTML = config.cities_title || defaultConfig.cities_title;
+
+      ['cta-button-1', 'cta-button-2', 'cta-button-3', 'cta-button-4'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.textContent = config.cta_button || defaultConfig.cta_button;
+      });
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => {
+                config.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => {
+                config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => {
+                config.secondary_action_color = value;
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+          ["cities_title", config.cities_title || defaultConfig.cities_title],
+          ["cta_button", config.cta_button || defaultConfig.cta_button]
+        ])
+      });
+    }
+
+    onConfigChange(window.elementSdk ? window.elementSdk.config : defaultConfig);
+  </script>
 </body>
 </html>
