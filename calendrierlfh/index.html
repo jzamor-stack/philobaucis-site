@@ -5,45 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendrier d'Inscription - Philobaucis</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --grad: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
-      --glow: rgba(196, 25, 25, 0.3);
-      --dark: #0a0a0c;
-      --card-bg: rgba(20, 20, 24, 0.55);
-      --text: #ffffff;
-      --muted: #a1a1aa;
-      --border: rgba(255, 255, 255, 0.12);
-      --primary-color: #c41919;
+      --glow: rgba(196, 25, 25, 0.3); --dark: #0a0a0c; --card-bg: rgba(20, 20, 24, 0.55);
+      --text: #ffffff; --muted: #a1a1aa; --border: rgba(255, 255, 255, 0.12); --primary-color: #c41919;
     }
-
-    body {
-      box-sizing: border-box; margin: 0; padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--dark); color: var(--text);
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      padding: 20px; position: relative; overflow-x: hidden;
-    }
-
-    /* ORBS */
+    body { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; position: relative; overflow-x: hidden; }
     .bg-orbs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -2; pointer-events: none; }
     .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5; animation: floatOrb 25s infinite ease-in-out; }
     .orb-1 { width: 55vw; height: 55vw; background: #c41919; top: -20%; left: -10%; animation-delay: 0s; }
     .orb-2 { width: 45vw; height: 45vw; background: #6b1e5f; bottom: -15%; right: -10%; animation-delay: -5s; animation-direction: reverse; }
     .orb-3 { width: 40vw; height: 40vw; background: #ff4d4d; top: 35%; left: 45%; animation-delay: -10s; }
     .orb-4 { width: 45vw; height: 45vw; background: #9b2c8a; bottom: 20%; left: -15%; animation-delay: -15s; animation-direction: reverse; }
-    @keyframes floatOrb {
-      0% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(20vw, -15vh) scale(1.2); }
-      66% { transform: translate(-15vw, 20vh) scale(0.8); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-
+    @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 33% { transform: translate(20vw, -15vh) scale(1.2); } 66% { transform: translate(-15vw, 20vh) scale(0.8); } 100% { transform: translate(0, 0) scale(1); } }
     .container { background: transparent; border-radius: 16px; max-width: 1200px; width: 100%; padding: 32px; position: relative; z-index: 1; }
     h1 { color: var(--text); margin: 0 0 8px 0; font-size: 32px; font-weight: 800; letter-spacing: -1px; }
     .subtitle { color: var(--muted); margin: 0 0 32px 0; font-size: 16px; line-height: 1.6; }
-    
     .city-selection { text-align: center; }
     .cities-grid, .patterns-grid, .time-slots-selection, .weekdays-grid, .calendar-grid, .slots-grid { display: grid; gap: 16px; }
     .cities-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-top: 32px; }
@@ -52,60 +30,42 @@
     .weekdays-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); margin-bottom: 32px; }
     .calendar-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 32px; }
     .slots-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-
-    /* CARTES */
-    .city-card, .booking-type-card, .pattern-card, .weekday-card, .date-card, .slot-card, .time-slot-option {
-      background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease; text-align: center; color: var(--text);
-    }
-    .city-card:hover, .booking-type-card:hover, .pattern-card:hover, .weekday-card:hover, .date-card:hover, .slot-card:hover, .time-slot-option:hover {
-      border-color: var(--primary-color); transform: translateY(-4px); box-shadow: 0 15px 40px var(--glow); background: rgba(196, 25, 25, 0.1);
-    }
-
+    .city-card, .booking-type-card, .pattern-card, .weekday-card, .date-card, .slot-card, .time-slot-option { background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease; text-align: center; color: var(--text); }
+    .city-card:hover, .booking-type-card:hover, .pattern-card:hover, .weekday-card:hover, .date-card:hover, .slot-card:hover, .time-slot-option:hover { border-color: var(--primary-color); transform: translateY(-4px); box-shadow: 0 15px 40px var(--glow); background: rgba(196, 25, 25, 0.1); }
     .city-name { font-size: 20px; font-weight: 700; color: white; }
     .calendar-view, .booking-type-selection, .time-slots-view { display: none; animation: fadeIn 0.4s ease-in; }
     .calendar-view.active, .booking-type-selection.active, .time-slots-view.active { display: block; }
-
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     .header-with-city { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
     .nav-buttons { display: flex; gap: 12px; }
     .btn-change-city, .btn-back { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
     .btn-change-city:hover, .btn-back:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); }
-
     .booking-types-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 32px; justify-content: center; }
     .booking-type-card { padding: 24px 16px; width: 280px; flex-shrink: 0; }
     .booking-type-icon { font-size: 48px; margin-bottom: 15px; }
     .booking-type-title { font-size: 18px; font-weight: 700; color: white; margin-bottom: 10px; }
     .booking-type-description { font-size: 13px; color: var(--muted); line-height: 1.5; }
-
     .pattern-card { padding: 20px; position: relative; }
     .pattern-card.selected, .weekday-card.selected, .date-card.selected, .time-slot-option.selected { border-color: var(--primary-color); background: var(--grad); color: white; }
     .pattern-card .checkmark { position: absolute; top: 10px; right: 12px; font-size: 20px; display: none; color: white; }
     .pattern-card.selected .checkmark { display: block; }
     .pattern-name { font-size: 16px; font-weight: 700; color: white; margin-bottom: 8px; }
     .pattern-count { font-size: 14px; color: #FFD700; font-weight: 600; }
-
     .total-count-banner { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--primary-color); color: white; padding: 16px; border-radius: 12px; margin-bottom: 24px; text-align: center; font-size: 18px; font-weight: 700; }
     .total-count-content { display: flex; align-items: center; justify-content: center; gap: 12px; }
     .achievement-logo { width: 60px; height: 60px; object-fit: contain; display: none; }
-
     .confirm-patterns-btn { background: var(--grad); color: white; border: none; border-radius: 12px; padding: 16px 32px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; display: block; margin: 24px auto; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     .confirm-patterns-btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 15px 30px rgba(196, 25, 25, 0.4); }
     .confirm-patterns-btn:disabled { background: var(--card-bg); border: 1px solid var(--border); color: var(--muted); cursor: not-allowed; box-shadow: none; }
-
     .pattern-time-section { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
     .pattern-time-section h3 { color: white; margin: 0 0 16px 0; font-size: 18px; }
     .time-slot-option { padding: 12px; font-weight: 600; }
     .weekday-name { font-size: 18px; font-weight: 700; color: white; }
-
     .selected-city-info { background: rgba(196, 25, 25, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(196, 25, 25, 0.3); border-left: 4px solid var(--primary-color); border-radius: 8px; padding: 16px; margin-bottom: 24px; color: white; font-size: 14px; }
-    
     .date-card { padding: 16px; }
     .date-card .day { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--muted); }
     .date-card.selected .day { color: white; }
     .date-card .date { font-size: 24px; font-weight: 700; color: white; }
-
     .time-slots h2 { color: var(--primary-color); font-size: 20px; margin: 0 0 16px 0; }
     .slot-card { padding: 16px; }
     .slot-card.full { opacity: 0.4; cursor: not-allowed; }
@@ -113,19 +73,15 @@
     .slot-time { font-size: 18px; font-weight: 700; color: white; margin-bottom: 8px; }
     .slot-participants { font-size: 14px; color: var(--muted); }
     .slot-price { font-size: 16px; font-weight: 600; color: #FFD700; margin-top: 6px; }
-
-    /* MODAL D'INSCRIPTION */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 1000; }
     .modal.active { display: flex; }
     .modal-content { background: rgba(20, 20, 24, 0.85); backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 450px; width: 90%; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
     .modal-content h3 { margin: 0 0 8px 0; color: white; font-size: 24px; font-weight: 800; }
     .modal-content p { margin: 0 0 24px 0; color: var(--muted); line-height: 1.5; }
-
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; margin-bottom: 8px; color: white; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
     .form-group input { width: 100%; padding: 14px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white; border-radius: 12px; font-size: 15px; transition: all 0.3s; box-sizing: border-box; font-family: inherit; }
     .form-group input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(196, 25, 25, 0.2); }
-    
     .button-group { display: flex; gap: 12px; margin-top: 32px; }
     .btn { flex: 1; padding: 14px 24px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
     .btn-primary { background: var(--grad); color: white; }
@@ -133,7 +89,6 @@
     .btn-primary:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
     .btn-secondary { background: transparent; color: white; border: 1px solid var(--border); }
     .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
-
     .error-message { background: rgba(196, 25, 25, 0.2); color: #ff4444; border: 1px solid rgba(196, 25, 25, 0.4); padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
   </style>
  </head>
@@ -380,8 +335,7 @@
     let selectedPatterns = []; let patternTimeSlots = {}; let multiCitySelections = [];
 
     function calculateOccurrences(weekNumber, weekday) {
-      const startDate = new Date(2026, 10, 1);
-      const endDate = new Date(2027, 10, 31);
+      const startDate = new Date(2026, 10, 1); const endDate = new Date(2027, 10, 31);
       let count = 0; let currentDate = new Date(startDate);
       while (currentDate <= endDate) {
         const month = currentDate.getMonth(); const year = currentDate.getFullYear();
@@ -405,18 +359,11 @@
       return patterns;
     }
 
-    function selectCompanySize(size) {
-      companySize = size; updatePricing();
-      document.getElementById('welcome-page').style.display = 'none';
-      document.getElementById('booking-type-selection').style.display = 'block';
-    }
-
+    function selectCompanySize(size) { companySize = size; updatePricing(); document.getElementById('welcome-page').style.display = 'none'; document.getElementById('booking-type-selection').style.display = 'block'; }
     function backToWelcome() {
-      companySize = null; selectedCity = null; selectedDate = null; selectedWeekday = null;
-      selectedSlot = null; bookingType = null; selectedPatterns = [];
+      companySize = null; selectedCity = null; selectedDate = null; selectedWeekday = null; selectedSlot = null; bookingType = null; selectedPatterns = [];
       document.querySelectorAll('.calendar-view, .booking-type-selection, .time-slots-view').forEach(el => { el.style.display = 'none'; el.classList.remove('active'); });
-      document.getElementById('city-selection').style.display = 'none';
-      document.getElementById('welcome-page').style.display = 'block';
+      document.getElementById('city-selection').style.display = 'none'; document.getElementById('welcome-page').style.display = 'block';
     }
 
     function updatePricing() {
@@ -433,8 +380,7 @@
     }
 
     function selectCity(city) {
-      selectedCity = city;
-      ['current-city-unit', 'current-city-yearly', 'current-city-regular'].forEach(id => document.getElementById(id).textContent = city);
+      selectedCity = city; ['current-city-unit', 'current-city-yearly', 'current-city-regular'].forEach(id => document.getElementById(id).textContent = city);
       document.getElementById('city-selection').style.display = 'none';
       if (bookingType === 'unit') { document.getElementById('unit-calendar-view').style.display = 'block'; renderCalendar(); }
       else if (bookingType === 'yearly') { document.getElementById('yearly-calendar-view').style.display = 'block'; renderWeekdays(); }
@@ -449,8 +395,7 @@
 
     function backToBookingType() {
       document.querySelectorAll('.calendar-view, .time-slots-view').forEach(el => { el.style.display = 'none'; el.classList.remove('active'); });
-      document.getElementById('city-selection').style.display = 'none';
-      document.getElementById('booking-type-selection').style.display = 'block';
+      document.getElementById('city-selection').style.display = 'none'; document.getElementById('booking-type-selection').style.display = 'block';
       selectedDate = null; selectedWeekday = null; selectedSlot = null; selectedCity = null; selectedPatterns = [];
     }
 
@@ -458,9 +403,7 @@
     function backToYearlyCalendar() { document.getElementById('yearly-slots-view').classList.remove('active'); document.getElementById('yearly-calendar-view').style.display = 'block'; selectedSlot = null; }
     function backToNationalCalendar() { document.getElementById('national-slots-view').classList.remove('active'); document.getElementById('national-calendar-view').style.display = 'block'; selectedSlot = null; }
     function backToRegularPatterns() {
-      document.getElementById('regular-slots-view').classList.remove('active'); document.getElementById('time-choice-view').style.display = 'none';
-      document.getElementById('pattern-times-view').style.display = 'none'; document.getElementById('regular-patterns-view').style.display = 'block';
-      selectedSlot = null;
+      document.getElementById('regular-slots-view').classList.remove('active'); document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('pattern-times-view').style.display = 'none'; document.getElementById('regular-patterns-view').style.display = 'block'; selectedSlot = null;
       if (multiCitySelections.length > 0) { multiCitySelections = []; selectedPatterns = []; patternTimeSlots = {}; updateTotalCount(); }
     }
     function backToTimeChoice() { document.getElementById('pattern-times-view').style.display = 'none'; document.getElementById('time-choice-view').style.display = 'block'; patternTimeSlots = {}; }
@@ -468,16 +411,12 @@
     function selectTimeChoice(choice) {
       if (choice === 'same') {
         const totalCount = multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0);
-        const allPatterns = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city} - ${p.label}`));
-        document.getElementById('selected-patterns-info').textContent = allPatterns.join(', ');
+        document.getElementById('selected-patterns-info').textContent = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city} - ${p.label}`)).join(', ');
         document.getElementById('current-city-regular-slots').textContent = 'Multi-villes';
         document.getElementById('patterns-count-display').textContent = totalCount;
-        document.getElementById('time-choice-view').style.display = 'none';
-        document.getElementById('regular-slots-view').classList.add('active');
-        renderRegularTimeSlotsMultiCity();
+        document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('regular-slots-view').classList.add('active'); renderRegularTimeSlotsMultiCity();
       } else {
-        document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('pattern-times-view').style.display = 'block';
-        document.getElementById('current-city-pattern-times').textContent = 'Multi-villes'; renderPatternTimeSelectionMultiCity();
+        document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('pattern-times-view').style.display = 'block'; document.getElementById('current-city-pattern-times').textContent = 'Multi-villes'; renderPatternTimeSelectionMultiCity();
       }
     }
 
@@ -491,8 +430,7 @@
           const slotsGrid = document.getElementById(`time-slots-${citySel.city}-${pattern.id}`);
           TIME_SLOTS.forEach(slot => {
             const option = document.createElement('div'); option.className = 'time-slot-option'; option.textContent = slot;
-            option.onclick = () => selectPatternTimeSlot(`${citySel.city}-${pattern.id}`, slot);
-            slotsGrid.appendChild(option);
+            option.onclick = () => selectPatternTimeSlot(`${citySel.city}-${pattern.id}`, slot); slotsGrid.appendChild(option);
           });
         });
       });
@@ -500,22 +438,19 @@
     }
 
     function selectPatternTimeSlot(patternId, timeSlot) {
-      patternTimeSlots[patternId] = timeSlot;
-      const slotsGrid = document.getElementById(`time-slots-${patternId}`);
+      patternTimeSlots[patternId] = timeSlot; const slotsGrid = document.getElementById(`time-slots-${patternId}`);
       Array.from(slotsGrid.children).forEach(opt => { if (opt.textContent === timeSlot) opt.classList.add('selected'); else opt.classList.remove('selected'); });
       updatePatternTimesButton();
     }
 
     function updatePatternTimesButton() {
-      const btn = document.getElementById('confirm-pattern-times-btn');
-      const allPatterns = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city}-${p.id}`));
+      const btn = document.getElementById('confirm-pattern-times-btn'); const allPatterns = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city}-${p.id}`));
       btn.disabled = !allPatterns.every(key => patternTimeSlots[key]);
     }
 
     function confirmPatternTimes() {
       const allPatterns = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city}-${p.id}`));
-      if (allPatterns.some(key => !patternTimeSlots[key])) return;
-      openGroupRegistrationModal();
+      if (allPatterns.some(key => !patternTimeSlots[key])) return; openGroupRegistrationModal();
     }
 
     function openGroupRegistrationModal() {
@@ -528,27 +463,18 @@
         });
         summary += '\n';
       });
-      const totalCount = multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0);
-      summary += `Total : ${totalCount} maraudes`;
-      
-      document.getElementById('modal-slot-info').textContent = summary;
-      document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
-      document.getElementById('error-container').innerHTML = '';
-      document.getElementById('registration-modal').classList.add('active');
+      summary += `Total : ${multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0)} maraudes`;
+      document.getElementById('modal-slot-info').textContent = summary; document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
+      document.getElementById('error-container').innerHTML = ''; document.getElementById('registration-modal').classList.add('active');
     }
 
     function renderPatterns() {
       const grid = document.getElementById('patterns-grid'); grid.innerHTML = '';
       const patterns = generatePatterns();
-      const prevDisplay = document.getElementById('previous-selections-display');
-      const prevList = document.getElementById('previous-selections-list');
-      
+      const prevDisplay = document.getElementById('previous-selections-display'); const prevList = document.getElementById('previous-selections-list');
       if (multiCitySelections.length > 0) {
         prevDisplay.style.display = 'block'; let html = '';
-        multiCitySelections.forEach(sel => {
-          const total = sel.patterns.reduce((sum, p) => sum + p.count, 0);
-          html += `<div style="margin-bottom: 8px;"><strong>${sel.city}</strong> : ${sel.patterns.map(p => p.label).join(', ')} (${total} maraudes)</div>`;
-        });
+        multiCitySelections.forEach(sel => { html += `<div style="margin-bottom: 8px;"><strong>${sel.city}</strong> : ${sel.patterns.map(p => p.label).join(', ')} (${sel.patterns.reduce((sum, p) => sum + p.count, 0)} maraudes)</div>`; });
         prevList.innerHTML = html;
       } else { prevDisplay.style.display = 'none'; }
 
@@ -568,110 +494,72 @@
 
     function updateTotalCount() {
       const prevTotal = multiCitySelections.reduce((sum, sel) => sum + sel.patterns.reduce((cSum, p) => cSum + p.count, 0), 0);
-      const currTotal = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
-      const total = prevTotal + currTotal;
-      
+      const currTotal = selectedPatterns.reduce((sum, p) => sum + p.count, 0); const total = prevTotal + currTotal;
       document.getElementById('total-count-number').textContent = total;
-      const banner = document.getElementById('total-count-display');
-      const btn = document.getElementById('confirm-patterns-btn');
-      const addCityBtn = document.getElementById('add-city-btn');
-      const achievementLogo = document.getElementById('achievement-logo');
-      
+      const banner = document.getElementById('total-count-display'); const btn = document.getElementById('confirm-patterns-btn');
+      const addCityBtn = document.getElementById('add-city-btn'); const achievementLogo = document.getElementById('achievement-logo');
       if (total > 0) {
         banner.style.display = 'block'; btn.disabled = currTotal === 0;
         if (companySize === 'large') { addCityBtn.disabled = currTotal === 0; addCityBtn.style.display = 'block'; } else { addCityBtn.style.display = 'none'; }
-        let logoSrc = total >= ACHIEVEMENT_THRESHOLD 
-          ? (companySize === 'large' ? 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png' : 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png')
-          : (companySize === 'large' ? 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png' : 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png');
-        achievementLogo.src = logoSrc; achievementLogo.style.display = 'block';
-      } else {
-        banner.style.display = 'none'; btn.disabled = true; if (addCityBtn) addCityBtn.disabled = true; achievementLogo.style.display = 'none';
-      }
+        achievementLogo.src = total >= ACHIEVEMENT_THRESHOLD ? (companySize === 'large' ? 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png' : 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png') : (companySize === 'large' ? 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png' : 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png');
+        achievementLogo.style.display = 'block';
+      } else { banner.style.display = 'none'; btn.disabled = true; if (addCityBtn) addCityBtn.disabled = true; achievementLogo.style.display = 'none'; }
     }
 
     function addAnotherCity() {
-      if (selectedPatterns.length === 0) return;
-      multiCitySelections.push({ city: selectedCity, patterns: [...selectedPatterns] });
-      selectedPatterns = []; selectedCity = null;
-      document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('city-selection').style.display = 'block';
+      if (selectedPatterns.length === 0) return; multiCitySelections.push({ city: selectedCity, patterns: [...selectedPatterns] });
+      selectedPatterns = []; selectedCity = null; document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('city-selection').style.display = 'block';
     }
 
     function confirmPatterns() {
-      if (selectedPatterns.length === 0) return;
-      multiCitySelections.push({ city: selectedCity, patterns: [...selectedPatterns] });
-      
+      if (selectedPatterns.length === 0) return; multiCitySelections.push({ city: selectedCity, patterns: [...selectedPatterns] });
       if (multiCitySelections.length === 1 && selectedPatterns.length === 1) {
-        const totalCount = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
         document.getElementById('selected-patterns-info').textContent = selectedPatterns.map(p => p.label).join(', ');
         document.getElementById('current-city-regular-slots').textContent = selectedCity;
-        document.getElementById('patterns-count-display').textContent = totalCount;
-        document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('regular-slots-view').classList.add('active');
-        renderRegularTimeSlots();
+        document.getElementById('patterns-count-display').textContent = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
+        document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('regular-slots-view').classList.add('active'); renderRegularTimeSlots();
       } else {
         document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('time-choice-view').style.display = 'block';
         document.getElementById('patterns-summary').textContent = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city} - ${p.label}`)).join(', ');
       }
     }
 
-    function generateDates() {
-      const dates = []; const startDate = new Date(2027, 0, 1);
-      for (let i = 0; i < 31; i++) { const date = new Date(startDate); date.setDate(startDate.getDate() + i); dates.push(date); }
-      return dates;
-    }
-
-    function formatDisplayDate(date) {
-      const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-      const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
-      return { day: days[date.getDay()], date: date.getDate(), month: months[date.getMonth()] };
-    }
+    function generateDates() { const dates = []; const startDate = new Date(2027, 0, 1); for (let i = 0; i < 31; i++) { const date = new Date(startDate); date.setDate(startDate.getDate() + i); dates.push(date); } return dates; }
+    function formatDisplayDate(date) { const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']; const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc']; return { day: days[date.getDay()], date: date.getDate(), month: months[date.getMonth()] }; }
 
     function renderCalendar() {
       const grid = document.getElementById('calendar-grid'); grid.innerHTML = '';
       generateDates().forEach(date => {
         const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-        const display = formatDisplayDate(date);
-        const card = document.createElement('div'); card.className = 'date-card';
+        const display = formatDisplayDate(date); const card = document.createElement('div'); card.className = 'date-card';
         if (selectedDate === dateStr) card.classList.add('selected');
         card.innerHTML = `<div class="day">${display.day} ${display.month}</div><div class="date">${display.date}</div>`;
         card.onclick = () => {
-          selectedDate = dateStr;
-          document.getElementById('selected-date-info').textContent = `${display.day} ${display.date} ${display.month} ${date.getFullYear()}`;
-          document.getElementById('current-city-unit-slots').textContent = selectedCity;
-          document.getElementById('unit-calendar-view').style.display = 'none'; document.getElementById('unit-slots-view').classList.add('active');
-          renderTimeSlots();
-        };
-        grid.appendChild(card);
+          selectedDate = dateStr; document.getElementById('selected-date-info').textContent = `${display.day} ${display.date} ${display.month} ${date.getFullYear()}`;
+          document.getElementById('current-city-unit-slots').textContent = selectedCity; document.getElementById('unit-calendar-view').style.display = 'none'; document.getElementById('unit-slots-view').classList.add('active'); renderTimeSlots();
+        }; grid.appendChild(card);
       });
     }
 
     function renderWeekdays() {
       const grid = document.getElementById('weekdays-grid'); grid.innerHTML = '';
       WEEKDAYS.forEach(weekday => {
-        const card = document.createElement('div'); card.className = 'weekday-card';
-        card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
+        const card = document.createElement('div'); card.className = 'weekday-card'; card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
-          selectedWeekday = weekday;
-          document.getElementById('selected-weekday-info').textContent = `Tous les ${weekday} (oct. 2026 à oct. 2027)`;
-          document.getElementById('current-city-yearly-slots').textContent = selectedCity;
-          document.getElementById('yearly-calendar-view').style.display = 'none'; document.getElementById('yearly-slots-view').classList.add('active');
-          renderYearlyTimeSlots();
-        };
-        grid.appendChild(card);
+          selectedWeekday = weekday; document.getElementById('selected-weekday-info').textContent = `Tous les ${weekday} (oct. 2026 à oct. 2027)`;
+          document.getElementById('current-city-yearly-slots').textContent = selectedCity; document.getElementById('yearly-calendar-view').style.display = 'none'; document.getElementById('yearly-slots-view').classList.add('active'); renderYearlyTimeSlots();
+        }; grid.appendChild(card);
       });
     }
 
     function renderNationalWeekdays() {
       const grid = document.getElementById('national-weekdays-grid'); grid.innerHTML = '';
       WEEKDAYS.forEach(weekday => {
-        const card = document.createElement('div'); card.className = 'weekday-card';
-        card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
+        const card = document.createElement('div'); card.className = 'weekday-card'; card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
-          selectedWeekday = weekday;
-          document.getElementById('selected-national-weekday-info').textContent = `Tous les ${weekday} dans toutes les villes (oct. 2026 à oct. 2027)`;
-          document.getElementById('national-calendar-view').style.display = 'none'; document.getElementById('national-slots-view').classList.add('active');
-          renderNationalTimeSlots();
-        };
-        grid.appendChild(card);
+          selectedWeekday = weekday; document.getElementById('selected-national-weekday-info').textContent = `Tous les ${weekday} dans toutes les villes (oct. 2026 à oct. 2027)`;
+          document.getElementById('national-calendar-view').style.display = 'none'; document.getElementById('national-slots-view').classList.add('active'); renderNationalTimeSlots();
+        }; grid.appendChild(card);
       });
     }
 
@@ -690,8 +578,7 @@
       TIME_SLOTS.forEach(slot => {
         const card = document.createElement('div'); card.className = 'slot-card';
         card.innerHTML = `<div class="slot-time">${slot}</div><div class="slot-participants">Disponible pour toutes vos sélections</div><div class="slot-price">800 €</div>`;
-        card.onclick = () => { selectedSlot = slot; openGroupRegistrationModal(); };
-        grid.appendChild(card);
+        card.onclick = () => { selectedSlot = slot; openGroupRegistrationModal(); }; grid.appendChild(card);
       });
     }
 
@@ -700,23 +587,14 @@
       if (type === 'unit') { const dateObj = new Date(selectedDate); modalInfo = `${selectedCity} - ${formatDisplayDate(dateObj).day} ${formatDisplayDate(dateObj).date} - ${slot}`; }
       else if (type === 'yearly') { modalInfo = `${selectedCity} - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`; }
       else if (type === 'national') { modalInfo = `Toutes les villes - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`; }
-      else if (type === 'regular') { const totalCount = selectedPatterns.reduce((sum, p) => sum + p.count, 0); modalInfo = `${selectedCity} - ${selectedPatterns.map(p => p.label).join(', ')} (${totalCount} maraudes) - ${slot}`; }
+      else if (type === 'regular') { modalInfo = `${selectedCity} - ${selectedPatterns.map(p => p.label).join(', ')} (${selectedPatterns.reduce((sum, p) => sum + p.count, 0)} maraudes) - ${slot}`; }
       
-      document.getElementById('modal-slot-info').textContent = modalInfo;
-      document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
-      document.getElementById('error-container').innerHTML = '';
-      document.getElementById('registration-modal').classList.add('active');
+      document.getElementById('modal-slot-info').textContent = modalInfo; document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
+      document.getElementById('error-container').innerHTML = ''; document.getElementById('registration-modal').classList.add('active');
     }
 
-    function closeModal() {
-      document.getElementById('registration-modal').classList.remove('active');
-      document.getElementById('error-container').innerHTML = '';
-    }
-
-    function showError(message) {
-      const container = document.getElementById('error-container');
-      container.innerHTML = `<div class="error-message">${message}</div>`;
-    }
+    function closeModal() { document.getElementById('registration-modal').classList.remove('active'); document.getElementById('error-container').innerHTML = ''; }
+    function showError(message) { document.getElementById('error-container').innerHTML = `<div class="error-message">${message}</div>`; }
 
     // --- LE NOYAU : SOUMISSION VIA FETCH VERCEL ---
     async function submitRegistration(event) {
@@ -731,27 +609,19 @@
       
       if (!companyName || !contactName || !role || !email || !phone) return;
 
-      const modalInfo = document.getElementById('modal-slot-info');
-      const details = modalInfo.textContent;
-
       isLoading = true;
       document.getElementById('submit-btn').disabled = true;
       document.getElementById('submit-btn').textContent = 'Envoi en cours...';
 
       const payload = {
-        companyName,
-        contactName,
-        role,
-        email,
-        phone,
-        details,
+        companyName, contactName, role, email, phone,
+        details: document.getElementById('modal-slot-info').textContent,
         bookingType: bookingType || 'Multi-villes',
         city: selectedCity || 'Multi-villes / National'
       };
 
       try {
-        // C'est ici que l'on appelle ton fichier Vercel (send-email.js)
-        const response = await fetch('/api/send-email', {
+        const response = await fetch('./api/send-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -761,11 +631,8 @@
           closeModal();
           alert("Votre demande a bien été envoyée ! Nous vous recontacterons très vite pour finaliser votre inscription.");
           backToWelcome();
-        } else { 
-          throw new Error("Erreur lors de la communication avec le serveur."); 
-        }
+        } else { throw new Error("Erreur lors de la communication avec le serveur."); }
       } catch (error) {
-        console.error(error);
         showError("Erreur lors de l'envoi. Veuillez vérifier votre connexion ou réessayer plus tard.");
       } finally {
         isLoading = false;
@@ -776,7 +643,6 @@
 
     document.getElementById('cancel-btn').onclick = closeModal;
     document.getElementById('registration-form').onsubmit = submitRegistration;
-
   </script>
  </body>
 </html>
