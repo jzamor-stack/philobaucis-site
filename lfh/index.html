@@ -37,7 +37,7 @@
     
     /* ANIMATIONS */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
     /* HEADER MOBILE & OVERLAY */
     .mobile-header { display: none; background: #000; padding: 15px 25px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 100; }
@@ -69,6 +69,19 @@
 
     .highlight { color: var(--text); font-weight: 700; }
     .text-center { text-align: center; }
+
+    /* MAIN HEADER BOX */
+    .page-header-box {
+      text-align: center;
+      padding: 80px 20px;
+      background: radial-gradient(circle at center, rgba(196, 25, 25, 0.1) 0%, transparent 70%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      margin-bottom: 50px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    .page-header-box h1 { font-size: 4.5rem; margin: 20px 0; }
+    .page-header-box .subtitle { font-size: 1.4rem; max-width: 700px; margin: 0 auto; }
 
     /* CARDS & GRIDS */
     .glow-card { background: var(--card); border: 1px solid var(--border); transition: all 0.3s ease; border-radius: 20px; padding: 25px; }
@@ -127,13 +140,21 @@
     .maraude-right { position: relative; display: flex; align-items: center; justify-content: center; min-height: 350px; border-radius: 20px; overflow: hidden; background: var(--card); border: 1px solid var(--border); }
     #preview { max-width: 100%; max-height: 100%; border-radius: 16px; transition: opacity .2s; object-fit: contain; }
 
-    /* GRADIENT TEXTS */
+    /* GRADIENT TEXTS & MEDALS */
     .gradient-gold { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .gradient-silver { background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .gradient-bronze { background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .gradient-diamond { background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .medal-emoji { font-size: 2.5rem; display: block; margin-bottom: 10px; animation: pulse 2s infinite; text-align: center; }
+    .medal-img { 
+      width: 85px; 
+      height: 85px; 
+      object-fit: contain; 
+      display: block; 
+      margin: 0 auto 15px; 
+      animation: pulse 3s infinite ease-in-out;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+    }
 
     /* CALENDAR STEPS */
     .step-item { display: flex; gap: 25px; margin-bottom: 20px; padding: 25px; }
@@ -146,7 +167,7 @@
       .sidebar { position: fixed; top: 0; left: 0; height: 100%; transform: translateX(-100%); z-index: 999; } 
       .sidebar.show { transform: translateX(0); }
       .main-view { padding: 30px 20px; } 
-      h1 { font-size: 2.2rem; }
+      .page-header-box h1 { font-size: 3rem; }
       #w { flex-direction: column; }
       #l { width: 100%; }
       .maraude-showcase { grid-template-columns: 1fr; }
@@ -185,11 +206,12 @@
   <main class="main-view">
     
     <div id="presentation" class="tab-content active">
-      <div class="hero-banner" style="background-image: url('https://i.postimg.cc/tCX0cV06/731801281426-n.jpg');"></div>
       
-      <h2>Solidarité Nationale</h2>
-      <h1 id="main-title">Mécénat de <span style="color: var(--primary-color);">Maraude.</span></h1>
-      <p id="hero-subtitle" class="subtitle">Avec la Ligue Humanitaire - Agissons ensemble contre la précarité.</p>
+      <div class="page-header-box">
+        <h2>Solidarité Nationale</h2>
+        <h1 id="main-title">Mécénat de <br><span style="color: var(--primary-color);">Maraude.</span></h1>
+        <p id="hero-subtitle" class="subtitle">Avec la Ligue Humanitaire - Agissons ensemble contre la précarité.</p>
+      </div>
 
       <div style="margin-top: 40px; margin-bottom: 50px;">
         <h2>Déploiement National</h2>
@@ -244,7 +266,7 @@
       </div>
 
       <div class="text-center" style="margin-top: 50px;">
-        <button class="btn-main cta-btn" id="cta-button-1">Participer Maintenant</button>
+        <button class="btn-main cta-btn" id="cta-button-1">Voir les créneaux disponibles</button>
       </div>
     </div>
 
@@ -318,12 +340,12 @@
       </div>
 
       <div class="text-center" style="margin-top: 40px;">
-        <button class="btn-main cta-btn" id="cta-button-2">Planifier une session</button>
+        <button class="btn-main cta-btn" id="cta-button-2">Voir les créneaux disponibles</button>
       </div>
     </div>
 
     <div id="engager" class="tab-content">
-      <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1593113563332-ce147fb1ca65?auto=format&fit=crop&w=1600&q=80');"></div>
+      <div class="hero-banner" style="background-image: url('https://i.postimg.cc/tCX0cV06/731801281426-n.jpg');"></div>
       
       <h2>Bénéfices Entreprise</h2>
       <h1>Suivi & <span style="color: var(--primary-color);">Impact RSE.</span></h1>
@@ -359,7 +381,7 @@
       </div>
 
       <div class="text-center" style="margin-top: 50px;">
-        <button class="btn-main cta-btn" id="cta-button-3">Nous Contacter</button>
+        <button class="btn-main cta-btn" id="cta-button-3">Voir les créneaux disponibles</button>
       </div>
     </div>
 
@@ -378,22 +400,22 @@
       <h3 style="margin-top: 50px; text-align:center;">🏢 Grandes Entreprises (+500 employés)</h3>
       <div class="grid-4">
         <div class="glow-card text-center">
-          <span class="medal-emoji">🥉</span>
+          <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Médaille de Bronze" class="medal-img">
           <h4 class="gradient-bronze" style="font-size: 1.2rem; font-weight:800;">Bronze</h4>
           <p style="margin-top: 10px; font-size:0.9rem;">12 maraudes/an<br><span class="highlight">1 créneau mensuel</span></p>
         </div>
         <div class="glow-card text-center">
-          <span class="medal-emoji">🥈</span>
+          <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Médaille d'Argent" class="medal-img">
           <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
           <p style="margin-top: 10px; font-size:0.9rem;">+ de 12 créneaux<br><span class="highlight">Engagement régulier</span></p>
         </div>
         <div class="glow-card text-center">
-          <span class="medal-emoji">🥇</span>
+          <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Médaille d'Or" class="medal-img">
           <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
           <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux ou +<br><span class="highlight">1 fois par semaine</span></p>
         </div>
         <div class="glow-card text-center" style="border-color: #87CEEB;">
-          <span class="medal-emoji">💎</span>
+          <img src="https://i.postimg.cc/bNb8Xjr3/philobaucis-logo-(10).png" alt="Médaille de Diamant" class="medal-img">
           <h4 class="gradient-diamond" style="font-size: 1.2rem; font-weight:800;">Diamant</h4>
           <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux dans 10 villes<br><span class="highlight">Déploiement national</span></p>
         </div>
@@ -402,19 +424,19 @@
       <h3 style="margin-top: 50px; text-align:center;">🏪 PME / TPE (-500 employés)</h3>
       <div class="grid-3" style="max-width: 600px; margin: 30px auto;">
         <div class="glow-card text-center">
-          <span class="medal-emoji">🥈</span>
+          <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Médaille d'Argent PME" class="medal-img">
           <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
           <p style="margin-top: 10px; font-size:0.9rem;">Créneau mensuel ou trimestriel adapté</p>
         </div>
         <div class="glow-card text-center">
-          <span class="medal-emoji">🥇</span>
+          <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Médaille d'Or PME" class="medal-img">
           <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
           <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux/an<br><span class="highlight">Leadership PME</span></p>
         </div>
       </div>
 
       <div class="text-center" style="margin-top: 50px;">
-        <button class="btn-main cta-btn" id="cta-button-4">Rejoindre le Mouvement</button>
+        <button class="btn-main cta-btn" id="cta-button-4">Voir les créneaux disponibles</button>
       </div>
     </div>
 
@@ -526,10 +548,10 @@
       secondary_action_color: "#6b1e5f",
       font_family: "Plus Jakarta Sans",
       font_size: 16,
-      main_title: "Mécénat de maraude",
+      main_title: "Mécénat de <br><span style=\"color: var(--primary-color);\">Maraude.</span>",
       hero_subtitle: "Avec la Ligue Humanitaire - Agissons ensemble contre la précarité.",
       cities_title: "10 Villes, 1 Engagement.",
-      cta_button: "Participer Maintenant"
+      cta_button: "Voir les créneaux disponibles"
     };
 
     async function onConfigChange(config) {
