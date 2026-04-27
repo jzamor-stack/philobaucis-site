@@ -1,8 +1,9 @@
 {
-  "name": "philobaucis-calendrier",
+  "name": "calendrier-philobaucis",
   "version": "1.0.0",
-  "description": "Calendrier d'inscription Philobaucis",
+  "description": "Système de réservation Vercel",
   "dependencies": {
-    "resend": "^3.2.0"
+    "resend": "^3.2.0",
+    "@supabase/supabase-js": "^2.39.3"
   }
 }
