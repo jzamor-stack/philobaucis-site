@@ -40,12 +40,18 @@
     table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 16px; overflow: hidden; }
     th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
     th { background: rgba(255,255,255,0.05); color: var(--muted); font-weight: 600; }
+    
+    /* NOUVEAUX STYLES POUR LES STATUTS ET BOUTONS ANNULER */
     .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
     .status-pending { background: rgba(255, 165, 0, 0.2); color: #FFA500; }
     .status-signed { background: rgba(72, 187, 120, 0.2); color: #48bb78; }
+    .status-cancelled { background: rgba(255, 68, 68, 0.2); color: #ff4444; }
     
-    .action-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 6px 12px; font-size: 0.8rem; border-radius: 4px; cursor: pointer; }
-    .action-btn:hover { background: var(--primary); color: white; }
+    .actions-container { display: flex; gap: 8px; }
+    .action-btn { background: transparent; border: 1px solid #48bb78; color: #48bb78; padding: 6px 12px; font-size: 0.8rem; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+    .action-btn:hover { background: #48bb78; color: white; }
+    .action-btn.cancel { border-color: #ff4444; color: #ff4444; }
+    .action-btn.cancel:hover { background: #ff4444; color: white; }
 
     .calendar-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
     .view-toggles { display: flex; gap: 10px; }
@@ -188,15 +194,32 @@
       } catch (e) { console.error(e); }
     }
 
+    // --- LE TABLEAU MIS À JOUR AVEC LE NOUVEAU BOUTON ---
     function renderTable(reservations) {
       const tbody = document.getElementById('table-body'); tbody.innerHTML = '';
       let pendingCount = 0; let signedCount = 0;
 
       reservations.forEach(res => {
-        if(res.status === 'pending') pendingCount++; if(res.status === 'signed') signedCount++;
-        const statusClass = res.status === 'pending' ? 'status-pending' : 'status-signed';
-        const statusText = res.status === 'pending' ? 'En attente' : 'Signé';
-        const actionBtn = res.status === 'pending' ? `<button class="action-btn" onclick="markAsSigned('${res.id}')">Valider</button>` : `<span style="color: var(--muted); font-size: 0.8rem;">Actif</span>`;
+        if(res.status === 'pending') pendingCount++; 
+        if(res.status === 'signed') signedCount++;
+        
+        let statusClass = 'status-pending';
+        let statusText = 'En attente';
+        if(res.status === 'signed') { statusClass = 'status-signed'; statusText = 'Signé'; }
+        if(res.status === 'cancelled') { statusClass = 'status-cancelled'; statusText = 'Annulé'; }
+
+        let actionHtml = '';
+        if(res.status === 'pending') {
+          // On affiche Valider ET Annuler
+          actionHtml = `<div class="actions-container">
+                          <button class="action-btn" onclick="markAsSigned('${res.id}')">Valider</button>
+                          <button class="action-btn cancel" onclick="markAsCancelled('${res.id}')">Annuler</button>
+                        </div>`;
+        } else if (res.status === 'signed') {
+          actionHtml = `<span style="color: var(--muted); font-size: 0.8rem;">Contrat Actif</span>`;
+        } else if (res.status === 'cancelled') {
+          actionHtml = `<span style="color: #ff4444; font-size: 0.8rem;">Rejeté</span>`;
+        }
 
         tbody.innerHTML += `<tr>
             <td><strong>${res.company_name}</strong></td>
@@ -204,9 +227,10 @@
             <td>${res.booking_type}</td>
             <td><small>${res.city}</small></td>
             <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-            <td>${actionBtn}</td>
+            <td>${actionHtml}</td>
           </tr>`;
       });
+      
       document.getElementById('total-pending').textContent = pendingCount;
       document.getElementById('total-signed').textContent = signedCount;
       if(reservations.length === 0) tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: var(--muted);">Aucune réservation.</td></tr>';
@@ -218,6 +242,18 @@
         const res = await fetch('/api/update-reservation', {
           method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
           body: JSON.stringify({ id: id, status: 'signed' })
+        });
+        if(res.ok) loadData();
+      } catch (e) { alert("Erreur."); }
+    }
+
+    // --- LA NOUVELLE FONCTION POUR ANNULER ---
+    async function markAsCancelled(id) {
+      if(!confirm("Êtes-vous sûr de vouloir annuler ou rejeter cette demande ? Elle passera en rouge.")) return;
+      try {
+        const res = await fetch('/api/update-reservation', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+          body: JSON.stringify({ id: id, status: 'cancelled' })
         });
         if(res.ok) loadData();
       } catch (e) { alert("Erreur."); }
