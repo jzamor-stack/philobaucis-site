@@ -96,7 +96,7 @@
                                     <input type="number" min="0" id="pal-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
                                 </div>
                             </div>
-                            <!-- CV (Chariots Vrac) -->
+                            <!-- CV -->
                             <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 shadow-sm">
                                 <div class="flex justify-between items-center border-b border-teal-200 pb-1 mb-2">
                                     <h3 class="font-bold text-teal-900">CV</h3>
@@ -249,7 +249,7 @@
                                     <select id="gide-q1-ref" class="bg-white border-2 border-orange-300 rounded-xl px-4 py-2 font-bold text-orange-900 shadow-sm focus:ring-2 ring-orange-400 outline-none calc-trigger transition-all">
                                         <option value="none">-- Choisir --</option>
                                         <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                                        <option value="ce">CE</option><option value="cdp">CDP</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
+                                        <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
                                     </select>
                                     <span>je peux mettre pour remplir mon camion ?</span>
                                 </div>
@@ -277,7 +277,7 @@
                                         <select class="prio-select bg-transparent font-bold text-slate-700 w-full outline-none calc-trigger">
                                             <option value="none">-- Sélectionner une référence --</option>
                                             <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                                            <option value="ce">CE</option><option value="cdp">CDP</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
+                                            <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
                                         </select>
                                     </div>
                                 </div>
@@ -344,20 +344,19 @@
     </div>
 
     <script>
-        // GPS & DATA (Gardé en mémoire mais masqué)
+        // GPS & DATA
         const SITES_BDD = { "pic_lognes": { nom: "PIC Paris Lognes", lat: 48.835, lng: 2.628, rayon: 500 } };
         const TRUCK_L = 1330; const TRUCK_W = 240;
         
-        // AJUSTEMENT DES EMPREINTES POUR RESPECTER LES LIMITES PAR RANGÉES (Camion = 240cm)
         const DIMS = {
-            cpr: { long: {w: 60, d: 84}, larg: {w: 84, d: 60} },     // 4/rangée en long, 2/rangée en larg
-            pal: { long: {w: 80, d: 120}, larg: {w: 120, d: 80} },   // 3/rangée en long, 2/rangée en larg
-            cv:  { long: {w: 60, d: 100}, larg: {w: 100, d: 60} },   // 4/rangée en long, 2/rangée en larg
-            cp:  { long: {w: 80, d: 120}, larg: {w: 240, d: 84} },   // Force 3/rangée en long, 1/rangée en larg
-            kub: { long: {w: 80, d: 60}, larg: {w: 80, d: 60} },     // Force 3/rangée
-            ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },   // 4/rangée en long, 2/rangée en larg
-            cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }, // 2/rangée
-            mag: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }  // 2/rangée
+            cpr: { long: {w: 60, d: 84}, larg: {w: 84, d: 60} },
+            pal: { long: {w: 80, d: 120}, larg: {w: 120, d: 80} },
+            cv:  { long: {w: 60, d: 100}, larg: {w: 100, d: 60} },
+            cp:  { long: {w: 80, d: 120}, larg: {w: 240, d: 84} },
+            kub: { long: {w: 80, d: 60}, larg: {w: 80, d: 60} },
+            ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },
+            cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} },
+            mag: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }
         };
         const LABELS = { cpr:'CPR', pal:'PAL', cv:'CV', cp:'CP', kub:'KUB', ce:'CE', cdp:'CDP', mag:'MAG', kubv:'KV' };
         const COLORS = { cpr:'#3b82f6', pal:'#22c55e', cv:'#0d9488', cp:'#a855f7', kub:'#f97316', ce:'#ec4899', cdp:'#6366f1', mag:'#ca8a04' };
@@ -484,7 +483,11 @@
                     let bestY = -1; let minX = Infinity;
                     for(let y = 0; y <= TRUCK_W - o.w; y++) {
                         let maxX = 0; for(let i=y; i<y+o.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
-                        if(maxX + o.d <= TRUCK_L && maxX < minX) { minX = maxX; bestY = y; }
+                        
+                        // FIX ALERTE: L'IA est limitée à TRUCK_L, mais pas les placements manuels
+                        let fitsInTruck = isAuto ? (maxX + o.d <= TRUCK_L) : true; 
+                        
+                        if(fitsInTruck && maxX < minX) { minX = maxX; bestY = y; }
                     }
                     if(bestY !== -1 && (!best || minX < best.minX)) best = { minX, bestY, w:o.w, d:o.d };
                 });
@@ -526,7 +529,7 @@
             const used = Math.max(...skyline);
             const remain = TRUCK_L - used;
             
-            // ALERTE SURCAPACITÉ
+            // ALERTE SURCAPACITÉ SI DÉPASSEMENT DES ÉLÉMENTS OBLIGATOIRES
             if(usedBeforeGide > TRUCK_L) {
                 document.getElementById('overcapacity-warning').classList.remove('hidden');
             } else {
@@ -538,14 +541,14 @@
             remText.innerText = (remain/100).toFixed(2) + " m";
             remText.className = remain < 0 ? "text-3xl font-bold text-red-400" : "text-3xl font-bold text-yellow-300";
 
-            const pct = Math.min(100, Math.max(0, (used/TRUCK_L)*100));
+            const pct = Math.max(0, (used/TRUCK_L)*100);
             const bar = document.getElementById('main-progress-bar');
             const card = document.getElementById('result-card');
             
-            bar.style.width = pct + "%"; 
-            bar.innerText = (used/TRUCK_L*100).toFixed(1) + "%";
+            bar.style.width = Math.min(100, pct) + "%"; 
+            bar.innerText = pct.toFixed(1) + "%";
             
-            if(used >= TRUCK_L) {
+            if(used > TRUCK_L) {
                 bar.className = "bg-red-500 h-full flex items-center justify-center text-xs font-bold text-white transition-all duration-500";
                 card.className = "bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-2xl sticky top-6 transition-colors duration-500";
             } else {
