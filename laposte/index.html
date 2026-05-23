@@ -51,9 +51,18 @@
 
         <div class="max-w-7xl mx-auto space-y-6">
             
-            <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-8 text-white shadow-xl text-center">
-                <h1 class="text-3xl md:text-4xl font-extrabold mb-2">🚚 Calculateur de Chargement</h1>
-                <p class="text-teal-100 text-lg font-medium">Semi-Remorque 13,30m x 2,40m - Optimisation Spatiale</p>
+            <!-- EN-TÊTE ET SÉLECTEUR DE CAMION -->
+            <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-6 md:p-8 text-white shadow-xl text-center">
+                <h1 class="text-3xl md:text-4xl font-extrabold mb-4">🚚 Calculateur de Chargement</h1>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-3 bg-teal-800/30 p-3 rounded-xl max-w-lg mx-auto backdrop-blur-sm border border-teal-500/50">
+                    <label for="truck-type" class="text-teal-100 font-bold uppercase text-xs tracking-wider">Format du camion :</label>
+                    <select id="truck-type" class="bg-white text-teal-900 font-black rounded-lg px-4 py-2 outline-none calc-trigger cursor-pointer shadow-sm hover:ring-2 ring-teal-400 transition-all">
+                        <option value="1330">Semi-Remorque (13,30m)</option>
+                        <option value="800">Porteur 32 CE (8,00m)</option>
+                        <option value="600">Porteur 24 CE (6,00m)</option>
+                        <option value="500">Porteur 20 CE (5,00m)</option>
+                    </select>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -335,8 +344,18 @@
                         <div class="w-full bg-black/20 rounded-full h-8 overflow-hidden mb-6 border border-white/10 shadow-inner">
                             <div id="main-progress-bar" class="bg-white h-full flex items-center justify-center text-xs font-bold text-green-800 transition-all duration-500 shadow-lg">0%</div>
                         </div>
+                        
                         <div class="pt-6 border-t border-green-500/50 text-center uppercase text-[10px] font-bold text-green-100 mb-2">Plan de chargement exact</div>
-                        <div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto shadow-inner"></div>
+                        <div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto shadow-inner mb-6"></div>
+
+                        <!-- ZONE DES CALCULS ALGORITHMIQUES -->
+                        <div class="pt-6 border-t border-green-500/50">
+                            <h3 class="text-xs font-bold uppercase mb-2 text-green-100 flex items-center gap-2">
+                                <span>⚙️ Détail des calculs (Métrage Plancher)</span>
+                            </h3>
+                            <pre id="calc-log" class="bg-slate-900 text-green-400 p-4 rounded-lg border border-slate-800 text-[11px] overflow-y-auto h-40 shadow-inner whitespace-pre-wrap font-mono leading-relaxed"></pre>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -344,19 +363,18 @@
     </div>
 
     <script>
-        // GPS & DATA
-        const SITES_BDD = { "pic_lognes": { nom: "PIC Paris Lognes", lat: 48.835, lng: 2.628, rayon: 500 } };
-        const TRUCK_L = 1330; const TRUCK_W = 240;
+        const TRUCK_W = 240;
         
+        // AJUSTEMENT DES EMPREINTES POUR RESPECTER LES LIMITES PAR RANGÉES (Camion = 240cm)
         const DIMS = {
-            cpr: { long: {w: 60, d: 84}, larg: {w: 84, d: 60} },
-            pal: { long: {w: 80, d: 120}, larg: {w: 120, d: 80} },
-            cv:  { long: {w: 60, d: 100}, larg: {w: 100, d: 60} },
-            cp:  { long: {w: 80, d: 120}, larg: {w: 240, d: 84} },
-            kub: { long: {w: 80, d: 60}, larg: {w: 80, d: 60} },
-            ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },
-            cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} },
-            mag: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }
+            cpr: { long: {w: 60, d: 84}, larg: {w: 84, d: 60} },     // 4/rangée en long, 2/rangée en larg
+            pal: { long: {w: 80, d: 120}, larg: {w: 120, d: 80} },   // 3/rangée en long, 2/rangée en larg
+            cv:  { long: {w: 60, d: 100}, larg: {w: 100, d: 60} },   // 4/rangée en long, 2/rangée en larg
+            cp:  { long: {w: 80, d: 120}, larg: {w: 240, d: 84} },   // Force 3/rangée en long, 1/rangée en larg
+            kub: { long: {w: 80, d: 60}, larg: {w: 80, d: 60} },     // Force 3/rangée
+            ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },   // 4/rangée en long, 2/rangée en larg
+            cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }, // 2/rangée
+            mag: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }  // 2/rangée
         };
         const LABELS = { cpr:'CPR', pal:'PAL', cv:'CV', cp:'CP', kub:'KUB', ce:'CE', cdp:'CDP', mag:'MAG', kubv:'KV' };
         const COLORS = { cpr:'#3b82f6', pal:'#22c55e', cv:'#0d9488', cp:'#a855f7', kub:'#f97316', ce:'#ec4899', cdp:'#6366f1', mag:'#ca8a04' };
@@ -443,54 +461,103 @@
         });
 
         function calc() {
+            const TRUCK_L = parseInt(document.getElementById('truck-type').value) || 1330;
+            
+            // DÉMARRAGE DU LOG MATHÉMATIQUE ÉPURÉ
+            let logText = "";
+            const formatFr = (num) => num.toFixed(2).replace('.', ',');
+            const addMathLog = (label, depthCm, widthCm, piles) => {
+                if(piles <= 0) return "";
+                let d = depthCm / 100;
+                let perRow = Math.floor(240 / widthCm);
+                let mathRes = (d * piles) / perRow;
+                return `${label} : (${formatFr(d)} x ${piles}) / ${perRow} = ${formatFr(mathRes)} m\n`;
+            };
+            
             let itemsToPlace = [];
             // OBLIGATOIRES
             ['cpr','pal','cv','cp','ce','cdp','mag'].forEach(t => {
-                const qnl = getVal(t+'-n-long'); const qnw = getVal(t+'-n-larg');
-                const qgl = getVal(t+'-g-long'); const qgw = getVal(t+'-g-larg');
-                for(let i=0; i<qnl; i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d });
-                for(let i=0; i<qnw; i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d });
-                if(qgl > 0) for(let i=0; i<Math.ceil(qgl/2); i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:true });
-                if(qgw > 0) for(let i=0; i<Math.ceil(qgw/2); i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:true });
+                let qnl = getVal(t+'-n-long'); let qgl = getVal(t+'-g-long');
+                let pilesLong = qnl + Math.ceil(qgl/2);
+                if(pilesLong > 0) logText += addMathLog(LABELS[t] + ' (Long.)', DIMS[t].long.d, DIMS[t].long.w, pilesLong);
+                
+                let qnw = getVal(t+'-n-larg'); let qgw = getVal(t+'-g-larg');
+                let pilesLarg = qnw + Math.ceil(qgw/2);
+                if(pilesLarg > 0) logText += addMathLog(LABELS[t] + ' (Larg.)', DIMS[t].larg.d, DIMS[t].larg.w, pilesLarg);
+                
+                for(let i=0; i<qnl; i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, label:LABELS[t] });
+                for(let i=0; i<qnw; i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, label:LABELS[t] });
+                if(qgl > 0) for(let i=0; i<Math.ceil(qgl/2); i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:true, label:LABELS[t] });
+                if(qgw > 0) for(let i=0; i<Math.ceil(qgw/2); i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:true, label:LABELS[t] });
             });
-            const kn = getVal('kub-n-long'); const kg = getVal('kub-g-long');
-            for(let i=0; i<kn; i++) itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d });
-            for(let i=0; i<Math.ceil(kg/2); i++) itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, stacked:true });
+            
+            let kn = getVal('kub-n-long'); let kg = getVal('kub-g-long');
+            let pilesKub = kn + Math.ceil(kg/2);
+            if(pilesKub > 0) logText += addMathLog('KUB', DIMS.kub.long.d, DIMS.kub.long.w, pilesKub);
+            
+            for(let i=0; i<kn; i++) itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, label:LABELS.kub });
+            for(let i=0; i<Math.ceil(kg/2); i++) itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, stacked:true, label:LABELS.kub });
 
             // VIDE
             const kv = getVal('kubv-tot');
             if(kv > 0) {
-                const piles = Math.ceil(kv / 5);
-                for(let i=0; i<piles; i++) {
-                    let countInPile = (i === piles - 1 && kv % 5 !== 0) ? kv % 5 : 5;
+                let pilesKv = Math.ceil(kv / 5);
+                logText += addMathLog('KUB Vide', DIMS.kub.long.d, DIMS.kub.long.w, pilesKv);
+                for(let i=0; i<pilesKv; i++) {
+                    let countInPile = (i === pilesKv - 1 && kv % 5 !== 0) ? kv % 5 : 5;
                     itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, stacked: true, label: `KV(${countInPile})` });
                 }
             }
+            
             const pv = getVal('palv-tot'); const pvRatio = getVal('palv-stk') || 1;
             if(pv > 0) {
-                const piles = Math.ceil(pv / pvRatio);
-                const d = DIMS.pal[STATE.palv];
-                for(let i=0; i<piles; i++) itemsToPlace.push({ type:'pal', w:d.w, d:d.d, stacked: true, label:'PV' });
+                let pilesPv = Math.ceil(pv / pvRatio);
+                let dimPv = DIMS.pal[STATE.palv];
+                logText += addMathLog('PAL Vide ('+STATE.palv+')', dimPv.d, dimPv.w, pilesPv);
+                for(let i=0; i<pilesPv; i++) itemsToPlace.push({ type:'pal', w:dimPv.w, d:dimPv.d, stacked: true, label:'PV' });
             }
 
+            // Lignes Mixtes (Log mathématique)
+            customLines.forEach((line, idx) => {
+                let maxD = Math.max(...line.map(i => i.d)) / 100;
+                logText += `Ligne Mixte ${idx+1} : 1 rangée de ${formatFr(maxD)} m = ${formatFr(maxD)} m\n`;
+            });
+
+            // PACKING
             let skyline = new Array(TRUCK_W).fill(0);
             let placed = [];
 
             const place = (item, isAuto = false) => {
-                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d}] : [{w:item.w, d:item.d}, {w:item.d, d:item.w}];
+                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d}] : [
+                    {w:item.w, d:item.d}, 
+                    {w:item.d, d:item.w}
+                ];
+                
                 let best = null;
-                orientations.forEach(o => {
+                for (let o of orientations) {
                     let bestY = -1; let minX = Infinity;
                     for(let y = 0; y <= TRUCK_W - o.w; y++) {
                         let maxX = 0; for(let i=y; i<y+o.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
                         
-                        // FIX ALERTE: L'IA est limitée à TRUCK_L, mais pas les placements manuels
-                        let fitsInTruck = isAuto ? (maxX + o.d <= TRUCK_L) : true; 
+                        if (isAuto && (maxX + o.d > TRUCK_L)) continue;
                         
-                        if(fitsInTruck && maxX < minX) { minX = maxX; bestY = y; }
+                        if(maxX < minX) { minX = maxX; bestY = y; }
                     }
-                    if(bestY !== -1 && (!best || minX < best.minX)) best = { minX, bestY, w:o.w, d:o.d };
-                });
+                    if(bestY !== -1) {
+                        if (!best) {
+                            best = { minX, bestY, w:o.w, d:o.d };
+                        } else {
+                            let preferredExceeds = (best.minX + best.d > TRUCK_L);
+                            let rotatedFits = (minX + o.d <= TRUCK_L);
+                            if (preferredExceeds && rotatedFits) {
+                                best = { minX, bestY, w:o.w, d:o.d };
+                            } else if (minX < best.minX) {
+                                best = { minX, bestY, w:o.w, d:o.d };
+                            }
+                        }
+                    }
+                }
+                
                 if(best) {
                     for(let i = best.bestY; i < best.bestY + best.w; i++) skyline[i] = best.minX + best.d;
                     placed.push({ ...item, x: best.minX, y: best.bestY, w: best.w, d: best.d, auto: isAuto });
@@ -510,10 +577,10 @@
             
             if(!truckFull) {
                 const q1 = document.getElementById('gide-q1-ref').value;
-                if(q1 !== 'none') while(place({ type: q1, w: DIMS[q1].long.w, d: DIMS[q1].long.d }, true)) stockSummary[q1] = (stockSummary[q1] || 0) + 1;
+                if(q1 !== 'none') while(place({ type: q1, w: DIMS[q1].long.w, d: DIMS[q1].long.d, label:LABELS[q1] }, true)) stockSummary[q1] = (stockSummary[q1] || 0) + 1;
                 document.querySelectorAll('.prio-select').forEach(sel => {
                     const ref = sel.value;
-                    if(ref !== 'none') while(place({ type: ref, w: DIMS[ref].long.w, d: DIMS[ref].long.d }, true)) stockSummary[ref] = (stockSummary[ref] || 0) + 1;
+                    if(ref !== 'none') while(place({ type: ref, w: DIMS[ref].long.w, d: DIMS[ref].long.d, label:LABELS[ref] }, true)) stockSummary[ref] = (stockSummary[ref] || 0) + 1;
                 });
             }
 
@@ -521,15 +588,25 @@
             if(Object.keys(stockSummary).length > 0) {
                 sumBox.innerHTML = `✨ <b>Gidé :</b> "En optimisant le volume, je peux rajouter : ${Object.entries(stockSummary).map(([k, v]) => `${v} ${LABELS[k]}`).join(', ')}."`;
                 sumBox.classList.remove('hidden');
+                
+                Object.keys(stockSummary).forEach(k => {
+                    logText += addMathLog(LABELS[k] + ' (IA)', DIMS[k].long.d, DIMS[k].long.w, stockSummary[k]);
+                });
             } else if (truckFull && (document.getElementById('gide-q1-ref').value !== 'none' || document.querySelector('.prio-select').value !== 'none')) {
                 sumBox.innerHTML = `✨ <b>Gidé :</b> "Désolé, le camion est déjà plein, je ne peux rien ajouter."`;
                 sumBox.classList.remove('hidden');
-            } else { sumBox.classList.add('hidden'); }
+            } else { 
+                sumBox.classList.add('hidden'); 
+            }
 
             const used = Math.max(...skyline);
             const remain = TRUCK_L - used;
             
-            // ALERTE SURCAPACITÉ SI DÉPASSEMENT DES ÉLÉMENTS OBLIGATOIRES
+            // Affichage final dans le log
+            if(logText === "") logText = "Aucun calcul en cours...";
+            document.getElementById('calc-log').textContent = logText;
+            
+            // ALERTE SURCAPACITÉ
             if(usedBeforeGide > TRUCK_L) {
                 document.getElementById('overcapacity-warning').classList.remove('hidden');
             } else {
@@ -556,10 +633,10 @@
                 card.className = "bg-gradient-to-br from-emerald-600 to-green-700 text-white p-6 rounded-2xl shadow-2xl sticky top-6 transition-colors duration-500";
             }
             
-            draw(placed, used, skyline);
+            draw(placed, used, skyline, TRUCK_L);
         }
 
-        function draw(rects, maxD, skyline) {
+        function draw(rects, maxD, skyline, TRUCK_L) {
             const findSugg = (segW, gap) => {
                 let s = [];
                 Object.keys(DIMS).forEach(t => {
@@ -570,10 +647,12 @@
                 });
                 return [...new Set(s)].slice(0,3).join('<br>');
             };
-            let svg = `<svg viewBox="0 0 1330 240" class="w-full">
+            
+            let svg = `<svg viewBox="0 0 ${TRUCK_L} 240" class="w-full">
                 <defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>
                 <pattern id="hole" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#facc15"/><line x1="0" y1="0" x2="0" y2="10" stroke="rgba(255,255,255,0.4)" stroke-width="5"/></pattern></defs>
-                <rect width="1330" height="240" fill="url(#grid)"/>`;
+                <rect width="${TRUCK_L}" height="240" fill="url(#grid)"/>`;
+                
             rects.forEach(r => {
                 svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${COLORS[r.type]}" opacity="${r.auto?0.5:r.stacked?0.8:1}" stroke="white" rx="2"/><text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="8" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${r.label || LABELS[r.type]}</text>`;
             });
@@ -591,7 +670,10 @@
         }
 
         window.onload = () => {
-            document.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('input', calc));
+            document.querySelectorAll('.calc-trigger').forEach(el => {
+                el.addEventListener('input', calc);
+                el.addEventListener('change', calc);
+            });
             calc();
         };
     </script>
