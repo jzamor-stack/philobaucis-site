@@ -18,7 +18,7 @@
 
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
-        /* HEADER MOBILE & OVERLAY (Cachés sur Desktop) */
+        /* NAVIGATION MOBILE */
         .mobile-header { display: none; background: #000; padding: 15px 25px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 100; }
         .mobile-header .logo { margin: 0; font-size: 1.2rem; }
         .burger-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 0; }
@@ -27,7 +27,7 @@
 
         /* SIDEBAR */
         .sidebar { width: 320px; background: #000; padding: 40px 25px; display: flex; flex-direction: column; border-right: 1px solid var(--border); flex-shrink: 0; z-index: 999; transition: transform 0.3s ease; }
-        .logo { font-weight: 800; font-size: 1.4rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .sidebar .logo { font-weight: 800; font-size: 1.4rem; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; display: block; }
         .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-group { display: flex; flex-direction: column; gap: 8px; }
         .nav-item { padding: 14px 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; color: var(--muted); font-weight: 600; font-size: 0.95rem; }
@@ -44,16 +44,16 @@
         h2 { color: #c41919; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 15px; font-weight: 800; }
         p { font-size: 1.1rem; line-height: 1.7; color: #d1d5db; margin-bottom: 25px; }
 
-        /* CARDS */
+        /* EFFET HALO SURVOL */
         .glow-card { background: var(--card); border: 1px solid var(--border); transition: all 0.3s ease; border-radius: 20px; }
         .glow-card:hover { border-color: #c41919; background: var(--glow); transform: translateY(-4px); box-shadow: 0 15px 40px rgba(196, 25, 25, 0.15); }
 
-        /* FOUNDER SECTION */
+        /* BOX CO-FONDATEUR */
         .founder-box { display: flex; gap: 30px; align-items: center; padding: 30px; margin-top: 40px; border: 1px solid rgba(196, 25, 25, 0.3); background: rgba(196, 25, 25, 0.03); }
         .founder-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
         .stat-item { font-size: 0.8rem; font-weight: 700; color: #fff; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 6px; text-align: center; }
 
-        /* PALIERS TABLE */
+        /* TABLEAU DES PALIERS */
         .example-container { background: var(--card); border-radius: 20px; border: 1px solid var(--border); margin-top: 20px; overflow-x: auto; }
         .example-header { background: rgba(255,255,255,0.03); padding: 18px 25px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 180px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); min-width: 650px; }
         .example-row { padding: 15px 25px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 180px; align-items: center; min-width: 650px; }
@@ -61,7 +61,7 @@
         .commission-val { color: #c41919; font-weight: 800; font-size: 1.4rem; }
         .recurring-badge { background: var(--grad); padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; display: inline-block; margin-top: 5px; }
 
-        /* STEPS */
+        /* ÉTAPES */
         .step-item { display: flex; gap: 25px; margin-bottom: 20px; padding: 30px; }
         .step-num { width: 45px; height: 45px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; box-shadow: 0 5px 15px rgba(196, 25, 25, 0.4); }
 
@@ -70,7 +70,7 @@
 
         .highlight { color: #fff; font-weight: 700; }
 
-        /* VERSION MOBILE */
+        /* MEDIA QUERIES RESPONSIVE */
         @media (max-width: 1100px) { 
             body { flex-direction: column; } 
             .mobile-header { display: flex; }
@@ -84,12 +84,13 @@
             .sidebar.show {
                 transform: translateX(0); 
             }
+            .sidebar .logo { display: none; }
             .main-view { padding: 30px 20px; } 
             
             h1 { font-size: 2.2rem; }
             .target-container, .founder-stats { grid-template-columns: 1fr !important; }
             
-            /* Ajustement du tableau : sur une ligne, centré, avec défilement */
+            /* Ajustement tableau sur mobile : centré sur une ligne avec scroll */
             .example-header { grid-template-columns: 60px 1fr 110px 160px; min-width: 580px; text-align: center; padding: 15px 10px; }
             .example-row { grid-template-columns: 60px 1fr 110px 160px; min-width: 580px; text-align: center; padding: 15px 10px; }
             .example-row img { margin: 0 auto; width: 35px; }
@@ -106,7 +107,7 @@
     </div>
 
     <aside class="sidebar" id="sidebarMenu">
-        <div class="logo" style="display: none; @media(min-width: 1101px){display: block;}">PHILO<span>BAUCIS</span></div>
+        <div class="logo">PHILO<span>BAUCIS</span></div>
         <div class="nav-group">
             <div class="nav-item active" onclick="openTab(event, 'home')">Le Projet 2027</div>
             <div class="nav-item" onclick="openTab(event, 'gains')">💰 Vos Gains</div>
@@ -115,6 +116,7 @@
         <div style="margin-top: auto; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); pt: 20px;">
             <p style="font-size: 0.75rem; margin-top: 20px;">
                 Direction : Jean-Daniel ZAMOR<br>
+                j.zamor@philobaucis.fr<br><br>
                 <span style="color: #c41919; font-weight: 700;">Lancement Janvier 2027</span>
             </p>
         </div>
@@ -244,32 +246,26 @@
     </main>
 
     <script>
-        // Fonction pour ouvrir/fermer le menu mobile
         function toggleMenu() {
             document.getElementById('sidebarMenu').classList.toggle('show');
             document.querySelector('.overlay').classList.toggle('active');
         }
 
-        // Fonction pour changer d'onglet
         function openTab(evt, tabName) {
             var i, tabcontent, navitems;
             
-            // Cacher tous les contenus
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) { 
                 tabcontent[i].style.display = "none"; 
             }
             
-            // Retirer la classe active de tous les boutons
             navitems = document.getElementsByClassName("nav-item");
             for (i = 0; i < navitems.length; i++) { 
                 navitems[i].classList.remove("active"); 
             }
             
-            // Afficher l'onglet cliqué
             document.getElementById(tabName).style.display = "block";
             
-            // Ajouter la classe active au bouton cliqué (gère aussi si cliqué depuis un autre bouton)
             const currentItems = document.querySelectorAll('.nav-item');
             currentItems.forEach(item => {
                 if(item.textContent.includes(tabName === 'home' ? 'Projet' : tabName === 'gains' ? 'Gains' : 'aider')) {
@@ -278,13 +274,11 @@
             });
             if(evt) evt.currentTarget.classList.add("active");
 
-            // Si on est sur mobile, on referme le menu automatiquement après le clic
             if(window.innerWidth <= 1100) {
                 document.getElementById('sidebarMenu').classList.remove('show');
                 document.querySelector('.overlay').classList.remove('active');
             }
 
-            // Remonte systématiquement en haut de la page lors d'un changement d'onglet
             document.querySelector('.main-view').scrollTop = 0;
         }
     </script>
