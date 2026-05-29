@@ -41,7 +41,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1.5px; }
-        h2 { color: #c41919; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 15px; font-weight: 800; }
+        .main-view h2 { color: #c41919; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 15px; font-weight: 800; }
         p { font-size: 1.1rem; line-height: 1.7; color: #d1d5db; margin-bottom: 25px; }
 
         /* EFFET HALO SURVOL */
@@ -90,7 +90,7 @@
             h1 { font-size: 2.2rem; }
             .target-container, .founder-stats { grid-template-columns: 1fr !important; }
             
-            /* Ajustement tableau sur mobile : centré sur une ligne avec scroll */
+            /* Table mobile */
             .example-header { grid-template-columns: 60px 1fr 110px 160px; min-width: 580px; text-align: center; padding: 15px 10px; }
             .example-row { grid-template-columns: 60px 1fr 110px 160px; min-width: 580px; text-align: center; padding: 15px 10px; }
             .example-row img { margin: 0 auto; width: 35px; }
@@ -112,6 +112,7 @@
             <div class="nav-item active" onclick="openTab(event, 'home')">Le Projet 2027</div>
             <div class="nav-item" onclick="openTab(event, 'gains')">💰 Vos Gains</div>
             <div class="nav-item" onclick="openTab(event, 'steps')">⚙️ Comment aider ?</div>
+            <div class="nav-item" onclick="openTab(event, 'blacklist')">🚫 Entreprises déjà prises</div>
         </div>
         <div style="margin-top: auto; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); pt: 20px;">
             <p style="font-size: 0.75rem; margin-top: 20px;">
@@ -132,7 +133,7 @@
             <div class="target-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="glow-card" style="padding: 25px;">
                     <h3 style="margin-top: 0;">L'Objectif</h3>
-                    <p style="font-size: 0.95rem;">Porter un véritable <span class="highlight">plaidoyer</span> face à la montée à grande vitesse des précarités en France, en mettant en lumière toutes leurs différentes formes pour alerter l'opinion publique.</p>
+                    <p style="font-size: 0.95rem;">Porter un véritable <span class="highlight">plaidoyer</span> face à la montée à grande vitesse des précarités en France, en mettant l'accent sur toutes leurs différentes formes pour alerter l'opinion publique.</p>
                 </div>
                 <div class="glow-card" style="padding: 25px;">
                     <h3 style="margin-top: 0;">L'Impact</h3>
@@ -196,6 +197,11 @@
             </div>
 
             <div class="glow-card" style="margin-top: 30px; padding: 25px; border-left: 4px solid #c41919;">
+                <h3 style="margin-top: 0; font-weight: 800;">🤝 Partage de commission possible</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 0;">Il est tout à fait possible de <strong>découper votre somme en plusieurs parties</strong>. Par exemple, si vous connaissez quelqu'un qui travaille dans une grande entreprise, vous pouvez choisir de prendre 25% de la commission pour avoir mis votre ami dans la boucle, et lui attribuer 75% pour avoir fait jouer ses contacts directs au sein de l'entreprise.</p>
+            </div>
+
+            <div class="glow-card" style="margin-top: 20px; padding: 25px; border-left: 4px solid #c41919;">
                 <h3 style="margin-top: 0;">Opportunité Illimitée</h3>
                 <p style="font-size: 0.95rem; margin-bottom: 0;">Il n'y a <strong>aucune limite</strong> au nombre de commissions que vous pouvez cumuler. Si le plafond par contrat individuel est celui de la médaille Diamant, une personne très bien connectée peut parfaitement percevoir <strong>10 commissions de niveau Diamant</strong> ou plus.</p>
             </div>
@@ -243,12 +249,68 @@
             </div>
         </div>
 
+        <div id="blacklist" class="tab-content">
+            <h2>Espace Restreint</h2>
+            <h1>Entreprises déjà <span style="color: #c41919;">prises.</span></h1>
+            <p>Cette section recense les structures et grands comptes qui font déjà l'objet d'un suivi ou d'un démarchage.</p>
+
+            <div id="lockContainer" class="glow-card" style="padding: 40px; text-align: center; max-width: 450px; margin: 40px auto;">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 15px;">🔒</span>
+                <h3 style="margin-top: 0; font-weight: 800;">Contenu Protégé</h3>
+                <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 25px;">Veuillez entrer le mot de passe administrateur pour déverrouiller la liste officielle.</p>
+                <input type="password" id="passwordInput" placeholder="Mot de passe" onkeyup="if(event.key === 'Enter') verifyPassword()" style="width: 100%; padding: 14px 20px; background: #000; border: 1px solid var(--border); border-radius: 10px; color: white; font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; text-align: center;">
+                <button onclick="verifyPassword()" class="btn-main" style="margin-top: 0; width: 100%; padding: 14px; font-size: 1rem;">Déverrouiller</button>
+                <p id="passwordError" style="color: #c41919; font-size: 0.9rem; margin-top: 15px; display: none; font-weight: 700;">⚠️ Mot de passe incorrect</p>
+            </div>
+
+            <div id="secretContent" style="display: none;">
+                <div class="glow-card" style="padding: 30px; border-left: 4px solid #c41919;">
+                    <h3 style="margin-top: 0; color: white; font-weight: 800;">Mise à jour de la liste d'exclusion</h3>
+                    <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 0;">Consultez impérativement ce registre avant toute mise en relation. Cette liste est gérée directement par Jean-Daniel ZAMOR.</p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+                    <div style="padding: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <strong style="color: white; font-size: 1.1rem;">[Première entreprise exemple]</strong>
+                            <span style="display: block; font-size: 0.9rem; color: var(--muted); margin-top: 4px;">Motif : Négociations en cours au niveau national</span>
+                        </div>
+                        <span style="background: rgba(196, 25, 25, 0.15); color: #ff4d4d; padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; border: 1px solid rgba(196, 25, 25, 0.3);">DÉJÀ PRISE</span>
+                    </div>
+
+                    <div style="padding: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <strong style="color: white; font-size: 1.1rem;">[Deuxième entreprise exemple]</strong>
+                            <span style="display: block; font-size: 0.9rem; color: var(--muted); margin-top: 4px;">Motif : Partenariat institutionnel déjà validé</span>
+                        </div>
+                        <span style="background: rgba(196, 25, 25, 0.15); color: #ff4d4d; padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; border: 1px solid rgba(196, 25, 25, 0.3);">DÉJÀ PRISE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script>
         function toggleMenu() {
             document.getElementById('sidebarMenu').classList.toggle('show');
             document.querySelector('.overlay').classList.toggle('active');
+        }
+
+        // Vérification du mot de passe
+        function verifyPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const error = document.getElementById('passwordError');
+            const lockBox = document.getElementById('lockContainer');
+            const contentBox = document.getElementById('secretContent');
+
+            if (input === 'PhilemonaimeBaucis') {
+                error.style.display = 'none';
+                lockBox.style.display = 'none';
+                contentBox.style.display = 'block';
+            } else {
+                error.style.display = 'block';
+            }
         }
 
         function openTab(evt, tabName) {
@@ -268,7 +330,7 @@
             
             const currentItems = document.querySelectorAll('.nav-item');
             currentItems.forEach(item => {
-                if(item.textContent.includes(tabName === 'home' ? 'Projet' : tabName === 'gains' ? 'Gains' : 'aider')) {
+                if(item.textContent.includes(tabName === 'home' ? 'Projet' : tabName === 'gains' ? 'Gains' : tabName === 'steps' ? 'aider' : 'prises')) {
                     item.classList.add('active');
                 }
             });
@@ -277,6 +339,13 @@
             if(window.innerWidth <= 1100) {
                 document.getElementById('sidebarMenu').classList.remove('show');
                 document.querySelector('.overlay').classList.remove('active');
+            }
+
+            if (tabName !== 'blacklist') {
+                document.getElementById('lockContainer').style.display = 'block';
+                document.getElementById('secretContent').style.display = 'none';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordError').style.display = 'none';
             }
 
             document.querySelector('.main-view').scrollTop = 0;
