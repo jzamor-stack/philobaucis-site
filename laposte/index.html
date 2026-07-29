@@ -237,7 +237,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. IA GIDÉ (NOUVEAU DESIGN STOCK) -->
+                    <!-- 3. IA GIDÉ (ACCORDÉON) -->
                     <div class="bg-white rounded-xl shadow-md border-2 border-orange-400 overflow-hidden">
                         <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 transition-colors flex justify-between items-center outline-none">
                             <div>
@@ -288,16 +288,7 @@
                                             <input type="number" min="0" class="gide-stock-qty w-24 p-2 border-2 border-orange-200 rounded-xl font-bold text-center text-orange-900 calc-trigger focus:ring-2 ring-orange-400 outline-none shadow-sm" placeholder="Qté">
                                             <span class="text-sm font-bold text-orange-700">de</span>
                                             <select class="gide-stock-ref bg-white border-2 border-orange-200 rounded-xl px-4 py-2 font-bold text-slate-700 w-full outline-none calc-trigger focus:ring-2 ring-orange-400 shadow-sm">
-                                                <option value="none">-- Référence en attente sur le quai --</option>
-                                                <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                                                <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
-                                            </select>
-                                        </div>
-                                        <div class="flex items-center gap-3 gide-stock-row group">
-                                            <input type="number" min="0" class="gide-stock-qty w-24 p-2 border-2 border-orange-200 rounded-xl font-bold text-center text-orange-900 calc-trigger focus:ring-2 ring-orange-400 outline-none shadow-sm" placeholder="Qté">
-                                            <span class="text-sm font-bold text-orange-700">de</span>
-                                            <select class="gide-stock-ref bg-white border-2 border-orange-200 rounded-xl px-4 py-2 font-bold text-slate-700 w-full outline-none calc-trigger focus:ring-2 ring-orange-400 shadow-sm">
-                                                <option value="none">-- Référence en attente sur le quai --</option>
+                                                <option value="none">-- Référence en attente --</option>
                                                 <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
                                                 <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
                                             </select>
@@ -319,7 +310,7 @@
                                         <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-orange-100 shadow-sm group">
                                             <span class="bg-orange-500 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black shadow-md group-hover:scale-110 transition-transform">1</span>
                                             <select class="prio-select bg-transparent font-bold text-slate-700 w-full outline-none calc-trigger">
-                                                <option value="none">-- Priorité n°1 (doit rentrer absolument) --</option>
+                                                <option value="none">-- Priorité n°1 (absolue) --</option>
                                                 <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
                                                 <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
                                             </select>
@@ -373,6 +364,9 @@
                         <div id="overcapacity-warning" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-4 text-xs font-bold rounded shadow-sm animate-fadeIn">
                             ⚠️ ALERTE : La capacité maximale du camion est dépassée !
                         </div>
+
+                        <!-- ALERTE ROTATION (NOUVEAU) -->
+                        <div id="rotation-alert" class="hidden bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-3 mb-4 text-[11px] rounded shadow-sm animate-fadeIn"></div>
 
                         <div class="flex justify-between items-end mb-2">
                             <div><div class="text-[10px] font-bold text-green-100 uppercase">Utilisé</div><div class="text-3xl font-bold" id="res-used">0.00 m</div></div>
@@ -476,13 +470,15 @@
             div.innerHTML = `<input type="number" min="0" class="gide-stock-qty w-24 p-2 border-2 border-orange-200 rounded-xl font-bold text-center text-orange-900 calc-trigger focus:ring-2 ring-orange-400 outline-none shadow-sm" placeholder="Qté">
                 <span class="text-sm font-bold text-orange-700">de</span>
                 <select class="gide-stock-ref bg-white border-2 border-orange-200 rounded-xl px-4 py-2 font-bold text-slate-700 w-full outline-none calc-trigger focus:ring-2 ring-orange-400 shadow-sm">
-                    <option value="none">-- Référence en attente sur le quai --</option>
+                    <option value="none">-- Référence en attente --</option>
                     <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
                     <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
                 </select>`;
             container.appendChild(div);
-            div.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('input', calc));
-            div.querySelectorAll('.calc-trigger').forEach(el => el.addEventListener('change', calc));
+            div.querySelectorAll('.calc-trigger').forEach(el => {
+                el.addEventListener('input', calc);
+                el.addEventListener('change', calc);
+            });
         }
 
         function addPriorityStep() {
@@ -581,9 +577,10 @@
             let placed = [];
 
             const place = (item, isAuto = false) => {
-                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d}] : [
-                    {w:item.w, d:item.d}, 
-                    {w:item.d, d:item.w}
+                // Définit l'orientation originale, et l'orientation tournée (isRotated: true)
+                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d, isRotated: false}] : [
+                    {w:item.w, d:item.d, isRotated: false}, 
+                    {w:item.d, d:item.w, isRotated: true}
                 ];
                 
                 let best = null;
@@ -598,14 +595,15 @@
                     }
                     if(bestY !== -1) {
                         if (!best) {
-                            best = { minX, bestY, w:o.w, d:o.d };
+                            best = { minX, bestY, w:o.w, d:o.d, isRotated: o.isRotated };
                         } else {
                             let preferredExceeds = (best.minX + best.d > TRUCK_L);
                             let rotatedFits = (minX + o.d <= TRUCK_L);
+                            // On force la rotation si le sens original déborde du camion MAIS que le sens tourné rentre.
                             if (preferredExceeds && rotatedFits) {
-                                best = { minX, bestY, w:o.w, d:o.d };
+                                best = { minX, bestY, w:o.w, d:o.d, isRotated: o.isRotated };
                             } else if (minX < best.minX) {
-                                best = { minX, bestY, w:o.w, d:o.d };
+                                best = { minX, bestY, w:o.w, d:o.d, isRotated: o.isRotated };
                             }
                         }
                     }
@@ -613,7 +611,7 @@
                 
                 if(best) {
                     for(let i = best.bestY; i < best.bestY + best.w; i++) skyline[i] = best.minX + best.d;
-                    placed.push({ ...item, x: best.minX, y: best.bestY, w: best.w, d: best.d, auto: isAuto });
+                    placed.push({ ...item, x: best.minX, y: best.bestY, w: best.w, d: best.d, auto: isAuto, rotated: best.isRotated });
                     return true;
                 }
                 return false;
@@ -621,6 +619,23 @@
 
             itemsToPlace.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
             customLines.forEach(line => line.forEach(it => place(it)));
+
+            // GESTION ALERTE ROTATION "À LA FIN"
+            let rotatedManual = placed.filter(p => !p.auto && p.rotated);
+            let rotCounts = {};
+            rotatedManual.forEach(p => {
+                let baseLabel = p.label || p.type;
+                rotCounts[baseLabel] = (rotCounts[baseLabel] || 0) + 1;
+            });
+            
+            const rotAlert = document.getElementById('rotation-alert');
+            if (Object.keys(rotCounts).length > 0) {
+                let details = Object.entries(rotCounts).map(([k, v]) => `<b>${v} pile(s) de ${k}</b>`).join(', ');
+                rotAlert.innerHTML = `💡 <b>ASTUCE CHARGEMENT :</b> Pour optimiser au centimètre près, ${details} ont été tournées par rapport à votre demande. <b>Placez-les uniquement à la fin du camion !</b>`;
+                rotAlert.classList.remove('hidden');
+            } else {
+                rotAlert.classList.add('hidden');
+            }
 
             const usedBeforeGide = Math.max(...skyline);
             
