@@ -512,27 +512,11 @@
         function calc() {
             const TRUCK_L = parseInt(document.getElementById('truck-type').value) || 1330;
             
-            // DÉMARRAGE DU LOG MATHÉMATIQUE ÉPURÉ
-            let logText = "";
-            const formatFr = (num) => num.toFixed(2).replace('.', ',');
-            const addMathLog = (label, depthCm, widthCm, piles) => {
-                if(piles <= 0) return "";
-                let d = depthCm / 100;
-                let perRow = Math.floor(240 / widthCm);
-                let mathRes = (d * piles) / perRow;
-                return `${label} : (${formatFr(d)} x ${piles}) / ${perRow} = ${formatFr(mathRes)} m\n`;
-            };
-            
             let itemsToPlace = [];
             // OBLIGATOIRES
             ['cpr','pal','cv','cp','ce','cdp','mag'].forEach(t => {
                 let qnl = getVal(t+'-n-long'); let qgl = getVal(t+'-g-long');
-                let pilesLong = qnl + Math.ceil(qgl/2);
-                if(pilesLong > 0) logText += addMathLog(LABELS[t] + ' (Long.)', DIMS[t].long.d, DIMS[t].long.w, pilesLong);
-                
                 let qnw = getVal(t+'-n-larg'); let qgw = getVal(t+'-g-larg');
-                let pilesLarg = qnw + Math.ceil(qgw/2);
-                if(pilesLarg > 0) logText += addMathLog(LABELS[t] + ' (Larg.)', DIMS[t].larg.d, DIMS[t].larg.w, pilesLarg);
                 
                 for(let i=0; i<qnl; i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, label:LABELS[t] });
                 for(let i=0; i<qnw; i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, label:LABELS[t] });
@@ -541,9 +525,6 @@
             });
             
             let kn = getVal('kub-n-long'); let kg = getVal('kub-g-long');
-            let pilesKub = kn + Math.ceil(kg/2);
-            if(pilesKub > 0) logText += addMathLog('KUB', DIMS.kub.long.d, DIMS.kub.long.w, pilesKub);
-            
             for(let i=0; i<kn; i++) itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, label:LABELS.kub });
             for(let i=0; i<Math.ceil(kg/2); i++) itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, stacked:true, label:LABELS.kub });
 
@@ -551,7 +532,6 @@
             const kv = getVal('kubv-tot');
             if(kv > 0) {
                 let pilesKv = Math.ceil(kv / 5);
-                logText += addMathLog('KUB Vide', DIMS.kub.long.d, DIMS.kub.long.w, pilesKv);
                 for(let i=0; i<pilesKv; i++) {
                     let countInPile = (i === pilesKv - 1 && kv % 5 !== 0) ? kv % 5 : 5;
                     itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, stacked: true, label: `KV(${countInPile})` });
@@ -562,48 +542,40 @@
             if(pv > 0) {
                 let pilesPv = Math.ceil(pv / pvRatio);
                 let dimPv = DIMS.pal[STATE.palv];
-                logText += addMathLog('PAL Vide ('+STATE.palv+')', dimPv.d, dimPv.w, pilesPv);
                 for(let i=0; i<pilesPv; i++) itemsToPlace.push({ type:'pal', w:dimPv.w, d:dimPv.d, stacked: true, label:'PV' });
             }
-
-            // Lignes Mixtes (Log mathématique)
-            customLines.forEach((line, idx) => {
-                let maxD = Math.max(...line.map(i => i.d)) / 100;
-                logText += `Ligne Mixte ${idx+1} : 1 rangée de ${formatFr(maxD)} m = ${formatFr(maxD)} m\n`;
-            });
 
             // PACKING
             let skyline = new Array(TRUCK_W).fill(0);
             let placed = [];
 
             const place = (item, isAuto = false) => {
-                // Définit l'orientation originale, et l'orientation tournée (isRotated: true)
-                const orientations = (item.w === item.d) ? [{w:item.w, d:item.d, isRotated: false}] : [
-                    {w:item.w, d:item.d, isRotated: false}, 
-                    {w:item.d, d:item.w, isRotated: true}
-                ];
-                
-                let best = null;
-                for (let o of orientations) {
+                const tryOri = (w, d, isRotated) => {
                     let bestY = -1; let minX = Infinity;
-                    for(let y = 0; y <= TRUCK_W - o.w; y++) {
-                        let maxX = 0; for(let i=y; i<y+o.w; i++) if(skyline[i] > maxX) maxX = skyline[i];
-                        
-                        if (isAuto && (maxX + o.d > TRUCK_L)) continue;
-                        
+                    for(let y = 0; y <= TRUCK_W - w; y++) {
+                        let maxX = 0;
+                        for(let i=y; i<y+w; i++) if(skyline[i] > maxX) maxX = skyline[i];
+                        if(isAuto && (maxX + d > TRUCK_L)) continue;
                         if(maxX < minX) { minX = maxX; bestY = y; }
                     }
-                    if(bestY !== -1) {
+                    if(bestY !== -1) return { minX, bestY, w, d, isRotated };
+                    return null;
+                };
+
+                let best = tryOri(item.w, item.d, false);
+                if (item.w !== item.d) {
+                    let alt = tryOri(item.d, item.w, true);
+                    if (alt) {
                         if (!best) {
-                            best = { minX, bestY, w:o.w, d:o.d, isRotated: o.isRotated };
+                            best = alt;
                         } else {
-                            let preferredExceeds = (best.minX + best.d > TRUCK_L);
-                            let rotatedFits = (minX + o.d <= TRUCK_L);
                             // On force la rotation si le sens original déborde du camion MAIS que le sens tourné rentre.
-                            if (preferredExceeds && rotatedFits) {
-                                best = { minX, bestY, w:o.w, d:o.d, isRotated: o.isRotated };
-                            } else if (minX < best.minX) {
-                                best = { minX, bestY, w:o.w, d:o.d, isRotated: o.isRotated };
+                            let originalExceeds = (best.minX + best.d > TRUCK_L);
+                            let altFits = (alt.minX + alt.d <= TRUCK_L);
+                            if (originalExceeds && altFits) {
+                                best = alt;
+                            } else if (!originalExceeds && alt.minX < best.minX) {
+                                best = alt;
                             }
                         }
                     }
@@ -618,24 +590,11 @@
             };
 
             itemsToPlace.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
-            customLines.forEach(line => line.forEach(it => place(it)));
-
-            // GESTION ALERTE ROTATION "À LA FIN"
-            let rotatedManual = placed.filter(p => !p.auto && p.rotated);
-            let rotCounts = {};
-            rotatedManual.forEach(p => {
-                let baseLabel = p.label || p.type;
-                rotCounts[baseLabel] = (rotCounts[baseLabel] || 0) + 1;
-            });
             
-            const rotAlert = document.getElementById('rotation-alert');
-            if (Object.keys(rotCounts).length > 0) {
-                let details = Object.entries(rotCounts).map(([k, v]) => `<b>${v} pile(s) de ${k}</b>`).join(', ');
-                rotAlert.innerHTML = `💡 <b>ASTUCE CHARGEMENT :</b> Pour optimiser au centimètre près, ${details} ont été tournées par rapport à votre demande. <b>Placez-les uniquement à la fin du camion !</b>`;
-                rotAlert.classList.remove('hidden');
-            } else {
-                rotAlert.classList.add('hidden');
-            }
+            // Lignes Mixtes (elles ont un ID de ligne pour le log)
+            customLines.forEach((line, idx) => {
+                line.forEach(it => place({ ...it, customLine: idx + 1 }));
+            });
 
             const usedBeforeGide = Math.max(...skyline);
             
@@ -676,21 +635,82 @@
                 });
             }
 
+            // DÉMARRAGE DU LOG MATHÉMATIQUE ÉPURÉ 
+            // Basé STRICTEMENT sur ce qui a été dessiné dans le SVG
+            let logText = "";
+            const formatFr = (num) => num.toFixed(2).replace('.', ',');
+            const getMathLine = (label, depthCm, widthCm, piles) => {
+                if(piles <= 0) return "";
+                let d = depthCm / 100;
+                let perRow = Math.floor(240 / widthCm);
+                let mathRes = (d * piles) / perRow;
+                return `${label} : (${formatFr(d)} x ${piles}) / ${perRow} = ${formatFr(mathRes)} m\n`;
+            };
+
+            let logGroups = {};
+            placed.forEach(p => {
+                if(p.customLine) return; // on ignore les items des lignes mixtes pour le log groupé
+                
+                let oriName = "";
+                // On détecte la vraie orientation placée (si ce n'est pas un KUB)
+                if (p.type !== 'kub' && !p.label.startsWith('KV')) {
+                    if (p.d === DIMS[p.type].long.d && p.w === DIMS[p.type].long.w) {
+                        oriName = "Long.";
+                    } else if (p.d === DIMS[p.type].larg.d && p.w === DIMS[p.type].larg.w) {
+                        oriName = "Larg.";
+                    } else {
+                        oriName = "Tourné"; 
+                    }
+                }
+                
+                let isAuto = p.auto ? " (IA)" : "";
+                let finalLabel = oriName ? `${p.label} (${oriName})${isAuto}` : `${p.label}${isAuto}`;
+                
+                let key = `${finalLabel}_${p.d}_${p.w}`;
+                if (!logGroups[key]) {
+                    logGroups[key] = { label: finalLabel, d: p.d, w: p.w, count: 0 };
+                }
+                logGroups[key].count++;
+            });
+
+            Object.values(logGroups).forEach(g => {
+                logText += getMathLine(g.label, g.d, g.w, g.count);
+            });
+
+            customLines.forEach((line, idx) => {
+                let maxD = Math.max(...line.map(i => i.d)) / 100;
+                logText += `Ligne Mixte ${idx+1} : 1 rangée de ${formatFr(maxD)} m = ${formatFr(maxD)} m\n`;
+            });
+            
+            if(logText === "") logText = "Aucun calcul en cours...";
+            document.getElementById('calc-log').textContent = logText;
+
+            // GESTION ALERTE ROTATION "À LA FIN"
+            let rotatedManual = placed.filter(p => !p.auto && p.rotated);
+            let rotCounts = {};
+            rotatedManual.forEach(p => {
+                let baseLabel = p.label || p.type;
+                rotCounts[baseLabel] = (rotCounts[baseLabel] || 0) + 1;
+            });
+            
+            const rotAlert = document.getElementById('rotation-alert');
+            if (Object.keys(rotCounts).length > 0) {
+                let details = Object.entries(rotCounts).map(([k, v]) => `<b>${v} pile(s) de ${k}</b>`).join(', ');
+                rotAlert.innerHTML = `💡 <b>ASTUCE CHARGEMENT :</b> Pour optimiser au centimètre près, ${details} ont été tournées par rapport à votre demande. <b>Placez-les uniquement à la fin du camion !</b>`;
+                rotAlert.classList.remove('hidden');
+            } else {
+                rotAlert.classList.add('hidden');
+            }
+
             const sumBox = document.getElementById('stock-summary');
             if(Object.keys(stockSummary).length > 0) {
                 let msg = `✨ <b>Gidé :</b> "J'ai optimisé le chargement en plaçant : ${Object.entries(stockSummary).map(([k, v]) => `<b>${v} ${LABELS[k]}</b>`).join(', ')}."`;
-                
                 let leftovers = Object.entries(unplacedStock).filter(([k, v]) => v > 0);
                 if (leftovers.length > 0) {
                     msg += `<br><span class="text-sm text-red-600 mt-2 block">⚠️ Attention, faute de place, il reste sur le quai : ${leftovers.map(([k,v]) => `<b>${v} ${LABELS[k]}</b>`).join(', ')}.</span>`;
                 }
-
                 sumBox.innerHTML = msg;
                 sumBox.classList.remove('hidden');
-                
-                Object.keys(stockSummary).forEach(k => {
-                    logText += addMathLog(LABELS[k] + ' (IA)', DIMS[k].long.d, DIMS[k].long.w, stockSummary[k]);
-                });
             } else if (truckFull && (document.getElementById('gide-q1-ref').value !== 'none' || document.querySelector('.prio-select').value !== 'none')) {
                 sumBox.innerHTML = `✨ <b>Gidé :</b> "Désolé, le camion est déjà plein, je ne peux rien ajouter."`;
                 sumBox.classList.remove('hidden');
@@ -700,10 +720,6 @@
 
             const used = Math.max(...skyline);
             const remain = TRUCK_L - used;
-            
-            // Affichage final dans le log
-            if(logText === "") logText = "Aucun calcul en cours...";
-            document.getElementById('calc-log').textContent = logText;
             
             // ALERTE SURCAPACITÉ
             if(usedBeforeGide > TRUCK_L) {
