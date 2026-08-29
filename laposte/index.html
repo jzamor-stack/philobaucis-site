@@ -63,6 +63,11 @@
                         <option value="500">Porteur 20 CE (5,00m)</option>
                     </select>
                 </div>
+                <!-- OPTION DE ROTATION AUTO EN FIN DE CAMION -->
+                <div class="mt-4 flex items-center justify-center gap-2 text-sm text-teal-100 bg-teal-900/40 py-2 px-4 rounded-lg w-fit mx-auto border border-teal-600/50">
+                    <input type="checkbox" id="auto-rotate-toggle" class="w-4 h-4 rounded text-teal-500 calc-trigger cursor-pointer" checked>
+                    <label for="auto-rotate-toggle" class="font-medium cursor-pointer">Autoriser la rotation des objets en fin de camion s'ils débordent</label>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -511,6 +516,7 @@
 
         function calc() {
             const TRUCK_L = parseInt(document.getElementById('truck-type').value) || 1330;
+            const allowAutoRotate = document.getElementById('auto-rotate-toggle').checked;
             
             let itemsToPlace = [];
             // OBLIGATOIRES
@@ -550,40 +556,31 @@
             let placed = [];
 
             const place = (item, isAuto = false) => {
-                const tryOri = (w, d, isRotated) => {
+                const getBestForOri = (w, d, rotated) => {
                     let bestY = -1; let minX = Infinity;
                     for(let y = 0; y <= TRUCK_W - w; y++) {
-                        let maxX = 0;
-                        for(let i=y; i<y+w; i++) if(skyline[i] > maxX) maxX = skyline[i];
+                        let maxX = 0; for(let i=y; i<y+w; i++) if(skyline[i] > maxX) maxX = skyline[i];
                         if(isAuto && (maxX + d > TRUCK_L)) continue;
                         if(maxX < minX) { minX = maxX; bestY = y; }
                     }
-                    if(bestY !== -1) return { minX, bestY, w, d, isRotated };
+                    if(bestY !== -1) return { x: minX, y: bestY, w, d, rotated };
                     return null;
                 };
 
-                let best = tryOri(item.w, item.d, false);
-                if (item.w !== item.d) {
-                    let alt = tryOri(item.d, item.w, true);
-                    if (alt) {
-                        if (!best) {
-                            best = alt;
-                        } else {
-                            // On force la rotation si le sens original déborde du camion MAIS que le sens tourné rentre.
-                            let originalExceeds = (best.minX + best.d > TRUCK_L);
-                            let altFits = (alt.minX + alt.d <= TRUCK_L);
-                            if (originalExceeds && altFits) {
-                                best = alt;
-                            } else if (!originalExceeds && alt.minX < best.minX) {
-                                best = alt;
-                            }
-                        }
+                let best = getBestForOri(item.w, item.d, false);
+                let exceeds = best && (best.x + best.d > TRUCK_L);
+                
+                // Si ça déborde en longueur et que l'option "auto-rotation" est cochée
+                if ( (!best || exceeds) && allowAutoRotate && item.w !== item.d ) {
+                    let alt = getBestForOri(item.d, item.w, true);
+                    if (alt && (alt.x + alt.d <= TRUCK_L)) {
+                        best = alt; // L'alternative rentre parfaitement
                     }
                 }
-                
+
                 if(best) {
-                    for(let i = best.bestY; i < best.bestY + best.w; i++) skyline[i] = best.minX + best.d;
-                    placed.push({ ...item, x: best.minX, y: best.bestY, w: best.w, d: best.d, auto: isAuto, rotated: best.isRotated });
+                    for(let i = best.y; i < best.y + best.w; i++) skyline[i] = best.x + best.d;
+                    placed.push({ ...item, x: best.x, y: best.y, w: best.w, d: best.d, auto: isAuto, rotated: best.rotated });
                     return true;
                 }
                 return false;
@@ -591,7 +588,7 @@
 
             itemsToPlace.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
             
-            // Lignes Mixtes (elles ont un ID de ligne pour le log)
+            // Lignes Mixtes
             customLines.forEach((line, idx) => {
                 line.forEach(it => place({ ...it, customLine: idx + 1 }));
             });
@@ -635,8 +632,7 @@
                 });
             }
 
-            // DÉMARRAGE DU LOG MATHÉMATIQUE ÉPURÉ 
-            // Basé STRICTEMENT sur ce qui a été dessiné dans le SVG
+            // DÉMARRAGE DU LOG MATHÉMATIQUE ÉPURÉ (Basé sur le SVG réel)
             let logText = "";
             const formatFr = (num) => num.toFixed(2).replace('.', ',');
             const getMathLine = (label, depthCm, widthCm, piles) => {
@@ -649,17 +645,16 @@
 
             let logGroups = {};
             placed.forEach(p => {
-                if(p.customLine) return; // on ignore les items des lignes mixtes pour le log groupé
+                if(p.customLine) return; // Ignoré pour le log groupé
                 
                 let oriName = "";
-                // On détecte la vraie orientation placée (si ce n'est pas un KUB)
                 if (p.type !== 'kub' && !p.label.startsWith('KV')) {
-                    if (p.d === DIMS[p.type].long.d && p.w === DIMS[p.type].long.w) {
+                    if (p.rotated) {
+                        oriName = "Pivoté en fin de camion";
+                    } else if (p.d === DIMS[p.type].long.d && p.w === DIMS[p.type].long.w) {
                         oriName = "Long.";
                     } else if (p.d === DIMS[p.type].larg.d && p.w === DIMS[p.type].larg.w) {
                         oriName = "Larg.";
-                    } else {
-                        oriName = "Tourné"; 
                     }
                 }
                 
