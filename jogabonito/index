@@ -8,120 +8,62 @@
     <style>
         :root {
             --grad: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
-            --glow: rgba(196, 25, 25, 0.3); 
-            --dark: #0a0a0c; 
-            --card-bg: rgba(20, 20, 24, 0.55);
-            --text: #ffffff; 
-            --muted: #a1a1aa; 
-            --border: rgba(255, 255, 255, 0.12); 
-            --primary-color: #c41919;
-            --success: #10b981;
-            
-            /* Couleurs des équipes */
-            --team-raouf: #ef4444; /* Rouge */
-            --team-yahia: #3b82f6; /* Bleu */
+            --glow: rgba(196, 25, 25, 0.3); --dark: #0a0a0c; --card-bg: rgba(20, 20, 24, 0.55);
+            --text: #ffffff; --muted: #a1a1aa; --border: rgba(255, 255, 255, 0.12); 
+            --primary-color: #c41919; --success: #10b981;
+            --team-raouf: #ef4444; --team-yahia: #3b82f6;
         }
-        
-        body { 
-            box-sizing: border-box; margin: 0; padding: 0; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--dark); color: var(--text); 
-            min-height: 100vh; padding: 40px 20px; 
-            position: relative; overflow-x: hidden; 
-        }
-
-        /* --- ARRIÈRE PLAN ANIMÉ --- */
+        body { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: var(--text); min-height: 100vh; padding: 40px 20px; position: relative; overflow-x: hidden; }
         .bg-orbs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -2; pointer-events: none; }
         .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5; animation: floatOrb 25s infinite ease-in-out; }
         .orb-1 { width: 55vw; height: 55vw; background: #c41919; top: -20%; left: -10%; animation-delay: 0s; }
         .orb-2 { width: 45vw; height: 45vw; background: #6b1e5f; bottom: -15%; right: -10%; animation-delay: -5s; animation-direction: reverse; }
         .orb-3 { width: 40vw; height: 40vw; background: #ff4d4d; top: 35%; left: 45%; animation-delay: -10s; }
         .orb-4 { width: 45vw; height: 45vw; background: #9b2c8a; bottom: 20%; left: -15%; animation-delay: -15s; animation-direction: reverse; }
-        @keyframes floatOrb { 
-            0% { transform: translate(0, 0) scale(1); } 
-            33% { transform: translate(20vw, -15vh) scale(1.2); } 
-            66% { transform: translate(-15vw, 20vh) scale(0.8); } 
-            100% { transform: translate(0, 0) scale(1); } 
-        }
-
-        /* --- CONTENEUR PRINCIPAL --- */
+        @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 33% { transform: translate(20vw, -15vh) scale(1.2); } 66% { transform: translate(-15vw, 20vh) scale(0.8); } 100% { transform: translate(0, 0) scale(1); } }
         .container { background: transparent; border-radius: 16px; max-width: 1000px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
         h1 { color: var(--text); margin: 0 0 8px 0; font-size: 36px; font-weight: 800; letter-spacing: -1px; text-align: center; }
         .subtitle { color: var(--muted); margin: 0 0 40px 0; font-size: 18px; line-height: 1.6; text-align: center; }
-
-        .section-card {
-            background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); 
-            border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 32px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
+        .section-card { background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
         .section-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: white; display: flex; align-items: center; gap: 10px; }
-
-        /* --- FORMULAIRE & ÉQUIPES --- */
         .input-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; margin-bottom: 30px; }
         .form-group { flex: 1; min-width: 250px; }
         .form-group label { display: block; margin-bottom: 8px; color: white; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-group input { 
-            width: 100%; padding: 14px 20px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); 
-            color: white; border-radius: 12px; font-size: 16px; transition: all 0.3s; box-sizing: border-box; font-family: inherit; 
-        }
+        .form-group input { width: 100%; padding: 14px 20px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white; border-radius: 12px; font-size: 16px; transition: all 0.3s; box-sizing: border-box; font-family: inherit; }
         .form-group input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(196, 25, 25, 0.2); }
-
         .team-selection { display: flex; gap: 10px; flex: 1; min-width: 300px; }
-        .team-btn {
-            flex: 1; padding: 14px; border: 1px solid var(--border); border-radius: 12px;
-            background: rgba(0,0,0,0.5); color: var(--muted); font-weight: 700; font-size: 15px;
-            cursor: pointer; transition: all 0.3s;
-        }
+        .team-btn { flex: 1; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: rgba(0,0,0,0.5); color: var(--muted); font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.3s; }
         .team-btn.raouf.active { background: rgba(239, 68, 68, 0.2); border-color: var(--team-raouf); color: var(--team-raouf); box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
         .team-btn.yahia.active { background: rgba(59, 130, 246, 0.2); border-color: var(--team-yahia); color: var(--team-yahia); box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
-
-        /* --- CALENDRIER --- */
         .month-header { font-size: 20px; font-weight: 700; color: var(--primary-color); margin: 32px 0 16px 0; padding-bottom: 8px; border-bottom: 1px solid var(--border); text-transform: capitalize; }
         .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
-        .date-card { 
-            background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 16px 12px; 
-            cursor: pointer; transition: all 0.2s ease; text-align: center; color: var(--text); user-select: none;
-        }
+        .date-card { background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 16px 12px; cursor: pointer; transition: all 0.2s ease; text-align: center; color: var(--text); user-select: none; }
         .date-card:hover { border-color: var(--primary-color); transform: translateY(-3px); background: rgba(196, 25, 25, 0.1); }
         .date-card.selected { border-color: var(--primary-color); background: var(--grad); box-shadow: 0 10px 20px var(--glow); }
         .date-card .day { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--muted); text-transform: uppercase; }
         .date-card.selected .day { color: rgba(255,255,255,0.8); }
         .date-card .date { font-size: 28px; font-weight: 800; color: white; line-height: 1; }
-
-        .btn-submit { 
-            background: var(--grad); color: white; border: none; border-radius: 12px; padding: 16px 32px; font-size: 16px; font-weight: 700; 
-            cursor: pointer; transition: all 0.3s; display: block; margin: 32px auto 0; text-transform: uppercase; letter-spacing: 1px; width: 100%; max-width: 400px;
-        }
+        .btn-submit { background: var(--grad); color: white; border: none; border-radius: 12px; padding: 16px 32px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; display: block; margin: 32px auto 0; text-transform: uppercase; letter-spacing: 1px; width: 100%; max-width: 400px; }
         .btn-submit:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(196, 25, 25, 0.4); }
-
-        /* --- RÉSULTATS --- */
-        .result-row {
-            background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
-            margin-bottom: 16px; transition: all 0.3s; position: relative; overflow: hidden;
-        }
+        .result-row { background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; position: relative; overflow: hidden; }
         .result-row.valid-match { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
-        
         .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
         .result-date { font-size: 20px; font-weight: 800; text-transform: capitalize; display: flex; align-items: center; gap: 10px; }
         .match-badge { background: rgba(16, 185, 129, 0.2); color: var(--success); font-size: 12px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--success); font-weight: 700; text-transform: uppercase; }
         .result-total { font-weight: 800; font-size: 18px; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 30px; }
-
         .teams-container { display: flex; gap: 20px; }
         @media (max-width: 600px) { .teams-container { flex-direction: column; } }
-        
         .team-column { flex: 1; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); }
         .team-raouf-col { border-left: 4px solid var(--team-raouf); }
         .team-yahia-col { border-left: 4px solid var(--team-yahia); }
-        
         .team-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; justify-content: space-between; }
         .team-title.raouf { color: var(--team-raouf); }
         .team-title.yahia { color: var(--team-yahia); }
-        
         .player-list { font-size: 14px; color: var(--text); line-height: 1.6; }
         .player-count { background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 12px; color: white; font-size: 12px; }
         .count-ok { background: var(--success); color: var(--dark); }
-
         .empty-state { text-align: center; color: var(--muted); padding: 20px; font-style: italic; }
+        #loading-state { text-align: center; padding: 20px; color: var(--primary-color); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -129,61 +71,123 @@
 
     <div class="container">
         <h1>⚽ Raouf vs Yahia</h1>
-        <p class="subtitle">Sélectionnez vos dispos pour le prochain match. Objectif : 5 contre 5 minimum !</p>
+        <p class="subtitle">Joga Bonito - Objectif : 5 contre 5 minimum !</p>
 
         <div class="section-card">
             <div class="section-title">1. Tes disponibilités</div>
-            
             <div class="input-row">
                 <div class="form-group">
                     <label for="playerName">Ton prénom / Surnom</label>
-                    <input type="text" id="playerName" placeholder="Ex: Zizou, KB9..." autocomplete="off">
+                    <input type="text" id="playerName" placeholder="Ex: Zizou..." autocomplete="off">
                 </div>
-                
                 <div style="flex: 1;">
                     <label style="display: block; margin-bottom: 8px; color: white; font-weight: 600; font-size: 14px; text-transform: uppercase;">Choisis ton équipe</label>
                     <div class="team-selection">
-                        <button class="team-btn raouf" id="btn-raouf" onclick="selectTeam('raouf')">Équipe Raouf</button>
-                        <button class="team-btn yahia" id="btn-yahia" onclick="selectTeam('yahia')">Équipe Yahia</button>
+                        <button class="team-btn raouf" id="btn-raouf" onclick="window.selectTeam('raouf')">Équipe Raouf</button>
+                        <button class="team-btn yahia" id="btn-yahia" onclick="window.selectTeam('yahia')">Équipe Yahia</button>
                     </div>
                 </div>
             </div>
-
             <label class="form-group" style="color: white; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Sélectionne tes jours (60 prochains jours)</label>
             <div id="calendar-container"></div>
-
-            <button class="btn-submit" onclick="saveAvailabilities()">Confirmer mes dates</button>
+            <button class="btn-submit" onclick="window.saveAvailabilities()">Confirmer mes dates</button>
         </div>
 
         <div class="section-card">
-            <div class="section-title">🏆 Meilleures dates trouvées</div>
-            <div id="results-container"></div>
+            <div class="section-title">🏆 Meilleures dates trouvées en Direct</div>
+            <div id="loading-state">Connexion à la base de données...</div>
+            <div id="results-container" style="display: none;"></div>
         </div>
     </div>
 
-    <script>
+    <!-- SDK Firebase (Version modulaire) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, setDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Configuration Firebase avec tes clés
+        const firebaseConfig = {
+            apiKey: "AIzaSyA54tNwqIMVXAcxrL4QTAw3xW7zGEjeWb8",
+            authDomain: "jogabonito-abb8a.firebaseapp.com",
+            projectId: "jogabonito-abb8a",
+            storageBucket: "jogabonito-abb8a.firebasestorage.app",
+            messagingSenderId: "69443845852",
+            appId: "1:69443845852:web:e78b7e30b9162453b3be19"
+        };
+
+        // Initialisation de Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Variables de l'application
         const daysToGenerate = 60; 
         let selectedDates = []; 
         let currentTeam = '';
-        
-        let db = JSON.parse(localStorage.getItem('foot_planner_teams_db')) || [];
+        let playersDB = [];
 
-        // --- GESTION DES ÉQUIPES ---
-        function selectTeam(teamName) {
+        // Rendre les fonctions accessibles au HTML
+        window.selectTeam = function(teamName) {
             currentTeam = teamName;
             document.getElementById('btn-raouf').classList.remove('active');
             document.getElementById('btn-yahia').classList.remove('active');
             document.getElementById(`btn-${teamName}`).classList.add('active');
-        }
+        };
 
-        // --- GÉNÉRATION DU CALENDRIER (Démarre au prochain samedi) ---
+        window.saveAvailabilities = async function() {
+            const nameInput = document.getElementById('playerName');
+            const name = nameInput.value.trim();
+
+            if (!name) { alert("N'oublie pas de mettre ton prénom !"); nameInput.focus(); return; }
+            if (!currentTeam) { alert("N'oublie pas de choisir ton équipe (Raouf ou Yahia) !"); return; }
+            if (selectedDates.length === 0) { alert("Sélectionne au moins une date de libre !"); return; }
+
+            const btn = document.querySelector('.btn-submit');
+            btn.textContent = "Enregistrement...";
+            btn.style.opacity = "0.7";
+
+            try {
+                await setDoc(doc(db, "players", name.toLowerCase()), {
+                    name: name,
+                    team: currentTeam,
+                    dates: selectedDates,
+                    updatedAt: new Date()
+                });
+
+                btn.textContent = "✓ Enregistré !";
+                btn.style.background = "var(--success)";
+                btn.style.opacity = "1";
+                
+                setTimeout(() => {
+                    btn.textContent = "Confirmer mes dates";
+                    btn.style.background = "var(--grad)";
+                }, 2000);
+            } catch (error) {
+                console.error("Erreur de sauvegarde: ", error);
+                alert("Erreur lors de la sauvegarde. Vérifie ta connexion.");
+                btn.textContent = "Confirmer mes dates";
+                btn.style.opacity = "1";
+            }
+        };
+
+        // Écoute des données en TEMPS RÉEL
+        onSnapshot(collection(db, "players"), (snapshot) => {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('results-container').style.display = 'block';
+            
+            playersDB = [];
+            snapshot.forEach((doc) => {
+                playersDB.push(doc.data());
+            });
+            calculateResults();
+        });
+
+        // --- GÉNÉRATION DU CALENDRIER ---
         function generateCalendar() {
             const container = document.getElementById('calendar-container');
             container.innerHTML = '';
             
-            // Trouver le prochain samedi (ou aujourd'hui si on est samedi)
             const startDate = new Date();
-            const currentDay = startDate.getDay(); // 0 = Dimanche, 6 = Samedi
+            const currentDay = startDate.getDay();
             const daysUntilSaturday = (6 - currentDay + 7) % 7;
             startDate.setDate(startDate.getDate() + daysUntilSaturday);
 
@@ -228,76 +232,40 @@
             }
         }
 
-        // --- SAUVEGARDE DES DISPOS ---
-        function saveAvailabilities() {
-            const nameInput = document.getElementById('playerName');
-            const name = nameInput.value.trim();
-
-            if (!name) { alert("N'oublie pas de mettre ton prénom !"); nameInput.focus(); return; }
-            if (!currentTeam) { alert("N'oublie pas de choisir ton équipe (Raouf ou Yahia) !"); return; }
-            if (selectedDates.length === 0) { alert("Sélectionne au moins une date de libre !"); return; }
-
-            const existingIndex = db.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
-            if (existingIndex > -1) {
-                db[existingIndex].team = currentTeam;
-                db[existingIndex].dates = [...selectedDates];
-            } else {
-                db.push({ name: name, team: currentTeam, dates: [...selectedDates] });
-            }
-
-            localStorage.setItem('foot_planner_teams_db', JSON.stringify(db));
-
-            const btn = document.querySelector('.btn-submit');
-            const originalText = btn.textContent;
-            btn.textContent = "✓ Enregistré !";
-            btn.style.background = "var(--success)";
-            
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = "var(--grad)";
-            }, 2000);
-
-            calculateResults();
-        }
-
-        // --- CALCUL ET AFFICHAGE DES RÉSULTATS (Équilibrage) ---
+        // --- CALCUL ET AFFICHAGE DES RÉSULTATS ---
         function calculateResults() {
             const container = document.getElementById('results-container');
             container.innerHTML = '';
 
-            if (db.length === 0) {
+            if (playersDB.length === 0) {
                 container.innerHTML = `<div class="empty-state">Personne n'a encore mis ses dispos.</div>`;
                 return;
             }
 
-            // Agréger les données par date et par équipe
             const dateScores = {};
-            db.forEach(player => {
-                player.dates.forEach(date => {
-                    if (!dateScores[date]) dateScores[date] = { raouf: [], yahia: [] };
-                    if (player.team === 'raouf') dateScores[date].raouf.push(player.name);
-                    else dateScores[date].yahia.push(player.name);
-                });
+            playersDB.forEach(player => {
+                if(player.dates) {
+                    player.dates.forEach(date => {
+                        if (!dateScores[date]) dateScores[date] = { raouf: [], yahia: [] };
+                        if (player.team === 'raouf') dateScores[date].raouf.push(player.name);
+                        else if (player.team === 'yahia') dateScores[date].yahia.push(player.name);
+                    });
+                }
             });
 
-            // Tri de l'algorithme
             const sortedDates = Object.entries(dateScores).sort((a, b) => {
                 const totalA = a[1].raouf.length + a[1].yahia.length;
                 const totalB = b[1].raouf.length + b[1].yahia.length;
-                
-                // Règle 1 : La date avec le plus de joueurs en premier
                 if (totalB !== totalA) return totalB - totalA;
                 
-                // Règle 2 (Équilibrage) : Si égalité, on privilégie l'écart le plus faible entre les équipes
                 const ecartA = Math.abs(a[1].raouf.length - a[1].yahia.length);
                 const ecartB = Math.abs(b[1].raouf.length - b[1].yahia.length);
                 if (ecartA !== ecartB) return ecartA - ecartB; 
 
-                // Règle 3 : Ordre chronologique
                 return new Date(a[0]) - new Date(b[0]);
             });
 
-            const topDates = sortedDates.slice(0, 5); // Affiche les 5 meilleures dates
+            const topDates = sortedDates.slice(0, 5);
 
             topDates.forEach((item) => {
                 const dateStr = item[0];
@@ -308,7 +276,6 @@
                 const d = new Date(dateStr);
                 const displayDate = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
                 
-                // Validation du 5 vs 5
                 const isValidMatch = (raoufPlayers.length >= 5 && yahiaPlayers.length >= 5);
                 
                 const row = document.createElement('div');
@@ -323,33 +290,22 @@
                         <div class="result-total">${totalPlayers} 🏃</div>
                     </div>
                     <div class="teams-container">
-                        <!-- Colonne Raouf -->
                         <div class="team-column team-raouf-col">
-                            <div class="team-title raouf">
-                                Équipe Raouf
-                                <span class="player-count ${raoufPlayers.length >= 5 ? 'count-ok' : ''}">${raoufPlayers.length}/5</span>
-                            </div>
+                            <div class="team-title raouf">Équipe Raouf <span class="player-count ${raoufPlayers.length >= 5 ? 'count-ok' : ''}">${raoufPlayers.length}/5</span></div>
                             <div class="player-list">${raoufPlayers.length > 0 ? raoufPlayers.join(', ') : '<i>Aucun joueur</i>'}</div>
                         </div>
-                        
-                        <!-- Colonne Yahia -->
                         <div class="team-column team-yahia-col">
-                            <div class="team-title yahia">
-                                Équipe Yahia
-                                <span class="player-count ${yahiaPlayers.length >= 5 ? 'count-ok' : ''}">${yahiaPlayers.length}/5</span>
-                            </div>
+                            <div class="team-title yahia">Équipe Yahia <span class="player-count ${yahiaPlayers.length >= 5 ? 'count-ok' : ''}">${yahiaPlayers.length}/5</span></div>
                             <div class="player-list">${yahiaPlayers.length > 0 ? yahiaPlayers.join(', ') : '<i>Aucun joueur</i>'}</div>
                         </div>
                     </div>
                 `;
-                
                 container.appendChild(row);
             });
         }
 
-        // Initialisation
+        // Lancement !
         generateCalendar();
-        calculateResults();
     </script>
 </body>
 </html>
