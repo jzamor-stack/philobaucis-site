@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentions Légales & CGV - Philobaucis</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <style>
+    :root {
+      --bg-color: #050505;
+      --card-bg: #111111;
+      --primary: #c41919;
+      --text: #ffffff;
+      --muted: #a0a0a0;
+      --border: #222222;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    header span {
+      color: var(--primary);
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+    .tab-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover {
+      background: #1a1a1a;
+      border-color: #333;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+      border-color: transparent;
+    }
+    .tab-content {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-top: 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    p, li {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+    ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .back-btn:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="javascript:history.back()" class="back-btn">← Retour au site</a>
+    
+    <header>
+      <h1>Cadre <span>Légal & Juridique</span></h1>
+      <p style="color: var(--muted);">Transparence et conformité de l'initiative Philobaucis</p>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openTab('mentions')">Mentions Légales</button>
+      <button class="tab-btn" onclick="openTab('rgpd')">Données & RGPD</button>
+      <button class="tab-btn" onclick="openTab('cgu-apporteurs')">Facilitateurs</button>
+      <button class="tab-btn" onclick="openTab('cgv-entreprises')">Mécènes / Entreprises</button>
+      <button class="tab-btn" onclick="openTab('cgu-assos')">Associations</button>
+    </div>
+
+    <!-- MENTIONS LÉGALES -->
+    <div id="mentions" class="tab-content active">
+      <h2>1. Éditeur du Site</h2>
+      <p>Le présent site est édité par l'initiative <strong>Philobaucis</strong>, agissant en tant que prestataire indépendant expert en plaidoyer.</p>
+      <ul>
+        <li><strong>Forme juridique :</strong> Association Loi 1901</li>
+        <li><strong>Numéro RNA :</strong> W751284407</li>
+        <li><strong>Siège social :</strong> 22 rue d'Edimbourg, 75008 Paris, France</li>
+        <li><strong>Directeur de la publication :</strong> Monsieur Jean-Daniel ZAMOR</li>
+        <li><strong>Contact e-mail :</strong> j.zamor@philobaucis.fr</li>
+      </ul>
+
+      <h2>2. Hébergement</h2>
+      <p>L'hébergement du site est assuré par la société Vercel Inc.</p>
+      <ul>
+        <li><strong>Siège social :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
+        <li><strong>Site web :</strong> https://vercel.com</li>
+      </ul>
+
+      <h2>3. Propriété Intellectuelle</h2>
+      <p>L'ensemble de ce site (structure, design, textes, logos, images) relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Toute reproduction, représentation, modification ou adaptation, totale ou partielle, est strictement interdite sans l'autorisation écrite préalable de Philobaucis.</p>
+    </div>
+
+    <!-- RGPD -->
+    <div id="rgpd" class="tab-content">
+      <h2>Politique de Confidentialité (RGPD)</h2>
+      <p>Dans le cadre de son activité et de la préparation de l'événement national de 2027, Philobaucis collecte des données à caractère personnel dans le strict respect du Règlement Général sur la Protection des Données (RGPD) et de la loi Informatique et Libertés.</p>
+      
+      <h3>1. Collecte et finalité</h3>
+      <p>Les données collectées (noms, e-mails, téléphones, coordonnées professionnelles) servent uniquement à :</p>
+      <ul>
+        <li>Gérer les prises de rendez-vous et les plannings (via nos formulaires de contact).</li>
+        <li>Gérer la relation contractuelle avec les facilitateurs (facturation, paiement des commissions).</li>
+        <li>Organiser les partenariats avec les entreprises et associations.</li>
+      </ul>
+
+      <h3>2. Partage et sécurité</h3>
+      <p><strong>Aucune donnée n'est revendue à des tiers.</strong> Les informations sont stockées sur des serveurs sécurisés et ne sont accessibles qu'à l'équipe dirigeante de Philobaucis.</p>
+
+      <h3>3. Vos droits</h3>
+      <p>Vous disposez d'un droit d'accès, de rectification, de portabilité et de suppression de vos données. Pour exercer ce droit, vous pouvez nous contacter à l'adresse : <strong>j.zamor@philobaucis.fr</strong>.</p>
+    </div>
+
+    <!-- CGU APPORTEURS -->
+    <div id="cgu-apporteurs" class="tab-content">
+      <h2>Conditions pour les Facilitateurs (Apporteurs d'affaires)</h2>
+      <p>Les facilitateurs agissent comme intermédiaires pour connecter les décideurs au projet Philobaucis. Leur activité est encadrée par un <strong>Contrat d'Apporteur d'Affaires</strong>.</p>
+      
+      <h3>1. Obligation légale de statut</h3>
+      <p>Conformément à la loi française, aucune commission ne peut être versée à un particulier. Le facilitateur doit obligatoirement justifier d'un numéro de SIRET valide (Auto-entreprise, SASU, EURL, etc.) pour émettre une facture et percevoir ses gains.</p>
+
+      <h3>2. Rémunération et paiement</h3>
+      <p>Le facilitateur perçoit une commission contractuelle (notamment fixée à 5%) calculée sur le montant de l'engagement de l'entreprise apportée. Le paiement est effectué par virement bancaire dans un délai de 30 jours calendaires après l'encaissement effectif des fonds par l'association bénéficiaire ou par Philobaucis.</p>
+
+      <h3>3. Rente annuelle</h3>
+      <p>Si l'entreprise mécène renouvelle son engagement financier lors de la date anniversaire du contrat, le facilitateur percevra à nouveau sa commission, sous réserve du maintien du contrat de mécénat.</p>
+    </div>
+
+    <!-- CGV ENTREPRISES -->
+    <div id="cgv-entreprises" class="tab-content">
+      <h2>Conditions pour les Mécènes (Entreprises)</h2>
+      
+      <h3>1. Rôle de Philobaucis</h3>
+      <p>Philobaucis intervient exclusivement en tant que prestataire expert en plaidoyer et médiatisation. Philobaucis n'est pas un intermédiaire financier : l'intégralité des dons est perçue directement par les associations partenaires.</p>
+
+      <h3>2. Système de reconnaissance</h3>
+      <p>En contrepartie de leur mécénat, les entreprises bénéficient d'un système de médailles (Bronze, Argent, Or, Diamant) proportionnel à l'ampleur et à la durée de leur engagement financier. Ce système donne droit à une visibilité médiatique nationale et internationale encadrée par Philobaucis.</p>
+
+      <h3>3. Engagement de long terme</h3>
+      <p>Le projet visant à soutenir durablement les actions sur le terrain (maraudes, accompagnement), les entreprises s'engagent sur des conventions de mécénat encadrées, ouvrant droit aux déductions fiscales en vigueur selon la législation française.</p>
+    </div>
+
+    <!-- CGU ASSOCIATIONS -->
+    <div id="cgu-assos" class="tab-content">
+      <h2>Pacte de Confiance (Associations)</h2>
+      
+      <h3>1. Gratuité absolue</h3>
+      <p>L'accompagnement stratégique et médiatique fourni par Philobaucis est garanti à "Zéro Frais" pour les associations partenaires. Aucune contrepartie financière n'est exigée.</p>
+
+      <h3>2. Indépendance et Droit de veto</h3>
+      <p>Les associations conservent un contrôle total sur leur image et leur communication. Philobaucis garantit :</p>
+      <ul>
+        <li>Un droit de veto strict sur la sélection des images et la diffusion des témoignages des bénéficiaires.</li>
+        <li>Un droit de relecture et de refus lors de la phase de post-production.</li>
+      </ul>
+      <p>La protection de la dignité des personnes précaires prime sur toute obligation médiatique.</p>
+    </div>
+
+  </div>
+
+  <script>
+    function openTab(tabId) {
+      // Masquer tous les contenus
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      // Désactiver tous les boutons
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      // Activer le contenu et le bouton ciblés
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>
