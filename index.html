@@ -863,7 +863,7 @@ box-shadow: 0 0 0 3px #c41919;
 
 .flow-diagram {
 display: flex;
-align-items: center;
+align-items: stretch;
 justify-content: center;
 flex-wrap: wrap;
 gap: 0.5rem;
@@ -876,9 +876,13 @@ padding: 1.3rem 1.2rem;
 text-align: center;
 box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 border: 2px solid rgba(196,25,25,0.15);
-flex: 1;
-min-width: 150px;
-max-width: 190px;
+flex: 0 0 190px;
+width: 190px;
+min-height: 175px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
 }
 .flow-box .flow-emoji { font-size: 1.8rem; margin-bottom: 0.4rem; }
 .flow-box strong { display: block; color: #c41919; font-size: 0.95rem; margin-bottom: 0.3rem; }
@@ -948,6 +952,7 @@ gap: 0.6rem;
 .pillars-grid { grid-template-columns: 1fr; }
 .debate-grid { grid-template-columns: 1fr; }
 .flow-diagram { flex-direction: column; }
+.flow-box { width: 100%; flex-basis: auto; min-height: 0; }
 .flow-arrow { transform: rotate(90deg); }
 .timeline-track { min-width: 550px; }
 .info-card-grid { grid-template-columns: 1fr; }
@@ -1083,6 +1088,19 @@ Engagement politique
 </div>
 </div>
 
+<div class="flow-diagram">
+<div class="flow-box">
+<div class="flow-emoji">🌟</div>
+<strong>Les plus grands influenceurs</strong>
+<span>Invités à parler du projet et à relayer les témoignages auprès de leurs communautés</span>
+</div>
+<div class="flow-box">
+<div class="flow-emoji">📰</div>
+<strong>Tous les médias de France</strong>
+<span>Presse, radio et télévision de la France entière invités à communiquer sur le projet</span>
+</div>
+</div>
+
 <div class="pillar-section-title">
 <h3>2️⃣ 🗳️ Interpeller : comment on pousse les politiques à s'exprimer</h3>
 <p>Pour que les candidats ne se contentent pas d'une phrase de circonstance, le Jour 15 prend deux formes complémentaires :</p>
@@ -1095,7 +1113,7 @@ Engagement politique
 <div class="info-steps">
 <div class="mini-step"><span class="mini-emoji">🎙️</span><div><strong>Journalistes présents</strong><span>Ils tiennent le débat et posent les questions aux candidats</span></div></div>
 <div class="mini-step"><span class="mini-emoji">⚡</span><div><strong>Confrontation en direct</strong><span>Possibilité de confronter les points de vue des candidats en direct</span></div></div>
-<div class="mini-step"><span class="mini-emoji">🌟</span><div><strong>Prime time</strong><span>Diffusion aux heures de grande écoute, devant des millions de téléspectateurs</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🌟</span><div><strong>Prime time</strong><span>Diffusion à une heure de grande écoute, devant des millions de téléspectateurs</span></div></div>
 </div>
 </div>
 <div class="info-card">
@@ -1111,7 +1129,7 @@ Engagement politique
 
 <div class="pillar-section-title">
 <h3>3️⃣ 💪 Doter : comment on donne des moyens aux associations</h3>
-<p>Deux dispositifs complémentaires permettent de démultiplier l'action des associations sur le terrain. Passez la souris sur chaque carte pour en savoir plus.</p>
+<p>Deux dispositifs complémentaires permettent de démultiplier l'action des associations sur le terrain.</p>
 </div>
 
 <div class="info-card-grid">
