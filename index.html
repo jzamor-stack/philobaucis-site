@@ -756,7 +756,7 @@ font-size: 1rem;
 
 /* FOOTER */
 .site-footer {
-background: #111;
+background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
 padding: 30px 2rem;
 text-align: center;
 }
@@ -768,23 +768,193 @@ flex-wrap: wrap;
 margin-bottom: 10px;
 }
 .site-footer a {
-color: #d1d5db;
+color: #ffffff;
 text-decoration: none;
 font-size: 0.9rem;
 font-weight: 600;
 }
-.site-footer a:hover { color: #fff; }
+.site-footer a:hover { color: rgba(255,255,255,0.75); }
 .site-footer .copyright {
-color: rgba(255,255,255,0.35);
+color: rgba(255,255,255,0.7);
 font-size: 0.8rem;
 margin: 0;
+}
+
+/* PAGE EXPLICATIVE — SCHÉMAS */
+.pillars-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem;
+margin: 2.5rem 0;
+counter-reset: pillar;
+}
+.pillar-card {
+background: #fff;
+border-radius: 20px;
+padding: 2rem 1.5rem;
+text-align: center;
+box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+border: 2px solid transparent;
+position: relative;
+transition: all 0.3s ease;
+}
+.pillar-card:hover {
+transform: translateY(-6px);
+border-color: #c41919;
+box-shadow: 0 15px 35px rgba(196,25,25,0.15);
+}
+.pillar-num {
+width: 42px; height: 42px;
+border-radius: 50%;
+background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+color: #fff;
+display: flex; align-items: center; justify-content: center;
+font-weight: 900;
+margin: 0 auto 1rem;
+font-size: 1.2rem;
+}
+.pillar-emoji { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.pillar-card h4 { margin: 0 0 0.6rem 0; color: #c41919; font-size: 1.15rem; font-weight: 800; }
+.pillar-card p { font-size: 0.92rem; color: #555; margin: 0; line-height: 1.6; }
+
+.timeline-wrap {
+margin: 2.5rem 0;
+overflow-x: auto;
+padding-bottom: 1rem;
+}
+.timeline-track {
+display: flex;
+min-width: 700px;
+position: relative;
+padding-top: 10px;
+}
+.timeline-track::before {
+content: '';
+position: absolute;
+top: 30px;
+left: 5%;
+right: 5%;
+height: 4px;
+background: linear-gradient(90deg, #c41919 0%, #6b1e5f 100%);
+border-radius: 4px;
+z-index: 0;
+}
+.timeline-step {
+flex: 1;
+text-align: center;
+position: relative;
+z-index: 1;
+padding: 0 0.5rem;
+}
+.timeline-dot {
+width: 24px; height: 24px;
+border-radius: 50%;
+background: #fff;
+border: 4px solid #c41919;
+margin: 20px auto 1rem;
+}
+.timeline-step.highlight .timeline-dot {
+background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+border-color: #fff;
+box-shadow: 0 0 0 3px #c41919;
+}
+.timeline-date { font-weight: 800; color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.timeline-label { font-size: 0.85rem; color: #333; margin-top: 4px; line-height: 1.4; }
+
+.flow-diagram {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-wrap: wrap;
+gap: 0.5rem;
+margin: 2rem 0;
+}
+.flow-box {
+background: #fff;
+border-radius: 16px;
+padding: 1.3rem 1.2rem;
+text-align: center;
+box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+border: 2px solid rgba(196,25,25,0.15);
+flex: 1;
+min-width: 150px;
+max-width: 190px;
+}
+.flow-box .flow-emoji { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.flow-box strong { display: block; color: #c41919; font-size: 0.95rem; margin-bottom: 0.3rem; }
+.flow-box span { font-size: 0.8rem; color: #666; line-height: 1.4; }
+.flow-arrow {
+font-size: 1.8rem;
+color: #c41919;
+font-weight: 900;
+flex-shrink: 0;
+}
+
+.debate-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+margin: 2rem 0;
+}
+.debate-card {
+border-radius: 20px;
+padding: 2rem;
+color: #fff;
+background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+}
+.debate-card.alt { background: linear-gradient(135deg, #6b1e5f 0%, #c41919 100%); }
+.debate-card .debate-emoji { font-size: 2.2rem; margin-bottom: 0.6rem; }
+.debate-card h4 { margin: 0 0 0.6rem 0; font-size: 1.2rem; font-weight: 800; }
+.debate-card p { margin: 0; font-size: 0.92rem; opacity: 0.95; line-height: 1.6; color: #fff; }
+
+.pillar-section-title { margin: 3rem 0 1.5rem 0; }
+.pillar-section-title h3 { color: #c41919; font-size: 1.4rem; font-weight: 800; margin: 0 0 0.6rem 0; }
+.pillar-section-title p { color: #333; font-size: 1.05rem; line-height: 1.7; margin: 0; }
+
+.info-card-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+margin: 2rem 0;
+}
+.info-card {
+background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+border-radius: 20px;
+padding: 2rem;
+color: #fff;
+box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.info-card .info-emoji { font-size: 2.2rem; margin-bottom: 0.6rem; }
+.info-card h4 { margin: 0 0 0.8rem 0; font-size: 1.3rem; font-weight: 800; color: #fff; }
+.info-card .info-steps {
+display: flex;
+flex-direction: column;
+gap: 0.6rem;
+}
+.mini-step {
+background: rgba(255,255,255,0.14);
+border-radius: 12px;
+padding: 0.7rem 0.9rem;
+text-align: left;
+display: flex;
+align-items: flex-start;
+gap: 0.6rem;
+}
+.mini-step .mini-emoji { font-size: 1.2rem; flex-shrink: 0; }
+.mini-step strong { display: block; font-size: 0.85rem; color: #fff; }
+.mini-step span { font-size: 0.78rem; opacity: 0.9; line-height: 1.4; }
+
+@media (max-width: 768px) {
+.pillars-grid { grid-template-columns: 1fr; }
+.debate-grid { grid-template-columns: 1fr; }
+.flow-diagram { flex-direction: column; }
+.flow-arrow { transform: rotate(90deg); }
+.timeline-track { min-width: 550px; }
+.info-card-grid { grid-template-columns: 1fr; }
 }
 </style>
 <style>@view-transition { navigation: auto; }</style>
 <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-<script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
-<script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
 </head>
 <body>
 <div class="page-container">
@@ -800,7 +970,7 @@ margin: 0;
 </div>
 <div class="header-content">
 <nav>
-<button class="nav-btn" onclick="showPage('accueil')">Le Projet</button> <button class="nav-btn" onclick="showPage('qui-sommes-nous')">Qui sommes-nous</button> <button class="nav-btn" onclick="showPage('programme')">Programme</button> <button class="nav-btn" onclick="showPage('participer')">Association</button> <button class="nav-btn" onclick="showPage('entreprise')">Entreprise</button>
+<button class="nav-btn" onclick="showPage('accueil')">Le Projet</button> <button class="nav-btn" onclick="showPage('comment-ca-marche')">Comment ça marche</button> <button class="nav-btn" onclick="showPage('qui-sommes-nous')">Qui sommes-nous</button> <button class="nav-btn" onclick="showPage('programme')">Programme</button> <button class="nav-btn" onclick="showPage('participer')">Association</button> <button class="nav-btn" onclick="showPage('entreprise')">Entreprise</button>
 </nav>
 </div>
 </header>
@@ -811,11 +981,6 @@ margin: 0;
 </div>
 <h2 style="font-weight: 900;">Le Projet Philobaucis</h2>
 <p class="intro-text">En janvier 2027, Philobaucis organise un événement national de 15 jours consacré aux différentes formes de précarités en France. Notre mission : donner une voix aux personnes invisibilisées, valoriser les associations qui oeuvrent au quotidien à leurs côtés, et faire parler les différents candidats à la présidentielle en les mettant face à ces précarités, grâce à nos relais médiatiques et une campagne d'ampleur sur les réseaux sociaux.</p>
-
-<div class="cagnotte-box">
-<h3>🪙 Une cagnotte ouverte à tous pendant la quinzaine</h3>
-<p style="margin-bottom: 0; color: #333;">Pendant toute la durée de l'événement (janvier 2027), une cagnotte solidaire sera ouverte pour permettre aux <strong>citoyens comme aux entreprises</strong> de contribuer directement, quel que soit le montant. <strong>95% des dons collectés sont reversés aux associations partenaires</strong>, et seuls <strong>5% sont dédiés à la gestion et à la structuration du dispositif par Philobaucis</strong>.</p>
-</div>
 
 <div class="calendar-grid">
 <div class="day-card">
@@ -858,6 +1023,159 @@ Engagement politique
 <div class="founder-section">
 <h3>🎯 Pourquoi cet événement</h3>
 <p>La précarité en France prend de nombreuses formes et touche des millions de personnes. Pourtant, ces réalités restent souvent invisibles dans le débat public. Pendant 15 jours en janvier 2027, Philobaucis donnera une voix à ceux qu'on n'entend pas et mettra en lumière les associations qui oeuvrent quotidiennement à leurs côtés, avec l'objectif de créer une prise de conscience collective et d'amplifier l'impact des acteurs de terrain.</p>
+</div>
+</div>
+<div id="comment-ca-marche" class="page">
+<h2 style="font-weight: 900;">Comment ça marche ?</h2>
+<p class="intro-text">Philobaucis, c'est simple à comprendre une fois qu'on pose les 3 pièces du puzzle. Voici le projet expliqué pas à pas, en images.</p>
+
+<div class="founder-section">
+<h3>🧩 3 piliers, un seul objectif</h3>
+<p>Faire reculer la précarité en France en actionnant trois leviers en même temps : la parole, le vote, et les moyens d'agir.</p>
+</div>
+
+<div class="pillars-grid">
+<div class="pillar-card">
+<div class="pillar-num">1</div>
+<div class="pillar-emoji">📣</div>
+<h4>Médiatiser</h4>
+<p>15 jours d'appels à témoignages et de reportages diffusés par notre équipe sur les réseaux sociaux et nos relais médiatiques nationaux, pour rendre visibles les précarités et le travail des associations.</p>
+</div>
+<div class="pillar-card">
+<div class="pillar-num">2</div>
+<div class="pillar-emoji">🗳️</div>
+<h4>Interpeller</h4>
+<p>Un double débat inédit pousse les candidats à la présidentielle à se positionner clairement sur ces enjeux : un débat classique, puis une vidéo individuelle par candidat.</p>
+</div>
+<div class="pillar-card">
+<div class="pillar-num">3</div>
+<div class="pillar-emoji">💪</div>
+<h4>Doter</h4>
+<p>Grâce au Mécénat d'action (dont le mécénat de maraude est un exemple) et à une cagnotte citoyenne, on donne aux associations des moyens financiers et humains concrets pour agir plus largement sur le terrain.</p>
+</div>
+</div>
+
+<div class="pillar-section-title">
+<h3>1️⃣ 📣 Médiatiser : comment on met en avant ces précarités</h3>
+<p>Pendant 15 jours, on transforme les statistiques en réalités visibles. Voici le parcours d'un témoignage, de la rue jusqu'aux écrans :</p>
+</div>
+
+<div class="flow-diagram">
+<div class="flow-box">
+<div class="flow-emoji">📢</div>
+<strong>Appel à témoignages</strong>
+<span>Sur les réseaux sociaux, pour recueillir des récits authentiques</span>
+</div>
+<div class="flow-box">
+<div class="flow-emoji">🎬</div>
+<strong>Reportage terrain</strong>
+<span>Notre équipe filme les témoignages et les actions des associations</span>
+</div>
+<div class="flow-box">
+<div class="flow-emoji">📲</div>
+<strong>Diffusion massive</strong>
+<span>Réseaux sociaux et relais médiatiques nationaux &amp; internationaux</span>
+</div>
+<div class="flow-box">
+<div class="flow-emoji">👁️</div>
+<strong>Visibilité nationale</strong>
+<span>Une précarité différente mise en lumière chaque jour</span>
+</div>
+</div>
+
+<div class="pillar-section-title">
+<h3>2️⃣ 🗳️ Interpeller : comment on pousse les politiques à s'exprimer</h3>
+<p>Pour que les candidats ne se contentent pas d'une phrase de circonstance, le Jour 15 prend deux formes complémentaires :</p>
+</div>
+
+<div class="info-card-grid">
+<div class="info-card">
+<div class="info-emoji">📺</div>
+<h4>Le débat classique</h4>
+<div class="info-steps">
+<div class="mini-step"><span class="mini-emoji">🎙️</span><div><strong>Journalistes présents</strong><span>Ils tiennent le débat et posent les questions aux candidats</span></div></div>
+<div class="mini-step"><span class="mini-emoji">⚡</span><div><strong>Confrontation en direct</strong><span>Possibilité de confronter les points de vue des candidats en direct</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🌟</span><div><strong>Prime time</strong><span>Diffusion aux heures de grande écoute, devant des millions de téléspectateurs</span></div></div>
+</div>
+</div>
+<div class="info-card">
+<div class="info-emoji">🎥</div>
+<h4>La vidéo individuelle</h4>
+<div class="info-steps">
+<div class="mini-step"><span class="mini-emoji">🔎</span><div><strong>Aller au fond des choses</strong><span>Chaque candidat dispose du temps nécessaire pour développer ses propositions en détail</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🗺️</span><div><strong>Vue d'ensemble</strong><span>Possibilité de comparer et de répondre aux différentes solutions des autres candidats</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🎬</span><div><strong>Format libre</strong><span>Possibilité d'animer la vidéo, d'utiliser une voix off, des images d'illustration, etc.</span></div></div>
+</div>
+</div>
+</div>
+
+<div class="pillar-section-title">
+<h3>3️⃣ 💪 Doter : comment on donne des moyens aux associations</h3>
+<p>Deux dispositifs complémentaires permettent de démultiplier l'action des associations sur le terrain. Passez la souris sur chaque carte pour en savoir plus.</p>
+</div>
+
+<div class="info-card-grid">
+<div class="info-card">
+<div class="info-emoji">🚐</div>
+<h4>Mécénat d'action</h4>
+<div class="info-steps">
+<div class="mini-step"><span class="mini-emoji">🏢</span><div><strong>L'entreprise finance</strong><span>Elle finance l'action et libère ses collaborateurs pour y participer</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🧑‍🤝‍🧑</span><div><strong>Les collaborateurs agissent</strong><span>Ils participent concrètement à l'action sur le terrain</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🤝</span><div><strong>L'association pilote</strong><span>Elle organise et encadre l'action avec ses équipes (ex. le mécénat de maraude, une des 14 déclinaisons)</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🚀</span><div><strong>L'impact explose</strong><span>Plus de couverture territoriale, plus de moyens humains et financiers</span></div></div>
+</div>
+</div>
+<div class="info-card">
+<div class="info-emoji">🪙</div>
+<h4>Cagnotte</h4>
+<div class="info-steps">
+<div class="mini-step"><span class="mini-emoji">🙋</span><div><strong>Pour les citoyens</strong><span>Chacun peut contribuer librement dès le premier jour de la quinzaine</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🏢</span><div><strong>Pour les entreprises aussi</strong><span>Une entreprise qui souhaite aider sans être en capacité de s'engager dans un Mécénat d'action complet peut simplement donner via la cagnotte</span></div></div>
+<div class="mini-step"><span class="mini-emoji">💶</span><div><strong>Répartition</strong><span>95% des dons vont directement aux associations, 5% financent la structuration du dispositif par Philobaucis</span></div></div>
+</div>
+</div>
+</div>
+
+<div class="founder-section">
+<h3>🗓️ Le calendrier en un coup d'œil</h3>
+<p>De la prise de contact actuelle à la pérennisation du dispositif, voici les grandes étapes du projet.</p>
+</div>
+
+<div class="timeline-wrap">
+<div class="timeline-track">
+<div class="timeline-step highlight">
+<div class="timeline-dot"></div>
+<div class="timeline-date">Actuellement</div>
+<div class="timeline-label">Prise de contact avec les associations et les entreprises partenaires</div>
+</div>
+<div class="timeline-step highlight">
+<div class="timeline-dot"></div>
+<div class="timeline-date">7 Déc. 2026</div>
+<div class="timeline-label">Sélection définitive des associations partenaires</div>
+</div>
+<div class="timeline-step highlight">
+<div class="timeline-dot"></div>
+<div class="timeline-date">Janvier 2027</div>
+<div class="timeline-label">La quinzaine nationale : médiatisation &amp; cagnotte en ligne</div>
+</div>
+<div class="timeline-step">
+<div class="timeline-date">Jour 15</div>
+<div class="timeline-label">Le double débat présidentiel</div>
+</div>
+<div class="timeline-step">
+<div class="timeline-dot"></div>
+<div class="timeline-date">Fin Nov. 2027</div>
+<div class="timeline-label">La pérennisation du dispositif</div>
+</div>
+</div>
+</div>
+
+<div class="cta-section">
+<h3>Envie d'en savoir plus ?</h3>
+<p>Découvrez le détail du programme ou prenez rendez-vous pour en discuter</p>
+<div class="cta-buttons-container">
+<button class="cta-btn" onclick="showPage('programme')">Voir le Programme</button> <button class="cta-btn" onclick="window.open('https://www.philobaucis.fr/rdv', '_blank', 'noopener,noreferrer')">Prendre Rendez-vous</button>
+</div>
 </div>
 </div>
 <div id="qui-sommes-nous" class="page">
@@ -1133,7 +1451,7 @@ Précarité des personnes en situation de handicap
 Jour 15
 </div>
 <div class="day-title">
-Plateau télé avec les candidats à la présidentielle
+Le Double Débat : plateau télé + vidéos individuelles avec les candidats à la présidentielle
 </div>
 </div>
 </div>
@@ -1189,18 +1507,7 @@ Plateau télé avec les candidats à la présidentielle
 
 <div class="founder-section">
 <h3>🏢 Toutes les tailles d'entreprise sont les bienvenues</h3>
-<p>Qu'elles comptent 3 ou 30 000 salariés, toutes les entreprises ont un rôle à jouer dans la lutte contre la précarité. Pour que l'effort demandé reste juste, les montants de chaque médaille sont <strong>calculés proportionnellement à la taille de l'entreprise</strong> (TPE, PME, ETI, Grand Groupe) : une petite structure peut ainsi obtenir la même reconnaissance qu'un grand groupe, à un niveau d'engagement adapté à ses moyens réels. Sélectionnez votre catégorie ci-dessous pour voir les montants qui vous correspondent.</p>
-</div>
-
-<div class="size-selector-box">
-<label for="companySize">Votre catégorie d'entreprise</label>
-<select id="companySize" onchange="updateMedalAmounts()">
-<option value="GE" selected>Grande Entreprise (5000+ salariés) — 100%</option>
-<option value="ETI">ETI (250 à 4999 salariés) — 40%</option>
-<option value="PME">PME (moins de 250 salariés) — 18%</option>
-<option value="TPE">TPE (moins de 10 salariés) — 1%</option>
-</select>
-<p class="size-hint">Choix indicatif et auto-déclaratif : certaines structures très rentables (tech, finance...) peuvent aussi choisir une catégorie supérieure à leur taille.</p>
+<p>Qu'elles comptent 3 ou 30 000 salariés, toutes les entreprises ont un rôle à jouer dans la lutte contre la précarité. Pour que l'effort demandé reste juste, les médailles sont <strong>attribuées et distribuées en fonction de la taille de l'entreprise</strong> (TPE, PME, ETI, Grand Groupe) : une petite structure peut ainsi obtenir la même reconnaissance qu'un grand groupe, à un niveau d'engagement adapté à ses moyens réels. Contactez-nous pour connaître le niveau d'engagement qui correspond à votre structure.</p>
 </div>
 
 <div class="calendar-grid">
@@ -1210,7 +1517,7 @@ Plateau télé avec les candidats à la présidentielle
 <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
 Bronze
 </div>
-<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;" data-medal="bronze">24 000 €</div>
+<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">Soutien régulier et premiers engagements</div>
 </div>
 </div>
 <div class="day-card" style="display: flex; align-items: center; gap: 1.5rem;">
@@ -1219,7 +1526,7 @@ Bronze
 <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
 Argent
 </div>
-<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;" data-medal="argent">104 000 €</div>
+<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">Partenariat actif et soutien régulier</div>
 </div>
 </div>
 <div class="day-card" style="display: flex; align-items: center; gap: 1.5rem;">
@@ -1228,7 +1535,7 @@ Argent
 <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
 Or
 </div>
-<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;" data-medal="or">1 040 000 €</div>
+<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">Engagement fort et impact significatif</div>
 </div>
 </div>
 <div class="day-card" style="display: flex; align-items: center; gap: 1.5rem;">
@@ -1237,7 +1544,7 @@ Or
 <div class="day-title" style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
 Diamant
 </div>
-<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;" data-medal="diamant">2 080 000 €</div>
+<div style="font-size: 0.9rem; opacity: 0.9; color: #ffffff;">Engagement exceptionnel et partenariat stratégique</div>
 </div>
 </div>
 </div>
@@ -1378,7 +1685,7 @@ Acteur Majeur
 
 </div>
 <script>
-const pageOrder = ['accueil', 'qui-sommes-nous', 'programme', 'participer', 'entreprise'];
+const pageOrder = ['accueil', 'comment-ca-marche', 'qui-sommes-nous', 'programme', 'participer', 'entreprise'];
 let currentPageIndex = 0;
 
 function showPage(pageId) {
@@ -1478,34 +1785,6 @@ showPage(pageOrder[newIndex]);
 }
 }
 
-/* SÉLECTEUR TAILLE D'ENTREPRISE — recalcul des montants des médailles */
-const medalBaseAmounts = {
-diamant: 2080000,
-or: 1040000,
-argent: 104000,
-bronze: 24000
-};
-const sizeCoefficients = {
-GE: 1,
-ETI: 0.4,
-PME: 0.18,
-TPE: 0.01
-};
-function formatEuros(n) {
-return Math.round(n).toLocaleString('fr-FR') + ' €';
-}
-function updateMedalAmounts() {
-const select = document.getElementById('companySize');
-if (!select) return;
-const coef = sizeCoefficients[select.value];
-Object.keys(medalBaseAmounts).forEach(medal => {
-const el = document.querySelector('[data-medal="' + medal + '"]');
-if (el) {
-el.textContent = formatEuros(medalBaseAmounts[medal] * coef);
-}
-});
-}
-document.addEventListener('DOMContentLoaded', updateMedalAmounts);
 </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e71116005ee6fa2',t:'MTc3NTMxMzYyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
