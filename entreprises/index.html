@@ -225,6 +225,51 @@
         .example-row:last-child { border-bottom: none; }
         .example-row img { width: 45px; height: auto; }
         .medal-name { font-weight: 800; font-size: 1.2rem; color: white; }
+        .medal-amount { color: #c41919; font-weight: 900; font-size: 1.15rem; margin-top: 4px; }
+
+        /* SÉLECTEUR TAILLE D'ENTREPRISE */
+        .size-selector-box {
+            margin-top: 30px;
+            padding: 25px 30px;
+            background: var(--card);
+            border-radius: 20px;
+            border: 2px solid rgba(196, 25, 25, 0.35);
+        }
+        .size-selector-box label {
+            display: block;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .size-selector-box select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            color: #fff;
+            background: #0a0a0c;
+            cursor: pointer;
+        }
+        .size-selector-box .size-hint {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        /* CAGNOTTE */
+        .cagnotte-box {
+            margin-top: 30px;
+            padding: 30px 35px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(196,25,25,0.12) 0%, rgba(107,30,95,0.12) 100%);
+            border: 1px solid rgba(196, 25, 25, 0.3);
+        }
+        .cagnotte-box h3 { margin-top: 0; color: #fff; }
 
         /* INFO BANNER */
         .info-banner {
@@ -373,6 +418,10 @@
                 <h2>Initiative Nationale 2027</h2>
                 <h1>15 jours pour faire entendre les <span style="color: #c41919;">voix invisibles.</span></h1>
                 <p>Face à l'urgence sociale, nous appelons les entreprises à un engagement fort. En Janvier 2027, Philobaucis orchestre <span class="highlight">un événement national de 15 jours</span> consacré aux différentes précarités en France, se concluant par un débat décisif avec les candidats à l'élection présidentielle.</p>
+
+                <div class="info-banner">
+                    <strong>📅 Calendrier :</strong> Les entreprises et les associations commenceront à être contactées à partir du 26 mai. La sélection définitive des associations partenaires aura lieu le <strong>7 décembre</strong>. Une association dont le projet correspond parfaitement à notre démarche peut être officiellement acceptée avant cette date.
+                </div>
                 
                 <div class="trust-bar">
                     <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 15px;">Une impulsion portée par une expertise sollicitée par</span>
@@ -401,6 +450,11 @@
                         <h4>Interpeller les décideurs</h4>
                         <p>Confronter les candidats à la présidentielle et les inciter à s'engager sur des actions concrètes et mesurables.</p>
                     </div>
+                </div>
+
+                <div class="cagnotte-box">
+                    <h3>🪙 Une cagnotte solidaire, ouverte à toutes les entreprises</h3>
+                    <p style="margin-bottom: 0;">Pendant toute la durée de la quinzaine (janvier 2027), une cagnotte en ligne permettra aux <strong>citoyens comme aux entreprises</strong> de contribuer, sans condition d'engagement long terme. <strong>95% des sommes collectées sont reversées directement aux associations partenaires</strong>, les 5% restants couvrant la gestion et la structuration du dispositif par Philobaucis.</p>
                 </div>
 
                 <h3>Qui Sommes-Nous ?</h3>
@@ -502,8 +556,19 @@
                 <h2>L'Objectif 50 Millions</h2>
                 <h1>Les Paliers <br><span style="color: #c41919;">& Podiums.</span></h1>
                 
-                <p>Notre but est clair : atteindre une moyenne de 50 millions d'euros par association partenaire pour dépasser le record historique de levée de fonds associatif en France. Afin d'être équitable et de permettre à chaque structure de s'engager à la hauteur de ses moyens, <strong>le montant nécessaire pour atteindre chaque palier est calculé et adapté proportionnellement à la taille de votre entreprise (chiffre d'affaires et effectif)</strong>.</p>
+                <p>Notre but est clair : atteindre une moyenne de 50 millions d'euros par association partenaire pour dépasser le record historique de levée de fonds associatif en France. Afin d'être équitable et de permettre à chaque structure de s'engager à la hauteur de ses moyens, <strong>le montant nécessaire pour atteindre chaque palier est calculé et adapté proportionnellement à la taille de votre entreprise</strong> (chiffre d'affaires et effectif). Qu'elle compte 3 ou 30 000 salariés, chaque entreprise peut ainsi viser la même reconnaissance à un niveau d'engagement qui lui correspond.</p>
                 <p>Nous avons défini 4 statuts officiels d'engagement :</p>
+
+                <div class="size-selector-box">
+                    <label for="companySizeMecenat">Votre catégorie d'entreprise</label>
+                    <select id="companySizeMecenat" onchange="updateMedalAmountsEntreprises()">
+                        <option value="GE" selected>Grande Entreprise (5000+ salariés) — 100%</option>
+                        <option value="ETI">ETI (250 à 4999 salariés) — 40%</option>
+                        <option value="PME">PME (moins de 250 salariés) — 18%</option>
+                        <option value="TPE">TPE (moins de 10 salariés) — 1%</option>
+                    </select>
+                    <p class="size-hint">Choix indicatif et auto-déclaratif : une structure très rentable pour sa taille (tech, finance...) peut aussi choisir une catégorie supérieure à son effectif réel.</p>
+                </div>
                 
                 <div class="example-container">
                     <div class="example-header">
@@ -511,21 +576,38 @@
                         <div>Statut Partenaire</div>
                     </div>
                     <div class="example-row glow-card">
-                        <img src="https://i.postimg.cc/4y3qP2DX/philobaucis-logo-(10).png" alt="Diamant">
-                        <div class="medal-name">Médaille Diamant</div>
+                        <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" alt="Diamant">
+                        <div>
+                            <div class="medal-name">Médaille Diamant</div>
+                            <div class="medal-amount" data-medal="diamant">2 080 000 €</div>
+                        </div>
                     </div>
                     <div class="example-row glow-card">
-                        <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Or">
-                        <div class="medal-name">Médaille Or</div>
+                        <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Or">
+                        <div>
+                            <div class="medal-name">Médaille Or</div>
+                            <div class="medal-amount" data-medal="or">1 040 000 €</div>
+                        </div>
                     </div>
                     <div class="example-row glow-card">
-                        <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Argent">
-                        <div class="medal-name">Médaille Argent</div>
+                        <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" alt="Argent">
+                        <div>
+                            <div class="medal-name">Médaille Argent</div>
+                            <div class="medal-amount" data-medal="argent">104 000 €</div>
+                        </div>
                     </div>
                     <div class="example-row glow-card">
-                        <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Bronze">
-                        <div class="medal-name">Médaille Bronze</div>
+                        <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" alt="Bronze">
+                        <div>
+                            <div class="medal-name">Médaille Bronze</div>
+                            <div class="medal-amount" data-medal="bronze">24 000 €</div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="cagnotte-box">
+                    <h3>🪙 Vous préférez contribuer librement ?</h3>
+                    <p style="margin-bottom: 0;">Une cagnotte solidaire sera également ouverte pendant toute la quinzaine de janvier 2027, sans palier ni engagement de durée. <strong>95% des dons vont directement aux 14 associations</strong>, 5% financent la gestion du dispositif par Philobaucis.</p>
                 </div>
 
                 <h3 style="margin-top: 50px; margin-bottom: 10px; font-size: 1.5rem; color: white;">Classements par taille d'entreprise</h3>
@@ -594,66 +676,14 @@
                 </div>
             </div>
 
-            <!-- ONGLET MENTIONS LEGALES -->
-            <div id="mentions" class="tab-content">
-                <h2>Transparence</h2>
-                <h1>Mentions <span style="color: #c41919;">Légales.</span></h1>
-                
-                <div class="target-container">
-                    <div class="premium-feature-card">
-                        <div class="pf-text">
-                            <h3>1. Éditeur du site</h3>
-                            <p>Le présent site est édité et géré par Philobaucis, association déclarée, régie par la loi du 1er juillet 1901.</p>
-                            <p style="margin-top: 10px;">
-                                <strong>Siège social :</strong> 22 rue d'Edimbourg, 75008 Paris, France.<br>
-                                <strong>Directeur de la publication :</strong> Monsieur Jean-Daniel ZAMOR.<br>
-                                <strong>Numéro RNA :</strong> W751284407<br>
-                                <strong>Contact :</strong> <a href="mailto:j.zamor@philobaucis.fr">j.zamor@philobaucis.fr</a>
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="premium-feature-card">
-                        <div class="pf-text">
-                            <h3>2. Hébergement</h3>
-                            <p>Ce site web est hébergé par la société Vercel Inc.<br>
-                            <strong>Siège social :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.<br>
-                            <strong>Site web :</strong> <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></p>
-                        </div>
-                    </div>
-                    
-                    <div class="premium-feature-card">
-                        <div class="pf-text">
-                            <h3>3. Mécanisme des dons & RGPD</h3>
-                            <p>Philobaucis intervient en tant que prestataire expert (plaidoyer, médiatisation). L'intégralité des dons est perçue <strong>directement par les 14 associations partenaires</strong>.</p>
-                            <p style="margin-top: 10px;">La collecte des données est conforme au RGPD et à la loi Informatique et Libertés. L'ensemble de ce site (structure, design, textes) relève de la législation sur le droit d'auteur. Toute reproduction est interdite sans autorisation.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ONGLET CGV -->
-            <div id="cgv" class="tab-content">
-                <h2>Cadre Légal</h2>
-                <h1>Conditions Générales <span style="color: #c41919;">de Vente (CGV).</span></h1>
-                
-                <div class="target-container">
-                    <div class="premium-feature-card">
-                        <div class="pf-text">
-                            <p>Les Conditions Générales de Vente et de prestation de services de Philobaucis, régissant notre intervention auprès des 14 associations partenaires et des entreprises mécènes, seront détaillées ici lors de l'établissement officiel des contrats de partenariat.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div> <!-- /content-wrapper -->
 
         <!-- FOOTER GLOBAL : LIENS -->
         <footer class="site-footer">
             <div class="footer-links">
-                <a href="#mentions" onclick="openTab(event, 'mentions')">Mentions Légales</a>
+                <a href="/legal/">Mentions Légales</a>
                 <span class="footer-separator">|</span>
-                <a href="#cgv" onclick="openTab(event, 'cgv')">Conditions Générales de Vente (CGV)</a>
+                <a href="/legal/">Conditions Générales de Vente (CGV)</a>
             </div>
             <p class="copyright">© 2026 Philobaucis. Tous droits réservés.</p>
         </footer>
@@ -694,6 +724,35 @@
                 document.querySelector('.overlay').classList.remove('open');
             }
         }
+
+        /* SÉLECTEUR TAILLE D'ENTREPRISE — recalcul des montants des médailles */
+        const medalBaseAmountsEnt = {
+            diamant: 2080000,
+            or: 1040000,
+            argent: 104000,
+            bronze: 24000
+        };
+        const sizeCoefficientsEnt = {
+            GE: 1,
+            ETI: 0.4,
+            PME: 0.18,
+            TPE: 0.01
+        };
+        function formatEurosEnt(n) {
+            return Math.round(n).toLocaleString('fr-FR') + ' €';
+        }
+        function updateMedalAmountsEntreprises() {
+            const select = document.getElementById('companySizeMecenat');
+            if (!select) return;
+            const coef = sizeCoefficientsEnt[select.value];
+            Object.keys(medalBaseAmountsEnt).forEach(medal => {
+                const el = document.querySelector('[data-medal="' + medal + '"]');
+                if (el) {
+                    el.textContent = formatEurosEnt(medalBaseAmountsEnt[medal] * coef);
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', updateMedalAmountsEntreprises);
     </script>
 </body>
 </html>
