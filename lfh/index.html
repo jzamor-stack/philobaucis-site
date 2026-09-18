@@ -160,6 +160,14 @@
     .step-item { display: flex; gap: 25px; margin-bottom: 20px; padding: 25px; }
     .step-num { width: 50px; height: 50px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 5px 15px rgba(196, 25, 25, 0.4); }
 
+    /* SEUILS MEDAILLES PAR TAILLE */
+    .size-block { margin-top: 50px; }
+    .size-block h3 { text-align: center; font-size: 1.3rem; }
+    .size-block .size-sub { text-align: center; font-size: 0.95rem; color: var(--muted); margin-top: -10px; margin-bottom: 25px; }
+    .medal-detail { margin-top: 10px; font-size: 0.85rem; }
+    .medal-detail .creneaux { color: var(--text); font-weight: 700; }
+    .medal-detail .montant { color: var(--primary-color); font-weight: 800; }
+
     /* RESPONSIVE */
     @media (max-width: 1100px) { 
       body { flex-direction: column; } 
@@ -178,13 +186,13 @@
 
   <div class="overlay" onclick="toggleMenu()"></div>
   <div class="mobile-header">
-    <div class="logo"><img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Logo"> PHILOBAUCIS</div>
+    <div class="logo"><img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Logo"> PHILOBAUCIS</div>
     <button class="burger-btn" onclick="toggleMenu()">☰</button>
   </div>
 
   <aside class="sidebar" id="sidebarMenu">
     <div class="logo-container" style="display: none; @media(min-width: 1101px){display: block;}">
-      <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Logo Philobaucis" onerror="this.style.display='none';">
+      <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Logo Philobaucis" onerror="this.style.display='none';">
       <div style="margin-top:15px; font-weight: 800; font-size:1.2rem; letter-spacing: 1px;">LIGUE <span style="color:var(--primary-color);">HUMANITAIRE</span></div>
     </div>
     
@@ -198,7 +206,7 @@
     <div style="margin-top: auto; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px;">
       <p style="font-size: 0.75rem;">
         Solidarité Nationale<br>
-        <span style="color: var(--primary-color); font-weight: 700;">Action Mécénat Maraude</span>
+        <span style="color: var(--primary-color); font-weight: 700;">Mécénat d'action — Mécénat de maraude</span>
       </p>
     </div>
   </aside>
@@ -389,49 +397,117 @@
       <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1600&q=80');"></div>
       
       <h2>Reconnaissance Nationale</h2>
-      <h1>La Quinzaine de <span style="color: var(--primary-color);">Précarité.</span></h1>
+      <h1>La Quinzaine <span style="color: var(--primary-color);">Nationale.</span></h1>
       <p>Un événement médiatique majeur pour mettre en lumière les entreprises engagées.</p>
 
       <div class="founder-box">
         <h3 style="color: var(--primary-color); margin: 0;">🎬 Un Prime-Time Exceptionnel</h3>
-        <p style="margin: 0;">En participant, votre entreprise s'associe à la Quinzaine de Précarité (Novembre 2026). Cet événement rassemble influenceurs et médias pour une <span class="highlight">cérémonie officielle de remise des médailles</span> diffusée au niveau national.</p>
+        <p style="margin: 0;">En participant, votre entreprise s'associe à la quinzaine nationale (Janvier 2027). Cet événement rassemble influenceurs et médias pour une <span class="highlight">cérémonie officielle de remise des médailles</span> diffusée au niveau national.</p>
       </div>
 
-      <h3 style="margin-top: 50px; text-align:center;">🏢 Grandes Entreprises (+500 employés)</h3>
-      <div class="grid-4">
-        <div class="glow-card text-center">
-          <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Médaille de Bronze" class="medal-img">
-          <h4 class="gradient-bronze" style="font-size: 1.2rem; font-weight:800;">Bronze</h4>
-          <p style="margin-top: 10px; font-size:0.9rem;">12 maraudes/an<br><span class="highlight">1 créneau mensuel</span></p>
-        </div>
-        <div class="glow-card text-center">
-          <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Médaille d'Argent" class="medal-img">
-          <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
-          <p style="margin-top: 10px; font-size:0.9rem;">+ de 12 créneaux<br><span class="highlight">Engagement régulier</span></p>
-        </div>
-        <div class="glow-card text-center">
-          <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Médaille d'Or" class="medal-img">
-          <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
-          <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux ou +<br><span class="highlight">1 fois par semaine</span></p>
-        </div>
-        <div class="glow-card text-center" style="border-color: #87CEEB;">
-          <img src="https://i.postimg.cc/bNb8Xjr3/philobaucis-logo-(10).png" alt="Médaille de Diamant" class="medal-img">
-          <h4 class="gradient-diamond" style="font-size: 1.2rem; font-weight:800;">Diamant</h4>
-          <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux dans 10 villes<br><span class="highlight">Déploiement national</span></p>
+      <p style="text-align: center; margin-top: 40px; margin-bottom: -10px;">Le mécénat de maraude est l'une des 14 déclinaisons du <strong class="highlight">Mécénat d'action</strong> Philobaucis. Les paliers de médailles sont calculés selon la taille de votre entreprise, à 800€ le créneau (prix déjà après déduction fiscale).</p>
+
+      <div class="size-block">
+        <h3>🌱 TPE <span style="color: var(--muted); font-weight: 500;">— moins de 10 salariés</span></h3>
+        <div class="grid-4">
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" alt="Médaille de Bronze" class="medal-img">
+            <h4 class="gradient-bronze" style="font-size: 1.2rem; font-weight:800;">Bronze</h4>
+            <p class="medal-detail"><span class="creneaux">1 créneau/an</span><br><span class="montant">240 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" alt="Médaille d'Argent" class="medal-img">
+            <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
+            <p class="medal-detail"><span class="creneaux">1 créneau/an</span><br><span class="montant">1 040 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Médaille d'Or" class="medal-img">
+            <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
+            <p class="medal-detail"><span class="creneaux">6 créneaux/an</span><br><span class="montant">10 400 €</span></p>
+          </div>
+          <div class="glow-card text-center" style="border-color: #87CEEB;">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" alt="Médaille de Diamant" class="medal-img">
+            <h4 class="gradient-diamond" style="font-size: 1.2rem; font-weight:800;">Diamant</h4>
+            <p class="medal-detail"><span class="creneaux">11 créneaux/an</span><br><span class="montant">20 800 €</span></p>
+          </div>
         </div>
       </div>
 
-      <h3 style="margin-top: 50px; text-align:center;">🏪 PME / TPE (-500 employés)</h3>
-      <div class="grid-3" style="max-width: 600px; margin: 30px auto;">
-        <div class="glow-card text-center">
-          <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Médaille d'Argent PME" class="medal-img">
-          <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
-          <p style="margin-top: 10px; font-size:0.9rem;">Créneau mensuel ou trimestriel adapté</p>
+      <div class="size-block">
+        <h3>🏬 PME <span style="color: var(--muted); font-weight: 500;">— moins de 250 salariés</span></h3>
+        <div class="grid-4">
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" alt="Médaille de Bronze" class="medal-img">
+            <h4 class="gradient-bronze" style="font-size: 1.2rem; font-weight:800;">Bronze</h4>
+            <p class="medal-detail"><span class="creneaux">3 créneaux/an</span><br><span class="montant">4 320 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" alt="Médaille d'Argent" class="medal-img">
+            <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
+            <p class="medal-detail"><span class="creneaux">10 créneaux/an</span><br><span class="montant">18 720 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Médaille d'Or" class="medal-img">
+            <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
+            <p class="medal-detail"><span class="creneaux">94 créneaux/an</span><br><span class="montant">187 200 €</span></p>
+          </div>
+          <div class="glow-card text-center" style="border-color: #87CEEB;">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" alt="Médaille de Diamant" class="medal-img">
+            <h4 class="gradient-diamond" style="font-size: 1.2rem; font-weight:800;">Diamant</h4>
+            <p class="medal-detail"><span class="creneaux">188 créneaux/an</span><br><span class="montant">374 400 €</span></p>
+          </div>
         </div>
-        <div class="glow-card text-center">
-          <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Médaille d'Or PME" class="medal-img">
-          <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
-          <p style="margin-top: 10px; font-size:0.9rem;">52 créneaux/an<br><span class="highlight">Leadership PME</span></p>
+      </div>
+
+      <div class="size-block">
+        <h3>🚀 ETI <span style="color: var(--muted); font-weight: 500;">— 250 à 4999 salariés</span></h3>
+        <div class="grid-4">
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" alt="Médaille de Bronze" class="medal-img">
+            <h4 class="gradient-bronze" style="font-size: 1.2rem; font-weight:800;">Bronze</h4>
+            <p class="medal-detail"><span class="creneaux">5 créneaux/an</span><br><span class="montant">9 600 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" alt="Médaille d'Argent" class="medal-img">
+            <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
+            <p class="medal-detail"><span class="creneaux">21 créneaux/an</span><br><span class="montant">41 600 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Médaille d'Or" class="medal-img">
+            <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
+            <p class="medal-detail"><span class="creneaux">208 créneaux/an</span><br><span class="montant">416 000 €</span></p>
+          </div>
+          <div class="glow-card text-center" style="border-color: #87CEEB;">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" alt="Médaille de Diamant" class="medal-img">
+            <h4 class="gradient-diamond" style="font-size: 1.2rem; font-weight:800;">Diamant</h4>
+            <p class="medal-detail"><span class="creneaux">416 créneaux/an</span><br><span class="montant">832 000 €</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="size-block">
+        <h3>🏢 Grande Entreprise <span style="color: var(--muted); font-weight: 500;">— 5000 salariés et plus</span></h3>
+        <div class="grid-4">
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" alt="Médaille de Bronze" class="medal-img">
+            <h4 class="gradient-bronze" style="font-size: 1.2rem; font-weight:800;">Bronze</h4>
+            <p class="medal-detail"><span class="creneaux">12 créneaux/an</span><br><span class="montant">24 000 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" alt="Médaille d'Argent" class="medal-img">
+            <h4 class="gradient-silver" style="font-size: 1.2rem; font-weight:800;">Argent</h4>
+            <p class="medal-detail"><span class="creneaux">52 créneaux/an</span><br><span class="montant">104 000 €</span></p>
+          </div>
+          <div class="glow-card text-center">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Médaille d'Or" class="medal-img">
+            <h4 class="gradient-gold" style="font-size: 1.2rem; font-weight:800;">Or</h4>
+            <p class="medal-detail"><span class="creneaux">520 créneaux/an</span><br><span class="montant">1 040 000 €</span></p>
+          </div>
+          <div class="glow-card text-center" style="border-color: #87CEEB;">
+            <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" alt="Médaille de Diamant" class="medal-img">
+            <h4 class="gradient-diamond" style="font-size: 1.2rem; font-weight:800;">Diamant</h4>
+            <p class="medal-detail"><span class="creneaux">1 040 créneaux/an</span><br><span class="montant">2 080 000 €</span></p>
+          </div>
         </div>
       </div>
 
@@ -449,7 +525,7 @@
       document.querySelector('.overlay').classList.toggle('active');
     }
 
-    function openTab(evt, tabName) {
+    function openTab(evt, tabName, skipPush) {
       const tabcontent = document.getElementsByClassName("tab-content");
       for (let i = 0; i < tabcontent.length; i++) { 
         tabcontent[i].style.display = "none"; 
@@ -465,7 +541,16 @@
       activeTab.style.display = "block";
       setTimeout(() => activeTab.classList.add("active"), 10);
       
-      if(evt) evt.currentTarget.classList.add("active");
+      if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add("active");
+      } else {
+        for (let i = 0; i < navitems.length; i++) {
+          const onclickAttr = navitems[i].getAttribute('onclick') || '';
+          if (onclickAttr.indexOf("'" + tabName + "'") !== -1) {
+            navitems[i].classList.add("active");
+          }
+        }
+      }
 
       if(window.innerWidth <= 1100) {
         document.getElementById('sidebarMenu').classList.remove('show');
@@ -473,7 +558,20 @@
       }
 
       document.querySelector('.main-view').scrollTop = 0;
+
+      if (!skipPush) {
+        try { history.pushState({ tabName }, '', '#' + tabName); }
+        catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
+      }
     }
+
+    window.addEventListener('popstate', function(event) {
+      const tabName = (event.state && event.state.tabName) || 'presentation';
+      openTab(null, tabName, true);
+    });
+
+    try { history.replaceState({ tabName: 'presentation' }, '', '#presentation'); }
+    catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
 
     // --- MISE À JOUR DU LIEN DE REDIRECTION ICI ---
     document.querySelectorAll('.cta-btn').forEach(btn => {
