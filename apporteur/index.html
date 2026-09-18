@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programme Apporteur Philobaucis | Officiel</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/fyMwzvYV/philobaucis-logo-(9).png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,7 +17,9 @@
             --border: rgba(255, 255, 255, 0.08);
         }
 
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--dark); color: var(--text); margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+
+        .body-shell { display: flex; flex: 1; min-height: 0; overflow: hidden; }
         
         /* NAVIGATION MOBILE */
         .mobile-header { display: none; background: #000; padding: 15px 25px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 100; }
@@ -35,7 +38,8 @@
         .nav-item.active { background: var(--grad); color: white; }
 
         /* MAIN VIEW */
-        .main-view { flex: 1; padding: 40px 60px; overflow-y: auto; background: radial-gradient(circle at top right, rgba(196, 25, 25, 0.07), transparent); scroll-behavior: smooth; }
+        .main-view { flex: 1; display: flex; flex-direction: column; overflow-y: auto; background: radial-gradient(circle at top right, rgba(196, 25, 25, 0.07), transparent); scroll-behavior: smooth; }
+        .content-wrapper { padding: 40px 60px; flex: 1; }
         .tab-content { display: none; max-width: 1000px; animation: fadeIn 0.4s ease; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -53,6 +57,17 @@
         .founder-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
         .stat-item { font-size: 0.8rem; font-weight: 700; color: #fff; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 6px; text-align: center; }
 
+        /* CAGNOTTE */
+        .cagnotte-box {
+            margin-top: 30px;
+            padding: 25px 30px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(196,25,25,0.1) 0%, rgba(107,30,95,0.1) 100%);
+            border: 1px solid rgba(196, 25, 25, 0.25);
+        }
+        .cagnotte-box h3 { margin-top: 0; color: #fff; font-size: 1.2rem; }
+        .cagnotte-box p { margin-bottom: 0; font-size: 0.95rem; }
+
         /* TABLEAU DES PALIERS */
         .example-container { background: var(--card); border-radius: 20px; border: 1px solid var(--border); margin-top: 20px; overflow-x: auto; }
         .example-header { background: rgba(255,255,255,0.03); padding: 18px 25px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 80px 1fr 150px 180px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); min-width: 650px; }
@@ -65,14 +80,31 @@
         .step-item { display: flex; gap: 25px; margin-bottom: 20px; padding: 30px; }
         .step-num { width: 45px; height: 45px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; box-shadow: 0 5px 15px rgba(196, 25, 25, 0.4); }
 
-        .btn-main { background: var(--grad); color: white; padding: 20px 40px; border-radius: 14px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 30px; transition: 0.3s; font-size: 1.1rem; }
+        .btn-main { background: var(--grad); color: white; padding: 20px 40px; border-radius: 14px; border: none; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 30px; transition: 0.3s; font-size: 1.1rem; cursor: pointer; }
         .btn-main:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(196, 25, 25, 0.4); }
 
         .highlight { color: #fff; font-weight: 700; }
 
+        /* FOOTER */
+        .site-footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 25px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+        .footer-links a:hover { color: #c41919; }
+        .footer-separator { color: var(--border); }
+        .copyright { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin: 0; }
+
         /* MEDIA QUERIES RESPONSIVE */
         @media (max-width: 1100px) { 
-            body { flex-direction: column; } 
+            .body-shell { flex-direction: column; overflow: auto; } 
             .mobile-header { display: flex; }
             .sidebar { 
                 position: fixed; 
@@ -85,7 +117,8 @@
                 transform: translateX(0); 
             }
             .sidebar .logo { display: none; }
-            .main-view { padding: 30px 20px; } 
+            .content-wrapper { padding: 30px 20px; } 
+            .site-footer { padding: 25px 20px; }
             
             h1 { font-size: 2.2rem; }
             .target-container, .founder-stats { grid-template-columns: 1fr !important; }
@@ -106,6 +139,7 @@
         <button class="burger-btn" onclick="toggleMenu()">☰</button>
     </div>
 
+    <div class="body-shell">
     <aside class="sidebar" id="sidebarMenu">
         <div class="logo">PHILO<span>BAUCIS</span></div>
         <div class="nav-group">
@@ -123,6 +157,7 @@
     </aside>
 
     <main class="main-view">
+        <div class="content-wrapper">
         
         <div id="home" class="tab-content active">
             <h2>Initiative Nationale</h2>
@@ -138,6 +173,11 @@
                     <h3 style="margin-top: 0;">L'Impact</h3>
                     <p style="font-size: 0.95rem;">Changer concrètement la vie des <span class="highlight">précaires</span> en imposant au centre du débat ces réalités quotidiennes trop souvent ignorées. Notre rôle est aussi d'engager sur le long terme, au niveau national, les entreprises et leurs collaborateurs sur le terrain aux côtés des associations.</p>
                 </div>
+            </div>
+
+            <div class="cagnotte-box">
+                <h3>🪙 Une cagnotte solidaire pendant la quinzaine</h3>
+                <p>En complément du programme apporteur, une cagnotte ouverte aux citoyens et aux entreprises sera mise en ligne pendant toute la durée de janvier 2027 (95% reversés aux associations pour un don de particulier, 90% pour un don d'entreprise). Pour une entreprise, ces dons comptent aussi pour l'obtention des médailles, cumulables avec les montants versés en Mécénat d'action — un argument de plus pour convaincre vos contacts de s'engager, même s'ils démarrent petit. La cagnotte elle-même ne génère pas de commission apporteur.</p>
             </div>
 
             <div class="founder-box glow-card">
@@ -170,29 +210,34 @@
                     <div>Votre Rente</div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/4y3qP2DX/philobaucis-logo-(10).png" width="40" alt="Diamant">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" width="40" alt="Diamant">
                     <div class="medal-name">Diamant</div>
                     <div class="contract-val">2 080 000 €</div>
                     <div><div class="commission-val">104 000 €</div><span class="recurring-badge">Par an et par contrat</span></div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" width="40" alt="Or">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" width="40" alt="Or">
                     <div class="medal-name">Or</div>
                     <div class="contract-val">1 040 000 €</div>
                     <div><div class="commission-val">52 000 €</div><span class="recurring-badge">Par an et par contrat</span></div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" width="40" alt="Argent">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" width="40" alt="Argent">
                     <div class="medal-name">Argent</div>
                     <div class="contract-val">104 000 €</div>
                     <div><div class="commission-val">5 200 €</div><span class="recurring-badge">Par an et par contrat</span></div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" width="40" alt="Bronze">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" width="40" alt="Bronze">
                     <div class="medal-name">Bronze</div>
                     <div class="contract-val">24 000 €</div>
                     <div><div class="commission-val">1 200 €</div><span class="recurring-badge">Par an et par contrat</span></div>
                 </div>
+            </div>
+
+            <div class="glow-card" style="margin-top: 20px; padding: 25px; border-left: 4px solid #c41919;">
+                <h3 style="margin-top: 0; font-weight: 800;">📏 Le cas des PME, ETI et TPE</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 0;">Les montants ci-dessus correspondent au barème Grande Entreprise. Pour une PME, une ETI ou une TPE, le palier (et donc la commission de 5%) est calculé proportionnellement à la taille de la structure, exactement comme pour les entreprises elles-mêmes. Votre commission reste dans tous les cas <strong>5% du montant réellement contracté</strong>, quelle que soit la taille de l'entreprise que vous avez mise en relation.</p>
             </div>
 
             <div class="glow-card" style="margin-top: 30px; padding: 25px; border-left: 4px solid #c41919;">
@@ -258,7 +303,7 @@
                 <h3 style="margin-top: 0; font-weight: 800;">Contenu Protégé</h3>
                 <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 25px;">Veuillez entrer le mot de passe administrateur pour déverrouiller la liste officielle.</p>
                 <input type="password" id="passwordInput" placeholder="Mot de passe" onkeyup="if(event.key === 'Enter') verifyPassword()" style="width: 100%; padding: 14px 20px; background: #000; border: 1px solid var(--border); border-radius: 10px; color: white; font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; text-align: center;">
-                <button onclick="verifyPassword()" class="btn-main" style="margin-top: 0; width: 100%; padding: 14px; font-size: 1rem;">Déverrouiller</button>
+                <button onclick="verifyPassword()" id="unlockBtn" class="btn-main" style="margin-top: 0; width: 100%; padding: 14px; font-size: 1rem;">Déverrouiller</button>
                 <p id="passwordError" style="color: #c41919; font-size: 0.9rem; margin-top: 15px; display: none; font-weight: 700;">⚠️ Mot de passe incorrect</p>
             </div>
 
@@ -288,7 +333,19 @@
             </div>
         </div>
 
+        </div> <!-- /content-wrapper -->
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="/legal/">Mentions Légales</a>
+                <span class="footer-separator">|</span>
+                <a href="/legal/">Conditions Générales de Vente (CGV)</a>
+            </div>
+            <p class="copyright">© 2026 Philobaucis. Tous droits réservés.</p>
+        </footer>
+
     </main>
+    </div>
 
     <script>
         function toggleMenu() {
@@ -296,22 +353,45 @@
             document.querySelector('.overlay').classList.toggle('active');
         }
 
-        function verifyPassword() {
+        // Vérification du mot de passe : appel à la fonction serverless /api/verify-apporteur
+        // Le mot de passe n'est jamais stocké ni comparé côté navigateur.
+        async function verifyPassword() {
             const input = document.getElementById('passwordInput').value;
             const error = document.getElementById('passwordError');
             const lockBox = document.getElementById('lockContainer');
             const contentBox = document.getElementById('secretContent');
+            const btn = document.getElementById('unlockBtn');
 
-            if (input === 'PhilemonaimeBaucis') {
-                error.style.display = 'none';
-                lockBox.style.display = 'none';
-                contentBox.style.display = 'block';
-            } else {
+            if (!input) return;
+
+            error.style.display = 'none';
+            btn.textContent = 'Vérification...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/verify-apporteur', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: input })
+                });
+                const data = await res.json();
+
+                if (res.ok && data.ok) {
+                    lockBox.style.display = 'none';
+                    contentBox.style.display = 'block';
+                } else {
+                    error.style.display = 'block';
+                }
+            } catch (e) {
+                error.textContent = '⚠️ Erreur de connexion, réessayez.';
                 error.style.display = 'block';
+            } finally {
+                btn.textContent = 'Déverrouiller';
+                btn.disabled = false;
             }
         }
 
-        function openTab(evt, tabName) {
+        function openTab(evt, tabName, skipPush) {
             var i, tabcontent, navitems;
             
             tabcontent = document.getElementsByClassName("tab-content");
@@ -347,7 +427,20 @@
             }
 
             document.querySelector('.main-view').scrollTop = 0;
+
+            if (!skipPush) {
+                try { history.pushState({ tabName }, '', '#' + tabName); }
+                catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
+            }
         }
+
+        window.addEventListener('popstate', function(event) {
+            var tabName = (event.state && event.state.tabName) || 'home';
+            openTab(null, tabName, true);
+        });
+
+        try { history.replaceState({ tabName: 'home' }, '', '#home'); }
+        catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
     </script>
 </body>
 </html>
