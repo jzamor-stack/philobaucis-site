@@ -31,10 +31,16 @@
             color: var(--text-dark); 
             margin: 0; 
             display: flex; 
-            height: 100vh; 
-            overflow: hidden; 
+            flex-direction: column;
+            min-height: 100vh;
         }
         
+        .body-shell {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+
         /* SIDEBAR (Menu latéral beige) */
         .sidebar { 
             width: 300px; 
@@ -92,17 +98,18 @@
         /* MAIN VIEW (Zone de contenu) */
         .main-view { 
             flex: 1; 
-            padding: 40px 60px; 
             overflow-y: auto; 
             background: radial-gradient(circle at top right, rgba(196, 25, 25, 0.03), transparent); 
             scroll-behavior: smooth; 
         }
+        .content-wrapper { padding: 40px 60px; }
         .tab-content { display: none; max-width: 950px; animation: fadeIn 0.4s ease; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; color: var(--text-dark); }
         h2 { color: #c41919; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; font-weight: 800; }
+        h3 { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); }
         p { font-size: 1.1rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 20px; }
 
         /* EFFET HALO SURVOL (Standard) */
@@ -187,6 +194,51 @@
             line-height: 1.6;
         }
 
+        /* SÉLECTEUR TAILLE D'ENTREPRISE */
+        .size-selector-box {
+            margin-top: 30px;
+            padding: 25px 30px;
+            background: var(--card);
+            border-radius: 16px;
+            border: 2px solid rgba(196, 25, 25, 0.2);
+        }
+        .size-selector-box label {
+            display: block;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+        .size-selector-box select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: var(--bg-main);
+            cursor: pointer;
+        }
+        .size-selector-box .size-hint {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* CAGNOTTE */
+        .cagnotte-box {
+            margin-top: 30px;
+            padding: 30px 35px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(196,25,25,0.06) 0%, rgba(107,30,95,0.06) 100%);
+            border: 1px solid rgba(196, 25, 25, 0.2);
+        }
+        .cagnotte-box h3 { margin-top: 0; color: #c41919; }
+        .cagnotte-box p { margin-bottom: 0; }
+
         /* TABLEAU PALIERS */
         .example-container { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-top: 30px; }
         .example-header { 
@@ -249,12 +301,29 @@
         }
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(196, 25, 25, 0.25); color: white; }
 
+        /* FOOTER */
+        .site-footer {
+            background: var(--bg-sidebar);
+            border-top: 1px solid var(--border);
+            padding: 25px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+        .footer-links a:hover { color: #c41919; }
+        .footer-separator { color: var(--border); }
+        .copyright { font-size: 0.8rem; color: rgba(0,0,0,0.35); margin: 0; }
+
         /* HEADER MOBILE */
         .mobile-header { display: none; }
         .overlay { display: none; }
 
         @media (max-width: 1100px) { 
-            body { flex-direction: column; overflow: auto; } 
+            .body-shell { flex-direction: column; overflow: auto; } 
             
             .mobile-header {
                 display: flex; 
@@ -293,7 +362,8 @@
             }
             .overlay.open { opacity: 1; visibility: visible; }
 
-            .main-view { padding: 30px 20px; overflow-y: visible; } 
+            .content-wrapper { padding: 30px 20px; overflow-y: visible; } 
+            .site-footer { padding: 25px 20px; }
             .example-header, .example-row { grid-template-columns: 60px 1fr 120px; }
             .ranking-container { grid-template-columns: 1fr; }
         }
@@ -321,6 +391,7 @@
         <button class="burger-btn" onclick="toggleMenu()">☰</button>
     </div>
 
+    <div class="body-shell">
     <aside class="sidebar">
         <div class="logo">PHILO<span>BAUCIS</span></div>
         <div class="nav-group">
@@ -341,11 +412,17 @@
     </aside>
 
     <main class="main-view">
+        <div class="content-wrapper">
         
         <div id="projet" class="tab-content active">
             <h2>Initiative Nationale</h2>
             <h1>Rompre le silence sur <br><span style="color: #c41919;">la précarité en France.</span></h1>
             <p>Nous offrons à 15 associations comme la vôtre une place centrale dans le débat public pour la présidentielle 2027. L'objectif : une visibilité massive et des ressources durables.</p>
+
+            <div class="cagnotte-box">
+                <h3>🪙 Une cagnotte ouverte à tous pendant la quinzaine</h3>
+                <p>Pendant toute la durée de l'événement (janvier 2027), une cagnotte solidaire sera ouverte pour permettre aux <strong>citoyens comme aux entreprises</strong> de contribuer directement, quel que soit le montant. <strong>95% des dons de particuliers sont reversés aux associations partenaires</strong> (90% pour un don d'entreprise), le reste étant dédié à la gestion et à la structuration du dispositif par Philobaucis.</p>
+            </div>
             
             <div class="target-container">
                 <div class="premium-feature-card">
@@ -425,7 +502,18 @@
             <p>Notre but est clair : atteindre une moyenne de 50 millions d'euros par association partenaire sur l'année. Cumulé sur les 15 associations, ce dispositif vise à dépasser le record historique absolu de levée de fonds associatif établi par le Téléthon en 2003 (plus de 95 millions d'euros).</p>
             <p><strong>Si nous ambitionnons de battre ce record, ce n'est pas pour la gloire d'établir un nouveau chiffre.</strong> L'aggravation silencieuse de la situation des personnes précaires en France nécessite aujourd'hui des moyens d'une ampleur inédite. Seule une mobilisation historique permettra d'apporter des solutions à la hauteur de cette urgence absolue.</p>
             
-            <p style="font-size: 0.95rem; margin-top: 2rem;">Pour inciter les entreprises et grandes écoles à s'engager massivement, nous avons défini 4 paliers d'engagement officiels :</p>
+            <p style="font-size: 0.95rem; margin-top: 2rem;">Pour inciter les entreprises et grandes écoles à s'engager massivement, nous avons défini 4 paliers d'engagement officiels. <strong>Toutes les tailles d'entreprise sont invitées à participer</strong> : le montant de chaque palier est calculé proportionnellement à la taille de la structure, pour qu'une petite entreprise comme un grand groupe puissent viser la même reconnaissance à un niveau d'engagement adapté à leurs moyens réels.</p>
+
+            <div class="size-selector-box">
+                <label for="companySizeAsso">Taille de l'entreprise concernée</label>
+                <select id="companySizeAsso" onchange="updateMedalAmountsAsso()">
+                    <option value="GE" selected>Grande Entreprise (5000+ salariés) — 100%</option>
+                    <option value="ETI">ETI (250 à 4999 salariés) — 40%</option>
+                    <option value="PME">PME (moins de 250 salariés) — 18%</option>
+                    <option value="TPE">TPE (moins de 10 salariés) — 1%</option>
+                </select>
+                <p class="size-hint">Choix indicatif et auto-déclaratif : une structure très rentable pour sa taille peut aussi choisir une catégorie supérieure à son effectif réel.</p>
+            </div>
             
             <div class="example-container">
                 <div class="example-header">
@@ -434,25 +522,30 @@
                     <div>Objectif Palier</div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/4y3qP2DX/philobaucis-logo-(10).png" alt="Diamant">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" alt="Diamant">
                     <div class="medal-name">Médaille Diamant</div>
-                    <div class="commission-val">2 080 000 €</div>
+                    <div class="commission-val" data-medal="diamant">2 080 000 €</div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png" alt="Or">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png" alt="Or">
                     <div class="medal-name">Médaille Or</div>
-                    <div class="commission-val">1 040 000 €</div>
+                    <div class="commission-val" data-medal="or">1 040 000 €</div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png" alt="Argent">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" alt="Argent">
                     <div class="medal-name">Médaille Argent</div>
-                    <div class="commission-val">104 000 €</div>
+                    <div class="commission-val" data-medal="argent">104 000 €</div>
                 </div>
                 <div class="example-row glow-card">
-                    <img src="https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png" alt="Bronze">
+                    <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" alt="Bronze">
                     <div class="medal-name">Médaille Bronze</div>
-                    <div class="commission-val">24 000 €</div>
+                    <div class="commission-val" data-medal="bronze">24 000 €</div>
                 </div>
+            </div>
+
+            <div class="cagnotte-box">
+                <h3>🪙 Une cagnotte complémentaire, cumulable avec les médailles</h3>
+                <p>Au-delà des paliers d'entreprise, une cagnotte solidaire ouverte à tous (citoyens et entreprises) sera mise en ligne pendant toute la durée de janvier 2027. <strong>Pour une entreprise, les dons versés via la cagnotte comptent aussi pour l'obtention des médailles, de façon cumulable avec les montants versés en Mécénat d'action.</strong> 95% des dons de particuliers vous reviennent directement, 90% pour un don d'entreprise.</p>
             </div>
 
             <h3 style="margin-top: 50px; margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark);">Palmarès par taille d'entreprise</h3>
@@ -586,47 +679,38 @@
             <h1>L'importance de <br><span style="color: #c41919;">rejoindre le projet tôt.</span></h1>
             
             <div class="alert-box">
-                <strong>Attention :</strong> Des associations peuvent être validées et intégrées au dispositif <strong>bien avant le 25 octobre</strong> si un accord mutuel est trouvé. Plus notre accord est acté tôt, plus nous maximisons le temps disponible pour contacter et sécuriser des entreprises partenaires en votre faveur.
+                <strong>Attention :</strong> Des associations peuvent être validées et intégrées au dispositif <strong>bien avant le 7 décembre</strong> si un accord mutuel est trouvé. Plus notre accord est acté tôt, plus nous maximisons le temps disponible pour contacter et sécuriser des entreprises partenaires en votre faveur.
             </div>
 
             <div class="step-item glow-card" style="border-left: 4px solid #c41919;">
                 <div class="step-num" style="background: var(--text-dark);">01</div>
                 <div class="step-text">
-                    <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">À partir du 26 Mai 2026</h3>
-                    <h3 style="margin-top: 0;">Lancement des prospections Associations & Entreprises</h3>
-                    <p>Le contact officiel avec les associations et les entreprises débute à cette date. Être contacté et sélectionné tôt est un avantage stratégique majeur pour sécuriser des financements.</p>
+                    <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Actuellement</h3>
+                    <h3 style="margin-top: 0;">Prospection en cours auprès des Associations & Entreprises</h3>
+                    <p>Le contact avec les associations et les entreprises est actuellement en cours. Être contacté et sélectionné tôt est un avantage stratégique majeur pour sécuriser des financements.</p>
                 </div>
             </div>
             
             <div class="step-item glow-card">
                 <div class="step-num" style="background: var(--text-dark);">02</div>
                 <div class="step-text">
-                    <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">15 Octobre 2026</h3>
-                    <h3 style="margin-top: 0;">Clôture définitive des candidatures</h3>
-                    <p>Date limite absolue pour formaliser la participation. Les accords formels ne seront plus acceptés après cette échéance.</p>
+                    <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">7 Décembre 2026</h3>
+                    <h3 style="margin-top: 0;">Sélection & annonce des associations partenaires</h3>
+                    <p>Date de clôture des candidatures et de dévoilement de la liste définitive des 15 associations qui composeront cette mobilisation nationale. Comme indiqué ci-dessus, une association dont le projet correspond parfaitement à notre démarche peut être validée avant cette échéance.</p>
                 </div>
             </div>
             
             <div class="step-item glow-card">
-                <div class="step-num" style="background: var(--text-dark);">03</div>
-                <div class="step-text">
-                    <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">25 Octobre 2026</h3>
-                    <h3 style="margin-top: 0;">Annonce des associations partenaires</h3>
-                    <p>Dévoilement de la liste définitive des 15 associations qui composeront cette mobilisation nationale.</p>
-                </div>
-            </div>
-            
-            <div class="step-item glow-card">
-                <div class="step-num" style="background: var(--grad);">04</div>
+                <div class="step-num" style="background: var(--grad);">03</div>
                 <div class="step-text">
                     <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Janvier 2027</h3>
                     <h3 style="margin-top: 0;">L'Événement Fondateur</h3>
-                    <p>Lancement de la grande quinzaine nationale avec nos relais médiatiques.</p>
+                    <p>Lancement de la grande quinzaine nationale avec nos relais médiatiques. Une cagnotte solidaire ouverte aux citoyens et aux entreprises sera mise en ligne pour toute la durée de l'événement.</p>
                 </div>
             </div>
             
             <div class="step-item glow-card">
-                <div class="step-num" style="background: var(--text-dark);">05</div>
+                <div class="step-num" style="background: var(--text-dark);">04</div>
                 <div class="step-text">
                     <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">À partir du 2 Janvier 2027</h3>
                     <h3 style="margin-top: 0;">Début des actions de terrain</h3>
@@ -635,7 +719,7 @@
             </div>
             
             <div class="step-item glow-card">
-                <div class="step-num" style="background: var(--text-dark);">06</div>
+                <div class="step-num" style="background: var(--text-dark);">05</div>
                 <div class="step-text">
                     <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Fin Novembre 2027</h3>
                     <h3 style="margin-top: 0;">La Pérennisation</h3>
@@ -644,7 +728,19 @@
             </div>
         </div>
 
+        </div> <!-- /content-wrapper -->
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="/legal/">Mentions Légales</a>
+                <span class="footer-separator">|</span>
+                <a href="/legal/">Conditions Générales de Vente (CGV)</a>
+            </div>
+            <p class="copyright">© 2026 Philobaucis. Tous droits réservés.</p>
+        </footer>
+
     </main>
+    </div>
 
     <script>
         function toggleMenu() {
@@ -652,7 +748,7 @@
             document.querySelector('.overlay').classList.toggle('open');
         }
 
-        function openTab(evt, tabName) {
+        function openTab(evt, tabName, skipPush) {
             var i, tabcontent, navitems;
             
             tabcontent = document.getElementsByClassName("tab-content");
@@ -665,18 +761,71 @@
                 navitems[i].classList.remove("active"); 
             }
             
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+            var targetTab = document.getElementById(tabName);
+            if (targetTab) targetTab.classList.add("active");
+
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.classList.add("active");
+            } else {
+                for (i = 0; i < navitems.length; i++) {
+                    var onclickAttr = navitems[i].getAttribute('onclick') || '';
+                    if (onclickAttr.indexOf("'" + tabName + "'") !== -1) {
+                        navitems[i].classList.add("active");
+                    }
+                }
+            }
             
             // On remonte en haut de la page
             window.scrollTo(0, 0);
             document.querySelector('.main-view').scrollTop = 0;
 
-            // Si on est sur mobile, on ferme le menu après avoir cliqué
-            if(window.innerWidth <= 1100) {
+            // Si on est sur mobile ET que le menu est ouvert, on le ferme après avoir cliqué
+            if (window.innerWidth <= 1100 && document.querySelector('.sidebar').classList.contains('open')) {
                 toggleMenu();
             }
+
+            if (!skipPush) {
+                try { history.pushState({ tabName }, '', '#' + tabName); }
+                catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
+            }
         }
+
+        window.addEventListener('popstate', function(event) {
+            var tabName = (event.state && event.state.tabName) || 'projet';
+            openTab(null, tabName, true);
+        });
+
+        try { history.replaceState({ tabName: 'projet' }, '', '#projet'); }
+        catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
+
+        /* SÉLECTEUR TAILLE D'ENTREPRISE — recalcul des montants des médailles */
+        const medalBaseAmountsAsso = {
+            diamant: 2080000,
+            or: 1040000,
+            argent: 104000,
+            bronze: 24000
+        };
+        const sizeCoefficientsAsso = {
+            GE: 1,
+            ETI: 0.4,
+            PME: 0.18,
+            TPE: 0.01
+        };
+        function formatEurosAsso(n) {
+            return Math.round(n).toLocaleString('fr-FR') + ' €';
+        }
+        function updateMedalAmountsAsso() {
+            const select = document.getElementById('companySizeAsso');
+            if (!select) return;
+            const coef = sizeCoefficientsAsso[select.value];
+            Object.keys(medalBaseAmountsAsso).forEach(medal => {
+                const el = document.querySelector('[data-medal="' + medal + '"]');
+                if (el) {
+                    el.textContent = formatEurosAsso(medalBaseAmountsAsso[medal] * coef);
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', updateMedalAmountsAsso);
     </script>
 </body>
 </html>
