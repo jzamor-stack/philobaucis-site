@@ -466,7 +466,8 @@
 
     function navigateTo(viewId) {
       showView(viewId);
-      history.pushState({ viewId }, '', '#' + viewId);
+      try { history.pushState({ viewId }, '', '#' + viewId); }
+      catch (e) { /* Certains environnements d'aperçu (iframe sandboxée) interdisent la modification de l'URL — la navigation interne continue de fonctionner sans mise à jour de l'historique */ }
     }
 
     window.addEventListener('popstate', (event) => {
@@ -491,7 +492,8 @@
     });
 
     // Initialise l'historique sur l'écran d'accueil au chargement de la page
-    history.replaceState({ viewId: 'welcome' }, '', '#welcome');
+    try { history.replaceState({ viewId: 'welcome' }, '', '#welcome'); }
+    catch (e) { /* Environnement d'aperçu sandboxé (ex: srcdoc) — sans effet sur le fonctionnement réel du site une fois hébergé */ }
 
     function selectCompanySize(size) { companySize = size; navigateTo('booking-type-selection'); }
 
