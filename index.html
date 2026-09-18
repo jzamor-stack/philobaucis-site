@@ -1148,7 +1148,7 @@ Engagement politique
 <h4>Cagnotte</h4>
 <div class="info-steps">
 <div class="mini-step"><span class="mini-emoji">🙋</span><div><strong>Pour les citoyens</strong><span>Chacun peut contribuer librement dès le premier jour de la quinzaine</span></div></div>
-<div class="mini-step"><span class="mini-emoji">🏢</span><div><strong>Pour les entreprises aussi</strong><span>Une entreprise qui souhaite aider sans être en capacité de s'engager dans un Mécénat d'action complet peut simplement donner via la cagnotte</span></div></div>
+<div class="mini-step"><span class="mini-emoji">🏢</span><div><strong>Pour les entreprises aussi</strong><span>Les dons versés via la cagnotte comptent aussi pour l'obtention des médailles, de façon cumulable avec les montants versés en Mécénat d'action</span></div></div>
 <div class="mini-step"><span class="mini-emoji">💶</span><div><strong>Répartition</strong><span>95% des dons vont directement aux associations, 5% financent la structuration du dispositif par Philobaucis</span></div></div>
 </div>
 </div>
@@ -1569,7 +1569,7 @@ Diamant
 
 <div class="cagnotte-box">
 <h3>🪙 Une cagnotte accessible à toute entreprise</h3>
-<p style="margin-bottom: 0; color: #333;">Au-delà du système de médailles, une cagnotte solidaire sera ouverte à toutes les entreprises pendant la quinzaine de janvier 2027, sans engagement long terme requis. <strong>95% des dons vont directement aux associations</strong>, 5% financent la gestion du dispositif par Philobaucis.</p>
+<p style="margin-bottom: 0; color: #333;">Au-delà du système de médailles, une cagnotte solidaire sera ouverte à toutes les entreprises pendant la quinzaine de janvier 2027. <strong>Les dons versés via la cagnotte comptent pour l'obtention des médailles et sont cumulables avec les montants versés en Mécénat d'action.</strong> 95% des dons vont directement aux associations, 5% financent la gestion du dispositif par Philobaucis.</p>
 </div>
 
 <section class="podium-section">
@@ -1706,7 +1706,7 @@ Acteur Majeur
 const pageOrder = ['accueil', 'comment-ca-marche', 'qui-sommes-nous', 'programme', 'participer', 'entreprise'];
 let currentPageIndex = 0;
 
-function showPage(pageId) {
+function showPage(pageId, skipPush) {
 const pages = document.querySelectorAll('.page');
 pages.forEach(page => page.classList.remove('active'));
 
@@ -1716,7 +1716,21 @@ selectedPage.classList.add('active');
 }
 
 currentPageIndex = pageOrder.indexOf(pageId);
+window.scrollTo(0, 0);
+
+if (!skipPush) {
+try { history.pushState({ pageId }, '', '#' + pageId); }
+catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
 }
+}
+
+window.addEventListener('popstate', (event) => {
+const pageId = (event.state && event.state.pageId) || 'accueil';
+showPage(pageId, true);
+});
+
+try { history.replaceState({ pageId: 'accueil' }, '', '#accueil'); }
+catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
 
 let touchStartX = 0;
 let touchEndX = 0;
