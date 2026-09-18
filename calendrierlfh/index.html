@@ -137,7 +137,7 @@
    <div id="booking-type-selection" class="booking-type-selection" style="display: none;">
     <div class="header-with-city">
      <div><h1>Type de réservation</h1><p class="subtitle">Choisissez le type de créneau que vous souhaitez réserver</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToWelcome()">← Retour</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button></div>
     </div>
 
     <div class="medal-thresholds-banner">
@@ -178,7 +178,7 @@
    <div id="city-selection" class="city-selection" style="display: none;">
     <h1>Sélectionnez votre ville</h1>
     <p class="subtitle">Choisissez la ville pour accéder au calendrier d'inscription</p>
-    <div class="nav-buttons" style="justify-content: flex-end; margin-bottom: 24px;"><button class="btn-back" onclick="backToBookingType()">← Retour</button></div>
+    <div class="nav-buttons" style="justify-content: flex-end; margin-bottom: 24px;"><button class="btn-back" onclick="history.back()">← Retour</button></div>
     <div class="cities-grid">
      <div class="city-card" onclick="selectCity('Paris')"><div class="city-name">Paris</div></div>
      <div class="city-card" onclick="selectCity('Nantes')"><div class="city-name">Nantes</div></div>
@@ -193,7 +193,7 @@
    <div id="regular-patterns-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
      <div><h1>Sélection des créneaux réguliers</h1><p class="subtitle">Choisissez un ou plusieurs jours récurrents du mois</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-regular"></strong> - Créneau régulier</span></div>
     
@@ -216,7 +216,7 @@
    <div id="time-choice-view" class="booking-type-selection" style="display: none;">
     <div class="header-with-city">
      <div><h1>Type d'horaires</h1><p class="subtitle">Comment souhaitez-vous gérer vos horaires pour ces créneaux ?</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToRegularPatterns()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Patterns sélectionnés : <strong id="patterns-summary"></strong></span></div>
     <div class="booking-types-grid">
@@ -236,7 +236,7 @@
    <div id="pattern-times-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
      <div><h1>Sélection des horaires</h1><p class="subtitle">Choisissez un créneau horaire pour chaque jour sélectionné</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToTimeChoice()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-pattern-times"></strong> - Créneau régulier</span></div>
     <div id="pattern-times-container"></div>
@@ -246,7 +246,7 @@
    <div id="unit-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
      <div><h1 id="calendar-title">Calendrier d'inscription</h1><p class="subtitle" id="instructions-text">Sélectionnez une date et un créneau</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-unit"></strong> - Créneau à l'unité</span></div>
     <div class="calendar-grid" id="calendar-grid"></div>
@@ -255,7 +255,7 @@
    <div id="yearly-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
      <div><h1>Créneaux à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine récurrent (du 2 janvier au 31 décembre 2027)</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-yearly"></strong> - Créneau à l'année</span></div>
     <div class="weekdays-grid" id="weekdays-grid">
@@ -272,7 +272,7 @@
    <div id="national-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
      <div><h1>Couverture nationale à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine pour toutes les villes (du 2 janvier au 31 décembre 2027)</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button></div>
     </div>
     <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong></span></div>
     <div class="weekdays-grid" id="national-weekdays-grid">
@@ -289,7 +289,7 @@
    <div id="unit-slots-view" class="time-slots-view">
     <div class="header-with-city">
      <div><h1>Créneaux disponibles</h1><p class="subtitle" id="selected-date-info"></p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToUnitCalendar()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-unit-slots"></strong> - Créneau à l'unité</span></div>
     <div class="slots-grid" id="slots-grid"></div>
@@ -298,7 +298,7 @@
    <div id="regular-slots-view" class="time-slots-view">
     <div class="header-with-city">
      <div><h1>Créneaux disponibles</h1><p class="subtitle" id="selected-patterns-info"></p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToRegularPatterns()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-regular-slots"></strong> - Créneau régulier (<span id="patterns-count-display">0</span> maraudes)</span></div>
     <div class="slots-grid" id="regular-slots-grid"></div>
@@ -307,7 +307,7 @@
    <div id="pattern-individual-slots-view" class="time-slots-view">
     <div class="header-with-city">
      <div><h1>Confirmez vos inscriptions</h1><p class="subtitle">Vérifiez vos créneaux</p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToPatternTimes()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-pattern-individual"></strong> - Créneau régulier</span></div>
     <div id="pattern-individual-container"></div>
@@ -316,7 +316,7 @@
    <div id="yearly-slots-view" class="time-slots-view">
     <div class="header-with-city">
      <div><h1>Créneaux disponibles</h1><p class="subtitle" id="selected-weekday-info"></p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToYearlyCalendar()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-yearly-slots"></strong> - Créneau à l'année</span></div>
     <div class="slots-grid" id="yearly-slots-grid"></div>
@@ -325,7 +325,7 @@
    <div id="national-slots-view" class="time-slots-view">
     <div class="header-with-city">
      <div><h1>Créneaux nationaux disponibles</h1><p class="subtitle" id="selected-national-weekday-info"></p></div>
-     <div class="nav-buttons"><button class="btn-back" onclick="backToNationalCalendar()">← Retour</button></div>
+     <div class="nav-buttons"><button class="btn-back" onclick="history.back()">← Retour</button></div>
     </div>
     <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong></span></div>
     <div class="slots-grid" id="national-slots-grid"></div>
@@ -378,6 +378,8 @@
     let selectedDate = null; let selectedWeekday = null; let selectedSlot = null; let selectedCity = null;
     let bookingType = null; let companySize = null; let isLoading = false;
     let selectedPatterns = []; let patternTimeSlots = {}; let multiCitySelections = [];
+    let regularSlotsMode = 'single'; // 'single' ou 'multi' — détermine quel rendu utiliser pour regular-slots-view
+    let currentView = 'welcome';
 
     function formatEuros(n) { return Math.round(n).toLocaleString('fr-FR') + ' €'; }
 
@@ -430,12 +432,68 @@
       return reached;
     }
 
-    function selectCompanySize(size) { companySize = size; updatePricing(); renderMedalThresholds(); document.getElementById('welcome-page').style.display = 'none'; document.getElementById('booking-type-selection').style.display = 'block'; }
-    function backToWelcome() {
-      companySize = null; selectedCity = null; selectedDate = null; selectedWeekday = null; selectedSlot = null; bookingType = null; selectedPatterns = [];
-      document.querySelectorAll('.calendar-view, .booking-type-selection, .time-slots-view').forEach(el => { el.style.display = 'none'; el.classList.remove('active'); });
-      document.getElementById('city-selection').style.display = 'none'; document.getElementById('welcome-page').style.display = 'block';
+    // --- MOTEUR DE NAVIGATION (relié à l'historique du navigateur) ---
+    // Chaque écran de l'app est enregistré comme une étape d'historique : le bouton "précédent"
+    // du navigateur revient donc à l'écran précédent au lieu de quitter le site.
+    const ALL_VIEW_IDS = ['welcome-page', 'booking-type-selection', 'city-selection', 'regular-patterns-view', 'time-choice-view', 'pattern-times-view', 'unit-calendar-view', 'yearly-calendar-view', 'national-calendar-view'];
+    const ALL_SLOT_VIEW_IDS = ['unit-slots-view', 'regular-slots-view', 'pattern-individual-slots-view', 'yearly-slots-view', 'national-slots-view'];
+
+    function hideAllViews() {
+      ALL_VIEW_IDS.forEach(id => { document.getElementById(id).style.display = 'none'; });
+      ALL_SLOT_VIEW_IDS.forEach(id => { document.getElementById(id).classList.remove('active'); });
     }
+
+    function showView(viewId) {
+      hideAllViews();
+      switch (viewId) {
+        case 'welcome': document.getElementById('welcome-page').style.display = 'block'; break;
+        case 'booking-type-selection': document.getElementById('booking-type-selection').style.display = 'block'; updatePricing(); renderMedalThresholds(); break;
+        case 'city-selection': document.getElementById('city-selection').style.display = 'block'; break;
+        case 'regular-patterns-view': document.getElementById('regular-patterns-view').style.display = 'block'; renderPatterns(); break;
+        case 'time-choice-view': document.getElementById('time-choice-view').style.display = 'block'; break;
+        case 'pattern-times-view': document.getElementById('pattern-times-view').style.display = 'block'; renderPatternTimeSelectionMultiCity(); break;
+        case 'unit-calendar-view': document.getElementById('unit-calendar-view').style.display = 'block'; renderCalendar(); break;
+        case 'yearly-calendar-view': document.getElementById('yearly-calendar-view').style.display = 'block'; renderWeekdays(); break;
+        case 'national-calendar-view': document.getElementById('national-calendar-view').style.display = 'block'; renderNationalWeekdays(); break;
+        case 'unit-slots-view': document.getElementById('unit-slots-view').classList.add('active'); renderTimeSlots(); break;
+        case 'regular-slots-view': document.getElementById('regular-slots-view').classList.add('active'); if (regularSlotsMode === 'multi') renderRegularTimeSlotsMultiCity(); else renderRegularTimeSlots(); break;
+        case 'yearly-slots-view': document.getElementById('yearly-slots-view').classList.add('active'); renderYearlyTimeSlots(); break;
+        case 'national-slots-view': document.getElementById('national-slots-view').classList.add('active'); renderNationalTimeSlots(); break;
+        default: document.getElementById('welcome-page').style.display = 'block'; viewId = 'welcome';
+      }
+      currentView = viewId;
+    }
+
+    function navigateTo(viewId) {
+      showView(viewId);
+      history.pushState({ viewId }, '', '#' + viewId);
+    }
+
+    window.addEventListener('popstate', (event) => {
+      document.getElementById('registration-modal').classList.remove('active');
+      const targetView = (event.state && event.state.viewId) || 'welcome';
+      const previousView = currentView;
+
+      if (targetView === 'welcome') {
+        companySize = null; selectedCity = null; selectedDate = null; selectedWeekday = null; selectedSlot = null; bookingType = null; selectedPatterns = [];
+      }
+      if (targetView === 'booking-type-selection') {
+        selectedDate = null; selectedWeekday = null; selectedSlot = null; selectedCity = null; selectedPatterns = [];
+      }
+      if (targetView === 'regular-patterns-view' && ['time-choice-view', 'pattern-times-view', 'regular-slots-view'].includes(previousView) && multiCitySelections.length > 0) {
+        multiCitySelections = []; selectedPatterns = []; patternTimeSlots = {};
+      }
+      if (['unit-slots-view', 'yearly-slots-view', 'national-slots-view', 'regular-slots-view'].includes(previousView) && !['unit-slots-view', 'yearly-slots-view', 'national-slots-view', 'regular-slots-view'].includes(targetView)) {
+        selectedSlot = null;
+      }
+
+      showView(targetView);
+    });
+
+    // Initialise l'historique sur l'écran d'accueil au chargement de la page
+    history.replaceState({ viewId: 'welcome' }, '', '#welcome');
+
+    function selectCompanySize(size) { companySize = size; navigateTo('booking-type-selection'); }
 
     function updatePricing() {
       const unitPrice = '900 €'; const regularPrice = '800 €';
@@ -451,32 +509,21 @@
 
     function selectCity(city) {
       selectedCity = city; ['current-city-unit', 'current-city-yearly', 'current-city-regular'].forEach(id => document.getElementById(id).textContent = city);
-      document.getElementById('city-selection').style.display = 'none';
-      if (bookingType === 'unit') { document.getElementById('unit-calendar-view').style.display = 'block'; renderCalendar(); }
-      else if (bookingType === 'yearly') { document.getElementById('yearly-calendar-view').style.display = 'block'; renderWeekdays(); }
-      else if (bookingType === 'regular') { document.getElementById('regular-patterns-view').style.display = 'block'; renderPatterns(); }
+      if (bookingType === 'unit') navigateTo('unit-calendar-view');
+      else if (bookingType === 'yearly') navigateTo('yearly-calendar-view');
+      else if (bookingType === 'regular') navigateTo('regular-patterns-view');
     }
 
     function selectBookingType(type) {
-      bookingType = type; document.getElementById('booking-type-selection').style.display = 'none';
-      if (type === 'national') { selectedCity = 'National'; document.getElementById('national-calendar-view').style.display = 'block'; renderNationalWeekdays(); }
-      else { document.getElementById('city-selection').style.display = 'block'; }
+      bookingType = type;
+      if (type === 'national') { selectedCity = 'National'; navigateTo('national-calendar-view'); }
+      else { navigateTo('city-selection'); }
     }
 
-    function backToBookingType() {
-      document.querySelectorAll('.calendar-view, .time-slots-view').forEach(el => { el.style.display = 'none'; el.classList.remove('active'); });
-      document.getElementById('city-selection').style.display = 'none'; document.getElementById('booking-type-selection').style.display = 'block';
-      selectedDate = null; selectedWeekday = null; selectedSlot = null; selectedCity = null; selectedPatterns = [];
+    function changeCity() {
+      selectedCity = null; selectedDate = null; selectedWeekday = null; selectedSlot = null; selectedPatterns = [];
+      navigateTo('city-selection');
     }
-
-    function backToUnitCalendar() { document.getElementById('unit-slots-view').classList.remove('active'); document.getElementById('unit-calendar-view').style.display = 'block'; selectedSlot = null; }
-    function backToYearlyCalendar() { document.getElementById('yearly-slots-view').classList.remove('active'); document.getElementById('yearly-calendar-view').style.display = 'block'; selectedSlot = null; }
-    function backToNationalCalendar() { document.getElementById('national-slots-view').classList.remove('active'); document.getElementById('national-calendar-view').style.display = 'block'; selectedSlot = null; }
-    function backToRegularPatterns() {
-      document.getElementById('regular-slots-view').classList.remove('active'); document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('pattern-times-view').style.display = 'none'; document.getElementById('regular-patterns-view').style.display = 'block'; selectedSlot = null;
-      if (multiCitySelections.length > 0) { multiCitySelections = []; selectedPatterns = []; patternTimeSlots = {}; updateTotalCount(); }
-    }
-    function backToTimeChoice() { document.getElementById('pattern-times-view').style.display = 'none'; document.getElementById('time-choice-view').style.display = 'block'; patternTimeSlots = {}; }
 
     function selectTimeChoice(choice) {
       if (choice === 'same') {
@@ -484,9 +531,9 @@
         document.getElementById('selected-patterns-info').textContent = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city} - ${p.label}`)).join(', ');
         document.getElementById('current-city-regular-slots').textContent = 'Multi-villes';
         document.getElementById('patterns-count-display').textContent = totalCount;
-        document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('regular-slots-view').classList.add('active'); renderRegularTimeSlotsMultiCity();
+        regularSlotsMode = 'multi'; navigateTo('regular-slots-view');
       } else {
-        document.getElementById('time-choice-view').style.display = 'none'; document.getElementById('pattern-times-view').style.display = 'block'; document.getElementById('current-city-pattern-times').textContent = 'Multi-villes'; renderPatternTimeSelectionMultiCity();
+        document.getElementById('current-city-pattern-times').textContent = 'Multi-villes'; navigateTo('pattern-times-view');
       }
     }
 
@@ -589,7 +636,7 @@
 
     function addAnotherCity() {
       if (selectedPatterns.length === 0) return; multiCitySelections.push({ city: selectedCity, patterns: [...selectedPatterns] });
-      selectedPatterns = []; selectedCity = null; document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('city-selection').style.display = 'block';
+      selectedPatterns = []; selectedCity = null; navigateTo('city-selection');
     }
 
     function confirmPatterns() {
@@ -598,10 +645,10 @@
         document.getElementById('selected-patterns-info').textContent = selectedPatterns.map(p => p.label).join(', ');
         document.getElementById('current-city-regular-slots').textContent = selectedCity;
         document.getElementById('patterns-count-display').textContent = selectedPatterns.reduce((sum, p) => sum + p.count, 0);
-        document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('regular-slots-view').classList.add('active'); renderRegularTimeSlots();
+        regularSlotsMode = 'single'; navigateTo('regular-slots-view');
       } else {
-        document.getElementById('regular-patterns-view').style.display = 'none'; document.getElementById('time-choice-view').style.display = 'block';
         document.getElementById('patterns-summary').textContent = multiCitySelections.flatMap(sel => sel.patterns.map(p => `${sel.city} - ${p.label}`)).join(', ');
+        navigateTo('time-choice-view');
       }
     }
 
@@ -617,7 +664,7 @@
         card.innerHTML = `<div class="day">${display.day} ${display.month}</div><div class="date">${display.date}</div>`;
         card.onclick = () => {
           selectedDate = dateStr; document.getElementById('selected-date-info').textContent = `${display.day} ${display.date} ${display.month} ${date.getFullYear()}`;
-          document.getElementById('current-city-unit-slots').textContent = selectedCity; document.getElementById('unit-calendar-view').style.display = 'none'; document.getElementById('unit-slots-view').classList.add('active'); renderTimeSlots();
+          document.getElementById('current-city-unit-slots').textContent = selectedCity; navigateTo('unit-slots-view');
         }; grid.appendChild(card);
       });
     }
@@ -628,7 +675,7 @@
         const card = document.createElement('div'); card.className = 'weekday-card'; card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
           selectedWeekday = weekday; document.getElementById('selected-weekday-info').textContent = `Tous les ${weekday} (du 2 janvier au 31 décembre 2027)`;
-          document.getElementById('current-city-yearly-slots').textContent = selectedCity; document.getElementById('yearly-calendar-view').style.display = 'none'; document.getElementById('yearly-slots-view').classList.add('active'); renderYearlyTimeSlots();
+          document.getElementById('current-city-yearly-slots').textContent = selectedCity; navigateTo('yearly-slots-view');
         }; grid.appendChild(card);
       });
     }
@@ -639,7 +686,7 @@
         const card = document.createElement('div'); card.className = 'weekday-card'; card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
           selectedWeekday = weekday; document.getElementById('selected-national-weekday-info').textContent = `Tous les ${weekday} dans toutes les villes (du 2 janvier au 31 décembre 2027)`;
-          document.getElementById('national-calendar-view').style.display = 'none'; document.getElementById('national-slots-view').classList.add('active'); renderNationalTimeSlots();
+          navigateTo('national-slots-view');
         }; grid.appendChild(card);
       });
     }
@@ -712,7 +759,8 @@
         if (response.ok) {
           closeModal();
           alert("Votre demande a bien été envoyée ! Nous vous recontacterons très vite pour finaliser votre inscription.");
-          backToWelcome();
+          companySize = null; selectedCity = null; selectedDate = null; selectedWeekday = null; selectedSlot = null; bookingType = null; selectedPatterns = []; multiCitySelections = [];
+          navigateTo('welcome');
         } else { throw new Error("Erreur lors de la communication avec le serveur."); }
       } catch (error) {
         showError("Erreur lors de l'envoi. Veuillez vérifier votre connexion ou réessayer plus tard.");
