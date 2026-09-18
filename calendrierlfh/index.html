@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendrier d'Inscription - Philobaucis</title>
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/fyMwzvYV/philobaucis-logo-(9).png">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -52,8 +53,9 @@
     .pattern-name { font-size: 16px; font-weight: 700; color: white; margin-bottom: 8px; }
     .pattern-count { font-size: 14px; color: #FFD700; font-weight: 600; }
     .total-count-banner { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--primary-color); color: white; padding: 16px; border-radius: 12px; margin-bottom: 24px; text-align: center; font-size: 18px; font-weight: 700; }
-    .total-count-content { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .total-count-content { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
     .achievement-logo { width: 60px; height: 60px; object-fit: contain; display: none; }
+    .current-tier-badge { font-size: 14px; font-weight: 700; color: #FFD700; }
     .confirm-patterns-btn { background: var(--grad); color: white; border: none; border-radius: 12px; padding: 16px 32px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; display: block; margin: 24px auto; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     .confirm-patterns-btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 15px 30px rgba(196, 25, 25, 0.4); }
     .confirm-patterns-btn:disabled { background: var(--card-bg); border: 1px solid var(--border); color: var(--muted); cursor: not-allowed; box-shadow: none; }
@@ -90,6 +92,15 @@
     .btn-secondary { background: transparent; color: white; border: 1px solid var(--border); }
     .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
     .error-message { background: rgba(196, 25, 25, 0.2); color: #ff4444; border: 1px solid rgba(196, 25, 25, 0.4); padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
+
+    /* PANNEAU DES SEUILS DE MÉDAILLES PAR TAILLE D'ENTREPRISE */
+    .medal-thresholds-banner { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 20px 24px; margin-bottom: 24px; }
+    .medal-thresholds-banner h3 { margin: 0 0 14px 0; font-size: 15px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+    .medal-thresholds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+    .medal-threshold-item { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+    .medal-threshold-item img { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; }
+    .medal-threshold-item .mt-name { font-size: 13px; font-weight: 700; color: white; }
+    .medal-threshold-item .mt-detail { font-size: 11px; color: var(--muted); }
   </style>
  </head>
  <body>
@@ -100,15 +111,25 @@
     <h1>Bienvenue</h1>
     <p class="subtitle">Sélectionnez la taille de votre entreprise pour accéder au calendrier d'inscription</p>
     <div class="booking-types-grid">
-     <div class="booking-type-card" onclick="selectCompanySize('large')">
+     <div class="booking-type-card" onclick="selectCompanySize('tpe')">
+      <div class="booking-type-icon">🌱</div>
+      <div class="booking-type-title">TPE</div>
+      <div class="booking-type-description">Moins de 10 salariés</div>
+     </div>
+     <div class="booking-type-card" onclick="selectCompanySize('pme')">
+      <div class="booking-type-icon">🏬</div>
+      <div class="booking-type-title">PME</div>
+      <div class="booking-type-description">Moins de 250 salariés</div>
+     </div>
+     <div class="booking-type-card" onclick="selectCompanySize('eti')">
+      <div class="booking-type-icon">🚀</div>
+      <div class="booking-type-title">ETI</div>
+      <div class="booking-type-description">250 à 4999 salariés</div>
+     </div>
+     <div class="booking-type-card" onclick="selectCompanySize('ge')">
       <div class="booking-type-icon">🏢</div>
       <div class="booking-type-title">Grande entreprise</div>
-      <div class="booking-type-description">Plus de 500 employés en France</div>
-     </div>
-     <div class="booking-type-card" onclick="selectCompanySize('small')">
-      <div class="booking-type-icon">🏬</div>
-      <div class="booking-type-title">PME/TPE</div>
-      <div class="booking-type-description">Moins de 500 employés en France</div>
+      <div class="booking-type-description">5000 salariés et plus</div>
      </div>
     </div>
    </div>
@@ -118,6 +139,12 @@
      <div><h1>Type de réservation</h1><p class="subtitle">Choisissez le type de créneau que vous souhaitez réserver</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToWelcome()">← Retour</button></div>
     </div>
+
+    <div class="medal-thresholds-banner">
+     <h3 id="medal-thresholds-title">Vos paliers de médailles</h3>
+     <div class="medal-thresholds-grid" id="medal-thresholds-grid"></div>
+    </div>
+
     <div class="booking-types-grid">
      <div class="booking-type-card" onclick="selectBookingType('unit')">
       <div class="booking-type-icon">📅</div>
@@ -126,21 +153,21 @@
      </div>
      <div class="booking-type-card" onclick="selectBookingType('regular')">
       <div class="booking-type-icon" style="display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
-          <img id="regular-booking-logo" src="" alt="Logo régulier" style="width: 120px; height: 120px; object-fit: contain;">
+          <img id="regular-booking-logo" src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png" alt="Logo régulier" style="width: 120px; height: 120px; object-fit: contain;">
       </div>
       <div class="booking-type-title">Créneau régulier</div>
       <div class="booking-type-description" id="regular-price-description"></div>
      </div>
      <div class="booking-type-card" onclick="selectBookingType('yearly')">
       <div class="booking-type-icon" style="display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
-          <img id="yearly-booking-logo" src="" alt="Logo année" style="width: 120px; height: 120px; object-fit: contain;">
+          <img id="yearly-booking-logo" src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png" alt="Logo année" style="width: 120px; height: 120px; object-fit: contain;">
       </div>
       <div class="booking-type-title">Créneau à l'année</div>
       <div class="booking-type-description" id="yearly-price-description"></div>
      </div>
      <div class="booking-type-card" id="national-booking-card" onclick="selectBookingType('national')">
       <div class="booking-type-icon" style="display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
-          <img src="https://i.postimg.cc/bNb8Xjr3/philobaucis-logo-(10).png" alt="Logo national" style="width: 120px; height: 120px; object-fit: contain;">
+          <img src="https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png" alt="Logo national" style="width: 120px; height: 120px; object-fit: contain;">
       </div>
       <div class="booking-type-title">Couverture nationale à l'année</div>
       <div class="booking-type-description" id="national-price-description"></div>
@@ -176,7 +203,7 @@
     </div>
     
     <div id="total-count-display" class="total-count-banner" style="display: none;">
-     <div class="total-count-content"><span>Total: <span id="total-count-number">0</span> maraudes sur l'année</span> <img id="achievement-logo" src="" alt="Logo achievement" class="achievement-logo"></div>
+     <div class="total-count-content"><span>Total: <span id="total-count-number">0</span> maraudes sur l'année</span> <span class="current-tier-badge" id="current-tier-badge"></span> <img id="achievement-logo" src="" alt="Logo achievement" class="achievement-logo"></div>
     </div>
     
     <div class="patterns-grid" id="patterns-grid"></div>
@@ -227,7 +254,7 @@
 
    <div id="yearly-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
-     <div><h1>Créneaux à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine récurrent (novembre 2026 à novembre 2027)</p></div>
+     <div><h1>Créneaux à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine récurrent (du 2 janvier au 31 décembre 2027)</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button> <button class="btn-change-city" onclick="changeCity()">Changer de ville</button></div>
     </div>
     <div class="selected-city-info"><span>Ville sélectionnée : <strong id="current-city-yearly"></strong> - Créneau à l'année</span></div>
@@ -244,7 +271,7 @@
 
    <div id="national-calendar-view" class="calendar-view" style="display: none;">
     <div class="header-with-city">
-     <div><h1>Couverture nationale à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine pour toutes les villes (oct. 26 à oct. 27)</p></div>
+     <div><h1>Couverture nationale à l'année</h1><p class="subtitle">Sélectionnez un jour de la semaine pour toutes les villes (du 2 janvier au 31 décembre 2027)</p></div>
      <div class="nav-buttons"><button class="btn-back" onclick="backToBookingType()">← Retour</button></div>
     </div>
     <div class="selected-city-info"><span>Couverture : <strong>Toutes les villes de France</strong></span></div>
@@ -328,14 +355,34 @@
     const TIME_SLOTS = ['8h - 10h', '10h - 12h', '12h - 14h', '14h - 16h', '16h - 18h', '18h - 20h', '20h - 22h'];
     const WEEKDAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
     const WEEKDAY_MAP = { 'Lundi': 1, 'Mardi': 2, 'Mercredi': 3, 'Jeudi': 4, 'Vendredi': 5, 'Samedi': 6, 'Dimanche': 0 };
-    const ACHIEVEMENT_THRESHOLD = 52;
+
+    const MEDAL_LOGOS = {
+      bronze: 'https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20bronze.png',
+      argent: 'https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20argent.png',
+      or: 'https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20or.png',
+      diamant: 'https://raw.githubusercontent.com/jzamor-stack/philobaucis-site/main/philobaucis%20logo%20diamant.png'
+    };
+    const MEDAL_ORDER = ['bronze', 'argent', 'or', 'diamant'];
+    const MEDAL_LABELS = { bronze: 'Bronze', argent: 'Argent', or: 'Or', diamant: 'Diamant' };
+
+    // Seuils (en nombre de créneaux/an à 800€) et montants équivalents, par taille d'entreprise.
+    // Calculés à partir des montants de référence Grande Entreprise (Bronze 24k€, Argent 104k€, Or 1,04M€, Diamant 2,08M€)
+    // avec les coefficients de taille : TPE 1%, PME 18%, ETI 40%, GE 100%. Arrondi au créneau supérieur.
+    const SIZE_DATA = {
+      tpe:  { label: 'TPE',              bronze: { creneaux: 1,    montant: 240 },     argent: { creneaux: 1,    montant: 1040 },    or: { creneaux: 6,    montant: 10400 },   diamant: { creneaux: 11,   montant: 20800 } },
+      pme:  { label: 'PME',              bronze: { creneaux: 3,    montant: 4320 },    argent: { creneaux: 10,   montant: 18720 },   or: { creneaux: 94,   montant: 187200 },  diamant: { creneaux: 188,  montant: 374400 } },
+      eti:  { label: 'ETI',              bronze: { creneaux: 5,    montant: 9600 },    argent: { creneaux: 21,   montant: 41600 },   or: { creneaux: 208,  montant: 416000 },  diamant: { creneaux: 416,  montant: 832000 } },
+      ge:   { label: 'Grande Entreprise', bronze: { creneaux: 12,   montant: 24000 },   argent: { creneaux: 52,   montant: 104000 },  or: { creneaux: 520,  montant: 1040000 }, diamant: { creneaux: 1040, montant: 2080000 } }
+    };
 
     let selectedDate = null; let selectedWeekday = null; let selectedSlot = null; let selectedCity = null;
     let bookingType = null; let companySize = null; let isLoading = false;
     let selectedPatterns = []; let patternTimeSlots = {}; let multiCitySelections = [];
 
+    function formatEuros(n) { return Math.round(n).toLocaleString('fr-FR') + ' €'; }
+
     function calculateOccurrences(weekNumber, weekday) {
-      const startDate = new Date(2026, 10, 1); const endDate = new Date(2027, 10, 31);
+      const startDate = new Date(2027, 0, 2); const endDate = new Date(2027, 11, 31);
       let count = 0; let currentDate = new Date(startDate);
       while (currentDate <= endDate) {
         const month = currentDate.getMonth(); const year = currentDate.getFullYear();
@@ -359,7 +406,31 @@
       return patterns;
     }
 
-    function selectCompanySize(size) { companySize = size; updatePricing(); document.getElementById('welcome-page').style.display = 'none'; document.getElementById('booking-type-selection').style.display = 'block'; }
+    function renderMedalThresholds() {
+      const grid = document.getElementById('medal-thresholds-grid');
+      const title = document.getElementById('medal-thresholds-title');
+      if (!grid || !companySize) return;
+      const data = SIZE_DATA[companySize];
+      title.textContent = `Vos paliers de médailles — ${data.label}`;
+      grid.innerHTML = '';
+      MEDAL_ORDER.forEach(tier => {
+        const info = data[tier];
+        const item = document.createElement('div');
+        item.className = 'medal-threshold-item';
+        item.innerHTML = `<img src="${MEDAL_LOGOS[tier]}" alt="Médaille ${MEDAL_LABELS[tier]}"><div><div class="mt-name">${MEDAL_LABELS[tier]}</div><div class="mt-detail">${info.creneaux} créneau${info.creneaux > 1 ? 'x' : ''}/an — ${formatEuros(info.montant)}</div></div>`;
+        grid.appendChild(item);
+      });
+    }
+
+    function getCurrentTier(total) {
+      if (!companySize) return null;
+      const data = SIZE_DATA[companySize];
+      let reached = null;
+      MEDAL_ORDER.forEach(tier => { if (total >= data[tier].creneaux) reached = tier; });
+      return reached;
+    }
+
+    function selectCompanySize(size) { companySize = size; updatePricing(); renderMedalThresholds(); document.getElementById('welcome-page').style.display = 'none'; document.getElementById('booking-type-selection').style.display = 'block'; }
     function backToWelcome() {
       companySize = null; selectedCity = null; selectedDate = null; selectedWeekday = null; selectedSlot = null; bookingType = null; selectedPatterns = [];
       document.querySelectorAll('.calendar-view, .booking-type-selection, .time-slots-view').forEach(el => { el.style.display = 'none'; el.classList.remove('active'); });
@@ -368,15 +439,14 @@
 
     function updatePricing() {
       const unitPrice = '900 €'; const regularPrice = '800 €';
+      const periode = 'du 2 janvier au 31 décembre 2027';
       document.getElementById('unit-price-description').innerHTML = `Réservez une date précise pour une intervention ponctuelle<br><br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${unitPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
-      document.getElementById('regular-price-description').innerHTML = `Réservez des jours récurrents mensuels d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
-      document.getElementById('yearly-price-description').innerHTML = `Réservez un jour de la semaine récurrent d'octobre 2026 à octobre 2027<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
-      document.getElementById('national-price-description').innerHTML = `Réservez un jour de la semaine récurrent dans toutes les villes<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
+      document.getElementById('regular-price-description').innerHTML = `Réservez des jours récurrents mensuels ${periode}<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
+      document.getElementById('yearly-price-description').innerHTML = `Réservez un jour de la semaine récurrent ${periode}<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
+      document.getElementById('national-price-description').innerHTML = `Réservez un jour de la semaine récurrent dans toutes les villes, ${periode}<br><span style="color: #ffd700; font-weight: bold; font-size: 15px;">${regularPrice} par maraude</span><br><span style="color: var(--muted); font-size: 11px;">prix après déduction fiscale</span>`;
       
-      document.getElementById('national-booking-card').style.display = companySize === 'small' ? 'none' : 'block';
-      const regLogo = document.getElementById('regular-booking-logo'); const yrLogo = document.getElementById('yearly-booking-logo');
-      if (companySize === 'small') { regLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png'; yrLogo.src = 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png'; }
-      else { regLogo.src = 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png'; yrLogo.src = 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png'; }
+      // La couverture nationale à l'année reste réservée aux structures les plus importantes (ETI / Grande Entreprise)
+      document.getElementById('national-booking-card').style.display = (companySize === 'eti' || companySize === 'ge') ? 'block' : 'none';
     }
 
     function selectCity(city) {
@@ -463,7 +533,10 @@
         });
         summary += '\n';
       });
-      summary += `Total : ${multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0)} maraudes`;
+      const total = multiCitySelections.flatMap(sel => sel.patterns).reduce((sum, p) => sum + p.count, 0);
+      summary += `Total : ${total} maraudes`;
+      const tier = getCurrentTier(total);
+      if (tier) summary += ` — Palier atteint : ${MEDAL_LABELS[tier]}`;
       document.getElementById('modal-slot-info').textContent = summary; document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
       document.getElementById('error-container').innerHTML = ''; document.getElementById('registration-modal').classList.add('active');
     }
@@ -498,12 +571,20 @@
       document.getElementById('total-count-number').textContent = total;
       const banner = document.getElementById('total-count-display'); const btn = document.getElementById('confirm-patterns-btn');
       const addCityBtn = document.getElementById('add-city-btn'); const achievementLogo = document.getElementById('achievement-logo');
+      const tierBadge = document.getElementById('current-tier-badge');
+      const tier = getCurrentTier(total);
       if (total > 0) {
         banner.style.display = 'block'; btn.disabled = currTotal === 0;
-        if (companySize === 'large') { addCityBtn.disabled = currTotal === 0; addCityBtn.style.display = 'block'; } else { addCityBtn.style.display = 'none'; }
-        achievementLogo.src = total >= ACHIEVEMENT_THRESHOLD ? (companySize === 'large' ? 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png' : 'https://i.postimg.cc/yY6mfbQT/philobaucis-logo-(9).png') : (companySize === 'large' ? 'https://i.postimg.cc/ZqYz0ZVN/philobaucis-logo-(6).png' : 'https://i.postimg.cc/dVxjZjBP/philobaucis-logo-(7).png');
-        achievementLogo.style.display = 'block';
-      } else { banner.style.display = 'none'; btn.disabled = true; if (addCityBtn) addCityBtn.disabled = true; achievementLogo.style.display = 'none'; }
+        addCityBtn.style.display = (companySize === 'eti' || companySize === 'ge') ? 'block' : 'none';
+        if (addCityBtn.style.display === 'block') addCityBtn.disabled = currTotal === 0;
+        if (tier) {
+          tierBadge.textContent = `Palier ${MEDAL_LABELS[tier]} atteint 🎉`;
+          achievementLogo.src = MEDAL_LOGOS[tier]; achievementLogo.style.display = 'block';
+        } else {
+          tierBadge.textContent = companySize ? `Palier Bronze non atteint (${SIZE_DATA[companySize].bronze.creneaux} créneau${SIZE_DATA[companySize].bronze.creneaux > 1 ? 'x' : ''} requis)` : '';
+          achievementLogo.style.display = 'none';
+        }
+      } else { banner.style.display = 'none'; btn.disabled = true; if (addCityBtn) addCityBtn.disabled = true; achievementLogo.style.display = 'none'; tierBadge.textContent = ''; }
     }
 
     function addAnotherCity() {
@@ -524,7 +605,7 @@
       }
     }
 
-    function generateDates() { const dates = []; const startDate = new Date(2027, 0, 1); for (let i = 0; i < 31; i++) { const date = new Date(startDate); date.setDate(startDate.getDate() + i); dates.push(date); } return dates; }
+    function generateDates() { const dates = []; const startDate = new Date(2027, 0, 2); const endDate = new Date(2027, 11, 31); let d = new Date(startDate); while (d <= endDate) { dates.push(new Date(d)); d.setDate(d.getDate() + 1); } return dates; }
     function formatDisplayDate(date) { const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']; const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc']; return { day: days[date.getDay()], date: date.getDate(), month: months[date.getMonth()] }; }
 
     function renderCalendar() {
@@ -546,7 +627,7 @@
       WEEKDAYS.forEach(weekday => {
         const card = document.createElement('div'); card.className = 'weekday-card'; card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
-          selectedWeekday = weekday; document.getElementById('selected-weekday-info').textContent = `Tous les ${weekday} (oct. 2026 à oct. 2027)`;
+          selectedWeekday = weekday; document.getElementById('selected-weekday-info').textContent = `Tous les ${weekday} (du 2 janvier au 31 décembre 2027)`;
           document.getElementById('current-city-yearly-slots').textContent = selectedCity; document.getElementById('yearly-calendar-view').style.display = 'none'; document.getElementById('yearly-slots-view').classList.add('active'); renderYearlyTimeSlots();
         }; grid.appendChild(card);
       });
@@ -557,7 +638,7 @@
       WEEKDAYS.forEach(weekday => {
         const card = document.createElement('div'); card.className = 'weekday-card'; card.innerHTML = `<div class="weekday-name">${weekday}</div>`;
         card.onclick = () => {
-          selectedWeekday = weekday; document.getElementById('selected-national-weekday-info').textContent = `Tous les ${weekday} dans toutes les villes (oct. 2026 à oct. 2027)`;
+          selectedWeekday = weekday; document.getElementById('selected-national-weekday-info').textContent = `Tous les ${weekday} dans toutes les villes (du 2 janvier au 31 décembre 2027)`;
           document.getElementById('national-calendar-view').style.display = 'none'; document.getElementById('national-slots-view').classList.add('active'); renderNationalTimeSlots();
         }; grid.appendChild(card);
       });
@@ -585,8 +666,8 @@
     function openRegistrationModal(slot, type) {
       selectedSlot = slot; let modalInfo = '';
       if (type === 'unit') { const dateObj = new Date(selectedDate); modalInfo = `${selectedCity} - ${formatDisplayDate(dateObj).day} ${formatDisplayDate(dateObj).date} - ${slot}`; }
-      else if (type === 'yearly') { modalInfo = `${selectedCity} - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`; }
-      else if (type === 'national') { modalInfo = `Toutes les villes - Tous les ${selectedWeekday} (nov 2026 à nov 2027) - ${slot}`; }
+      else if (type === 'yearly') { modalInfo = `${selectedCity} - Tous les ${selectedWeekday} (du 2 janvier au 31 décembre 2027) - ${slot}`; }
+      else if (type === 'national') { modalInfo = `Toutes les villes - Tous les ${selectedWeekday} (du 2 janvier au 31 décembre 2027) - ${slot}`; }
       else if (type === 'regular') { modalInfo = `${selectedCity} - ${selectedPatterns.map(p => p.label).join(', ')} (${selectedPatterns.reduce((sum, p) => sum + p.count, 0)} maraudes) - ${slot}`; }
       
       document.getElementById('modal-slot-info').textContent = modalInfo; document.querySelectorAll('#registration-form input').forEach(input => input.value = '');
@@ -617,7 +698,8 @@
         companyName, contactName, role, email, phone,
         details: document.getElementById('modal-slot-info').textContent,
         bookingType: bookingType || 'Multi-villes',
-        city: selectedCity || 'Multi-villes / National'
+        city: selectedCity || 'Multi-villes / National',
+        companySize: companySize || ''
       };
 
       try {
