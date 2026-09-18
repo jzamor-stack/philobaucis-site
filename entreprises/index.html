@@ -420,7 +420,7 @@
                 <p>Face à l'urgence sociale, nous appelons les entreprises à un engagement fort. En Janvier 2027, Philobaucis orchestre <span class="highlight">un événement national de 15 jours</span> consacré aux différentes précarités en France, se concluant par un débat décisif avec les candidats à l'élection présidentielle.</p>
 
                 <div class="info-banner">
-                    <strong>📅 Calendrier :</strong> Les entreprises et les associations commenceront à être contactées à partir du 26 mai. La sélection définitive des associations partenaires aura lieu le <strong>7 décembre</strong>. Une association dont le projet correspond parfaitement à notre démarche peut être officiellement acceptée avant cette date.
+                    <strong>📅 Calendrier :</strong> Les entreprises et les associations sont actuellement en train d'être contactées. La sélection définitive des associations partenaires aura lieu le <strong>7 décembre</strong>. Une association dont le projet correspond parfaitement à notre démarche peut être officiellement acceptée avant cette date.
                 </div>
                 
                 <div class="trust-bar">
@@ -444,7 +444,7 @@
                     </div>
                     <div class="glow-card">
                         <h4>Un soutien direct</h4>
-                        <p>Générer un apport financier majeur. <strong>L'intégralité des dons est perçue directement par les 14 associations.</strong></p>
+                        <p>Générer un apport financier majeur grâce au mécénat d'actions. <strong>Chaque association perçoit l'intégralité du montant qu'elle a fixé pour son action.</strong></p>
                     </div>
                     <div class="glow-card">
                         <h4>Interpeller les décideurs</h4>
@@ -454,7 +454,7 @@
 
                 <div class="cagnotte-box">
                     <h3>🪙 Une cagnotte solidaire, ouverte à toutes les entreprises</h3>
-                    <p style="margin-bottom: 0;">Pendant toute la durée de la quinzaine (janvier 2027), une cagnotte en ligne permettra aux <strong>citoyens comme aux entreprises</strong> de contribuer, sans condition d'engagement long terme. <strong>95% des sommes collectées sont reversées directement aux associations partenaires</strong>, les 5% restants couvrant la gestion et la structuration du dispositif par Philobaucis.</p>
+                    <p style="margin-bottom: 0;">Pendant toute la durée de la quinzaine (janvier 2027), une cagnotte en ligne permettra aux <strong>citoyens comme aux entreprises</strong> de contribuer. <strong>Pour les entreprises, ces dons comptent aussi pour l'obtention des médailles, de façon cumulable avec les montants versés en Mécénat d'action.</strong> 95% des dons de particuliers sont reversés directement aux associations partenaires, 90% pour un don d'entreprise.</p>
                 </div>
 
                 <h3>Qui Sommes-Nous ?</h3>
@@ -462,7 +462,7 @@
                 
                 <div class="info-banner">
                     <strong>Transparence Absolue :</strong><br><br>
-                    Philobaucis n'est pas un intermédiaire financier. Vos dons de mécénat sont versés <strong>directement</strong> aux 14 associations d'intérêt général partenaires. Celles-ci mandatent et rémunèrent ensuite Philobaucis pour la structuration de l'événement, la visibilité médiatique massive et l'organisation du débat présidentiel.
+                    Le mécénat par médailles finance le <strong>Mécénat d'action</strong> : des actions concrètes menées par les associations (le mécénat de maraude en est un exemple, parmi 14 déclinaisons au total). <strong>Chaque association perçoit l'intégralité du montant qu'elle a fixé pour son action</strong> ; l'entreprise s'acquitte de ce montant majoré de 40%, qui finance la structuration de l'événement, la visibilité médiatique massive et l'organisation du débat présidentiel par Philobaucis.
                 </div>
             </div>
 
@@ -492,8 +492,8 @@
                     <div class="glow-card"><h4>Jour 13</h4><p>Précarité étudiante</p></div>
                     <div class="glow-card"><h4>Jour 14</h4><p>Précarité des personnes en situation de handicap</p></div>
                     <div class="glow-card" style="border-color: #c41919; grid-column: 1 / -1;">
-                        <h4 style="color: #c41919;">Jour 15 - Le Débat Décisif</h4>
-                        <p>Plateau télé exceptionnel confrontant directement les candidats à l'élection présidentielle avec les acteurs du terrain et les témoignages recueillis.</p>
+                        <h4 style="color: #c41919;">Jour 15 - Le Double Débat</h4>
+                        <p>Un débat classique sur plateau télé confrontant directement les candidats à l'élection présidentielle, suivi d'un second format inédit : une longue vidéo individuelle par candidat, pour étayer son programme et répondre aux limites pointées dans les programmes concurrents.</p>
                     </div>
                 </div>
             </div>
@@ -606,8 +606,8 @@
                 </div>
 
                 <div class="cagnotte-box">
-                    <h3>🪙 Vous préférez contribuer librement ?</h3>
-                    <p style="margin-bottom: 0;">Une cagnotte solidaire sera également ouverte pendant toute la quinzaine de janvier 2027, sans palier ni engagement de durée. <strong>95% des dons vont directement aux 14 associations</strong>, 5% financent la gestion du dispositif par Philobaucis.</p>
+                    <h3>🪙 Chaque don compte, même hors palier fixe</h3>
+                    <p style="margin-bottom: 0;">Une cagnotte solidaire sera également ouverte pendant toute la quinzaine de janvier 2027. <strong>Ces dons comptent pour l'obtention des médailles et sont cumulables avec les montants versés en Mécénat d'action</strong> — chaque contribution vous rapproche donc du palier supérieur. 95% de votre don est reversé directement aux 14 associations (90% pour un don d'entreprise), le reste finançant la gestion du dispositif par Philobaucis.</p>
                 </div>
 
                 <h3 style="margin-top: 50px; margin-bottom: 10px; font-size: 1.5rem; color: white;">Classements par taille d'entreprise</h3>
@@ -696,8 +696,8 @@
             document.querySelector('.overlay').classList.toggle('open');
         }
 
-        function openTab(evt, tabName) {
-            evt.preventDefault();
+        function openTab(evt, tabName, skipPush) {
+            if (evt) evt.preventDefault();
             var i, tabcontent, navitems;
             
             tabcontent = document.getElementsByClassName("tab-content");
@@ -710,11 +710,19 @@
                 navitems[i].classList.remove("active"); 
             }
             
-            document.getElementById(tabName).classList.add("active");
+            var targetTab = document.getElementById(tabName);
+            if (targetTab) targetTab.classList.add("active");
             
-            // On n'ajoute la classe 'active' que si on a cliqué sur un élément du menu latéral
-            if(evt.currentTarget.classList.contains('nav-item')) {
+            // On active l'élément du menu latéral correspondant, qu'on ait un clic (evt) ou une navigation historique (evt = null)
+            if (evt && evt.currentTarget && evt.currentTarget.classList.contains('nav-item')) {
                 evt.currentTarget.classList.add("active");
+            } else {
+                for (i = 0; i < navitems.length; i++) {
+                    var onclickAttr = navitems[i].getAttribute('onclick') || '';
+                    if (onclickAttr.indexOf("'" + tabName + "'") !== -1) {
+                        navitems[i].classList.add("active");
+                    }
+                }
             }
             
             document.querySelector('.main-view').scrollTo(0, 0);
@@ -723,7 +731,20 @@
                 document.querySelector('.sidebar').classList.remove('open');
                 document.querySelector('.overlay').classList.remove('open');
             }
+
+            if (!skipPush) {
+                try { history.pushState({ tabName }, '', '#' + tabName); }
+                catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
+            }
         }
+
+        window.addEventListener('popstate', function(event) {
+            var tabName = (event.state && event.state.tabName) || 'projet';
+            openTab(null, tabName, true);
+        });
+
+        try { history.replaceState({ tabName: 'projet' }, '', '#projet'); }
+        catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
 
         /* SÉLECTEUR TAILLE D'ENTREPRISE — recalcul des montants des médailles */
         const medalBaseAmountsEnt = {
