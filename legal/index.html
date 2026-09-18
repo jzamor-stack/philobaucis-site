@@ -1,237 +1,145 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentions Légales & CGV - Philobaucis</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
-  <style>
-    :root {
-      --bg-color: #050505;
-      --card-bg: #111111;
-      --primary: #c41919;
-      --text: #ffffff;
-      --muted: #a0a0a0;
-      --border: #222222;
-    }
-    body {
-      background-color: var(--bg-color);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-    header span {
-      color: var(--primary);
-    }
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 30px;
-      justify-content: center;
-    }
-    .tab-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 24px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .tab-btn:hover {
-      background: #1a1a1a;
-      border-color: #333;
-    }
-    .tab-btn.active {
-      background: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
-      border-color: transparent;
-    }
-    .tab-content {
-      display: none;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .tab-content.active {
-      display: block;
-      animation: fadeIn 0.5s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h2 {
-      color: var(--primary);
-      font-size: 1.5rem;
-      margin-top: 0;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-    h3 {
-      font-size: 1.2rem;
-      margin-top: 30px;
-      margin-bottom: 15px;
-    }
-    p, li {
-      color: var(--muted);
-      margin-bottom: 15px;
-    }
-    ul {
-      margin-left: 20px;
-      margin-bottom: 20px;
-    }
-    .back-btn {
-      display: inline-block;
-      margin-bottom: 30px;
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-    .back-btn:hover {
-      color: var(--text);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philobaucis | Mentions Légales & CGV</title>
+
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/fyMwzvYV/philobaucis-logo-(9).png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --grad: linear-gradient(135deg, #c41919 0%, #6b1e5f 100%);
+            --glow: rgba(196, 25, 25, 0.15);
+            --dark: #0a0a0c;
+            --card: #141418;
+            --text: #ffffff;
+            --muted: #a1a1aa;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 30px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .logo span {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .back-link:hover { color: #fff; }
+
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 30px 80px;
+            width: 100%;
+        }
+        h2 { color: #c41919; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 15px; font-weight: 800; }
+        h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin: 0 0 40px 0; letter-spacing: -1px; }
+        h3 { font-size: 1.5rem; font-weight: 700; margin-top: 60px; margin-bottom: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+        h3:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+        p { font-size: 1.05rem; line-height: 1.75; color: #d1d5db; margin-bottom: 15px; }
+        a { color: #ff5c5c; }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px 35px;
+            margin-top: 20px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 40px;
+            text-align: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 20px; }
+            main { padding: 35px 20px 60px; }
+            h1 { font-size: 2rem; }
+            .card { padding: 22px 20px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <a href="javascript:history.back()" class="back-btn">← Retour au site</a>
-    
+
     <header>
-      <h1>Cadre <span>Légal & Juridique</span></h1>
-      <p style="color: var(--muted);">Transparence et conformité de l'initiative Philobaucis</p>
+        <div class="logo">PHILO<span>BAUCIS</span></div>
+        <a href="/" class="back-link">← Retour au site</a>
     </header>
 
-    <div class="tabs">
-      <button class="tab-btn active" onclick="openTab('mentions')">Mentions Légales</button>
-      <button class="tab-btn" onclick="openTab('rgpd')">Données & RGPD</button>
-      <button class="tab-btn" onclick="openTab('cgu-apporteurs')">Facilitateurs</button>
-      <button class="tab-btn" onclick="openTab('cgv-entreprises')">Mécènes / Entreprises</button>
-      <button class="tab-btn" onclick="openTab('cgu-assos')">Associations</button>
-    </div>
+    <main>
+        <h2>Transparence</h2>
+        <h1>Mentions Légales & <span style="color: #c41919;">Conditions Générales.</span></h1>
 
-    <!-- MENTIONS LÉGALES -->
-    <div id="mentions" class="tab-content active">
-      <h2>1. Éditeur du Site</h2>
-      <p>Le présent site est édité par l'initiative <strong>Philobaucis</strong>, agissant en tant que prestataire indépendant expert en plaidoyer.</p>
-      <ul>
-        <li><strong>Forme juridique :</strong> Association Loi 1901</li>
-        <li><strong>Numéro RNA :</strong> W751284407</li>
-        <li><strong>Siège social :</strong> 22 rue d'Edimbourg, 75008 Paris, France</li>
-        <li><strong>Directeur de la publication :</strong> Monsieur Jean-Daniel ZAMOR</li>
-        <li><strong>Contact e-mail :</strong> j.zamor@philobaucis.fr</li>
-      </ul>
+        <h3>1. Éditeur du site</h3>
+        <div class="card">
+            <p>Le présent site est édité et géré par Philobaucis, association déclarée, régie par la loi du 1er juillet 1901.</p>
+            <p>
+                <strong>Siège social :</strong> 22 rue d'Edimbourg, 75008 Paris, France.<br>
+                <strong>Directeur de la publication :</strong> Monsieur Jean-Daniel ZAMOR.<br>
+                <strong>Numéro RNA :</strong> W751284407<br>
+                <strong>Contact :</strong> <a href="mailto:j.zamor@philobaucis.fr">j.zamor@philobaucis.fr</a>
+            </p>
+        </div>
 
-      <h2>2. Hébergement</h2>
-      <p>L'hébergement du site est assuré par la société Vercel Inc.</p>
-      <ul>
-        <li><strong>Siège social :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
-        <li><strong>Site web :</strong> https://vercel.com</li>
-      </ul>
+        <h3>2. Hébergement</h3>
+        <div class="card">
+            <p>Ce site web est hébergé par la société Vercel Inc.<br>
+            <strong>Siège social :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.<br>
+            <strong>Site web :</strong> <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></p>
+        </div>
 
-      <h2>3. Propriété Intellectuelle</h2>
-      <p>L'ensemble de ce site (structure, design, textes, logos, images) relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Toute reproduction, représentation, modification ou adaptation, totale ou partielle, est strictement interdite sans l'autorisation écrite préalable de Philobaucis.</p>
-    </div>
+        <h3>3. Mécanisme des dons, cagnotte & RGPD</h3>
+        <div class="card">
+            <p>Philobaucis intervient en tant que prestataire expert (plaidoyer, médiatisation). Le dispositif de mécénat par médailles finance le <strong>Mécénat d'action</strong> : des actions concrètes (le mécénat de maraude en est un exemple, parmi 14 déclinaisons au total) où <strong>l'association perçoit l'intégralité du montant qu'elle a fixé pour son action</strong>, l'entreprise s'acquittant de ce montant majoré de 40% de frais de structuration versés à Philobaucis.</p>
+            <p>Une cagnotte solidaire ouverte aux citoyens et aux entreprises sera par ailleurs mise en ligne pendant toute la durée de la quinzaine (janvier 2027). Sur cette cagnotte, <strong>95% des montants collectés sont reversés aux associations partenaires pour un don de particulier</strong>, et <strong>90% pour un don d'entreprise</strong>, le solde étant dédié à la gestion, la structuration et le fonctionnement de Philobaucis. Pour une entreprise, les dons versés via la cagnotte comptent pour l'obtention des médailles décrites ci-dessus, de façon cumulable avec les montants versés au titre du Mécénat d'action.</p>
+            <p>La collecte des données est conforme au RGPD et à la loi Informatique et Libertés. L'ensemble de ce site (structure, design, textes) relève de la législation sur le droit d'auteur. Toute reproduction est interdite sans autorisation.</p>
+        </div>
 
-    <!-- RGPD -->
-    <div id="rgpd" class="tab-content">
-      <h2>Politique de Confidentialité (RGPD)</h2>
-      <p>Dans le cadre de son activité et de la préparation de l'événement national de 2027, Philobaucis collecte des données à caractère personnel dans le strict respect du Règlement Général sur la Protection des Données (RGPD) et de la loi Informatique et Libertés.</p>
-      
-      <h3>1. Collecte et finalité</h3>
-      <p>Les données collectées (noms, e-mails, téléphones, coordonnées professionnelles) servent uniquement à :</p>
-      <ul>
-        <li>Gérer les prises de rendez-vous et les plannings (via nos formulaires de contact).</li>
-        <li>Gérer la relation contractuelle avec les facilitateurs (facturation, paiement des commissions).</li>
-        <li>Organiser les partenariats avec les entreprises et associations.</li>
-      </ul>
+        <h3>4. Conditions Générales de Vente (CGV)</h3>
+        <div class="card">
+            <p>Les Conditions Générales de Vente et de prestation de services de Philobaucis, régissant notre intervention auprès des 14 associations partenaires et des entreprises mécènes, seront détaillées ici lors de l'établissement officiel des contrats de partenariat.</p>
+        </div>
+    </main>
 
-      <h3>2. Partage et sécurité</h3>
-      <p><strong>Aucune donnée n'est revendue à des tiers.</strong> Les informations sont stockées sur des serveurs sécurisés et ne sont accessibles qu'à l'équipe dirigeante de Philobaucis.</p>
+    <footer>
+        © 2026 Philobaucis. Tous droits réservés.
+    </footer>
 
-      <h3>3. Vos droits</h3>
-      <p>Vous disposez d'un droit d'accès, de rectification, de portabilité et de suppression de vos données. Pour exercer ce droit, vous pouvez nous contacter à l'adresse : <strong>j.zamor@philobaucis.fr</strong>.</p>
-    </div>
-
-    <!-- CGU APPORTEURS -->
-    <div id="cgu-apporteurs" class="tab-content">
-      <h2>Conditions pour les Facilitateurs (Apporteurs d'affaires)</h2>
-      <p>Les facilitateurs agissent comme intermédiaires pour connecter les décideurs au projet Philobaucis. Leur activité est encadrée par un <strong>Contrat d'Apporteur d'Affaires</strong>.</p>
-      
-      <h3>1. Obligation légale de statut</h3>
-      <p>Conformément à la loi française, aucune commission ne peut être versée à un particulier. Le facilitateur doit obligatoirement justifier d'un numéro de SIRET valide (Auto-entreprise, SASU, EURL, etc.) pour émettre une facture et percevoir ses gains.</p>
-
-      <h3>2. Rémunération et paiement</h3>
-      <p>Le facilitateur perçoit une commission contractuelle (notamment fixée à 5%) calculée sur le montant de l'engagement de l'entreprise apportée. Le paiement est effectué par virement bancaire dans un délai de 30 jours calendaires après l'encaissement effectif des fonds par l'association bénéficiaire ou par Philobaucis.</p>
-
-      <h3>3. Rente annuelle</h3>
-      <p>Si l'entreprise mécène renouvelle son engagement financier lors de la date anniversaire du contrat, le facilitateur percevra à nouveau sa commission, sous réserve du maintien du contrat de mécénat.</p>
-    </div>
-
-    <!-- CGV ENTREPRISES -->
-    <div id="cgv-entreprises" class="tab-content">
-      <h2>Conditions pour les Mécènes (Entreprises)</h2>
-      
-      <h3>1. Rôle de Philobaucis</h3>
-      <p>Philobaucis intervient exclusivement en tant que prestataire expert en plaidoyer et médiatisation. Philobaucis n'est pas un intermédiaire financier : l'intégralité des dons est perçue directement par les associations partenaires.</p>
-
-      <h3>2. Système de reconnaissance</h3>
-      <p>En contrepartie de leur mécénat, les entreprises bénéficient d'un système de médailles (Bronze, Argent, Or, Diamant) proportionnel à l'ampleur et à la durée de leur engagement financier. Ce système donne droit à une visibilité médiatique nationale et internationale encadrée par Philobaucis.</p>
-
-      <h3>3. Engagement de long terme</h3>
-      <p>Le projet visant à soutenir durablement les actions sur le terrain (maraudes, accompagnement), les entreprises s'engagent sur des conventions de mécénat encadrées, ouvrant droit aux déductions fiscales en vigueur selon la législation française.</p>
-    </div>
-
-    <!-- CGU ASSOCIATIONS -->
-    <div id="cgu-assos" class="tab-content">
-      <h2>Pacte de Confiance (Associations)</h2>
-      
-      <h3>1. Gratuité absolue</h3>
-      <p>L'accompagnement stratégique et médiatique fourni par Philobaucis est garanti à "Zéro Frais" pour les associations partenaires. Aucune contrepartie financière n'est exigée.</p>
-
-      <h3>2. Indépendance et Droit de veto</h3>
-      <p>Les associations conservent un contrôle total sur leur image et leur communication. Philobaucis garantit :</p>
-      <ul>
-        <li>Un droit de veto strict sur la sélection des images et la diffusion des témoignages des bénéficiaires.</li>
-        <li>Un droit de relecture et de refus lors de la phase de post-production.</li>
-      </ul>
-      <p>La protection de la dignité des personnes précaires prime sur toute obligation médiatique.</p>
-    </div>
-
-  </div>
-
-  <script>
-    function openTab(tabId) {
-      // Masquer tous les contenus
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      // Désactiver tous les boutons
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      
-      // Activer le contenu et le bouton ciblés
-      document.getElementById(tabId).classList.add('active');
-      event.currentTarget.classList.add('active');
-    }
-  </script>
 </body>
 </html>
