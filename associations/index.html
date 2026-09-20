@@ -365,6 +365,7 @@
             .content-wrapper { padding: 30px 20px; overflow-y: visible; } 
             .site-footer { padding: 25px 20px; }
             .example-header, .example-row { grid-template-columns: 60px 1fr 120px; }
+            .doter-grid { grid-template-columns: 1fr !important; }
             .ranking-container { grid-template-columns: 1fr; }
         }
 
@@ -396,6 +397,7 @@
         <div class="logo">PHILO<span>BAUCIS</span></div>
         <div class="nav-group">
             <div class="nav-item active" onclick="openTab(event, 'projet')">Le Projet</div>
+            <div class="nav-item" onclick="openTab(event, 'comment')">Comment ça marche</div>
             <div class="nav-item" onclick="openTab(event, 'ethique')">Pacte de Confiance</div>
             <div class="nav-item" onclick="openTab(event, 'financement')">Objectif 50M€</div>
             <div class="nav-item" onclick="openTab(event, 'calendrier')">Calendrier & Urgence</div>
@@ -417,12 +419,7 @@
         <div id="projet" class="tab-content active">
             <h2>Initiative Nationale</h2>
             <h1>Rompre le silence sur <br><span style="color: #c41919;">la précarité en France.</span></h1>
-            <p>Nous offrons à 15 associations comme la vôtre une place centrale dans le débat public pour la présidentielle 2027. L'objectif : une visibilité massive et des ressources durables.</p>
-
-            <div class="cagnotte-box">
-                <h3>🪙 Une cagnotte ouverte à tous pendant la quinzaine</h3>
-                <p>Pendant toute la durée de l'événement (janvier 2027), une cagnotte solidaire sera ouverte pour permettre aux <strong>citoyens comme aux entreprises</strong> de contribuer directement, quel que soit le montant. <strong>95% des dons de particuliers sont reversés aux associations partenaires</strong> (90% pour un don d'entreprise), le reste étant dédié à la gestion et à la structuration du dispositif par Philobaucis.</p>
-            </div>
+            <p>Nous donnons une place centrale dans le débat public pour la présidentielle 2027 aux causes que défendent 14 associations comme la vôtre. L'objectif : mettre en pleine lumière les précarités sur lesquelles vous agissez, et vous doter de ressources durables.</p>
             
             <div class="target-container">
                 <div class="premium-feature-card">
@@ -458,9 +455,127 @@
                         </svg>
                     </div>
                     <div class="pf-text">
-                        <h3>Zéro Frais</h3>
-                        <p>Cet accompagnement est mis à votre disposition sans aucune contrepartie financière de votre part.</p>
+                        <h3>Zéro Frais d'Entrée</h3>
+                        <p>Vous n'avez aucun frais à engager en amont pour accéder à nos services : ni abonnement, ni facturation initiale de notre part.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="comment" class="tab-content">
+            <h2>Fonctionnement</h2>
+            <h1>Comment ça marche, <br><span style="color: #c41919;">pour votre association.</span></h1>
+            <p>Voici concrètement ce que le partenariat avec Philobaucis change pour vous, étape par étape.</p>
+
+            <div class="ranking-container" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                <div class="glow-card" style="padding: 25px; text-align: center;">
+                    <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">1. Médiatiser</h4>
+                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Votre cause et vos témoignages sont mis en lumière pendant 15 jours grâce à nos relais médiatiques.</p>
+                </div>
+                <div class="glow-card" style="padding: 25px; text-align: center;">
+                    <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">2. Interpeller</h4>
+                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Les enjeux que vous portez sont directement soumis aux candidats à la présidentielle.</p>
+                </div>
+                <div class="glow-card" style="padding: 25px; text-align: center;">
+                    <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">3. Doter</h4>
+                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Vous recevez des moyens financiers et humains concrets pour agir plus largement sur le terrain.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px; margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark);">1. Médiatiser : ce que vous gagnez en visibilité</h3>
+            <p style="margin-bottom: 20px; font-size: 1rem;">Le parcours de votre cause, de la rue jusqu'aux écrans :</p>
+
+            <div class="step-item glow-card">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                    <h3>Appel à témoignages</h3>
+                    <p>Nous nous associons à des influenceurs pour lancer un appel : les citoyens concernés par votre cause sont invités à prendre la parole et à visibiliser eux-mêmes la problématique. Vos bénéficiaires qui le souhaitent peuvent aussi partager leur histoire directement, dans un cadre respectueux.</p>
+                </div>
+            </div>
+            <div class="step-item glow-card">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                    <h3>Reportage terrain</h3>
+                    <p>Notre équipe filme les témoignages recueillis et vos actions sur le terrain.</p>
+                </div>
+            </div>
+            <div class="step-item glow-card">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    <h3>Diffusion massive</h3>
+                    <p>Votre cause est relayée sur les réseaux sociaux et auprès de nos contacts médiatiques nationaux et internationaux.</p>
+                </div>
+            </div>
+            <div class="step-item glow-card">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                    <h3>Visibilité nationale</h3>
+                    <p>Votre forme de précarité occupe une journée entière de la quinzaine, dédiée à votre cause.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px; margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark);">2. Interpeller : votre cause face aux candidats</h3>
+            <p style="margin-bottom: 20px; font-size: 1rem;">Le Jour 15 prend deux formes complémentaires pour porter vos enjeux jusqu'au débat public :</p>
+
+            <div class="target-container">
+                <div class="premium-feature-card">
+                    <div class="pf-text">
+                        <h3>Le débat classique</h3>
+                        <p>Un plateau télévisé où les candidats sont confrontés en direct aux réalités que vous portez, révélées pendant la quinzaine.</p>
+                    </div>
+                </div>
+                <div class="premium-feature-card">
+                    <div class="pf-text">
+                        <h3>La vidéo individuelle</h3>
+                        <p>Chaque candidat dispose d'une vidéo dédiée pour détailler ses propositions sur votre sujet, et répondre aux limites des programmes concurrents.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px; margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark);">3. Doter : ce que vous percevez concrètement</h3>
+            <p style="margin-bottom: 20px; font-size: 1rem;">Deux dispositifs vous apportent des ressources, sans jamais vous demander de frais en amont :</p>
+
+            <div class="doter-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0;">
+                <div class="glow-card" style="padding: 30px;">
+                    <h3 style="margin-top: 0; color: #c41919; font-size: 1.2rem;">Mécénat d'action</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 18px;">
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div class="step-num" style="width: 34px; height: 34px; font-size: 0.95rem; flex-shrink: 0;">1</div>
+                            <div><strong style="display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 2px;">Vous identifiez une action</strong><span style="font-size: 0.85rem; color: var(--text-muted);">Avec notre aide, vous définissez une action facilement réplicable, qui fait intervenir des collaborateurs d'entreprise et que l'entreprise s'engage à financer.</span></div>
+                        </div>
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div class="step-num" style="width: 34px; height: 34px; font-size: 0.95rem; flex-shrink: 0;">2</div>
+                            <div><strong style="display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 2px;">Vous fixez votre prix</strong><span style="font-size: 0.85rem; color: var(--text-muted);">Pour cette action concrète (le mécénat de maraude en est un exemple, parmi 14 déclinaisons du Mécénat d'action), vous déterminez vous-même le montant nécessaire.</span></div>
+                        </div>
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div class="step-num" style="width: 34px; height: 34px; font-size: 0.95rem; flex-shrink: 0;">3</div>
+                            <div><strong style="display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 2px;">L'entreprise finance</strong><span style="font-size: 0.85rem; color: var(--text-muted);">Elle s'acquitte de ce montant majoré de 40%, et libère ses collaborateurs pour participer à l'action à vos côtés.</span></div>
+                        </div>
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div class="step-num" style="width: 34px; height: 34px; font-size: 0.95rem; flex-shrink: 0;">4</div>
+                            <div><strong style="display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 2px;">Vous pilotez l'action</strong><span style="font-size: 0.85rem; color: var(--text-muted);">Vous organisez et encadrez l'action avec vos équipes, exactement comme vous le faites déjà.</span></div>
+                        </div>
+                        <div style="display: flex; gap: 14px; align-items: flex-start;">
+                            <div class="step-num" style="width: 34px; height: 34px; font-size: 0.95rem; flex-shrink: 0;">5</div>
+                            <div><strong style="display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 2px;">Vous recevez l'intégralité de votre prix</strong><span style="font-size: 0.85rem; color: var(--text-muted);">Les 40% supplémentaires payés par l'entreprise ne vous sont jamais retirés : ils financent uniquement la structuration de l'événement par Philobaucis.</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glow-card" style="padding: 30px;">
+                    <h3 style="margin-top: 0; color: #c41919; font-size: 1.2rem;">Cagnotte</h3>
+                    <p style="margin-top: 18px; margin-bottom: 0; font-size: 0.9rem; color: var(--text-muted);">Une cagnotte solidaire, ouverte aux citoyens comme aux entreprises, sera également mise en ligne pendant la quinzaine de janvier 2027. 95% des dons de particuliers vous reviennent directement, 90% pour un don d'entreprise. <em>Le détail complet des paliers et des montants se trouve dans l'onglet "Objectif 50M€".</em></p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px; margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark);">Calendrier</h3>
+            <p style="margin-bottom: 20px; font-size: 1rem;">De la prise de contact actuelle à la pérennisation du dispositif — le détail complet est dans l'onglet "Calendrier & Urgence".</p>
+
+            <div class="glow-card" style="padding: 30px; text-align: center; margin-top: 20px;">
+                <h3 style="margin-top: 0; color: var(--text-dark);">Voir le détail des paliers</h3>
+                <p style="margin-bottom: 20px;">Consultez les montants exacts selon la taille des entreprises partenaires</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="openTab(event, 'financement')" class="btn-main" style="border: none; cursor: pointer; font-size: 1rem; margin-top: 0;">Objectif 50M€</button>
+                    <a href="https://www.philobaucis.fr/rdv" target="_blank" class="btn-main">Prendre Rendez-vous</a>
                 </div>
             </div>
         </div>
@@ -499,10 +614,16 @@
         <div id="financement" class="tab-content">
             <h2>Mécanique de don</h2>
             <h1>Un objectif record de <br><span style="color: #c41919;">50 Millions d'euros.</span></h1>
-            <p>Notre but est clair : atteindre une moyenne de 50 millions d'euros par association partenaire sur l'année. Cumulé sur les 15 associations, ce dispositif vise à dépasser le record historique absolu de levée de fonds associatif établi par le Téléthon en 2003 (plus de 95 millions d'euros).</p>
+            <p>Notre but est clair : atteindre une moyenne de 50 millions d'euros par association partenaire sur l'année. Cumulé sur les 14 associations, ce dispositif vise à dépasser le record historique absolu de levée de fonds associatif établi par le Téléthon en 2006 (106 696 532 €).</p>
             <p><strong>Si nous ambitionnons de battre ce record, ce n'est pas pour la gloire d'établir un nouveau chiffre.</strong> L'aggravation silencieuse de la situation des personnes précaires en France nécessite aujourd'hui des moyens d'une ampleur inédite. Seule une mobilisation historique permettra d'apporter des solutions à la hauteur de cette urgence absolue.</p>
             
             <p style="font-size: 0.95rem; margin-top: 2rem;">Pour inciter les entreprises et grandes écoles à s'engager massivement, nous avons défini 4 paliers d'engagement officiels. <strong>Toutes les tailles d'entreprise sont invitées à participer</strong> : le montant de chaque palier est calculé proportionnellement à la taille de la structure, pour qu'une petite entreprise comme un grand groupe puissent viser la même reconnaissance à un niveau d'engagement adapté à leurs moyens réels.</p>
+
+            <div class="glow-card" style="padding: 25px 30px; margin-top: 20px;">
+                <h3 style="margin-top: 0; color: var(--text-dark);">💡 Comment ça marche financièrement : le Mécénat d'action</h3>
+                <p>Ce système de médailles repose sur le <strong>Mécénat d'action</strong> : une entreprise finance une action concrète que vous menez (le mécénat de maraude en est un exemple, parmi 14 déclinaisons possibles selon votre domaine). <strong>Vous fixez vous-même le montant nécessaire à votre action, et vous en percevez l'intégralité.</strong> L'entreprise s'acquitte de ce montant majoré de 40%, ces 40% supplémentaires étant versés à Philobaucis pour financer la structuration de l'événement, la visibilité médiatique et l'organisation du débat présidentiel.</p>
+                <p style="margin-bottom: 0;"><em>Exemple concret : vous fixez le prix de votre action à 1000€. L'entreprise paie 1400€ au total. Vous recevez vos 1000€ en intégralité, et les 400€ restants financent Philobaucis.</em></p>
+            </div>
 
             <div class="size-selector-box">
                 <label for="companySizeAsso">Taille de l'entreprise concernée</label>
@@ -544,8 +665,8 @@
             </div>
 
             <div class="cagnotte-box">
-                <h3>🪙 Une cagnotte complémentaire, cumulable avec les médailles</h3>
-                <p>Au-delà des paliers d'entreprise, une cagnotte solidaire ouverte à tous (citoyens et entreprises) sera mise en ligne pendant toute la durée de janvier 2027. <strong>Pour une entreprise, les dons versés via la cagnotte comptent aussi pour l'obtention des médailles, de façon cumulable avec les montants versés en Mécénat d'action.</strong> 95% des dons de particuliers vous reviennent directement, 90% pour un don d'entreprise.</p>
+                <h3>🪙 Nouveau : une cagnotte en complément du Mécénat d'action</h3>
+                <p>En plus des paliers d'entreprise, Philobaucis ouvrira une cagnotte solidaire ouverte à tous (citoyens et entreprises) pendant toute la durée de janvier 2027. <strong>Pour une entreprise, les dons versés via la cagnotte comptent aussi pour l'obtention des médailles, de façon cumulable avec les montants versés en Mécénat d'action.</strong> 95% des dons de particuliers vous reviennent directement, 90% pour un don d'entreprise.</p>
             </div>
 
             <h3 style="margin-top: 50px; margin-bottom: 10px; font-size: 1.5rem; color: var(--text-dark);">Palmarès par taille d'entreprise</h3>
@@ -578,97 +699,81 @@
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🏦</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Banques & Finances</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Le classement des acteurs qui financent l'économie et s'engagent désormais pour l'impact social direct.</p>
                 </div>
                 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🛡️</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Assurances & Mutuelles</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Les champions de la prévoyance et de la protection se mobilisent pour les plus vulnérables.</p>
                 </div>
                 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🎓</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Écoles & Universités</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">La mobilisation de l'enseignement supérieur et de la jeunesse pour construire l'avenir de la solidarité.</p>
                 </div>
                 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">💻</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Tech & Numérique</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">L'innovation et l'agilité au service d'une cause nationale et de l'inclusion sociale.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">⚙️</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Industrie & Manufacturier</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Le moteur historique des territoires français s'engage pour la cohésion sociale.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">💎</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Luxe, Mode & Beauté</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">L'excellence du savoir-faire français met son rayonnement international au profit de la solidarité.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🛒</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Grande Distribution</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Les acteurs du quotidien des Français s'unissent massivement contre la précarité.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">💊</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Santé & Pharma</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Prendre soin au-delà de la médecine : le palmarès des acteurs de la santé publique.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🏗️</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">BTP & Immobilier</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Les bâtisseurs de nos villes se mobilisent pour reconstruire des vies et des avenirs.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🌱</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Énergie & Environnement</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">L'alliance indispensable de la transition écologique et de l'urgence sociale.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🌾</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Agroalimentaire</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Ceux qui nourrissent la France s'engagent concrètement pour ceux qui ont le moins.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">✈️</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Aéronautique & Spatial</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Le fleuron technologique et stratégique français déploie sa force pour la solidarité.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🚚</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Transport & Logistique</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Les créateurs de liens et de réseaux s'engagent pour ne laisser personne sur le bord de la route.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">⚖️</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Conseil & Audit</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">L'expertise intellectuelle et juridique s'investit pour structurer l'aide sociale nationale.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🛎️</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Tourisme & Hôtellerie</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Les professionnels de l'accueil et de la convivialité ouvrent leurs cœurs au mécénat.</p>
                 </div>
 
                 <div class="glow-card" style="padding: 25px; text-align: center;">
                     <div style="font-size: 2.5rem; margin-bottom: 15px;">🎬</div>
                     <h4 style="margin: 0 0 10px 0; color: #c41919; font-weight: 800; font-size: 1.1rem;">Médias & Culture</h4>
-                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted); line-height: 1.5;">Les créateurs d'opinion utilisent leur influence pour donner de la voix aux invisibles.</p>
                 </div>
             </div>
 
@@ -696,7 +801,7 @@
                 <div class="step-text">
                     <h3 style="color: #c41919; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">7 Décembre 2026</h3>
                     <h3 style="margin-top: 0;">Sélection & annonce des associations partenaires</h3>
-                    <p>Date de clôture des candidatures et de dévoilement de la liste définitive des 15 associations qui composeront cette mobilisation nationale. Comme indiqué ci-dessus, une association dont le projet correspond parfaitement à notre démarche peut être validée avant cette échéance.</p>
+                    <p>Date de clôture des candidatures et de dévoilement de la liste définitive des 14 associations qui composeront cette mobilisation nationale. Comme indiqué ci-dessus, une association dont le projet correspond parfaitement à notre démarche peut être validée avant cette échéance.</p>
                 </div>
             </div>
             
