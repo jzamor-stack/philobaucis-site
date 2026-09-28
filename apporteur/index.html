@@ -166,22 +166,22 @@
 
     <div class="mobile-header">
         <div class="logo">PHILO<span>BAUCIS</span></div>
-        <button class="burger-btn" onclick="toggleMenu()">☰</button>
+        <button class="burger-btn" onclick="toggleMenu()" aria-label="Ouvrir le menu">☰</button>
     </div>
 
     <div class="body-shell">
     <aside class="sidebar" id="sidebarMenu">
         <div class="logo">PHILO<span>BAUCIS</span></div>
         <div class="nav-group">
-            <div class="nav-item active" onclick="openTab(event, 'home')">Le Projet 2027</div>
-            <div class="nav-item" onclick="openTab(event, 'comment')">Comment ça marche</div>
-            <div class="nav-item" onclick="openTab(event, 'gains')">Vos Gains</div>
-            <div class="nav-item" onclick="openTab(event, 'steps')">Comment aider ?</div>
-            <div class="nav-item" onclick="openTab(event, 'blacklist')">Entreprises déjà prises</div>
+            <div class="nav-item active" data-tab="home" onclick="openTab(event, 'home')">Le Projet 2027</div>
+            <div class="nav-item" data-tab="comment" onclick="openTab(event, 'comment')">Comment ça marche</div>
+            <div class="nav-item" data-tab="gains" onclick="openTab(event, 'gains')">Vos Gains</div>
+            <div class="nav-item" data-tab="steps" onclick="openTab(event, 'steps')">Comment aider ?</div>
+            <div class="nav-item" data-tab="blacklist" onclick="openTab(event, 'blacklist')">Entreprises déjà prises</div>
         </div>
-        <div style="margin-top: auto; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); pt: 20px;">
+        <div style="margin-top: auto; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px;">
             <p style="font-size: 0.75rem; margin-top: 20px;">
-                j.zamor@philobaucis.fr<br><br>
+                <a href="mailto:j.zamor@philobaucis.fr" style="color: inherit; text-decoration: none;">j.zamor@philobaucis.fr</a><br><br>
                 <span style="color: #c41919; font-weight: 700;">Lancement Janvier 2027</span>
             </p>
         </div>
@@ -220,7 +220,7 @@
             
             <div style="text-align: center; margin-top: 40px;">
                 <p>Votre rôle ? <span class="highlight">Connecter les décideurs (PME, Groupes, Institutions) à cet événement.</span></p>
-                <a href="#" onclick="openTab(event, 'gains')" class="btn-main">VOIR LES COMMISSIONS</a>
+                <a href="#gains" onclick="openTab(event, 'gains')" class="btn-main">VOIR LES COMMISSIONS</a>
             </div>
         </div>
 
@@ -297,7 +297,7 @@
                     </div>
                 </div>
 
-                <p style="font-size: 0.95rem;">Le montant de chaque médaille est calculé proportionnellement à la taille de l'entreprise mise en relation. Le détail des montants et de votre commission se trouve dans l'onglet <strong>Vos Gains</strong>.</p>
+                <p style="font-size: 0.95rem;">Le montant de chaque médaille est calculé proportionnellement à la taille de l'entreprise mise en relation. Le détail des montants et de votre commission se trouve dans l'onglet <a href="#gains" onclick="openTab(event, 'gains')" style="color: #fff; font-weight: 700;">Vos Gains</a>.</p>
             </div>
 
             <div class="section-block">
@@ -327,7 +327,7 @@
             </div>
 
             <div style="text-align: center; margin-top: 40px;">
-                <a href="#" onclick="openTab(event, 'gains')" class="btn-main">VOIR LES COMMISSIONS</a>
+                <a href="#gains" onclick="openTab(event, 'gains')" class="btn-main">VOIR LES COMMISSIONS</a>
             </div>
         </div>
 
@@ -387,7 +387,7 @@
 
             <div class="glow-card" style="margin-top: 30px; padding: 25px; border-left: 4px solid #c41919;">
                 <h3 style="margin-top: 0; font-weight: 800;">Partage de commission possible</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 0;">Il est tout à fait possible de <strong>découper votre somme en several parties</strong>. Par exemple, si vous connaissez quelqu'un qui travaille dans une grande entreprise, vous pouvez choisir de prendre 25% de la commission pour avoir mis votre ami dans la boucle, et lui attribuer 75% pour avoir fait jouer ses contacts directs au sein de l'entreprise.</p>
+                <p style="font-size: 0.95rem; margin-bottom: 0;">Il est tout à fait possible de <strong>découper votre somme en plusieurs parties</strong>. Par exemple, si vous connaissez quelqu'un qui travaille dans une grande entreprise, vous pouvez choisir de prendre 25% de la commission pour avoir mis votre ami dans la boucle, et lui attribuer 75% pour avoir fait jouer ses contacts directs au sein de l'entreprise.</p>
             </div>
 
             <div class="glow-card" style="margin-top: 20px; padding: 25px; border-left: 4px solid #c41919;">
@@ -398,6 +398,10 @@
             <div class="cagnotte-box">
                 <h3>Une cagnotte en complément du programme apporteur</h3>
                 <p>Philobaucis ouvrira aussi une cagnotte solidaire, ouverte aux citoyens et aux entreprises, pendant toute la durée de janvier 2027 (95% reversés aux associations pour un don de particulier, 90% pour un don d'entreprise). Pour une entreprise, ces dons comptent aussi pour l'obtention des médailles, cumulables avec les montants versés en Mécénat d'action. <strong>Si vous êtes à l'origine de la mise en relation avec l'entreprise, vous percevez également une commission de 5% sur ses dons via la cagnotte</strong> — exactement comme pour le Mécénat d'action, un argument de plus pour convaincre vos contacts de s'engager, même s'ils démarrent petit. <strong>Un minimum de 100€ de dons est requis pour donner droit à cette commission.</strong></p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#steps" onclick="openTab(event, 'steps')" class="btn-main">COMMENT AIDER ?</a>
             </div>
         </div>
 
@@ -449,7 +453,7 @@
             </div>
 
             <div style="text-align: center; margin-top: 40px;">
-                <a href="mailto:j.zamor@philobaucis.fr" class="btn-main">REJOINDRE L'AVENTURE</a>
+                <a href="mailto:j.zamor@philobaucis.fr?subject=Programme%20Apporteur%20Philobaucis" class="btn-main">REJOINDRE L'AVENTURE</a>
             </div>
         </div>
 
@@ -466,7 +470,7 @@
                     <input type="password" id="passwordInput" placeholder="Mot de passe" onkeyup="if(event.key === 'Enter') verifyPassword()" style="width: 100%; padding: 14px 50px 14px 20px; background: #000; border: 1px solid var(--border); border-radius: 10px; color: white; font-size: 1rem; box-sizing: border-box; text-align: center;">
                     <button type="button" onclick="togglePasswordVisibility()" id="togglePasswordBtn" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--muted); font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 8px 10px; text-transform: uppercase; letter-spacing: 0.5px;">Voir</button>
                 </div>
-                <button onclick="verifyPassword()" id="unlockBtn" class="btn-main" style="margin-top: 0; width: 100%; padding: 14px; font-size: 1rem;">Déverrouiller</button>
+                <button type="button" onclick="verifyPassword()" id="unlockBtn" class="btn-main" style="margin-top: 0; width: 100%; padding: 14px; font-size: 1rem;">Déverrouiller</button>
                 <p id="passwordError" style="color: #c41919; font-size: 0.9rem; margin-top: 15px; display: none; font-weight: 700;">Mot de passe incorrect</p>
             </div>
 
@@ -511,13 +515,14 @@
     </div>
 
     <script>
+        const TABS = ['home', 'comment', 'gains', 'steps', 'blacklist'];
+
         function toggleMenu() {
             document.getElementById('sidebarMenu').classList.toggle('show');
             document.querySelector('.overlay').classList.toggle('active');
         }
 
-        // Vérification du mot de passe : appel à la fonction serverless /api/verify-apporteur
-        // Le mot de passe n'est jamais stocké ni comparé côté navigateur.
+        // Barème des médailles
         const medalBaseAmountsApp = { diamant: 2080000, or: 1040000, argent: 104000, bronze: 24000 };
         const sizeCoefficientsApp = { GE: 1, ETI: 0.4, PME: 0.18, TPE: 0.01 };
         function formatEurosApp(n) { return Math.round(n).toLocaleString('fr-FR') + ' €'; }
@@ -533,7 +538,6 @@
                 if (commissionEl) commissionEl.textContent = formatEurosApp(montant * 0.05);
             });
         }
-        document.addEventListener('DOMContentLoaded', updateMedalAmountsApporteur);
 
         function togglePasswordVisibility() {
             const input = document.getElementById('passwordInput');
@@ -547,6 +551,8 @@
             }
         }
 
+        // Vérification du mot de passe : appel à la fonction serverless /api/verify-apporteur
+        // Le mot de passe n'est jamais stocké ni comparé côté navigateur.
         async function verifyPassword() {
             const input = document.getElementById('passwordInput').value;
             const error = document.getElementById('passwordError');
@@ -556,6 +562,7 @@
 
             if (!input) return;
 
+            error.textContent = 'Mot de passe incorrect';
             error.style.display = 'none';
             btn.textContent = 'Vérification...';
             btn.disabled = true;
@@ -584,34 +591,30 @@
         }
 
         function openTab(evt, tabName, skipPush) {
-            var i, tabcontent, navitems;
-            
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { 
-                tabcontent[i].style.display = "none"; 
-            }
-            
-            navitems = document.getElementsByClassName("nav-item");
-            for (i = 0; i < navitems.length; i++) { 
-                navitems[i].classList.remove("active"); 
-            }
-            
-            document.getElementById(tabName).style.display = "block";
-            
-            const currentItems = document.querySelectorAll('.nav-item');
-            const tabMatchText = { home: 'Projet', comment: 'marche', gains: 'Gains', steps: 'aider', blacklist: 'prises' };
-            currentItems.forEach(item => {
-                if (item.textContent.includes(tabMatchText[tabName] || '')) {
-                    item.classList.add('active');
-                }
-            });
-            if(evt) evt.currentTarget.classList.add("active");
+            // Empêche le lien (href="#...") de naviguer lui-même : c'est ce qui
+            // renvoyait sur la page d'accueil juste après le clic.
+            if (evt && typeof evt.preventDefault === 'function') evt.preventDefault();
+            if (TABS.indexOf(tabName) === -1) tabName = 'home';
 
-            if(window.innerWidth <= 1100) {
+            // Affiche le bon onglet
+            document.querySelectorAll('.tab-content').forEach(function (tab) {
+                tab.classList.remove('active');
+                tab.style.display = (tab.id === tabName) ? 'block' : 'none';
+            });
+            document.getElementById(tabName).classList.add('active');
+
+            // Surligne le bon élément du menu
+            document.querySelectorAll('.nav-item').forEach(function (item) {
+                item.classList.toggle('active', item.dataset.tab === tabName);
+            });
+
+            // Referme le menu sur mobile
+            if (window.innerWidth <= 1100) {
                 document.getElementById('sidebarMenu').classList.remove('show');
                 document.querySelector('.overlay').classList.remove('active');
             }
 
+            // Reverrouille la liste quand on quitte l'onglet restreint
             if (tabName !== 'blacklist') {
                 document.getElementById('lockContainer').style.display = 'block';
                 document.getElementById('secretContent').style.display = 'none';
@@ -621,21 +624,35 @@
                 document.getElementById('passwordError').style.display = 'none';
             }
 
+            // Remonte en haut (bureau + mobile)
             document.querySelector('.main-view').scrollTop = 0;
+            window.scrollTo(0, 0);
 
             if (!skipPush) {
-                try { history.pushState({ tabName }, '', '#' + tabName); }
+                try { history.pushState({ tabName: tabName }, '', '#' + tabName); }
                 catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
             }
         }
 
-        window.addEventListener('popstate', function(event) {
-            var tabName = (event.state && event.state.tabName) || 'home';
+        function tabFromHash() {
+            const h = (location.hash || '').replace('#', '');
+            return TABS.indexOf(h) !== -1 ? h : 'home';
+        }
+
+        // Boutons Précédent / Suivant du navigateur
+        window.addEventListener('popstate', function (event) {
+            const tabName = (event.state && event.state.tabName) || tabFromHash();
             openTab(null, tabName, true);
         });
 
-        try { history.replaceState({ tabName: 'home' }, '', '#home'); }
-        catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
+        // Au chargement : ouvre l'onglet indiqué dans l'adresse (ex. .../#gains)
+        document.addEventListener('DOMContentLoaded', function () {
+            updateMedalAmountsApporteur();
+            const start = tabFromHash();
+            try { history.replaceState({ tabName: start }, '', '#' + start); }
+            catch (e) { /* Aperçu sandboxé (srcdoc) — sans effet une fois le site hébergé */ }
+            openTab(null, start, true);
+        });
     </script>
 </body>
 </html>
