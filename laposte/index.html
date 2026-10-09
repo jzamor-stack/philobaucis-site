@@ -1,1000 +1,1198 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur La Poste - IA Logistique</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <style>
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; }
-        
-        /* Flèches des champs de saisie */
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: inner-spin-button !important;
-            opacity: 1 !important;
-            display: block !important;
-            height: auto !important;
-            cursor: pointer;
-        }
-        input[type="number"] {
-            -moz-appearance: number-input !important;
-            appearance: auto !important;
-            padding-right: 4px !important;
-        }
-        
-        .bar-gap {
-            background-color: #facc15;
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.4) 5px, rgba(255,255,255,0.4) 10px);
-            display: flex; align-items: center; justify-content: center; color: #713f12; font-size: 10px; font-weight: bold;
-            transition: width 0.5s ease-out;
-        }
-
-        .rotate-180 { transform: rotate(180deg); }
-        .hole-rect { cursor: crosshair; transition: opacity 0.2s; }
-        .hole-rect:hover { opacity: 0.9 !important; stroke: #854d0e; stroke-width: 3px; }
-
-        /* Animation de déverrouillage */
-        .unlock-anim { animation: fadeOutUp 0.5s forwards; }
-        @keyframes fadeOutUp { to { opacity: 0; transform: translateY(-50px); visibility: hidden; pointer-events: none; } }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<title>Lynx Chargement</title>
+<style>
+@layer properties;@layer theme,base,components,utilities;@layer theme{:root,:host{--font-sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--font-mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--color-red-50: oklch(97.1% 0.013 17.38);--color-red-100: oklch(93.6% 0.032 17.717);--color-red-400: oklch(70.4% 0.191 22.216);--color-red-500: oklch(63.7% 0.237 25.331);--color-red-600: oklch(57.7% 0.245 27.325);--color-red-700: oklch(50.5% 0.213 27.518);--color-red-800: oklch(44.4% 0.177 26.899);--color-orange-50: oklch(98% 0.016 73.684);--color-orange-100: oklch(95.4% 0.038 75.164);--color-orange-200: oklch(90.1% 0.076 70.697);--color-orange-300: oklch(83.7% 0.128 66.29);--color-orange-400: oklch(75% 0.183 55.934);--color-orange-500: oklch(70.5% 0.213 47.604);--color-orange-700: oklch(55.3% 0.195 38.402);--color-orange-800: oklch(47% 0.157 37.304);--color-orange-900: oklch(40.8% 0.123 38.172);--color-orange-950: oklch(26.6% 0.079 36.259);--color-amber-50: oklch(98.7% 0.022 95.277);--color-amber-100: oklch(96.2% 0.059 95.617);--color-amber-500: oklch(76.9% 0.188 70.08);--color-amber-900: oklch(41.4% 0.112 45.904);--color-yellow-300: oklch(90.5% 0.182 98.111);--color-yellow-400: oklch(85.2% 0.199 91.936);--color-green-100: oklch(96.2% 0.044 156.743);--color-green-400: oklch(79.2% 0.209 151.711);--color-green-500: oklch(72.3% 0.219 149.579);--color-green-700: oklch(52.7% 0.154 150.069);--color-green-800: oklch(44.8% 0.119 151.328);--color-emerald-50: oklch(97.9% 0.021 166.113);--color-emerald-100: oklch(95% 0.052 163.051);--color-emerald-300: oklch(84.5% 0.143 164.978);--color-emerald-600: oklch(59.6% 0.145 163.225);--color-emerald-800: oklch(43.2% 0.095 166.913);--color-emerald-900: oklch(37.8% 0.077 168.94);--color-teal-50: oklch(98.4% 0.014 180.72);--color-teal-100: oklch(95.3% 0.051 180.801);--color-teal-300: oklch(85.5% 0.138 181.071);--color-teal-400: oklch(77.7% 0.152 181.912);--color-teal-500: oklch(70.4% 0.14 182.503);--color-teal-600: oklch(60% 0.118 184.704);--color-teal-700: oklch(51.1% 0.096 186.391);--color-teal-800: oklch(43.7% 0.078 188.216);--color-teal-900: oklch(38.6% 0.063 188.416);--color-cyan-700: oklch(52% 0.105 223.128);--color-sky-50: oklch(97.7% 0.013 236.62);--color-sky-100: oklch(95.1% 0.026 236.824);--color-sky-200: oklch(90.1% 0.058 230.902);--color-sky-300: oklch(82.8% 0.111 230.318);--color-sky-400: oklch(74.6% 0.16 232.661);--color-sky-600: oklch(58.8% 0.158 241.966);--color-sky-700: oklch(50% 0.134 242.749);--color-sky-800: oklch(44.3% 0.11 240.79);--color-sky-900: oklch(39.1% 0.09 240.876);--color-blue-100: oklch(93.2% 0.032 255.585);--color-blue-500: oklch(62.3% 0.214 259.815);--color-blue-800: oklch(42.4% 0.199 265.638);--color-indigo-50: oklch(96.2% 0.018 272.314);--color-indigo-100: oklch(93% 0.034 272.788);--color-indigo-200: oklch(87% 0.065 274.039);--color-indigo-600: oklch(51.1% 0.262 276.966);--color-indigo-700: oklch(45.7% 0.24 277.023);--color-indigo-800: oklch(39.8% 0.195 277.366);--color-indigo-900: oklch(35.9% 0.144 278.697);--color-slate-50: oklch(98.4% 0.003 247.858);--color-slate-100: oklch(96.8% 0.007 247.896);--color-slate-200: oklch(92.9% 0.013 255.508);--color-slate-300: oklch(86.9% 0.022 252.894);--color-slate-400: oklch(70.4% 0.04 256.788);--color-slate-500: oklch(55.4% 0.046 257.417);--color-slate-600: oklch(44.6% 0.043 257.281);--color-slate-700: oklch(37.2% 0.044 257.287);--color-slate-800: oklch(27.9% 0.041 260.031);--color-slate-900: oklch(20.8% 0.042 265.755);--color-gray-200: oklch(92.8% 0.006 264.531);--color-gray-400: oklch(70.7% 0.022 261.325);--color-black: #000;--color-white: #fff;--spacing: 0.25rem;--container-lg: 32rem;--container-7xl: 80rem;--text-xs: 0.75rem;--text-xs--line-height: calc(1 / 0.75);--text-sm: 0.875rem;--text-sm--line-height: calc(1.25 / 0.875);--text-lg: 1.125rem;--text-lg--line-height: calc(1.75 / 1.125);--text-xl: 1.25rem;--text-xl--line-height: calc(1.75 / 1.25);--text-2xl: 1.5rem;--text-2xl--line-height: calc(2 / 1.5);--text-3xl: 1.875rem;--text-3xl--line-height: calc(2.25 / 1.875);--text-4xl: 2.25rem;--text-4xl--line-height: calc(2.5 / 2.25);--font-weight-normal: 400;--font-weight-medium: 500;--font-weight-bold: 700;--font-weight-extrabold: 800;--font-weight-black: 900;--tracking-wider: 0.05em;--leading-relaxed: 1.625;--radius-sm: 0.25rem;--radius-lg: 0.5rem;--radius-xl: 0.75rem;--radius-2xl: 1rem;--blur-xs: 4px;--default-transition-duration: 150ms;--default-transition-timing-function: cubic-bezier(0.4,0,0.2,1);--default-font-family: var(--font-sans);--default-mono-font-family: var(--font-mono)}}@layer base{*,::after,::before,::backdrop,::file-selector-button{box-sizing: border-box;margin: 0;padding: 0;border: 0 solid}html,:host{line-height: 1.5;-webkit-text-size-adjust: 100%;tab-size: 4;font-family: var(--default-font-family,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings: var(--default-font-feature-settings,normal);font-variation-settings: var(--default-font-variation-settings,normal);-webkit-tap-highlight-color: transparent}hr{height: 0;color: inherit;border-top-width: 1px}abbr:where([title]){-webkit-text-decoration: underline dotted;text-decoration: underline dotted}h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: inherit}a{color: inherit;-webkit-text-decoration: inherit;text-decoration: inherit}b,strong{font-weight: bolder}code,kbd,samp,pre{font-family: var(--default-mono-font-family,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace);font-feature-settings: var(--default-mono-font-feature-settings,normal);font-variation-settings: var(--default-mono-font-variation-settings,normal);font-size: 1em}small{font-size: 80%}sub,sup{font-size: 75%;line-height: 0;position: relative;vertical-align: baseline}sub{bottom: -0.25em}sup{top: -0.5em}table{text-indent: 0;border-color: inherit;border-collapse: collapse}:-moz-focusring:where(:not(iframe)){outline: auto}progress{vertical-align: baseline}summary{display: list-item}ol,ul,menu{list-style: none}img,svg,video,canvas,audio,iframe,embed,object{display: block;vertical-align: middle}img,video{max-width: 100%;height: auto}button,input,select,optgroup,textarea,::file-selector-button{font: inherit;font-feature-settings: inherit;font-variation-settings: inherit;letter-spacing: inherit;color: inherit;border-radius: 0;background-color: transparent;opacity: 1}:where(select:is([multiple],[size])) optgroup{font-weight: bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start: 20px}::file-selector-button{margin-inline-end: 4px}::placeholder{opacity: 1}@supports (not (-webkit-appearance: -apple-pay-button)) or (contain-intrinsic-size: 1px){::placeholder{color: currentcolor;@supports (color: color-mix(in lab,red,red)){color: color-mix(in oklab,currentcolor 50%,transparent)}}}textarea{resize: vertical}::-webkit-search-decoration{-webkit-appearance: none}::-webkit-date-and-time-value{min-height: 1lh;text-align: inherit}::-webkit-datetime-edit{display: inline-flex}::-webkit-datetime-edit-fields-wrapper{padding: 0}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-block: 0}::-webkit-calendar-picker-indicator{line-height: 1}:-moz-ui-invalid{box-shadow: none}button,input:where([type="button"],[type="reset"],[type="submit"]),::file-selector-button{appearance: button}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height: auto}[hidden]:where(:not([hidden="until-found"])){display: none !important}}@layer utilities{.pointer-events-none{pointer-events: none}.absolute{position: absolute}.fixed{position: fixed}.relative{position: relative}.top-0{top: 0px}.right-0{right: 0px}.right-6{right: calc(var(--spacing) * 6)}.bottom-6{bottom: calc(var(--spacing) * 6)}.z-10{z-index: 10}.z-40{z-index: 40}.z-50{z-index: 50}.col-span-1{grid-column: span 1 / span 1}.col-span-2{grid-column: span 2 / span 2}.col-span-3{grid-column: span 3 / span 3}.col-span-6{grid-column: span 6 / span 6}.col-span-full{grid-column: 1 / -1}.mx-auto{margin-inline: auto}.mt-0\.5{margin-top: calc(var(--spacing) * 0.5)}.mt-1{margin-top: var(--spacing)}.mt-2{margin-top: calc(var(--spacing) * 2)}.mt-3{margin-top: calc(var(--spacing) * 3)}.mt-4{margin-top: calc(var(--spacing) * 4)}.mb-1{margin-bottom: var(--spacing)}.mb-2{margin-bottom: calc(var(--spacing) * 2)}.mb-3{margin-bottom: calc(var(--spacing) * 3)}.mb-4{margin-bottom: calc(var(--spacing) * 4)}.mb-6{margin-bottom: calc(var(--spacing) * 6)}.ml-6{margin-left: calc(var(--spacing) * 6)}.ml-auto{margin-left: auto}.block{display: block}.flex{display: flex}.grid{display: grid}.hidden{display: none}.inline-block{display: inline-block}.inline-flex{display: inline-flex}.h-3\.5{height: calc(var(--spacing) * 3.5)}.h-4{height: calc(var(--spacing) * 4)}.h-5{height: calc(var(--spacing) * 5)}.h-6{height: calc(var(--spacing) * 6)}.h-8{height: calc(var(--spacing) * 8)}.h-9{height: calc(var(--spacing) * 9)}.h-12{height: calc(var(--spacing) * 12)}.h-40{height: calc(var(--spacing) * 40)}.h-full{height: 100%}.h-screen{height: 100vh}.w-3\.5{width: calc(var(--spacing) * 3.5)}.w-4{width: calc(var(--spacing) * 4)}.w-5{width: calc(var(--spacing) * 5)}.w-6{width: calc(var(--spacing) * 6)}.w-12{width: calc(var(--spacing) * 12)}.w-20{width: calc(var(--spacing) * 20)}.w-fit{width: fit-content}.w-full{width: 100%}.w-screen{width: 100vw}.max-w-7xl{max-width: var(--container-7xl)}.max-w-lg{max-width: var(--container-lg)}.min-w-0{min-width: 0px}.shrink-0{flex-shrink: 0}.grow{flex-grow: 1}.-translate-x-1\/2{--tw-translate-x: calc(calc(1 / 2 * 100%) * -1);translate: var(--tw-translate-x) var(--tw-translate-y)}.-translate-y-\[120\%\]{--tw-translate-y: calc(120% * -1);translate: var(--tw-translate-x) var(--tw-translate-y)}.cursor-pointer{cursor: pointer}.list-disc{list-style-type: disc}.grid-cols-1{grid-template-columns: repeat(1,minmax(0,1fr))}.grid-cols-2{grid-template-columns: repeat(2,minmax(0,1fr))}.grid-cols-12{grid-template-columns: repeat(12,minmax(0,1fr))}.flex-col{flex-direction: column}.flex-wrap{flex-wrap: wrap}.items-center{align-items: center}.items-end{align-items: flex-end}.items-start{align-items: flex-start}.justify-between{justify-content: space-between}.justify-center{justify-content: center}.gap-2{gap: calc(var(--spacing) * 2)}.gap-3{gap: calc(var(--spacing) * 3)}.gap-4{gap: calc(var(--spacing) * 4)}.gap-6{gap: calc(var(--spacing) * 6)}:where(.space-y-1>:not(:last-child)){--tw-space-y-reverse: 0;margin-block-start: calc(var(--spacing) * var(--tw-space-y-reverse));margin-block-end: calc(var(--spacing) * calc(1 - var(--tw-space-y-reverse)))}:where(.space-y-2>:not(:last-child)){--tw-space-y-reverse: 0;margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)))}:where(.space-y-4>:not(:last-child)){--tw-space-y-reverse: 0;margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)))}:where(.space-y-5>:not(:last-child)){--tw-space-y-reverse: 0;margin-block-start: calc(calc(var(--spacing) * 5) * var(--tw-space-y-reverse));margin-block-end: calc(calc(var(--spacing) * 5) * calc(1 - var(--tw-space-y-reverse)))}:where(.space-y-6>:not(:last-child)){--tw-space-y-reverse: 0;margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)))}.gap-x-6{column-gap: calc(var(--spacing) * 6)}.gap-y-2{row-gap: calc(var(--spacing) * 2)}.truncate{overflow: hidden;text-overflow: ellipsis;white-space: nowrap}.overflow-hidden{overflow: hidden}.overflow-x-auto{overflow-x: auto}.overflow-x-hidden{overflow-x: hidden}.overflow-y-auto{overflow-y: auto}.rounded-2xl{border-radius: var(--radius-2xl)}.rounded-full{border-radius: calc(infinity * 1px)}.rounded-lg{border-radius: var(--radius-lg)}.rounded-sm{border-radius: var(--radius-sm)}.rounded-xl{border-radius: var(--radius-xl)}.rounded-r-2xl{border-top-right-radius: var(--radius-2xl);border-bottom-right-radius: var(--radius-2xl)}.rounded-bl-lg{border-bottom-left-radius: var(--radius-lg)}.border{border-style: var(--tw-border-style);border-width: 1px}.border-2{border-style: var(--tw-border-style);border-width: 2px}.border-t{border-top-style: var(--tw-border-style);border-top-width: 1px}.border-l-4{border-left-style: var(--tw-border-style);border-left-width: 4px}.border-l-8{border-left-style: var(--tw-border-style);border-left-width: 8px}.border-amber-500{border-color: var(--color-amber-500)}.border-blue-500{border-color: var(--color-blue-500)}.border-emerald-300{border-color: var(--color-emerald-300)}.border-green-500{border-color: var(--color-green-500)}.border-green-500\/50{border-color: color-mix(in srgb,oklch(72.3% 0.219 149.579) 50%,transparent);@supports (color: color-mix(in lab,red,red)){border-color: color-mix(in oklab,var(--color-green-500) 50%,transparent)}}.border-indigo-200{border-color: var(--color-indigo-200)}.border-orange-200{border-color: var(--color-orange-200)}.border-orange-400{border-color: var(--color-orange-400)}.border-orange-500{border-color: var(--color-orange-500)}.border-red-400{border-color: var(--color-red-400)}.border-red-500{border-color: var(--color-red-500)}.border-sky-100{border-color: var(--color-sky-100)}.border-sky-300{border-color: var(--color-sky-300)}.border-slate-100{border-color: var(--color-slate-100)}.border-slate-200{border-color: var(--color-slate-200)}.border-slate-300{border-color: var(--color-slate-300)}.border-slate-600{border-color: var(--color-slate-600)}.border-slate-800{border-color: var(--color-slate-800)}.border-teal-100{border-color: var(--color-teal-100)}.border-teal-300{border-color: var(--color-teal-300)}.border-teal-500\/50{border-color: color-mix(in srgb,oklch(70.4% 0.14 182.503) 50%,transparent);@supports (color: color-mix(in lab,red,red)){border-color: color-mix(in oklab,var(--color-teal-500) 50%,transparent)}}.border-teal-600\/50{border-color: color-mix(in srgb,oklch(60% 0.118 184.704) 50%,transparent);@supports (color: color-mix(in lab,red,red)){border-color: color-mix(in oklab,var(--color-teal-600) 50%,transparent)}}.border-white\/10{border-color: color-mix(in srgb,#fff 10%,transparent);@supports (color: color-mix(in lab,red,red)){border-color: color-mix(in oklab,var(--color-white) 10%,transparent)}}.border-white\/30{border-color: color-mix(in srgb,#fff 30%,transparent);@supports (color: color-mix(in lab,red,red)){border-color: color-mix(in oklab,var(--color-white) 30%,transparent)}}.bg-amber-100{background-color: var(--color-amber-100)}.bg-black\/20{background-color: color-mix(in srgb,#000 20%,transparent);@supports (color: color-mix(in lab,red,red)){background-color: color-mix(in oklab,var(--color-black) 20%,transparent)}}.bg-blue-100{background-color: var(--color-blue-100)}.bg-emerald-100{background-color: var(--color-emerald-100)}.bg-indigo-50\/40{background-color: color-mix(in srgb,oklch(96.2% 0.018 272.314) 40%,transparent);@supports (color: color-mix(in lab,red,red)){background-color: color-mix(in oklab,var(--color-indigo-50) 40%,transparent)}}.bg-indigo-100{background-color: var(--color-indigo-100)}.bg-indigo-600{background-color: var(--color-indigo-600)}.bg-orange-50{background-color: var(--color-orange-50)}.bg-orange-100{background-color: var(--color-orange-100)}.bg-orange-100\/50{background-color: color-mix(in srgb,oklch(95.4% 0.038 75.164) 50%,transparent);@supports (color: color-mix(in lab,red,red)){background-color: color-mix(in oklab,var(--color-orange-100) 50%,transparent)}}.bg-orange-200{background-color: var(--color-orange-200)}.bg-orange-500{background-color: var(--color-orange-500)}.bg-red-50{background-color: var(--color-red-50)}.bg-red-100{background-color: var(--color-red-100)}.bg-red-500\/80{background-color: color-mix(in srgb,oklch(63.7% 0.237 25.331) 80%,transparent);@supports (color: color-mix(in lab,red,red)){background-color: color-mix(in oklab,var(--color-red-500) 80%,transparent)}}.bg-sky-50{background-color: var(--color-sky-50)}.bg-sky-100{background-color: var(--color-sky-100)}.bg-sky-600{background-color: var(--color-sky-600)}.bg-slate-50{background-color: var(--color-slate-50)}.bg-slate-100{background-color: var(--color-slate-100)}.bg-slate-200{background-color: var(--color-slate-200)}.bg-slate-700{background-color: var(--color-slate-700)}.bg-slate-900{background-color: var(--color-slate-900)}.bg-teal-100{background-color: var(--color-teal-100)}.bg-teal-600{background-color: var(--color-teal-600)}.bg-teal-800\/30{background-color: color-mix(in srgb,oklch(43.7% 0.078 188.216) 30%,transparent);@supports (color: color-mix(in lab,red,red)){background-color: color-mix(in oklab,var(--color-teal-800) 30%,transparent)}}.bg-teal-900\/40{background-color: color-mix(in srgb,oklch(38.6% 0.063 188.416) 40%,transparent);@supports (color: color-mix(in lab,red,red)){background-color: color-mix(in oklab,var(--color-teal-900) 40%,transparent)}}.bg-white{background-color: var(--color-white)}.bg-linear-to-br{--tw-gradient-position: to bottom right;@supports (background-image: linear-gradient(in lab,red,red)){--tw-gradient-position: to bottom right in oklab}background-image: linear-gradient(var(--tw-gradient-stops))}.bg-linear-to-r{--tw-gradient-position: to right;@supports (background-image: linear-gradient(in lab,red,red)){--tw-gradient-position: to right in oklab}background-image: linear-gradient(var(--tw-gradient-stops))}.from-amber-50{--tw-gradient-from: var(--color-amber-50);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.from-emerald-600{--tw-gradient-from: var(--color-emerald-600);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.from-red-600{--tw-gradient-from: var(--color-red-600);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.from-teal-600{--tw-gradient-from: var(--color-teal-600);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.to-cyan-700{--tw-gradient-to: var(--color-cyan-700);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.to-green-700{--tw-gradient-to: var(--color-green-700);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.to-orange-50{--tw-gradient-to: var(--color-orange-50);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.to-red-800{--tw-gradient-to: var(--color-red-800);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.p-0{padding: 0px}.p-2{padding: calc(var(--spacing) * 2)}.p-3{padding: calc(var(--spacing) * 3)}.p-4{padding: calc(var(--spacing) * 4)}.p-6{padding: calc(var(--spacing) * 6)}.px-2{padding-inline: calc(var(--spacing) * 2)}.px-3{padding-inline: calc(var(--spacing) * 3)}.px-4{padding-inline: calc(var(--spacing) * 4)}.px-6{padding-inline: calc(var(--spacing) * 6)}.py-1{padding-block: var(--spacing)}.py-1\.5{padding-block: calc(var(--spacing) * 1.5)}.py-2{padding-block: calc(var(--spacing) * 2)}.pt-1{padding-top: var(--spacing)}.pt-4{padding-top: calc(var(--spacing) * 4)}.pt-6{padding-top: calc(var(--spacing) * 6)}.pb-6{padding-bottom: calc(var(--spacing) * 6)}.text-center{text-align: center}.text-left{text-align: left}.text-right{text-align: right}.font-mono{font-family: var(--font-mono)}.text-2xl{font-size: var(--text-2xl);line-height: var(--tw-leading,var(--text-2xl--line-height))}.text-3xl{font-size: var(--text-3xl);line-height: var(--tw-leading,var(--text-3xl--line-height))}.text-lg{font-size: var(--text-lg);line-height: var(--tw-leading,var(--text-lg--line-height))}.text-sm{font-size: var(--text-sm);line-height: var(--tw-leading,var(--text-sm--line-height))}.text-xl{font-size: var(--text-xl);line-height: var(--tw-leading,var(--text-xl--line-height))}.text-xs{font-size: var(--text-xs);line-height: var(--tw-leading,var(--text-xs--line-height))}.text-\[10px\]{font-size: 10px}.text-\[11px\]{font-size: 11px}.leading-relaxed{--tw-leading: var(--leading-relaxed);line-height: var(--leading-relaxed)}.font-black{--tw-font-weight: var(--font-weight-black);font-weight: var(--font-weight-black)}.font-bold{--tw-font-weight: var(--font-weight-bold);font-weight: var(--font-weight-bold)}.font-extrabold{--tw-font-weight: var(--font-weight-extrabold);font-weight: var(--font-weight-extrabold)}.font-medium{--tw-font-weight: var(--font-weight-medium);font-weight: var(--font-weight-medium)}.font-normal{--tw-font-weight: var(--font-weight-normal);font-weight: var(--font-weight-normal)}.tracking-wider{--tw-tracking: var(--tracking-wider);letter-spacing: var(--tracking-wider)}.whitespace-pre-wrap{white-space: pre-wrap}.text-amber-900{color: var(--color-amber-900)}.text-blue-800{color: var(--color-blue-800)}.text-emerald-800{color: var(--color-emerald-800)}.text-emerald-900{color: var(--color-emerald-900)}.text-green-100{color: var(--color-green-100)}.text-green-400{color: var(--color-green-400)}.text-green-800{color: var(--color-green-800)}.text-indigo-800{color: var(--color-indigo-800)}.text-indigo-900{color: var(--color-indigo-900)}.text-orange-700{color: var(--color-orange-700)}.text-orange-800{color: var(--color-orange-800)}.text-orange-900{color: var(--color-orange-900)}.text-orange-950{color: var(--color-orange-950)}.text-red-600{color: var(--color-red-600)}.text-red-700{color: var(--color-red-700)}.text-red-800{color: var(--color-red-800)}.text-sky-800{color: var(--color-sky-800)}.text-sky-900{color: var(--color-sky-900)}.text-slate-400{color: var(--color-slate-400)}.text-slate-500{color: var(--color-slate-500)}.text-slate-600{color: var(--color-slate-600)}.text-slate-700{color: var(--color-slate-700)}.text-slate-800{color: var(--color-slate-800)}.text-teal-100{color: var(--color-teal-100)}.text-teal-800{color: var(--color-teal-800)}.text-teal-900{color: var(--color-teal-900)}.text-white{color: var(--color-white)}.text-yellow-300{color: var(--color-yellow-300)}.text-yellow-400{color: var(--color-yellow-400)}.uppercase{text-transform: uppercase}.italic{font-style: italic}.not-italic{font-style: normal}.line-through{text-decoration-line: line-through}.underline{text-decoration-line: underline}.accent-emerald-600{accent-color: var(--color-emerald-600)}.shadow-2xl{--tw-shadow: 0 25px 50px -12px var(--tw-shadow-color,rgb(0 0 0 / 0.25));box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-inner{--tw-shadow: inset 0 2px 4px 0 var(--tw-shadow-color,rgb(0 0 0 / 0.05));box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-lg{--tw-shadow: 0 10px 15px -3px var(--tw-shadow-color,rgb(0 0 0 / 0.1)),0 4px 6px -4px var(--tw-shadow-color,rgb(0 0 0 / 0.1));box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-md{--tw-shadow: 0 4px 6px -1px var(--tw-shadow-color,rgb(0 0 0 / 0.1)),0 2px 4px -2px var(--tw-shadow-color,rgb(0 0 0 / 0.1));box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-xl{--tw-shadow: 0 20px 25px -5px var(--tw-shadow-color,rgb(0 0 0 / 0.1)),0 8px 10px -6px var(--tw-shadow-color,rgb(0 0 0 / 0.1));box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-xs{--tw-shadow: 0 1px 2px 0 var(--tw-shadow-color,rgb(0 0 0 / 0.05));box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.ring-teal-400{--tw-ring-color: var(--color-teal-400)}.outline-hidden{--tw-outline-style: none;outline-style: none;@media (forced-colors: active){outline: 2px solid transparent;outline-offset: 2px}}.backdrop-blur-xs{--tw-backdrop-blur: blur(var(--blur-xs));-webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,)}.transition-all{transition-property: all;transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));transition-duration: var(--tw-duration,var(--default-transition-duration))}.transition-colors{transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));transition-duration: var(--tw-duration,var(--default-transition-duration))}.transition-transform{transition-property: transform,translate,scale,rotate;transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));transition-duration: var(--tw-duration,var(--default-transition-duration))}.duration-300{--tw-duration: 300ms;transition-duration: 300ms}.duration-500{--tw-duration: 500ms;transition-duration: 500ms}@media (hover: hover){.hover\:scale-110:hover{--tw-scale-x: 110%;--tw-scale-y: 110%;--tw-scale-z: 110%;scale: var(--tw-scale-x) var(--tw-scale-y)}.hover\:bg-emerald-50:hover{background-color: var(--color-emerald-50)}.hover\:bg-indigo-200:hover{background-color: var(--color-indigo-200)}.hover\:bg-indigo-700:hover{background-color: var(--color-indigo-700)}.hover\:bg-orange-50:hover{background-color: var(--color-orange-50)}.hover\:bg-orange-300:hover{background-color: var(--color-orange-300)}.hover\:bg-red-600:hover{background-color: var(--color-red-600)}.hover\:bg-sky-50:hover{background-color: var(--color-sky-50)}.hover\:bg-sky-200:hover{background-color: var(--color-sky-200)}.hover\:bg-sky-700:hover{background-color: var(--color-sky-700)}.hover\:bg-slate-50:hover{background-color: var(--color-slate-50)}.hover\:bg-slate-300:hover{background-color: var(--color-slate-300)}.hover\:bg-slate-800:hover{background-color: var(--color-slate-800)}.hover\:bg-teal-50:hover{background-color: var(--color-teal-50)}.hover\:bg-teal-700:hover{background-color: var(--color-teal-700)}.hover\:from-amber-100:hover{--tw-gradient-from: var(--color-amber-100);--tw-gradient-stops: var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from) var(--tw-gradient-from-position),var(--tw-gradient-to) var(--tw-gradient-to-position))}.hover\:text-slate-900:hover{color: var(--color-slate-900)}.hover\:ring-2:hover{--tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}}.focus\:ring-2:focus{--tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.focus\:ring-sky-400:focus{--tw-ring-color: var(--color-sky-400)}.focus\:ring-teal-400:focus{--tw-ring-color: var(--color-teal-400)}@media (width>= 40rem){.sm\:grid-cols-2{grid-template-columns: repeat(2,minmax(0,1fr))}.sm\:flex-row{flex-direction: row}}@media (width>= 48rem){.md\:grid-cols-2{grid-template-columns: repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns: repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns: repeat(4,minmax(0,1fr))}.md\:p-8{padding: calc(var(--spacing) * 8)}.md\:text-4xl{font-size: var(--text-4xl);line-height: var(--tw-leading,var(--text-4xl--line-height))}}@media (width>= 64rem){.lg\:grid-cols-3{grid-template-columns: repeat(3,minmax(0,1fr))}}@media (width>= 80rem){.xl\:sticky{position: sticky}.xl\:top-4{top: calc(var(--spacing) * 4)}.xl\:col-span-2{grid-column: span 2 / span 2}.xl\:grid-cols-3{grid-template-columns: repeat(3,minmax(0,1fr))}.xl\:self-start{align-self: flex-start}.xl\:overflow-y-auto{overflow-y: auto}}}@layer base{*,::after,::before,::backdrop,::file-selector-button{border-color: var(--color-gray-200,currentColor)}button:not(:disabled),[role="button"]:not(:disabled){cursor: pointer}input::placeholder,textarea::placeholder{color: var(--color-gray-400)}}body{font-family: 'Segoe UI',system-ui,sans-serif;background-color: #f8fafc}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance: inner-spin-button !important;opacity: 1 !important;display: block !important;height: auto !important;cursor: pointer}input[type="number"]{-moz-appearance: number-input !important;appearance: auto !important;padding-right: 4px !important}.hole-rect{cursor: crosshair;transition: opacity 0.2s}.hole-rect:hover{opacity: 0.9 !important;stroke: #854d0e;stroke-width: 3px}@keyframes fadeIn{from{opacity: 0;transform: translateY(10px)}to{opacity: 1;transform: translateY(0)}}.animate-fadeIn{animation: fadeIn 0.3s ease-out forwards}.print-only{display: none}@media print{.no-print{display: none !important}.print-only{display: block !important;margin-bottom: 8px}html,body,#main-body,#app-content{height: auto !important;overflow: visible !important;width: auto !important;background: #fff !important;padding: 0 !important}.print-full{display: block !important}*{-webkit-print-color-adjust: exact;print-color-adjust: exact}#result-card{position: static !important;background: #fff !important;color: #0f172a !important;box-shadow: none !important;border: 1px solid #94a3b8}#result-card .text-green-100,#result-card .text-yellow-300{color: #334155 !important}#calc-log{background: #fff !important;color: #0f172a !important;height: auto !important;border-color: #cbd5e1 !important}#right-col{position: static !important;max-height: none !important;overflow: visible !important}#checklist-card{box-shadow: none !important;break-inside: avoid;margin-top: 12px}#svg-container{overflow: visible !important}}@property --tw-translate-x{syntax: "*";inherits: false;initial-value: 0}@property --tw-translate-y{syntax: "*";inherits: false;initial-value: 0}@property --tw-translate-z{syntax: "*";inherits: false;initial-value: 0}@property --tw-space-y-reverse{syntax: "*";inherits: false;initial-value: 0}@property --tw-border-style{syntax: "*";inherits: false;initial-value: solid}@property --tw-gradient-position{syntax: "*";inherits: false}@property --tw-gradient-from{syntax: "<color>";inherits: false;initial-value: #0000}@property --tw-gradient-via{syntax: "<color>";inherits: false;initial-value: #0000}@property --tw-gradient-to{syntax: "<color>";inherits: false;initial-value: #0000}@property --tw-gradient-stops{syntax: "*";inherits: false}@property --tw-gradient-via-stops{syntax: "*";inherits: false}@property --tw-gradient-from-position{syntax: "<length-percentage>";inherits: false;initial-value: 0%}@property --tw-gradient-via-position{syntax: "<length-percentage>";inherits: false;initial-value: 50%}@property --tw-gradient-to-position{syntax: "<length-percentage>";inherits: false;initial-value: 100%}@property --tw-leading{syntax: "*";inherits: false}@property --tw-font-weight{syntax: "*";inherits: false}@property --tw-tracking{syntax: "*";inherits: false}@property --tw-shadow{syntax: "*";inherits: false;initial-value: 0 0 #0000}@property --tw-shadow-color{syntax: "*";inherits: false}@property --tw-shadow-alpha{syntax: "<percentage>";inherits: false;initial-value: 100%}@property --tw-inset-shadow{syntax: "*";inherits: false;initial-value: 0 0 #0000}@property --tw-inset-shadow-color{syntax: "*";inherits: false}@property --tw-inset-shadow-alpha{syntax: "<percentage>";inherits: false;initial-value: 100%}@property --tw-ring-color{syntax: "*";inherits: false}@property --tw-ring-shadow{syntax: "*";inherits: false;initial-value: 0 0 #0000}@property --tw-inset-ring-color{syntax: "*";inherits: false}@property --tw-inset-ring-shadow{syntax: "*";inherits: false;initial-value: 0 0 #0000}@property --tw-ring-inset{syntax: "*";inherits: false}@property --tw-ring-offset-width{syntax: "<length>";inherits: false;initial-value: 0px}@property --tw-ring-offset-color{syntax: "*";inherits: false;initial-value: #fff}@property --tw-ring-offset-shadow{syntax: "*";inherits: false;initial-value: 0 0 #0000}@property --tw-backdrop-blur{syntax: "*";inherits: false}@property --tw-backdrop-brightness{syntax: "*";inherits: false}@property --tw-backdrop-contrast{syntax: "*";inherits: false}@property --tw-backdrop-grayscale{syntax: "*";inherits: false}@property --tw-backdrop-hue-rotate{syntax: "*";inherits: false}@property --tw-backdrop-invert{syntax: "*";inherits: false}@property --tw-backdrop-opacity{syntax: "*";inherits: false}@property --tw-backdrop-saturate{syntax: "*";inherits: false}@property --tw-backdrop-sepia{syntax: "*";inherits: false}@property --tw-duration{syntax: "*";inherits: false}@property --tw-scale-x{syntax: "*";inherits: false;initial-value: 1}@property --tw-scale-y{syntax: "*";inherits: false;initial-value: 1}@property --tw-scale-z{syntax: "*";inherits: false;initial-value: 1}@layer properties{@supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))){*,::before,::after,::backdrop{--tw-translate-x: 0;--tw-translate-y: 0;--tw-translate-z: 0;--tw-space-y-reverse: 0;--tw-border-style: solid;--tw-gradient-position: initial;--tw-gradient-from: #0000;--tw-gradient-via: #0000;--tw-gradient-to: #0000;--tw-gradient-stops: initial;--tw-gradient-via-stops: initial;--tw-gradient-from-position: 0%;--tw-gradient-via-position: 50%;--tw-gradient-to-position: 100%;--tw-leading: initial;--tw-font-weight: initial;--tw-tracking: initial;--tw-shadow: 0 0 #0000;--tw-shadow-color: initial;--tw-shadow-alpha: 100%;--tw-inset-shadow: 0 0 #0000;--tw-inset-shadow-color: initial;--tw-inset-shadow-alpha: 100%;--tw-ring-color: initial;--tw-ring-shadow: 0 0 #0000;--tw-inset-ring-color: initial;--tw-inset-ring-shadow: 0 0 #0000;--tw-ring-inset: initial;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-offset-shadow: 0 0 #0000;--tw-backdrop-blur: initial;--tw-backdrop-brightness: initial;--tw-backdrop-contrast: initial;--tw-backdrop-grayscale: initial;--tw-backdrop-hue-rotate: initial;--tw-backdrop-invert: initial;--tw-backdrop-opacity: initial;--tw-backdrop-saturate: initial;--tw-backdrop-sepia: initial;--tw-duration: initial;--tw-scale-x: 1;--tw-scale-y: 1;--tw-scale-z: 1}}}
+</style>
 </head>
 <body class="p-0 text-slate-800 relative h-screen w-screen overflow-x-hidden" id="main-body">
 
-    <div id="app-content" class="h-full overflow-y-auto p-4 md:p-8 transition-opacity duration-700">
-        
-        <div id="hole-tooltip" class="absolute pointer-events-none hidden bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-xl z-50 border border-slate-600 transform -translate-x-1/2 -translate-y-[120%] transition-opacity duration-100"></div>
+<div id="app-content" class="h-full overflow-y-auto p-4 md:p-8">
 
-        <!-- BOUTON FLOTTANT : ALLER EN BAS DE PAGE -->
-        <button type="button" onclick="document.getElementById('result-card').scrollIntoView({behavior:'smooth', block:'start'})"
-            title="Aller aux résultats"
-            class="fixed bottom-6 right-6 z-40 bg-teal-600 hover:bg-teal-700 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 border-2 border-white/30">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-        </button>
+  <div id="hole-tooltip" class="absolute pointer-events-none hidden bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-xl z-50 border border-slate-600 -translate-x-1/2 -translate-y-[120%]"></div>
 
-        <div class="max-w-7xl mx-auto space-y-6">
-            
-            <!-- EN-TÊTE ET SÉLECTEUR DE CAMION -->
-            <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-2xl p-6 md:p-8 text-white shadow-xl text-center">
-                <h1 class="text-3xl md:text-4xl font-extrabold mb-4">🚚 Calculateur de Chargement</h1>
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-3 bg-teal-800/30 p-3 rounded-xl max-w-lg mx-auto backdrop-blur-sm border border-teal-500/50">
-                    <label for="truck-type" class="text-teal-100 font-bold uppercase text-xs tracking-wider">Format du camion :</label>
-                    <select id="truck-type" class="bg-white text-teal-900 font-black rounded-lg px-4 py-2 outline-none calc-trigger cursor-pointer shadow-sm hover:ring-2 ring-teal-400 transition-all">
-                        <option value="1330">Semi-Remorque (13,30m)</option>
-                        <option value="800">Porteur 32 CE (8,00m)</option>
-                        <option value="600">Porteur 24 CE (6,00m)</option>
-                        <option value="500">Porteur 20 CE (5,00m)</option>
-                    </select>
-                </div>
-                <!-- AVERTISSEMENT PORTEURS : longueurs non garanties (visible uniquement hors Semi-Remorque) -->
-                <div id="porteur-warning" class="hidden mt-4 text-left bg-amber-100 border-l-4 border-amber-500 text-amber-900 p-3 rounded text-xs font-medium shadow-sm max-w-lg mx-auto">
-                    ⚠️ <b>Application en cours d'amélioration :</b> pour ce format de camion, nous pouvons garantir que les éléments saisis rentreront bien dedans, mais nous ne pouvons pas garantir qu'il ne reste pas plus de place que prévu (la longueur réelle du porteur n'est pas encore certifiée). Seul le calcul pour la Semi-Remorque est aujourd'hui certain.
-                </div>
-                <!-- OPTION DE ROTATION AUTO EN FIN DE CAMION -->
-                <div class="mt-4 flex items-center justify-center gap-2 text-sm text-teal-100 bg-teal-900/40 py-2 px-4 rounded-lg w-fit mx-auto border border-teal-600/50">
-                    <input type="checkbox" id="auto-rotate-toggle" class="w-4 h-4 rounded text-teal-500 calc-trigger cursor-pointer" checked>
-                    <label for="auto-rotate-toggle" class="font-medium cursor-pointer">Autoriser la rotation des objets en fin de camion s'ils débordent</label>
-                </div>
-                <button type="button" onclick="resetAll()" class="mt-3 inline-flex items-center gap-2 text-xs font-bold text-white bg-red-500/80 hover:bg-red-600 px-4 py-2 rounded-lg shadow-sm transition-colors">
-                    🔄 RÉINITIALISER TOUT
-                </button>
+  <!-- Bouton flottant : aller directement aux résultats -->
+  <button type="button" id="btn-scroll-down" data-noprint="1" title="Aller en bas de la page" aria-label="Aller en bas de la page"
+    class="no-print fixed bottom-6 right-6 z-40 bg-teal-600 hover:bg-teal-700 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 border-2 border-white/30">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+  </button>
+
+  <div class="max-w-7xl mx-auto space-y-6">
+    <div id="print-head" class="print-only"></div>
+
+    <!-- EN-TÊTE ET SÉLECTEUR DE CAMION -->
+    <header class="no-print bg-linear-to-r from-teal-600 to-cyan-700 rounded-2xl p-6 md:p-8 text-white shadow-xl text-center">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-1">Lynx Chargement</h1>
+      <p class="text-teal-100 text-sm mb-4">Plan de chargement au centimètre près · compatible avec les contenants utilisés par La Poste</p>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-3 bg-teal-800/30 p-3 rounded-xl max-w-lg mx-auto backdrop-blur-xs border border-teal-500/50">
+        <label for="truck-type" class="text-teal-100 font-bold uppercase text-xs tracking-wider">Format du camion :</label>
+        <select id="truck-type" class="bg-white text-teal-900 font-black rounded-lg px-4 py-2 outline-hidden cursor-pointer shadow-xs hover:ring-2 ring-teal-400 transition-all">
+          <option value="1330">Semi-Remorque (13,30m)</option>
+          <option value="800">Porteur 32 CE (8,00m)</option>
+          <option value="600">Porteur 24 CE (6,00m)</option>
+          <option value="500">Porteur 20 CE (5,00m)</option>
+        </select>
+      </div>
+
+      <!-- Avertissement porteurs : longueurs non garanties (masqué pour la semi-remorque) -->
+      <div id="porteur-warning" class="hidden mt-4 text-left bg-amber-100 border-l-4 border-amber-500 text-amber-900 p-3 rounded-sm text-xs font-medium shadow-xs max-w-lg mx-auto">
+        ⚠️ <b>Application en cours d'amélioration :</b> pour ce format de camion, nous pouvons garantir que les éléments saisis rentreront bien dedans, mais nous ne pouvons pas garantir qu'il ne reste pas plus de place que prévu (la longueur réelle du porteur n'est pas encore certifiée). Seul le calcul pour la Semi-Remorque est aujourd'hui certain.
+      </div>
+
+      <div class="mt-4 flex items-center justify-center gap-2 text-sm text-teal-100 bg-teal-900/40 py-2 px-4 rounded-lg w-fit mx-auto border border-teal-600/50">
+        <input type="checkbox" id="auto-rotate-toggle" class="w-4 h-4 rounded-sm cursor-pointer" checked>
+        <label for="auto-rotate-toggle" class="font-medium cursor-pointer">Autoriser la rotation des objets en fin de camion s'ils débordent</label>
+      </div>
+      <button type="button" data-action="reset-all" class="mt-3 inline-flex items-center gap-2 text-xs font-bold text-white bg-red-500/80 hover:bg-red-600 px-4 py-2 rounded-lg shadow-xs transition-colors">
+        🔄 RÉINITIALISER TOUT
+      </button>
+    </header>
+
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 print-full">
+      <div class="xl:col-span-2 space-y-6 no-print">
+
+        <!-- 1. ÉLÉMENTS OBLIGATOIRES -->
+        <section class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
+          <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">📦 Éléments à placer obligatoirement</h2>
+          <div id="main-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </section>
+
+        <!-- 2. MATÉRIEL VIDE -->
+        <section class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+          <button type="button" data-toggle="empty" aria-expanded="false" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-hidden">
+            <div>
+              <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2>
+              <p class="text-sm text-slate-500 mt-1">Gestion des piles de contenants vides.</p>
             </div>
-
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                <div class="xl:col-span-2 space-y-6">
-                    
-                    <!-- 1. ÉLÉMENTS OBLIGATOIRES -->
-                    <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6">
-                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">📦 Éléments à placer obligatoirement</h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <!-- CPR -->
-                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-blue-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-blue-900">CPR</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-blue-600 font-bold border border-blue-100">0.84 x 0.60</span>
-                                </div>
-                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold text-blue-800 uppercase">Long.</div><div class="text-center font-bold text-blue-800 uppercase">Larg.</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
-                                    <input type="number" min="0" id="cpr-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cpr-n-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
-                                    <input type="number" min="0" id="cpr-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cpr-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                            <!-- Palette -->
-                            <div class="bg-green-50 p-3 rounded-xl border border-green-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-green-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-green-900">Palette</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-green-600 font-bold border border-green-100">1.20 x 0.80</span>
-                                </div>
-                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold text-green-800 uppercase">Long.</div><div class="text-center font-bold text-green-800 uppercase">Larg.</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
-                                    <input type="number" min="0" id="pal-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="pal-n-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
-                                    <input type="number" min="0" id="pal-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="pal-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                            <!-- CV -->
-                            <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-teal-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-teal-900">CV</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-teal-600 font-bold border border-teal-100">1.00 x 0.60</span>
-                                </div>
-                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold text-teal-800 uppercase">Long.</div><div class="text-center font-bold text-teal-800 uppercase">Larg.</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
-                                    <input type="number" min="0" id="cv-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cv-n-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
-                                    <input type="number" min="0" id="cv-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cv-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                            <!-- CP -->
-                            <div class="bg-purple-50 p-3 rounded-xl border border-purple-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-purple-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-purple-900">CP</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-purple-600 font-bold border border-purple-100">1.20 x 0.84</span>
-                                </div>
-                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold text-purple-800 uppercase">Long.</div><div class="text-center font-bold text-purple-800 uppercase">Larg.</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase">Sol</div>
-                                    <input type="number" min="0" id="cp-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cp-n-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase">Gerbé</div>
-                                    <input type="number" min="0" id="cp-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cp-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                            <!-- CE -->
-                            <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-pink-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-pink-900">CE</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-pink-600 font-bold border border-pink-100">1.00 x 0.50</span>
-                                </div>
-                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold uppercase">Long.</div><div class="text-center font-bold uppercase">Larg.</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Sol</div>
-                                    <input type="number" min="0" id="ce-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="ce-n-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Gerbé</div>
-                                    <input type="number" min="0" id="ce-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="ce-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                            <!-- CDP -->
-                            <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-indigo-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-indigo-900">CDP</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-indigo-600 font-bold border border-indigo-100">1.20 x 1.00</span>
-                                </div>
-                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold uppercase">Long.</div><div class="text-center font-bold uppercase">Larg.</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Sol</div>
-                                    <input type="number" min="0" id="cdp-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cdp-n-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Gerbé</div>
-                                    <input type="number" min="0" id="cdp-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="cdp-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                            <!-- Magnum -->
-                            <div class="bg-yellow-50 p-3 rounded-xl border border-yellow-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-yellow-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-yellow-900">Magnum</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-yellow-600 font-bold border border-yellow-100">1.20 x 1.00</span>
-                                </div>
-                                <div class="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold uppercase">Long.</div><div class="text-center font-bold uppercase">Larg.</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Sol</div>
-                                    <input type="number" min="0" id="mag-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="mag-n-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Gerbé</div>
-                                    <input type="number" min="0" id="mag-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <input type="number" min="0" id="mag-g-larg" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                            <!-- Kubs -->
-                            <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 shadow-sm">
-                                <div class="flex justify-between items-center border-b border-orange-200 pb-1 mb-2">
-                                    <h3 class="font-bold text-orange-900">Kubs</h3>
-                                    <span class="text-[10px] bg-white px-2 py-0.5 rounded-full text-orange-600 font-bold border border-orange-100">0.60 x 0.60</span>
-                                </div>
-                                <div class="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[10px] items-center">
-                                    <div></div><div class="text-center font-bold text-orange-800 uppercase">Carré</div>
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Sol</div>
-                                    <input type="number" min="0" id="kub-n-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                    <div class="text-right font-bold text-slate-500 uppercase text-[9px]">Gerbé</div>
-                                    <input type="number" min="0" id="kub-g-long" class="w-full p-1 border rounded text-center calc-trigger bg-white">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. MATÉRIEL VIDE -->
-                    <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
-                        <button onclick="toggleSection('empty-block-content', 'empty-toggle-icon')" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-none">
-                            <div>
-                                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">♻️ Matériel Vide</h2>
-                                <p class="text-sm text-slate-500 mt-1">Gestion des piles de Kubs, palettes, CDP, CE, CP, CV et CPR vides.</p>
-                            </div>
-                            <div class="bg-slate-100 p-2 rounded-full shadow-sm">
-                                <svg id="empty-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </button>
-                        <div id="empty-block-content" class="hidden px-6 pb-6 border-t border-slate-100 pt-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 border-dashed">
-                                    <h4 class="font-bold text-orange-900 mb-1 text-sm">Kubs Vides (Max 5/pile)</h4>
-                                    <input type="number" id="kubv-tot" class="w-full p-2 border border-orange-200 rounded text-sm calc-trigger" placeholder="Qté totale de Kubs">
-                                </div>
-                                <div class="bg-green-50 p-3 rounded-xl border border-green-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <h4 class="font-bold text-green-900 text-sm">Palettes Vides</h4>
-                                        <div class="flex gap-1">
-                                            <button data-prod="palv" data-ori="long" data-color="green" class="px-2 py-0.5 rounded text-[10px] border bg-green-600 text-white font-bold" onclick="setOri('palv', 'long', 'green', this)">LONG.</button>
-                                            <button data-prod="palv" data-ori="larg" data-color="green" class="px-2 py-0.5 rounded text-[10px] border bg-white text-green-600" onclick="setOri('palv', 'larg', 'green', this)">LARG.</button>
-                                        </div>
-                                    </div>
-                                    <p class="text-[10px] text-green-600 mb-2 italic">Pas de limite de gerbage : indiquez votre pile réelle</p>
-                                    <div class="flex gap-2">
-                                        <input type="number" id="palv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Qté totale">
-                                        <input type="number" id="palv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Par pile">
-                                    </div>
-                                </div>
-                                <!-- CDP Vide -->
-                                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <h4 class="font-bold text-indigo-900 text-sm">CDP Vides</h4>
-                                        <div class="flex gap-1">
-                                            <button data-prod="cdpv" data-ori="long" data-color="indigo" class="px-2 py-0.5 rounded text-[10px] border bg-indigo-600 text-white font-bold" onclick="setOri('cdpv', 'long', 'indigo', this)">LONG.</button>
-                                            <button data-prod="cdpv" data-ori="larg" data-color="indigo" class="px-2 py-0.5 rounded text-[10px] border bg-white text-indigo-600" onclick="setOri('cdpv', 'larg', 'indigo', this)">LARG.</button>
-                                        </div>
-                                    </div>
-                                    <p class="text-[10px] text-indigo-600 mb-2 italic">Pas de limite de gerbage : indiquez votre pile réelle</p>
-                                    <div class="flex gap-2">
-                                        <input type="number" id="cdpv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Qté totale">
-                                        <input type="number" id="cdpv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Par pile">
-                                    </div>
-                                </div>
-                                <!-- CE Vide -->
-                                <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <h4 class="font-bold text-pink-900 text-sm">CE Vides</h4>
-                                        <div class="flex gap-1">
-                                            <button data-prod="cev" data-ori="long" data-color="pink" class="px-2 py-0.5 rounded text-[10px] border bg-pink-600 text-white font-bold" onclick="setOri('cev', 'long', 'pink', this)">LONG.</button>
-                                            <button data-prod="cev" data-ori="larg" data-color="pink" class="px-2 py-0.5 rounded text-[10px] border bg-white text-pink-600" onclick="setOri('cev', 'larg', 'pink', this)">LARG.</button>
-                                        </div>
-                                    </div>
-                                    <p class="text-[10px] text-pink-600 mb-2 italic">Pas de limite de gerbage : indiquez votre pile réelle</p>
-                                    <div class="flex gap-2">
-                                        <input type="number" id="cev-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Qté totale">
-                                        <input type="number" id="cev-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Par pile">
-                                    </div>
-                                </div>
-                                <!-- CP Vide -->
-                                <div class="bg-purple-50 p-3 rounded-xl border border-purple-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <h4 class="font-bold text-purple-900 text-sm">CP Vides</h4>
-                                        <div class="flex gap-1">
-                                            <button data-prod="cpv" data-ori="long" data-color="purple" class="px-2 py-0.5 rounded text-[10px] border bg-purple-600 text-white font-bold" onclick="setOri('cpv', 'long', 'purple', this)">LONG.</button>
-                                            <button data-prod="cpv" data-ori="larg" data-color="purple" class="px-2 py-0.5 rounded text-[10px] border bg-white text-purple-600" onclick="setOri('cpv', 'larg', 'purple', this)">LARG.</button>
-                                        </div>
-                                    </div>
-                                    <p class="text-[10px] text-purple-600 mb-2 italic">Pas de limite de gerbage : indiquez votre pile réelle</p>
-                                    <div class="flex gap-2">
-                                        <input type="number" id="cpv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Qté totale">
-                                        <input type="number" id="cpv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Par pile">
-                                    </div>
-                                </div>
-                                <!-- CV Vide -->
-                                <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <h4 class="font-bold text-teal-900 text-sm">CV Vides</h4>
-                                        <div class="flex gap-1">
-                                            <button data-prod="cvv" data-ori="long" data-color="teal" class="px-2 py-0.5 rounded text-[10px] border bg-teal-600 text-white font-bold" onclick="setOri('cvv', 'long', 'teal', this)">LONG.</button>
-                                            <button data-prod="cvv" data-ori="larg" data-color="teal" class="px-2 py-0.5 rounded text-[10px] border bg-white text-teal-600" onclick="setOri('cvv', 'larg', 'teal', this)">LARG.</button>
-                                        </div>
-                                    </div>
-                                    <p class="text-[10px] text-teal-600 mb-2 italic">Pas de limite de gerbage : indiquez votre pile réelle</p>
-                                    <div class="flex gap-2">
-                                        <input type="number" id="cvv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Qté totale">
-                                        <input type="number" id="cvv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Par pile">
-                                    </div>
-                                </div>
-                                <!-- CPR Vide -->
-                                <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 border-dashed">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <h4 class="font-bold text-blue-900 text-sm">CPR Vides</h4>
-                                        <div class="flex gap-1">
-                                            <button data-prod="cprv" data-ori="long" data-color="blue" class="px-2 py-0.5 rounded text-[10px] border bg-blue-600 text-white font-bold" onclick="setOri('cprv', 'long', 'blue', this)">LONG.</button>
-                                            <button data-prod="cprv" data-ori="larg" data-color="blue" class="px-2 py-0.5 rounded text-[10px] border bg-white text-blue-600" onclick="setOri('cprv', 'larg', 'blue', this)">LARG.</button>
-                                        </div>
-                                    </div>
-                                    <p class="text-[10px] text-blue-600 mb-2 italic">Pas de limite de gerbage : indiquez votre pile réelle</p>
-                                    <div class="flex gap-2">
-                                        <input type="number" id="cprv-tot" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Qté totale">
-                                        <input type="number" id="cprv-stk" class="w-1/2 p-2 border rounded text-sm calc-trigger" placeholder="Par pile">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 3. IA GIDÉ (ACCORDÉON) -->
-                    <div class="bg-white rounded-xl shadow-md border-2 border-orange-400 overflow-hidden">
-                        <button onclick="toggleSection('gide-block-content', 'gide-toggle-icon')" class="w-full p-6 text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 transition-colors flex justify-between items-center outline-none">
-                            <div>
-                                <h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - L'IA de remplissage</h2>
-                                <p class="text-sm text-orange-700 font-medium italic">Calculez combien de références supplémentaires peuvent intégrer le camion.</p>
-                            </div>
-                            <div class="bg-orange-200 p-2 rounded-full shadow-sm">
-                                <svg id="gide-toggle-icon" class="w-6 h-6 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </button>
-                        
-                        <div id="gide-block-content" class="hidden border-t border-orange-200 bg-white">
-                            <!-- Question 1: Mode Infini -->
-                            <div class="p-8 bg-white">
-                                <div class="flex flex-wrap items-center gap-3 text-lg text-slate-800">
-                                    <span class="text-orange-600 font-black italic">Gidé,</span>
-                                    <span>en théorie, combien de</span>
-                                    <select id="gide-q1-ref" class="bg-white border-2 border-orange-300 rounded-xl px-4 py-2 font-bold text-orange-900 shadow-sm focus:ring-2 ring-orange-400 outline-none calc-trigger transition-all">
-                                        <option value="none">-- Choisir --</option>
-                                        <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                                        <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
-                                    </select>
-                                    <span>pourrais-je mettre au maximum pour finir de remplir le camion ?</span>
-                                </div>
-                            </div>
-
-                            <!-- Séparateur Visuel -->
-                            <div class="relative py-4 bg-orange-50/10">
-                                <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                                    <div class="w-full border-t border-dashed border-orange-300"></div>
-                                </div>
-                                <div class="relative flex justify-center">
-                                    <span class="bg-white px-4 text-xs font-black text-orange-500 uppercase tracking-widest border-2 border-orange-100 rounded-full py-1">Ou bien avec un stock précis...</span>
-                                </div>
-                            </div>
-
-                            <!-- Question 2: Mode Stock & Priorités -->
-                            <div class="p-8 bg-orange-50/30">
-                                
-                                <!-- Zone de déclaration du Stock -->
-                                <div class="mb-8">
-                                    <div class="text-lg text-slate-800 font-medium mb-4">
-                                        <span class="text-orange-600 font-black italic">Gidé,</span> j'ai précisément en stock à écouler :
-                                    </div>
-                                    
-                                    <div id="gide-stock-container" class="space-y-3 mb-4">
-                                        <div class="flex items-center gap-3 gide-stock-row group">
-                                            <input type="number" min="0" class="gide-stock-qty w-24 p-2 border-2 border-orange-200 rounded-xl font-bold text-center text-orange-900 calc-trigger focus:ring-2 ring-orange-400 outline-none shadow-sm" placeholder="Qté">
-                                            <span class="text-sm font-bold text-orange-700">de</span>
-                                            <select class="gide-stock-ref bg-white border-2 border-orange-200 rounded-xl px-4 py-2 font-bold text-slate-700 w-full outline-none calc-trigger focus:ring-2 ring-orange-400 shadow-sm">
-                                                <option value="none">-- Référence en attente --</option>
-                                                <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                                                <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button onclick="addGideStock()" class="flex items-center gap-2 text-sm font-black text-orange-600 hover:text-orange-800 transition-all hover:translate-x-1">
-                                        <span class="bg-orange-200 text-orange-800 p-1 rounded-full"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M12 4v16m8-8H4"></path></svg></span> 
-                                        DÉCLARER UNE AUTRE RÉFÉRENCE EN STOCK
-                                    </button>
-                                </div>
-
-                                <!-- Zone des Priorités -->
-                                <div class="pt-6 border-t border-orange-200/50">
-                                    <div class="text-lg text-slate-800 font-medium mb-4">
-                                        Combien puis-je en placer sachant que l'ordre de priorité est :
-                                    </div>
-                                    
-                                    <div id="gide-priority-container" class="space-y-3">
-                                        <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-orange-100 shadow-sm group">
-                                            <span class="bg-orange-500 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black shadow-md group-hover:scale-110 transition-transform">1</span>
-                                            <select class="prio-select bg-transparent font-bold text-slate-700 w-full outline-none calc-trigger">
-                                                <option value="none">-- Priorité n°1 (absolue) --</option>
-                                                <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                                                <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <button onclick="addPriorityStep()" class="mt-4 flex items-center gap-2 text-sm font-black text-orange-600 hover:text-orange-800 transition-all hover:translate-x-1">
-                                        <span class="bg-orange-600 text-white p-1 rounded-full"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M12 4v16m8-8H4"></path></svg></span> 
-                                        AJOUTER UNE PRIORITÉ SECONDAIRE
-                                    </button>
-                                </div>
-
-                            </div>
-                            
-                            <div class="p-6 bg-orange-100/50">
-                                <div id="stock-summary" class="bg-white border-l-8 border-orange-500 p-6 rounded-r-2xl text-orange-950 font-bold hidden shadow-md italic animate-fadeIn"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 4. LIGNE MIXTE -->
-                    <div class="bg-white rounded-xl shadow-md border-2 border-indigo-200 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-indigo-100 text-indigo-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg z-10 pointer-events-none uppercase">Mode Avancé</div>
-                        <button onclick="toggleSection('custom-block-content', 'custom-toggle-icon')" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-none">
-                            <div><h2 class="text-xl font-bold text-indigo-900">🎨 Ligne Mixte</h2><p class="text-sm text-slate-500 mt-1">Forcer des objets à rester côte à côte.</p></div>
-                            <div class="bg-indigo-100 p-2 rounded-full shadow-sm"><svg id="custom-toggle-icon" class="w-5 h-5 text-indigo-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
-                        </button>
-                        <div id="custom-block-content" class="hidden px-6 pb-6 border-t pt-4">
-                            <div class="grid grid-cols-4 md:grid-cols-8 gap-2 mb-3">
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CPR</label><input type="number" id="c-cpr" class="w-full border rounded p-1 mb-1 text-center"><select id="o-cpr" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">PAL</label><input type="number" id="c-pal" class="w-full border rounded p-1 mb-1 text-center"><select id="o-pal" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CV</label><input type="number" id="c-cv" class="w-full border rounded p-1 mb-1 text-center"><select id="o-cv" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CP</label><input type="number" id="c-cp" class="w-full border rounded p-1 mb-1 text-center"><select id="o-cp" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CE</label><input type="number" id="c-ce" class="w-full border rounded p-1 mb-1 text-center"><select id="o-ce" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">CDP</label><input type="number" id="c-cdp" class="w-full border rounded p-1 mb-1 text-center"><select id="o-cdp" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">MAG</label><input type="number" id="c-mag" class="w-full border rounded p-1 mb-1 text-center"><select id="o-mag" class="w-full text-[9px]"><option value="long">Long</option><option value="larg">Larg</option></select></div>
-                                <div class="p-1 border rounded bg-slate-50 text-[10px] text-center"><label class="font-bold">KUB</label><input type="number" id="c-kub" class="w-full border rounded p-1 mt-3 text-center"></div>
-                            </div>
-                            <button onclick="addCustomLine()" class="w-full py-2 bg-indigo-600 text-white text-xs font-bold rounded shadow-md hover:bg-indigo-700 transition-all">➕ AJOUTER LA LIGNE</button>
-                            <div id="custom-list" class="mt-4 space-y-2"></div>
-                            <div id="mixed-line-warning" class="hidden mt-3 bg-red-50 border-l-4 border-red-400 text-red-800 p-3 rounded text-xs font-medium shadow-sm"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- COLONNE RÉSULTATS -->
-                <div class="space-y-6">
-                    <div id="result-card" class="bg-gradient-to-br from-emerald-600 to-green-700 text-white p-6 rounded-2xl shadow-2xl sticky top-6 transition-colors duration-500">
-                        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">📊 Remplissage</h2>
-                        
-                        <!-- ALERTE SURCAPACITÉ -->
-                        <div id="overcapacity-warning" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-4 text-xs font-bold rounded shadow-sm animate-fadeIn">
-                            ⚠️ ALERTE : La capacité maximale du camion est dépassée !
-                        </div>
-
-                        <!-- ALERTE ROTATION (NOUVEAU) -->
-                        <div id="rotation-alert" class="hidden bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-3 mb-4 text-[11px] rounded shadow-sm animate-fadeIn"></div>
-
-                        <div class="flex justify-between items-end mb-2">
-                            <div><div class="text-[10px] font-bold text-green-100 uppercase">Utilisé</div><div class="text-3xl font-bold" id="res-used">0.00 m</div></div>
-                            <div class="text-right"><div class="text-[10px] font-bold text-green-100 uppercase">Restant</div><div class="text-3xl font-bold text-yellow-300" id="res-remain">13.30 m</div></div>
-                        </div>
-                        <div class="w-full bg-black/20 rounded-full h-8 overflow-hidden mb-6 border border-white/10 shadow-inner">
-                            <div id="main-progress-bar" class="bg-white h-full flex items-center justify-center text-xs font-bold text-green-800 transition-all duration-500 shadow-lg">0%</div>
-                        </div>
-                        
-                        <div class="pt-6 border-t border-green-500/50 text-center uppercase text-[10px] font-bold text-green-100 mb-2">Plan de chargement exact</div>
-                        <div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto shadow-inner mb-6"></div>
-
-                        <!-- ZONE DES CALCULS ALGORITHMIQUES -->
-                        <div class="pt-6 border-t border-green-500/50">
-                            <h3 class="text-xs font-bold uppercase mb-2 text-green-100 flex items-center gap-2">
-                                <span>⚙️ Détail des calculs (Métrage Plancher)</span>
-                            </h3>
-                            <pre id="calc-log" class="bg-slate-900 text-green-400 p-4 rounded-lg border border-slate-800 text-[11px] overflow-y-auto h-40 shadow-inner whitespace-pre-wrap font-mono leading-relaxed"></pre>
-                        </div>
-
-                    </div>
-                </div>
+            <div class="bg-slate-100 p-2 rounded-full shadow-xs">
+              <svg id="icon-empty" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </div>
+          </button>
+          <div id="block-empty" class="hidden px-6 pb-6 border-t border-slate-100 pt-4">
+            <div id="empty-body" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+          </div>
+        </section>
+
+        <!-- 3. IA GIDÉ -->
+        <section class="bg-white rounded-xl shadow-md border-2 border-orange-400 overflow-hidden">
+          <button type="button" data-toggle="gide" aria-expanded="false" class="w-full p-6 text-left bg-linear-to-r from-amber-50 to-orange-50 hover:from-amber-100 transition-colors flex justify-between items-center outline-hidden">
+            <div>
+              <h2 class="text-xl font-bold text-orange-900 flex items-center gap-2">✨ Gidé - L'IA de remplissage</h2>
+              <p class="text-sm text-orange-700 font-medium italic">Calculez combien de références supplémentaires peuvent intégrer le camion.</p>
+            </div>
+            <div class="bg-orange-200 p-2 rounded-full shadow-xs">
+              <svg id="icon-gide" class="w-6 h-6 text-orange-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+          </button>
+          <div id="block-gide" class="hidden border-t border-orange-200 bg-white">
+            <div id="gide-body"></div>
+            <div class="p-6 bg-orange-100/50">
+              <div id="stock-summary" class="bg-white border-l-8 border-orange-500 p-6 rounded-r-2xl text-orange-950 font-bold hidden shadow-md italic animate-fadeIn"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. LIGNE MIXTE -->
+        <section class="bg-white rounded-xl shadow-md border-2 border-indigo-200 relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-indigo-100 text-indigo-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg z-10 pointer-events-none uppercase">Mode Avancé</div>
+          <button type="button" data-toggle="mixed" aria-expanded="false" class="w-full p-6 text-left hover:bg-slate-50 transition-colors flex justify-between items-center outline-hidden">
+            <div><h2 class="text-xl font-bold text-indigo-900">🎨 Ligne Mixte</h2><p class="text-sm text-slate-500 mt-1">Forcer des objets à rester côte à côte.</p></div>
+            <div class="bg-indigo-100 p-2 rounded-full shadow-xs"><svg id="icon-mixed" class="w-5 h-5 text-indigo-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+          </button>
+          <div id="block-mixed" class="hidden px-6 pb-6 border-t pt-4">
+            <div id="mixed-body"></div>
+            <div id="mixed-line-warning" class="hidden mt-3 bg-red-50 border-l-4 border-red-400 text-red-800 p-3 rounded-sm text-xs font-medium shadow-xs"></div>
+          </div>
+        </section>
+
+        <!-- 5. MES CONTENANTS (paramétrage par entrepôt) -->
+        <section class="bg-white rounded-xl shadow-md border-2 border-teal-300 overflow-hidden">
+          <button type="button" data-toggle="containers" aria-expanded="false" class="w-full p-6 text-left hover:bg-teal-50 transition-colors flex justify-between items-center outline-hidden">
+            <div>
+              <h2 class="text-xl font-bold text-teal-900 flex items-center gap-2">🧰 Mes contenants</h2>
+              <p class="text-sm text-slate-500 mt-1">Ajouter, modifier ou supprimer les contenants de votre entrepôt.</p>
+            </div>
+            <div class="bg-teal-100 p-2 rounded-full shadow-xs"><svg id="icon-containers" class="w-5 h-5 text-teal-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+          </button>
+          <div id="block-containers" class="hidden px-6 pb-6 border-t border-teal-100 pt-4">
+            <div id="containers-body"></div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- COLONNE RÉSULTATS -->
+      <div id="right-col" class="space-y-6 xl:sticky xl:top-4 xl:self-start xl:max-h-[calc(100vh-2rem)] xl:overflow-y-auto">
+        <div id="result-card" class="bg-linear-to-br from-emerald-600 to-green-700 text-white p-6 rounded-2xl shadow-2xl transition-colors duration-500">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2">📊 Remplissage</h2>
+
+          <div id="overcapacity-warning" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-4 text-xs font-bold rounded-sm shadow-xs animate-fadeIn">
+            ⚠️ ALERTE : La capacité maximale du camion est dépassée !
+          </div>
+          <div id="unplaced-alert" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-4 text-xs font-bold rounded-sm shadow-xs animate-fadeIn"></div>
+          <div id="rotation-alert" class="hidden bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-3 mb-4 text-[11px] rounded-sm shadow-xs animate-fadeIn"></div>
+
+          <div class="flex justify-between items-end mb-2">
+            <div><div class="text-[10px] font-bold text-green-100 uppercase">Utilisé</div><div class="text-3xl font-bold" id="res-used">0.00 m</div></div>
+            <div class="text-right"><div class="text-[10px] font-bold text-green-100 uppercase">Restant</div><div class="text-3xl font-bold text-yellow-300" id="res-remain">13.30 m</div></div>
+          </div>
+          <div class="w-full bg-black/20 rounded-full h-8 overflow-hidden mb-6 border border-white/10 shadow-inner">
+            <div id="main-progress-bar" class="bg-white h-full flex items-center justify-center text-xs font-bold text-green-800 transition-all duration-500 shadow-lg">0%</div>
+          </div>
+
+          <div class="pt-6 border-t border-green-500/50 text-center uppercase text-[10px] font-bold text-green-100 mb-2">Plan de chargement exact</div>
+          <div id="svg-container" class="bg-slate-50 p-2 rounded-lg border-2 border-green-500 overflow-x-auto shadow-inner mb-6"></div>
+
+          <div class="pt-6 border-t border-green-500/50">
+            <h3 class="text-xs font-bold uppercase mb-2 text-green-100 flex items-center gap-2">
+              <span>⚙️ Détail des calculs (Métrage Plancher)</span>
+            </h3>
+            <pre id="calc-log" class="bg-slate-900 text-green-400 p-4 rounded-lg border border-slate-800 text-[11px] overflow-y-auto h-40 shadow-inner whitespace-pre-wrap font-mono leading-relaxed"></pre>
+          </div>
         </div>
+
+        <!-- 6. SAUVEGARDES ET EXPORT -->
+        <section class="no-print bg-white rounded-xl shadow-md border-2 border-sky-300 overflow-hidden">
+          <button type="button" data-toggle="saves" aria-expanded="false" class="w-full p-6 text-left hover:bg-sky-50 transition-colors flex justify-between items-center outline-hidden">
+            <div>
+              <h2 class="text-xl font-bold text-sky-900 flex items-center gap-2">💾 Sauvegardes &amp; export</h2>
+              <p class="text-sm text-slate-500 mt-1">Enregistrer un chargement, l'exporter en fichier ou l'imprimer.</p>
+            </div>
+            <div class="bg-sky-100 p-2 rounded-full shadow-xs"><svg id="icon-saves" class="w-5 h-5 text-sky-800 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+          </button>
+          <div id="block-saves" class="hidden px-6 pb-6 border-t border-sky-100 pt-4 space-y-5">
+            <div>
+              <div class="font-bold text-sm text-slate-700 mb-2">Enregistrer le chargement actuel</div>
+              <div class="flex gap-2">
+                <input id="save-name" type="text" maxlength="60" placeholder="Nom (ex. Tournée Paris Nord, lundi)" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-sky-400 outline-hidden">
+                <button type="button" data-action="save-config" class="shrink-0 text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 px-4 py-2 rounded-lg">Enregistrer</button>
+              </div>
+            </div>
+            <div><div class="font-bold text-sm text-slate-700 mb-2">Mes chargements enregistrés</div><div id="saves-list" class="space-y-2"></div></div>
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
+              <button type="button" data-action="export-json" class="text-sm font-bold text-sky-900 bg-sky-100 hover:bg-sky-200 px-4 py-2 rounded-lg">⬇ Exporter (.json)</button>
+              <button type="button" data-action="import-json" class="text-sm font-bold text-sky-900 bg-sky-100 hover:bg-sky-200 px-4 py-2 rounded-lg">⬆ Importer</button>
+              <button type="button" data-action="print" class="text-sm font-bold text-white bg-slate-700 hover:bg-slate-800 px-4 py-2 rounded-lg">🖨 Imprimer / PDF</button>
+              <input type="file" id="import-file" accept=".json,application/json" class="hidden">
+            </div>
+            <p id="save-msg" class="text-xs font-medium text-sky-800 hidden"></p>
+          </div>
+        </section>
+
+        <section id="checklist-card" class="bg-white rounded-2xl shadow-md border-2 border-emerald-300 p-6">
+          <div class="flex justify-between items-center mb-1">
+            <h2 class="text-lg font-bold text-emerald-900 flex items-center gap-2">✅ Checklist de chargement</h2>
+            <span id="chk-progress" class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-1 rounded-full">0/0</span>
+          </div>
+          <p class="text-[11px] text-slate-500 mb-3">Dans l'ordre de chargement, de la cabine vers les portes. Cochez au fur et à mesure.</p>
+          <ul id="checklist" class="space-y-1"></ul>
+          <button type="button" data-action="chk-reset" class="no-print mt-3 text-xs font-bold text-slate-600 hover:text-slate-900 underline">Tout décocher</button>
+        </section>
+
+      </div>
     </div>
+  </div>
+</div>
 
-    <script>
-        const TRUCK_W = 240;
-        
-        // AJUSTEMENT DES EMPREINTES POUR RESPECTER LES LIMITES PAR RANGÉES (Camion = 240cm)
-        const DIMS = {
-            cpr: { long: {w: 60, d: 84}, larg: {w: 84, d: 60} },     // 4/rangée en long, 2/rangée en larg
-            pal: { long: {w: 80, d: 120}, larg: {w: 120, d: 80} },   // 3/rangée en long, 2/rangée en larg
-            cv:  { long: {w: 60, d: 100}, larg: {w: 100, d: 60} },   // 4/rangée en long, 2/rangée en larg
-            cp:  { long: {w: 80, d: 120}, larg: {w: 240, d: 84} },   // Force 3/rangée en long, 1/rangée en larg
-            kub: { long: {w: 80, d: 60}, larg: {w: 80, d: 60} },     // Force 3/rangée
-            ce:  { long: {w: 50, d: 100}, larg: {w: 100, d: 50} },   // 4/rangée en long, 2/rangée en larg
-            cdp: { long: {w: 100, d: 120}, larg: {w: 120, d: 100} }  // 2/rangée
-        };
-        DIMS.mag = DIMS.cdp; // Magnum a exactement les mêmes dimensions que CDP (évite la duplication)
-        const LABELS = { cpr:'CPR', pal:'PAL', cv:'CV', cp:'CP', kub:'KUB', ce:'CE', cdp:'CDP', mag:'MAG', kubv:'KV' };
-        const COLORS = { cpr:'#3b82f6', pal:'#22c55e', cv:'#0d9488', cp:'#a855f7', kub:'#f97316', ce:'#ec4899', cdp:'#6366f1', mag:'#ca8a04' };
-        
-        let STATE = { palv: 'long' };
-        let customLines = [];
+<script>
+/* ENGINE:START */
+/*
+ * Lynx Chargement — moteur de calcul (aucune dépendance au DOM).
+ * Toute la logique de placement vit ici ; l'interface (app.js) ne fait que
+ * lire/écrire un objet d'entrée et dessiner le résultat de solve().
+ */
+(function (root) {
+  'use strict';
 
-        function resetAll() {
-            if(!confirm("Réinitialiser tout le formulaire ? Cette action est irréversible.")) return;
+  var TRUCK_W = 240; // largeur utile du camion (cm)
 
-            // 1. Champs numériques standards (obligatoires, matériel vide, ligne mixte)
-            document.querySelectorAll('input[type="number"]').forEach(el => el.value = "");
+  // ---------------------------------------------------------------------
+  // Contenants pré-remplis (dimensions réelles, en cm)
+  //   length = longueur, width = largeur
+  //   maxPerRowLong / maxPerRowLarg = règle terrain « nombre max par rangée »
+  //   (null = pas de règle, seule la géométrie limite)
+  // ---------------------------------------------------------------------
+  var DEFAULT_CONTAINERS = [
+    { id: 'cpr', name: 'CPR',     code: 'CPR', length: 84,  width: 60,  color: '#3b82f6', stackable: true, stackMax: 2,  emptyEnabled: true,  emptyStackMax: null, maxPerRowLong: null, maxPerRowLarg: null },
+    { id: 'pal', name: 'Palette', code: 'PAL', length: 120, width: 80,  color: '#22c55e', stackable: true, stackMax: 10, emptyEnabled: true,  emptyStackMax: null, maxPerRowLong: null, maxPerRowLarg: null },
+    { id: 'cv',  name: 'CV',      code: 'CV',  length: 100, width: 60,  color: '#0d9488', stackable: true, stackMax: 2,  emptyEnabled: true,  emptyStackMax: null, maxPerRowLong: null, maxPerRowLarg: null },
+    { id: 'cp',  name: 'CP',      code: 'CP',  length: 120, width: 84,  color: '#a855f7', stackable: true, stackMax: 2,  emptyEnabled: true,  emptyStackMax: null, maxPerRowLong: null, maxPerRowLarg: 1 },
+    { id: 'ce',  name: 'CE',      code: 'CE',  length: 100, width: 50,  color: '#ec4899', stackable: true, stackMax: 2,  emptyEnabled: true,  emptyStackMax: null, maxPerRowLong: null, maxPerRowLarg: null },
+    { id: 'cdp', name: 'CDP',     code: 'CDP', length: 120, width: 100, color: '#6366f1', stackable: true, stackMax: 2,  emptyEnabled: true,  emptyStackMax: null, maxPerRowLong: null, maxPerRowLarg: null },
+    { id: 'mag', name: 'Magnum',  code: 'MAG', length: 120, width: 100, color: '#ca8a04', stackable: true, stackMax: 2,  emptyEnabled: false, emptyStackMax: null, maxPerRowLong: null, maxPerRowLarg: null },
+    { id: 'kub', name: 'Kubs',    code: 'KUB', length: 60,  width: 60,  color: '#f97316', stackable: true, stackMax: 2,  emptyEnabled: true,  emptyStackMax: 5,    maxPerRowLong: 3,    maxPerRowLarg: null }
+  ];
 
-            // 2. Sélecteurs simples (camion, Gidé mode infini)
-            document.getElementById('truck-type').value = "1330";
-            document.getElementById('gide-q1-ref').value = "none";
-            document.getElementById('auto-rotate-toggle').checked = true;
+  // ---------------------------------------------------------------------
+  // Utilitaires
+  // ---------------------------------------------------------------------
+  function toInt(v) {                       // entier >= 0 (champs de quantité)
+    var n = parseInt(v, 10);
+    return isFinite(n) && n > 0 ? n : 0;
+  }
+  function clampInt(v, lo, hi, dflt) {
+    var n = Math.round(Number(v));
+    if (!isFinite(n)) return dflt;
+    return Math.min(hi, Math.max(lo, n));
+  }
+  function posOrNull(v) {                   // entier >= 1, sinon null (« pas de règle »)
+    var n = Math.round(Number(v));
+    return isFinite(n) && n >= 1 ? n : null;
+  }
+  function fmtM(cm) { return (cm / 100).toFixed(2).replace('.', ','); }
 
-            // 3. Lignes de stock Gidé : ne garder que la première, vidée
-            const stockContainer = document.getElementById('gide-stock-container');
-            const firstStockRow = stockContainer.querySelector('.gide-stock-row');
-            stockContainer.innerHTML = "";
-            if(firstStockRow) {
-                firstStockRow.querySelector('.gide-stock-qty').value = "";
-                firstStockRow.querySelector('.gide-stock-ref').value = "none";
-                stockContainer.appendChild(firstStockRow);
-            }
+  function sanitizeContainer(c) {
+    c = c || {};
+    var code = String(c.code == null ? '' : c.code).toUpperCase().replace(/[^A-Z0-9+\-_.]/g, '').slice(0, 6);
+    var name = String(c.name == null ? '' : c.name).replace(/[\u0000-\u001f]/g, '').slice(0, 40);
+    if (!name) name = code || 'Contenant';
+    if (!code) code = name.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6) || 'X';
+    return {
+      id: String(c.id == null ? code : c.id).replace(/[^A-Za-z0-9_-]/g, '_'),
+      name: name,
+      code: code,
+      length: clampInt(c.length, 10, 1000, 100),
+      width: clampInt(c.width, 10, 1000, 60),
+      color: /^#[0-9a-fA-F]{6}$/.test(c.color) ? c.color.toLowerCase() : '#64748b',
+      stackable: !!c.stackable,
+      stackMax: clampInt(c.stackMax, 1, 99, 2),
+      emptyEnabled: !!c.emptyEnabled,
+      emptyStackMax: posOrNull(c.emptyStackMax),
+      maxPerRowLong: posOrNull(c.maxPerRowLong),
+      maxPerRowLarg: posOrNull(c.maxPerRowLarg)
+    };
+  }
 
-            // 4. Priorités Gidé : ne garder que la première, réinitialisée
-            const prioContainer = document.getElementById('gide-priority-container');
-            const firstPrioRow = prioContainer.querySelector('.gide-stock-row, div');
-            prioContainer.innerHTML = `<div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-orange-100 shadow-sm group">
-                    <span class="bg-orange-500 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black shadow-md group-hover:scale-110 transition-transform">1</span>
-                    <select class="prio-select bg-transparent font-bold text-slate-700 w-full outline-none calc-trigger">
-                        <option value="none">-- Priorité n°1 (absolue) --</option>
-                        <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                        <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
-                    </select>
-                </div>`;
-            prioContainer.querySelector('.prio-select').addEventListener('change', calc);
+  function isSquare(c) { return c.length === c.width; }
 
-            // 5. Lignes mixtes personnalisées
-            customLines = [];
-            renderCustomList();
+  // Orientation « long » : la longueur du contenant est dans le sens du camion.
+  // Orientation « larg » : le contenant est tourné d'un quart de tour.
+  function dimsFor(c, ori) {
+    return (ori === 'larg' && !isSquare(c))
+      ? { w: c.length, d: c.width }
+      : { w: c.width,  d: c.length };
+  }
 
-            // 6. Orientation du matériel vide (palettes, CDP, CE, CP, CV, CPR) -> retour à "Long."
-            STATE = {};
-            document.querySelectorAll('#empty-block-content button[data-prod]').forEach(b => {
-                const color = b.dataset.color;
-                b.className = b.dataset.ori === 'long'
-                    ? `px-2 py-0.5 rounded text-[10px] border bg-${color}-600 text-white font-bold`
-                    : `px-2 py-0.5 rounded text-[10px] border bg-white text-${color}-600`;
-            });
+  // Largeur « réservée » dans la rangée. Égale à la vraie largeur, sauf si une
+  // règle terrain limite le nombre de contenants par rangée : on réserve alors
+  // 240 / N cm par contenant (la pièce dessinée garde, elle, sa vraie largeur).
+  function slotWidth(c, ori) {
+    var w = dimsFor(c, ori).w;
+    var natural = Math.floor(TRUCK_W / w);
+    var cap = (ori === 'larg' && !isSquare(c)) ? c.maxPerRowLarg : c.maxPerRowLong;
+    if (!cap || natural < 1 || cap >= natural) return w;
+    var sw = Math.floor(TRUCK_W / cap);
+    while (Math.floor(TRUCK_W / sw) > cap) sw++;
+    return Math.max(w, sw);
+  }
 
-            calc();
+  function perRow(c, ori) {
+    var sw = slotWidth(c, ori);
+    return sw > TRUCK_W ? 0 : Math.floor(TRUCK_W / sw);
+  }
+
+  // Répartit une quantité en piles de taille max perPile (la dernière peut être
+  // partielle) : pileCounts(23, 10) => [10, 10, 3].
+  function pileCounts(qty, perPile) {
+    if (!(qty > 0) || !(perPile > 0)) return [];
+    var piles = Math.ceil(qty / perPile), out = [];
+    for (var i = 0; i < piles; i++) out.push(Math.min(perPile, qty - i * perPile));
+    return out;
+  }
+
+  function makeItem(c, ori, extra) {
+    var sq = isSquare(c);
+    var o = (ori === 'larg' && !sq) ? 'larg' : 'long';
+    var p = dimsFor(c, o);
+    var item = {
+      cid: c.id, code: c.code, label: c.code,
+      w: p.w, d: p.d, sw: slotWidth(c, o), ori: o, square: sq,
+      alt: null, stacked: false, empty: false, units: 1
+    };
+    if (!sq) {
+      var other = o === 'long' ? 'larg' : 'long';
+      var q = dimsFor(c, other);
+      item.alt = { w: q.w, d: q.d, sw: slotWidth(c, other), ori: other };
+    }
+    if (extra) for (var k in extra) item[k] = extra[k];
+    return item;
+  }
+
+  // ---------------------------------------------------------------------
+  // Placement (skyline) — un « packer » par calcul
+  // ---------------------------------------------------------------------
+  function createPacker(truckL, allowRotate) {
+    var skyline = new Array(TRUCK_W).fill(0);
+    var placed = [];
+    var blocks = [];
+
+    function maxOf(a) { var m = 0; for (var i = 0; i < a.length; i++) if (a[i] > m) m = a[i]; return m; }
+
+    // Cherche la meilleure position pour une largeur réservée sw et une profondeur d.
+    function search(sw, d, auto) {
+      if (!(sw > 0) || sw > TRUCK_W) return null;
+      var bestY = -1, minX = Infinity;
+      for (var y = 0; y <= TRUCK_W - sw; y++) {
+        var maxX = 0;
+        for (var i = y; i < y + sw; i++) if (skyline[i] > maxX) maxX = skyline[i];
+        if (auto && (maxX + d > truckL)) continue;   // l'IA ne déborde jamais
+        if (maxX < minX) { minX = maxX; bestY = y; }
+      }
+      return bestY === -1 ? null : { x: minX, y: bestY };
+    }
+
+    function place(item, auto) {
+      auto = !!auto;
+      var best = null;
+      var p = search(item.sw, item.d, auto);
+      if (p) best = { x: p.x, y: p.y, w: item.w, sw: item.sw, d: item.d, ori: item.ori, rotated: false };
+      var exceeds = best && (best.x + best.d > truckL);
+
+      // Ça déborde (ou ne rentre pas) : on tente le quart de tour en fin de camion
+      if ((!best || exceeds) && allowRotate && item.alt) {
+        var q = search(item.alt.sw, item.alt.d, auto);
+        if (q && (q.x + item.alt.d <= truckL)) {
+          best = { x: q.x, y: q.y, w: item.alt.w, sw: item.alt.sw, d: item.alt.d, ori: item.alt.ori, rotated: true };
         }
+      }
+      if (!best) return false;
 
-        function toggleSection(id, icon) {
-            document.getElementById(id).classList.toggle('hidden');
-            document.getElementById(icon).classList.toggle('rotate-180');
+      for (var i = best.y; i < best.y + best.sw; i++) skyline[i] = best.x + best.d;
+      var rec = {};
+      for (var k in item) if (k !== 'alt') rec[k] = item[k];
+      rec.x = best.x; rec.y = best.y; rec.w = best.w; rec.sw = best.sw; rec.d = best.d;
+      rec.ori = best.ori; rec.rotated = best.rotated; rec.auto = auto;
+      placed.push(rec);
+      return true;
+    }
+
+    // Ligne mixte : tous les objets forment UN bloc posé côte à côte.
+    // Retourne false si la largeur cumulée dépasse celle du camion.
+    function placeBlock(items, num) {
+      var totalW = 0, maxD = 0, i;
+      for (i = 0; i < items.length; i++) { totalW += items[i].w; if (items[i].d > maxD) maxD = items[i].d; }
+      if (totalW > TRUCK_W) return { ok: false, totalW: totalW };
+
+      var bestY = -1, minX = Infinity;
+      for (var y = 0; y <= TRUCK_W - totalW; y++) {
+        var maxX = 0;
+        for (var j = y; j < y + totalW; j++) if (skyline[j] > maxX) maxX = skyline[j];
+        if (maxX < minX) { minX = maxX; bestY = y; }
+      }
+      var cursorY = bestY;
+      items.forEach(function (it) {
+        var rec = {};
+        for (var k in it) if (k !== 'alt') rec[k] = it[k];
+        rec.x = minX; rec.y = cursorY; rec.sw = it.w; rec.auto = false; rec.rotated = false; rec.customLine = num;
+        placed.push(rec);
+        cursorY += it.w;
+      });
+      // Tout le bloc est réservé à la profondeur max : rien ne se glisse derrière un objet plus court.
+      for (var m = bestY; m < bestY + totalW; m++) skyline[m] = minX + maxD;
+      blocks.push({ num: num, x: minX, y: bestY, totalW: totalW, maxD: maxD, count: items.length });
+      return { ok: true, totalW: totalW };
+    }
+
+    return {
+      skyline: skyline, placed: placed, blocks: blocks,
+      place: place, placeBlock: placeBlock,
+      used: function () { return maxOf(skyline); }
+    };
+  }
+
+  // Zones libres sous la ligne de remplissage (pour l'affichage / suggestions)
+  function freeRects(skyline, limit) {
+    var out = [];
+    for (var y = 0; y < TRUCK_W; y++) {
+      if (skyline[y] < limit) {
+        var s = y, x = skyline[y];
+        while (y < TRUCK_W && skyline[y] === skyline[s]) y++;
+        out.push({ x: x, y: s, d: limit - x, w: y - s });
+        y--;
+      }
+    }
+    return out;
+  }
+
+  // Suggestions de remplissage d'un trou (les 3 meilleures, par quantité décroissante)
+  function suggest(containers, segW, gap) {
+    var best = {}, order = [];
+    containers.forEach(function (c) {
+      ['long', 'larg'].forEach(function (o) {
+        var dm = dimsFor(c, o), sw = slotWidth(c, o);
+        var qty = Math.floor(segW / sw) * Math.floor(gap / dm.d);
+        if (qty > 0) {
+          if (best[c.code] === undefined) order.push(c.code);
+          if (best[c.code] === undefined || qty > best[c.code]) best[c.code] = qty;
         }
+      });
+    });
+    return order
+      .map(function (code, i) { return { code: code, qty: best[code], i: i }; })
+      .sort(function (a, b) { return b.qty - a.qty || a.i - b.i; })
+      .slice(0, 3)
+      .map(function (s) { return s.qty + ' ' + s.code; });
+  }
 
-        function setOri(prod, ori, color, btn) {
-            STATE[prod] = ori;
-            Array.from(btn.parentNode.children).forEach(b => b.className = `px-2 py-0.5 rounded text-[10px] border bg-white text-${color}-600`);
-            btn.className = `px-2 py-0.5 rounded text-[10px] border bg-${color}-600 text-white font-bold`;
-            calc();
-        }
+  // ---------------------------------------------------------------------
+  // Détail des calculs — dérivé du plan RÉELLEMENT placé (aucune formule
+  // indépendante) : chaque groupe = ses rectangles réservés / largeur du camion.
+  // La somme des lignes + les espaces non exploités = longueur utilisée.
+  // ---------------------------------------------------------------------
+  function buildLog(placed, blocks, used) {
+    if (!placed.length) return ['Aucun calcul en cours...'];
+    var groups = {}, order = [], sumArea = 0;
 
-        function getVal(id) {
-            const el = document.getElementById(id);
-            return (el && el.value !== "") ? Math.max(0, parseInt(el.value)) : 0;
-        }
+    placed.forEach(function (p) {
+      if (p.customLine && !p.loose) return;               // compté au niveau du bloc
+      var oriTxt = p.rotated ? ' (pivoté en fin de camion)' : (p.square ? '' : (p.ori === 'larg' ? ' (Larg.)' : ' (Long.)'));
+      var prefix = p.customLine ? 'Ligne mixte ' + p.customLine + ' (séparée) · ' : '';
+      var label = prefix + p.code + (p.empty ? 'V' : '') + oriTxt + (p.auto ? ' (IA)' : '');
+      var key = label + '|' + p.sw + '|' + p.d;
+      if (!groups[key]) { groups[key] = { label: label, sw: p.sw, d: p.d, n: 0, units: 0 }; order.push(key); }
+      groups[key].n++;
+      groups[key].units += p.units || 1;
+      sumArea += p.sw * p.d;
+    });
 
-        // Répartit une quantité totale en piles de taille max `perPile`, et renvoie
-        // le nombre EXACT d'unités dans chaque pile (la dernière pile peut être
-        // partielle) — ex: pileCounts(23, 10) => [10, 10, 3].
-        function pileCounts(qty, perPile) {
-            if (qty <= 0 || perPile <= 0) return [];
-            const piles = Math.ceil(qty / perPile);
-            const counts = [];
-            for (let i = 0; i < piles; i++) {
-                counts.push(Math.min(perPile, qty - i * perPile));
-            }
-            return counts;
-        }
+    var lines = [];
+    order.forEach(function (key) {
+      var g = groups[key];
+      var line = g.label + ' : ' + g.n + ' × ' + fmtM(g.d) + ' × ' + fmtM(g.sw) + ' ÷ 2,40 = ' + fmtM(g.n * g.d * g.sw / TRUCK_W) + ' m';
+      if (g.units !== g.n) line += '   [' + g.units + ' u. en ' + g.n + ' piles]';
+      lines.push(line);
+    });
+    blocks.forEach(function (b) {
+      sumArea += b.totalW * b.maxD;
+      lines.push('Ligne mixte ' + b.num + ' : 1 × ' + fmtM(b.maxD) + ' × ' + fmtM(b.totalW) + ' ÷ 2,40 = ' + fmtM(b.maxD * b.totalW / TRUCK_W) + ' m   [' + b.count + ' objets côte à côte]');
+    });
 
-        function addCustomLine() {
-            let lineItems = [];
-            ['cpr','pal','cv','cp','ce','cdp','mag','kub'].forEach(r => {
-                let q = getVal('c-'+r);
-                if(q > 0) {
-                    let o = (r === 'kub') ? 'long' : document.getElementById('o-'+r).value;
-                    for(let i=0; i<q; i++) lineItems.push({ type: r, w: DIMS[r][o].w, d: DIMS[r][o].d });
-                }
-            });
-            if(lineItems.length > 0) {
-                customLines.push(lineItems);
-                ['cpr','pal','cv','cp','ce','cdp','mag','kub'].forEach(r => document.getElementById('c-'+r).value = "");
-                renderCustomList();
-                calc();
-            }
-        }
+    var free = used - sumArea / TRUCK_W;
+    if (free > 0.5) lines.push('Espaces non exploités (trous, chutes de rangée) : ' + fmtM(free) + ' m');
+    lines.push('Longueur utilisée : ' + fmtM(used) + ' m');
+    return lines;
+  }
 
-        function removeLine(index) {
-            customLines.splice(index, 1);
-            renderCustomList();
-            calc();
-        }
+  // ---------------------------------------------------------------------
+  // solve() : entrée plate -> résultat complet
+  //
+  // input = {
+  //   containers: [...], truckL, allowRotate,
+  //   qty:   { [id]: { nLong, nLarg, gLong, gLarg } },
+  //   empty: { [id]: { total, perPile, ori } },
+  //   mixedLines: [ [ { id, ori, qty }, ... ], ... ],
+  //   gide: { mode: 'infinite' | 'stock', infRef, stock: [ { id, qty } ], prios: [ id ] }
+  // }
+  // ---------------------------------------------------------------------
+  function solve(input) {
+    var containers = (input.containers || []).map(sanitizeContainer);
+    var byId = {};
+    containers.forEach(function (c) { byId[c.id] = c; });
+    var truckL = clampInt(input.truckL, 100, 3000, 1330);
+    var allowRotate = input.allowRotate !== false;
+    var qty = input.qty || {}, empty = input.empty || {};
 
-        function renderCustomList() {
-            const container = document.getElementById('custom-list');
-            container.innerHTML = customLines.map((line, idx) => `
-                <div class="flex justify-between items-center bg-indigo-50 p-3 rounded-lg border border-indigo-200 text-[10px] font-bold shadow-sm animate-fadeIn">
-                    <span class="text-indigo-900">📦 LIGNE ${idx+1} : ${line.length} OBJETS LIÉS</span>
-                    <button onclick="removeLine(${idx})" class="text-red-500 bg-white border border-red-200 px-2 py-1 rounded hover:bg-red-50 transition-colors">SUPPRIMER</button>
-                </div>
-            `).join('');
-        }
-
-        function addGideStock() {
-            const container = document.getElementById('gide-stock-container');
-            const div = document.createElement('div');
-            div.className = "flex items-center gap-3 gide-stock-row animate-fadeIn";
-            div.innerHTML = `<input type="number" min="0" class="gide-stock-qty w-24 p-2 border-2 border-orange-200 rounded-xl font-bold text-center text-orange-900 calc-trigger focus:ring-2 ring-orange-400 outline-none shadow-sm" placeholder="Qté">
-                <span class="text-sm font-bold text-orange-700">de</span>
-                <select class="gide-stock-ref bg-white border-2 border-orange-200 rounded-xl px-4 py-2 font-bold text-slate-700 w-full outline-none calc-trigger focus:ring-2 ring-orange-400 shadow-sm">
-                    <option value="none">-- Référence en attente --</option>
-                    <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                    <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
-                </select>`;
-            container.appendChild(div);
-            div.querySelectorAll('.calc-trigger').forEach(el => {
-                el.addEventListener('input', calc);
-                el.addEventListener('change', calc);
-            });
-        }
-
-        function addPriorityStep() {
-            const container = document.getElementById('gide-priority-container');
-            const count = container.children.length + 1;
-            const div = document.createElement('div');
-            div.className = "flex items-center gap-4 bg-white p-3 rounded-xl border border-orange-100 shadow-sm animate-fadeIn";
-            div.innerHTML = `<span class="bg-orange-500 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black shadow-md">${count}</span>
-                <select class="prio-select bg-transparent font-bold text-slate-700 w-full outline-none calc-trigger">
-                    <option value="none">-- Priorité n°${count} --</option>
-                    <option value="cpr">CPR</option><option value="pal">Palettes</option><option value="cv">CV</option><option value="cp">CP</option>
-                    <option value="ce">CE</option><option value="cdp">CDP/Magnum</option><option value="mag">Magnum</option><option value="kub">Kubs</option>
-                </select>`;
-            container.appendChild(div);
-            div.querySelector('select').addEventListener('change', calc);
-            calc();
-        }
-
-        const tooltip = document.getElementById('hole-tooltip');
-        document.addEventListener('mousemove', (e) => {
-            if(e.target.classList.contains('hole-rect')) {
-                const l = e.target.getAttribute('data-l');
-                const w = e.target.getAttribute('data-w');
-                const sugg = e.target.getAttribute('data-sugg');
-                tooltip.innerHTML = `<div class="text-center font-black">L: ${l}m | l: ${w}m</div><div class="mt-1 text-yellow-400 border-t border-slate-600 pt-1">💡 Suggestions :<br>${sugg}</div>`;
-                tooltip.style.left = (e.pageX + 15) + 'px'; tooltip.style.top = (e.pageY + 15) + 'px';
-                tooltip.classList.remove('hidden');
-            } else { tooltip.classList.add('hidden'); }
+    // 1. Éléments obligatoires -------------------------------------------
+    var items = [];
+    containers.forEach(function (c) {
+      var q = qty[c.id] || {};
+      var nLong = toInt(q.nLong), nLarg = toInt(q.nLarg), gLong = toInt(q.gLong), gLarg = toInt(q.gLarg), i;
+      for (i = 0; i < nLong; i++) items.push(makeItem(c, 'long'));
+      if (!isSquare(c)) for (i = 0; i < nLarg; i++) items.push(makeItem(c, 'larg'));
+      else for (i = 0; i < nLarg; i++) items.push(makeItem(c, 'long'));
+      if (c.stackable) {
+        pileCounts(gLong, c.stackMax).forEach(function (n) {
+          items.push(makeItem(c, 'long', { stacked: true, units: n, label: c.code + '(' + n + ')' }));
         });
+        pileCounts(gLarg, c.stackMax).forEach(function (n) {
+          items.push(makeItem(c, isSquare(c) ? 'long' : 'larg', { stacked: true, units: n, label: c.code + '(' + n + ')' }));
+        });
+      }
+    });
 
-        function calc() {
-            const TRUCK_L = parseInt(document.getElementById('truck-type').value) || 1330;
-            const allowAutoRotate = document.getElementById('auto-rotate-toggle').checked;
+    // 2. Matériel vide ------------------------------------------------------
+    containers.forEach(function (c) {
+      if (!c.emptyEnabled) return;
+      var e = empty[c.id] || {};
+      var total = toInt(e.total);
+      if (!total) return;
+      var per = toInt(e.perPile) || c.emptyStackMax || 1;
+      if (c.emptyStackMax) per = Math.min(per, c.emptyStackMax);
+      var ori = (e.ori === 'larg' && !isSquare(c)) ? 'larg' : 'long';
+      pileCounts(total, per).forEach(function (n) {
+        items.push(makeItem(c, ori, { stacked: true, empty: true, units: n, label: c.code + 'V(' + n + ')' }));
+      });
+    });
 
-            // Avertissement : seule la Semi-Remorque (1330) a une longueur certifiée
-            document.getElementById('porteur-warning').classList.toggle('hidden', TRUCK_L === 1330);
-            
-            let itemsToPlace = [];
-            // OBLIGATOIRES
-            // Niveaux de gerbage par type : Palettes = 10 par pile, autres contenants obligatoires = 2 par pile
-            ['cpr','pal','cv','cp','ce','cdp','mag'].forEach(t => {
-                let qnl = getVal(t+'-n-long'); let qgl = getVal(t+'-g-long');
-                let qnw = getVal(t+'-n-larg'); let qgw = getVal(t+'-g-larg');
-                const levels = (t === 'pal') ? 10 : 2;
-                
-                for(let i=0; i<qnl; i++) itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, label:LABELS[t] });
-                for(let i=0; i<qnw; i++) itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, label:LABELS[t] });
-                pileCounts(qgl, levels).forEach(cnt => itemsToPlace.push({ type:t, w:DIMS[t].long.w, d:DIMS[t].long.d, stacked:true, label:`${LABELS[t]}(${cnt})` }));
-                pileCounts(qgw, levels).forEach(cnt => itemsToPlace.push({ type:t, w:DIMS[t].larg.w, d:DIMS[t].larg.d, stacked:true, label:`${LABELS[t]}(${cnt})` }));
-            });
-            
-            // Kubs pleins gerbés : 2 par pile
-            let kn = getVal('kub-n-long'); let kg = getVal('kub-g-long');
-            for(let i=0; i<kn; i++) itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, label:LABELS.kub });
-            pileCounts(kg, 2).forEach(cnt => itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, stacked:true, label:`${LABELS.kub}(${cnt})` }));
+    // 3. Placement ----------------------------------------------------------
+    var packer = createPacker(truckL, allowRotate);
+    items.sort(function (a, b) { return (b.sw * b.d) - (a.sw * a.d); });   // tri stable
+    var unplacedMap = {};
+    items.forEach(function (it) {
+      if (!packer.place(it)) unplacedMap[it.code] = (unplacedMap[it.code] || 0) + 1;
+    });
 
-            // VIDE
-            const kv = getVal('kubv-tot');
-            pileCounts(kv, 5).forEach(cnt => itemsToPlace.push({ type:'kub', w:DIMS.kub.long.w, d:DIMS.kub.long.d, stacked: true, label: `KV(${cnt})` }));
-            
-            const pv = getVal('palv-tot'); const pvRatio = getVal('palv-stk') || 1;
-            {
-                let dimPv = DIMS.pal[STATE.palv || 'long'];
-                pileCounts(pv, pvRatio).forEach(cnt => itemsToPlace.push({ type:'pal', w:dimPv.w, d:dimPv.d, stacked: true, label:`PV(${cnt})` }));
-            }
-
-            // CDP, CE, CP, CV, CPR vides : aucune limite de gerbage codée en dur, l'utilisateur indique sa pile réelle
-            ['cdp','ce','cp','cv','cpr'].forEach(t => {
-                const prod = t + 'v';
-                const qty = getVal(prod + '-tot');
-                const ratio = getVal(prod + '-stk') || 1;
-                let dimV = DIMS[t][STATE[prod] || 'long'];
-                pileCounts(qty, ratio).forEach(cnt => itemsToPlace.push({ type:t, w:dimV.w, d:dimV.d, stacked: true, label: `${LABELS[t]}V(${cnt})` }));
-            });
-
-            // PACKING
-            let skyline = new Array(TRUCK_W).fill(0);
-            let placed = [];
-
-            const place = (item, isAuto = false) => {
-                const getBestForOri = (w, d, rotated) => {
-                    let bestY = -1; let minX = Infinity;
-                    for(let y = 0; y <= TRUCK_W - w; y++) {
-                        let maxX = 0; for(let i=y; i<y+w; i++) if(skyline[i] > maxX) maxX = skyline[i];
-                        if(isAuto && (maxX + d > TRUCK_L)) continue;
-                        if(maxX < minX) { minX = maxX; bestY = y; }
-                    }
-                    if(bestY !== -1) return { x: minX, y: bestY, w, d, rotated };
-                    return null;
-                };
-
-                let best = getBestForOri(item.w, item.d, false);
-                let exceeds = best && (best.x + best.d > TRUCK_L);
-                
-                // Si ça déborde en longueur et que l'option "auto-rotation" est cochée
-                if ( (!best || exceeds) && allowAutoRotate && item.w !== item.d ) {
-                    let alt = getBestForOri(item.d, item.w, true);
-                    if (alt && (alt.x + alt.d <= TRUCK_L)) {
-                        best = alt; // L'alternative rentre parfaitement
-                    }
-                }
-
-                if(best) {
-                    for(let i = best.y; i < best.y + best.w; i++) skyline[i] = best.x + best.d;
-                    placed.push({ ...item, x: best.x, y: best.y, w: best.w, d: best.d, auto: isAuto, rotated: best.rotated });
-                    return true;
-                }
-                return false;
-            };
-
-            itemsToPlace.sort((a,b) => (b.w * b.d) - (a.w * a.d)).forEach(it => place(it));
-            
-            // Lignes Mixtes : les objets d'une même ligne sont placés comme UN SEUL
-            // bloc solidaire (même position de départ X, alignés côte à côte sur l'axe
-            // largeur), pour réellement respecter "rester côte à côte" — un placement
-            // indépendant objet par objet ne le garantissait pas.
-            let unmergeableLines = [];
-            customLines.forEach((line, idx) => {
-                if (line.length === 0) return;
-                const totalW = line.reduce((sum, it) => sum + it.w, 0);
-                const maxD = Math.max(...line.map(it => it.d));
-
-                if (totalW > TRUCK_W) {
-                    // La largeur cumulée dépasse la largeur du camion (240cm) : il est
-                    // physiquement impossible de les aligner sur une seule rangée.
-                    // On les place quand même (indépendamment) pour ne rien perdre du
-                    // plan, mais on avertit clairement l'utilisateur.
-                    unmergeableLines.push({ num: idx + 1, totalW });
-                    line.forEach(it => place({ ...it, customLine: idx + 1 }));
-                    return;
-                }
-
-                // Même recherche de meilleure position que getBestForOri, généralisée
-                // à la largeur TOTALE du bloc (et non plus objet par objet).
-                let bestY = -1; let minX = Infinity;
-                for (let y = 0; y <= TRUCK_W - totalW; y++) {
-                    let maxX = 0;
-                    for (let i = y; i < y + totalW; i++) if (skyline[i] > maxX) maxX = skyline[i];
-                    if (maxX < minX) { minX = maxX; bestY = y; }
-                }
-
-                const startX = minX;
-                let cursorY = bestY;
-                line.forEach(it => {
-                    placed.push({ ...it, x: startX, y: cursorY, w: it.w, d: it.d, auto: false, rotated: false, customLine: idx + 1 });
-                    cursorY += it.w;
-                });
-                // Réserve tout le bloc (largeur totale) à la profondeur MAX du groupe,
-                // pour qu'aucun autre objet ne se glisse dans un creux derrière un
-                // objet plus court de la même ligne : le bloc reste bien "une rangée".
-                for (let i = bestY; i < bestY + totalW; i++) skyline[i] = startX + maxD;
-            });
-
-            const usedBeforeGide = Math.max(...skyline);
-
-            // Avertissement : ligne(s) mixte(s) trop larges pour tenir sur une rangée
-            const mixedWarning = document.getElementById('mixed-line-warning');
-            if (unmergeableLines.length > 0) {
-                mixedWarning.innerHTML = unmergeableLines.map(l =>
-                    `⚠️ <b>Ligne ${l.num}</b> : largeur cumulée ${(l.totalW/100).toFixed(2)}m > 2,40m (largeur du camion) — impossible de garder ces objets sur une seule rangée. Ils ont été placés séparément.`
-                ).join('<br>');
-                mixedWarning.classList.remove('hidden');
-            } else {
-                mixedWarning.classList.add('hidden');
-            }
-            
-            // IA GIDÉ
-            let stockSummary = {};
-            let unplacedStock = {};
-            let truckFull = (usedBeforeGide >= TRUCK_L);
-            
-            if(!truckFull) {
-                // Mode 1: Infini
-                const q1 = document.getElementById('gide-q1-ref').value;
-                if(q1 !== 'none') {
-                    while(place({ type: q1, w: DIMS[q1].long.w, d: DIMS[q1].long.d, label:LABELS[q1] }, true)) {
-                        stockSummary[q1] = (stockSummary[q1] || 0) + 1;
-                    }
-                }
-
-                // Mode 2: Stock et priorités
-                let definedStock = {};
-                document.querySelectorAll('.gide-stock-row').forEach(row => {
-                    let qty = parseInt(row.querySelector('.gide-stock-qty').value) || 0;
-                    let ref = row.querySelector('.gide-stock-ref').value;
-                    if(ref !== 'none' && qty > 0) {
-                        definedStock[ref] = (definedStock[ref] || 0) + qty;
-                        unplacedStock[ref] = definedStock[ref];
-                    }
-                });
-
-                document.querySelectorAll('.prio-select').forEach(sel => {
-                    const ref = sel.value;
-                    if(ref !== 'none' && definedStock[ref] > 0) {
-                        while(definedStock[ref] > 0 && place({ type: ref, w: DIMS[ref].long.w, d: DIMS[ref].long.d, label:LABELS[ref] }, true)) {
-                            stockSummary[ref] = (stockSummary[ref] || 0) + 1;
-                            definedStock[ref]--;
-                            unplacedStock[ref]--;
-                        }
-                    }
-                });
-            }
-
-            // DÉMARRAGE DU LOG MATHÉMATIQUE ÉPURÉ (Basé sur le SVG réel)
-            let logText = "";
-            const formatFr = (num) => num.toFixed(2).replace('.', ',');
-            const getMathLine = (label, depthCm, widthCm, piles) => {
-                if(piles <= 0) return "";
-                let d = depthCm / 100;
-                let perRow = Math.floor(240 / widthCm);
-                let rows = Math.ceil(piles / perRow); // une rangée entamée compte pour une rangée entière
-                let mathRes = d * rows;
-                return `${label} : ${piles} ÷ ${perRow}/rangée → ⌈${rows}⌉ rangée(s) × ${formatFr(d)}m = ${formatFr(mathRes)} m\n`;
-            };
-
-            let logGroups = {};
-            placed.forEach(p => {
-                if(p.customLine) return; // Ignoré pour le log groupé
-                
-                let oriName = "";
-                if (p.type !== 'kub' && !p.label.startsWith('KV')) {
-                    if (p.rotated) {
-                        oriName = "Pivoté en fin de camion";
-                    } else if (p.d === DIMS[p.type].long.d && p.w === DIMS[p.type].long.w) {
-                        oriName = "Long.";
-                    } else if (p.d === DIMS[p.type].larg.d && p.w === DIMS[p.type].larg.w) {
-                        oriName = "Larg.";
-                    }
-                }
-                
-                let isAuto = p.auto ? " (IA)" : "";
-                let finalLabel = oriName ? `${p.label} (${oriName})${isAuto}` : `${p.label}${isAuto}`;
-                
-                let key = `${finalLabel}_${p.d}_${p.w}`;
-                if (!logGroups[key]) {
-                    logGroups[key] = { label: finalLabel, d: p.d, w: p.w, count: 0 };
-                }
-                logGroups[key].count++;
-            });
-
-            Object.values(logGroups).forEach(g => {
-                logText += getMathLine(g.label, g.d, g.w, g.count);
-            });
-
-            customLines.forEach((line, idx) => {
-                let maxD = Math.max(...line.map(i => i.d)) / 100;
-                logText += `Ligne Mixte ${idx+1} : 1 rangée de ${formatFr(maxD)} m = ${formatFr(maxD)} m\n`;
-            });
-            
-            if(logText === "") logText = "Aucun calcul en cours...";
-            document.getElementById('calc-log').textContent = logText;
-
-            // GESTION ALERTE ROTATION "À LA FIN"
-            let rotatedManual = placed.filter(p => !p.auto && p.rotated);
-            let rotCounts = {};
-            rotatedManual.forEach(p => {
-                let baseLabel = p.label || p.type;
-                rotCounts[baseLabel] = (rotCounts[baseLabel] || 0) + 1;
-            });
-            
-            const rotAlert = document.getElementById('rotation-alert');
-            if (Object.keys(rotCounts).length > 0) {
-                let details = Object.entries(rotCounts).map(([k, v]) => `<b>${v} pile(s) de ${k}</b>`).join(', ');
-                rotAlert.innerHTML = `💡 <b>ASTUCE CHARGEMENT :</b> Pour optimiser au centimètre près, ${details} ont été tournées par rapport à votre demande. <b>Placez-les uniquement à la fin du camion !</b>`;
-                rotAlert.classList.remove('hidden');
-            } else {
-                rotAlert.classList.add('hidden');
-            }
-
-            const sumBox = document.getElementById('stock-summary');
-            if(Object.keys(stockSummary).length > 0) {
-                let msg = `✨ <b>Gidé :</b> "J'ai optimisé le chargement en plaçant : ${Object.entries(stockSummary).map(([k, v]) => `<b>${v} ${LABELS[k]}</b>`).join(', ')}."`;
-                let leftovers = Object.entries(unplacedStock).filter(([k, v]) => v > 0);
-                if (leftovers.length > 0) {
-                    msg += `<br><span class="text-sm text-red-600 mt-2 block">⚠️ Attention, faute de place, il reste sur le quai : ${leftovers.map(([k,v]) => `<b>${v} ${LABELS[k]}</b>`).join(', ')}.</span>`;
-                }
-                sumBox.innerHTML = msg;
-                sumBox.classList.remove('hidden');
-            } else if (truckFull && (document.getElementById('gide-q1-ref').value !== 'none' || Array.from(document.querySelectorAll('.prio-select')).some(sel => sel.value !== 'none') || document.querySelectorAll('.gide-stock-row').length > 0 && Array.from(document.querySelectorAll('.gide-stock-row')).some(row => row.querySelector('.gide-stock-ref').value !== 'none' && (parseInt(row.querySelector('.gide-stock-qty').value)||0) > 0))) {
-                sumBox.innerHTML = `✨ <b>Gidé :</b> "Désolé, le camion est déjà plein, je ne peux rien ajouter."`;
-                sumBox.classList.remove('hidden');
-            } else { 
-                sumBox.classList.add('hidden'); 
-            }
-
-            const used = Math.max(...skyline);
-            const remain = TRUCK_L - used;
-            
-            // ALERTE SURCAPACITÉ
-            if(usedBeforeGide > TRUCK_L) {
-                document.getElementById('overcapacity-warning').classList.remove('hidden');
-            } else {
-                document.getElementById('overcapacity-warning').classList.add('hidden');
-            }
-
-            document.getElementById('res-used').innerText = (used/100).toFixed(2) + " m";
-            const remText = document.getElementById('res-remain');
-            remText.innerText = (remain/100).toFixed(2) + " m";
-            remText.className = remain < 0 ? "text-3xl font-bold text-red-400" : "text-3xl font-bold text-yellow-300";
-
-            const pct = Math.max(0, (used/TRUCK_L)*100);
-            const bar = document.getElementById('main-progress-bar');
-            const card = document.getElementById('result-card');
-            
-            bar.style.width = Math.min(100, pct) + "%"; 
-            bar.innerText = pct.toFixed(1) + "%";
-            
-            if(used > TRUCK_L) {
-                bar.className = "bg-red-500 h-full flex items-center justify-center text-xs font-bold text-white transition-all duration-500";
-                card.className = "bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-2xl sticky top-6 transition-colors duration-500";
-            } else {
-                bar.className = "bg-white h-full flex items-center justify-center text-xs font-bold text-green-800 transition-all duration-500 shadow-lg";
-                card.className = "bg-gradient-to-br from-emerald-600 to-green-700 text-white p-6 rounded-2xl shadow-2xl sticky top-6 transition-colors duration-500";
-            }
-            
-            draw(placed, used, skyline, TRUCK_L);
+    // 4. Lignes mixtes (blocs solidaires) -----------------------------------
+    var unmergeable = [];
+    (input.mixedLines || []).forEach(function (line, idx) {
+      var lineItems = [];
+      (line || []).forEach(function (spec) {
+        var c = byId[spec && spec.id];
+        if (!c) return;
+        var n = toInt(spec.qty);
+        for (var i = 0; i < n; i++) {
+          var it = makeItem(c, spec.ori === 'larg' ? 'larg' : 'long', { sw: null });
+          it.sw = it.w; it.alt = null;                 // ligne mixte : cotes réelles, sans règle de rangée
+          lineItems.push(it);
         }
+      });
+      if (!lineItems.length) return;
+      var res = packer.placeBlock(lineItems, idx + 1);
+      if (!res.ok) {
+        unmergeable.push({ num: idx + 1, totalW: res.totalW });
+        lineItems.forEach(function (it) {
+          it.customLine = idx + 1; it.loose = true;
+          if (!packer.place(it)) unplacedMap[it.code] = (unplacedMap[it.code] || 0) + 1;
+        });
+      }
+    });
 
-        function draw(rects, maxD, skyline, TRUCK_L) {
-            const findSugg = (segW, gap) => {
-                let s = [];
-                Object.keys(DIMS).forEach(t => {
-                    ['long','larg'].forEach(o => {
-                        const d = DIMS[t][o]; const qty = Math.floor(segW/d.w) * Math.floor(gap/d.d);
-                        if(qty > 0) s.push(`${qty} ${LABELS[t]}`);
-                    });
-                });
-                return [...new Set(s)].slice(0,3).join('<br>');
-            };
-            
-            let svg = `<svg viewBox="0 0 ${TRUCK_L} 240" class="w-full">
-                <defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>
-                <pattern id="hole" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#facc15"/><line x1="0" y1="0" x2="0" y2="10" stroke="rgba(255,255,255,0.4)" stroke-width="5"/></pattern></defs>
-                <rect width="${TRUCK_L}" height="240" fill="url(#grid)"/>`;
-                
-            rects.forEach(r => {
-                svg += `<rect x="${r.x}" y="${r.y}" width="${r.d-1}" height="${r.w-1}" fill="${COLORS[r.type]}" opacity="${r.auto?0.5:r.stacked?0.8:1}" stroke="white" rx="2"/><text x="${r.x+r.d/2}" y="${r.y+r.w/2}" font-size="8" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central">${r.label || LABELS[r.type]}</text>`;
-            });
-            const limit = Math.min(maxD, TRUCK_L);
-            for(let y=0; y<TRUCK_W; y++) {
-                if(skyline[y] < limit) {
-                    let startY = y; let d = limit - skyline[y];
-                    while(y < TRUCK_W && skyline[y] === skyline[startY]) y++;
-                    let w = y - startY;
-                    svg += `<rect class="hole-rect" data-l="${(d/100).toFixed(2)}" data-w="${(w/100).toFixed(2)}" data-sugg="${findSugg(w,d)}" x="${skyline[startY]}" y="${startY}" width="${d}" height="${w-1}" fill="url(#hole)" opacity="0.5" rx="2"/>`;
-                    y--;
-                }
-            }
-            svg += `</svg>`; document.getElementById('svg-container').innerHTML = svg;
+    var usedBeforeGide = packer.used();
+    var truckFull = usedBeforeGide >= truckL;
+
+    // 5. Gidé : UN SEUL mode actif à la fois ------------------------------
+    var g = input.gide || {};
+    var mode = g.mode === 'stock' ? 'stock' : 'infinite';
+    var summary = {}, leftovers = {}, active = false;
+
+    if (mode === 'infinite') {
+      var cInf = byId[g.infRef];
+      active = !!cInf;
+      if (cInf && !truckFull) {
+        var n = 0;
+        while (n < 10000 && packer.place(makeItem(cInf, 'long'), true)) n++;
+        if (n > 0) summary[cInf.id] = n;
+      }
+    } else {
+      var def = {};
+      (g.stock || []).forEach(function (row) {
+        var c = byId[row && row.id], q = toInt(row && row.qty);
+        if (c && q > 0) def[c.id] = (def[c.id] || 0) + q;
+      });
+      var prios = (g.prios || []).filter(function (id) { return !!byId[id]; });
+      active = prios.length > 0 || Object.keys(def).length > 0;
+      if (!truckFull) {
+        var left = {};
+        Object.keys(def).forEach(function (id) { left[id] = def[id]; });
+        prios.forEach(function (id) {
+          var c = byId[id];
+          while (left[id] > 0 && packer.place(makeItem(c, 'long'), true)) {
+            summary[id] = (summary[id] || 0) + 1;
+            left[id]--;
+          }
+        });
+        Object.keys(left).forEach(function (id) { if (left[id] > 0) leftovers[id] = left[id]; });
+      }
+    }
+
+    // 6. Résultat --------------------------------------------------------------
+    var used = packer.used();
+    var rotatedManual = {};
+    packer.placed.forEach(function (p) {
+      if (!p.auto && p.rotated) rotatedManual[p.code] = (rotatedManual[p.code] || 0) + 1;
+    });
+    var unplaced = Object.keys(unplacedMap).map(function (code) { return { code: code, count: unplacedMap[code] }; });
+
+    return {
+      truckL: truckL, used: used, usedBeforeGide: usedBeforeGide, remain: truckL - used,
+      pct: Math.max(0, used / truckL * 100),
+      overCapacity: usedBeforeGide > truckL, truckFull: truckFull,
+      placed: packer.placed, blocks: packer.blocks, skyline: packer.skyline,
+      free: freeRects(packer.skyline, Math.min(used, truckL)),
+      rotatedManual: rotatedManual, unmergeable: unmergeable, unplaced: unplaced,
+      gide: { mode: mode, active: active, summary: summary, leftovers: leftovers },
+      log: buildLog(packer.placed, packer.blocks, used),
+      containers: containers
+    };
+  }
+
+  var api = {
+    TRUCK_W: TRUCK_W, DEFAULT_CONTAINERS: DEFAULT_CONTAINERS,
+    sanitizeContainer: sanitizeContainer, isSquare: isSquare, dimsFor: dimsFor,
+    slotWidth: slotWidth, perRow: perRow, pileCounts: pileCounts, makeItem: makeItem,
+    createPacker: createPacker, freeRects: freeRects, suggest: suggest,
+    buildLog: buildLog, solve: solve, fmtM: fmtM
+  };
+  root.Lynx = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ENGINE:END */
+
+</script>
+<script>
+/* APP:START */
+(function () {
+  'use strict';
+  var L = window.Lynx;
+  var LS_KEY = 'lynx.containers.v1';
+  var TRUCK_W = L.TRUCK_W;
+
+  // ------------------------------------------------------------------ état
+  var state = {
+    containers: loadContainers(),
+    truckL: 1330,
+    allowRotate: true,
+    qty: {},       // id -> { nLong, nLarg, gLong, gLarg }
+    empty: {},     // id -> { total, perPile, ori }
+    mixed: [],     // [ [ { id, ori, qty } ] ]
+    gide: { mode: 'infinite', infRef: '', stock: {}, prios: [] }
+  };
+
+  function loadContainers() {
+    try {
+      var raw = window.localStorage.getItem(LS_KEY);
+      if (raw) {
+        var arr = JSON.parse(raw);
+        if (Array.isArray(arr)) return arr.map(L.sanitizeContainer);
+      }
+    } catch (e) { /* stockage indisponible : on retombe sur les valeurs par défaut */ }
+    return L.DEFAULT_CONTAINERS.map(L.sanitizeContainer);
+  }
+  function saveContainers() {
+    try { window.localStorage.setItem(LS_KEY, JSON.stringify(state.containers)); } catch (e) { /* ignoré */ }
+  }
+
+  // ------------------------------------------------------------------ utilitaires
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+  function byId(id) {
+    for (var i = 0; i < state.containers.length; i++) if (state.containers[i].id === id) return state.containers[i];
+    return null;
+  }
+  function q(id) { return state.qty[id] || (state.qty[id] = { nLong: '', nLarg: '', gLong: '', gLarg: '' }); }
+  function e(id) { return state.empty[id] || (state.empty[id] = { total: '', perPile: '', ori: 'long' }); }
+  function val(v) { return v === '' || v == null ? '' : esc(v); }
+  function dimTxt(c) { return c.length + '×' + c.width + ' cm'; }
+  function rowRule(c) {
+    var t = [];
+    if (c.maxPerRowLong) t.push('max ' + c.maxPerRowLong + '/rangée (long.)');
+    if (c.maxPerRowLarg && !L.isSquare(c)) t.push('max ' + c.maxPerRowLarg + '/rangée (larg.)');
+    return t.join(' · ');
+  }
+  function option(v, label, sel) { return '<option value="' + esc(v) + '"' + (sel ? ' selected' : '') + '>' + esc(label) + '</option>'; }
+  function containerOptions(selected, withEmpty, emptyLabel) {
+    var h = withEmpty ? option('', emptyLabel || '— choisir —', !selected) : '';
+    state.containers.forEach(function (c) { h += option(c.id, c.name + ' (' + dimTxt(c) + ')', c.id === selected); });
+    return h;
+  }
+  var INPUT = 'w-full border border-slate-300 rounded-lg px-2 py-1.5 text-sm focus:ring-2 focus:ring-teal-400 outline-hidden bg-white';
+  var NUM = INPUT + ' text-center font-bold';
+
+  // ------------------------------------------------------------------ rendu : obligatoires
+  function renderMain() {
+    var h = '';
+    state.containers.forEach(function (c) {
+      var v = q(c.id), sq = L.isSquare(c), rule = rowRule(c);
+      h += '<div class="rounded-xl border-2 p-4 bg-slate-50" style="border-color:' + c.color + '55" data-card="' + esc(c.id) + '">' +
+        '<div class="flex items-center gap-2 mb-1"><span class="inline-block w-3.5 h-3.5 rounded-full" style="background:' + c.color + '"></span>' +
+        '<span class="font-extrabold text-slate-800">' + esc(c.name) + '</span></div>' +
+        '<div class="text-[11px] text-slate-500 mb-3">' + dimTxt(c) + (rule ? ' · ' + esc(rule) : '') + '</div>' +
+        '<div class="grid grid-cols-2 gap-2">' +
+        field('Au sol' + (sq ? '' : ' · Long.'), 'qty', c.id, 'nLong', v.nLong) +
+        (sq ? '' : field('Au sol · Larg.', 'qty', c.id, 'nLarg', v.nLarg)) +
+        (c.stackable ? field('Gerbé · Long. (u.)', 'qty', c.id, 'gLong', v.gLong) : '') +
+        (c.stackable && !sq ? field('Gerbé · Larg. (u.)', 'qty', c.id, 'gLarg', v.gLarg) : '') +
+        '</div>' +
+        (c.stackable ? '<div class="text-[10px] text-slate-400 mt-2">Gerbage : ' + c.stackMax + ' par pile max</div>' : '<div class="text-[10px] text-slate-400 mt-2">Non gerbable</div>') +
+        '</div>';
+    });
+    if (!state.containers.length) h = '<p class="text-sm text-slate-500 col-span-full">Aucun contenant défini. Ajoutez-en dans « Mes contenants ».</p>';
+    $('main-cards').innerHTML = h;
+  }
+  function field(label, scope, id, f, v) {
+    return '<label class="block text-[10px] font-bold uppercase text-slate-500">' + esc(label) +
+      '<input type="number" min="0" step="1" inputmode="numeric" class="' + NUM + ' mt-1" data-s="' + scope + '" data-id="' + esc(id) + '" data-f="' + f + '" value="' + val(v) + '" placeholder="0"></label>';
+  }
+
+  // ------------------------------------------------------------------ rendu : matériel vide
+  function renderEmpty() {
+    var h = '';
+    state.containers.forEach(function (c) {
+      if (!c.emptyEnabled) return;
+      var v = e(c.id), sq = L.isSquare(c);
+      h += '<div class="rounded-xl border p-4 bg-slate-50" style="border-color:' + c.color + '66">' +
+        '<div class="flex items-center gap-2 mb-3"><span class="inline-block w-3.5 h-3.5 rounded-full" style="background:' + c.color + '"></span>' +
+        '<span class="font-extrabold">' + esc(c.name) + ' vide</span></div>' +
+        '<div class="grid grid-cols-2 gap-2">' +
+        field('Quantité totale', 'empty', c.id, 'total', v.total) +
+        '<label class="block text-[10px] font-bold uppercase text-slate-500">Par pile' +
+        '<input type="number" min="1" step="1" inputmode="numeric" class="' + NUM + ' mt-1" data-s="empty" data-id="' + esc(c.id) + '" data-f="perPile" value="' + val(v.perPile) + '" placeholder="' + (c.emptyStackMax ? c.emptyStackMax : 'illimité') + '"></label>' +
+        '</div>' +
+        (sq ? '' : '<label class="block text-[10px] font-bold uppercase text-slate-500 mt-2">Sens' +
+          '<select class="' + INPUT + ' mt-1" data-s="empty" data-id="' + esc(c.id) + '" data-f="ori">' + option('long', 'Long.', v.ori !== 'larg') + option('larg', 'Larg.', v.ori === 'larg') + '</select></label>') +
+        '</div>';
+    });
+    if (!h) h = '<p class="text-sm text-slate-500 col-span-full">Aucun contenant avec matériel vide activé.</p>';
+    $('empty-body').innerHTML = h;
+  }
+
+  // ------------------------------------------------------------------ rendu : Gidé (deux modes exclusifs)
+  function renderGide() {
+    var g = state.gide, inf = g.mode === 'infinite';
+    var h = '<div class="p-6 space-y-5">' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-label="Mode de Gidé">' +
+      modeBtn('infinite', 'Mode 1 · Théorique', 'Remplir le reste du camion avec un seul type, sans limite de stock.', inf) +
+      modeBtn('stock', 'Mode 2 · Mon stock', 'Placer mon stock réel selon un ordre de priorité.', !inf) +
+      '</div>';
+    if (inf) {
+      h += '<div class="bg-orange-50 rounded-xl p-4 border border-orange-200"><label class="block font-bold text-orange-900 text-sm mb-2">Quel contenant ajouter à l\'infini ?</label>' +
+        '<select id="gide-inf" class="' + INPUT + '" data-s="gideinf">' + containerOptions(g.infRef, true, '— aucun —') + '</select></div>';
+    } else {
+      h += '<div class="bg-orange-50 rounded-xl p-4 border border-orange-200"><div class="font-bold text-orange-900 text-sm mb-3">Mon stock disponible</div>' +
+        '<div class="grid grid-cols-2 md:grid-cols-3 gap-3">';
+      state.containers.forEach(function (c) {
+        h += field(c.name, 'stock', c.id, 'qty', g.stock[c.id]);
+      });
+      h += '</div></div>' +
+        '<div class="bg-orange-50 rounded-xl p-4 border border-orange-200"><div class="font-bold text-orange-900 text-sm mb-3">Ordre de priorité de placement</div><div class="space-y-2">';
+      g.prios.forEach(function (id, i) {
+        h += '<div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center shrink-0">' + (i + 1) + '</span>' +
+          '<select class="' + INPUT + '" data-s="prio" data-i="' + i + '">' + containerOptions(id, false) + '</select>' +
+          '<button type="button" class="text-red-600 font-bold px-2" data-action="prio-del" data-i="' + i + '" aria-label="Retirer la priorité ' + (i + 1) + '">✕</button></div>';
+      });
+      h += '</div><button type="button" data-action="prio-add" class="mt-3 text-sm font-bold text-orange-800 bg-orange-200 hover:bg-orange-300 px-3 py-1.5 rounded-lg">+ Ajouter une priorité</button></div>';
+    }
+    h += '</div>';
+    $('gide-body').innerHTML = h;
+  }
+  function modeBtn(mode, title, sub, on) {
+    return '<button type="button" role="radio" aria-checked="' + on + '" data-action="gide-mode" data-mode="' + mode + '" class="text-left p-4 rounded-xl border-2 transition-colors ' +
+      (on ? 'border-orange-500 bg-orange-100 shadow-md' : 'border-slate-200 bg-white hover:bg-orange-50') + '">' +
+      '<div class="font-extrabold text-orange-900">' + (on ? '● ' : '○ ') + title + '</div><div class="text-xs text-slate-600 mt-1">' + sub + '</div></button>';
+  }
+
+  // ------------------------------------------------------------------ rendu : ligne mixte
+  function renderMixed() {
+    var h = '';
+    state.mixed.forEach(function (line, li) {
+      h += '<div class="rounded-xl border border-indigo-200 bg-indigo-50/40 p-4 mb-3"><div class="flex justify-between items-center mb-2">' +
+        '<span class="font-bold text-indigo-900 text-sm">Ligne mixte ' + (li + 1) + '</span>' +
+        '<button type="button" class="text-red-600 text-xs font-bold" data-action="mixed-del-line" data-l="' + li + '">Supprimer la ligne</button></div><div class="space-y-2">';
+      line.forEach(function (r, ri) {
+        var c = byId(r.id), sq = c && L.isSquare(c);
+        h += '<div class="grid grid-cols-12 gap-2 items-center">' +
+          '<select class="' + INPUT + ' col-span-6" data-s="mixed" data-l="' + li + '" data-r="' + ri + '" data-f="id">' + containerOptions(r.id, false) + '</select>' +
+          '<select class="' + INPUT + ' col-span-3"' + (sq ? ' disabled' : '') + ' data-s="mixed" data-l="' + li + '" data-r="' + ri + '" data-f="ori">' + option('long', 'Long.', r.ori !== 'larg') + option('larg', 'Larg.', r.ori === 'larg') + '</select>' +
+          '<input type="number" min="0" step="1" class="' + NUM + ' col-span-2" data-s="mixed" data-l="' + li + '" data-r="' + ri + '" data-f="qty" value="' + val(r.qty) + '" placeholder="0">' +
+          '<button type="button" class="col-span-1 text-red-600 font-bold" data-action="mixed-del-row" data-l="' + li + '" data-r="' + ri + '" aria-label="Retirer">✕</button></div>';
+      });
+      h += '</div><button type="button" data-action="mixed-add-row" data-l="' + li + '" class="mt-2 text-xs font-bold text-indigo-800 bg-indigo-100 hover:bg-indigo-200 px-3 py-1 rounded-lg">+ Ajouter un contenant à la ligne</button></div>';
+    });
+    h += '<button type="button" data-action="mixed-add-line" class="text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">+ Nouvelle ligne mixte</button>';
+    $('mixed-body').innerHTML = h;
+  }
+
+  // ------------------------------------------------------------------ rendu : éditeur de contenants
+  function renderEditor() {
+    var h = '<p class="text-xs text-slate-500 mb-4">Les modifications sont enregistrées sur cet appareil et s\'appliquent immédiatement aux cartes, à Gidé et aux lignes mixtes. « Max par rangée » reproduit une règle terrain (ex. 3 Kubs en long) ; vide = aucune règle.</p><div class="space-y-4">';
+    state.containers.forEach(function (c, i) {
+      h += '<div class="rounded-xl border border-slate-200 p-4 bg-slate-50" data-ed="' + i + '">' +
+        '<div class="grid grid-cols-2 md:grid-cols-4 gap-3">' +
+        ef('Nom', 'text', 'name', c.name, 40) + ef('Code (plan)', 'text', 'code', c.code, 6) +
+        ef('Longueur (cm)', 'number', 'length', c.length) + ef('Largeur (cm)', 'number', 'width', c.width) +
+        '<label class="block text-[10px] font-bold uppercase text-slate-500">Couleur<input type="color" class="mt-1 w-full h-9 rounded-sm border border-slate-300" data-ef="color" value="' + esc(c.color) + '"></label>' +
+        ef('Max / rangée · long.', 'number', 'maxPerRowLong', c.maxPerRowLong == null ? '' : c.maxPerRowLong) +
+        ef('Max / rangée · larg.', 'number', 'maxPerRowLarg', c.maxPerRowLarg == null ? '' : c.maxPerRowLarg) +
+        ef('Hauteur de gerbage max', 'number', 'stackMax', c.stackMax) +
+        '</div><div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-3">' +
+        '<label class="text-sm font-medium flex items-center gap-2"><input type="checkbox" data-ef="stackable"' + (c.stackable ? ' checked' : '') + '> Gerbable</label>' +
+        '<label class="text-sm font-medium flex items-center gap-2"><input type="checkbox" data-ef="emptyEnabled"' + (c.emptyEnabled ? ' checked' : '') + '> Matériel vide possible</label>' +
+        '<label class="text-sm font-medium flex items-center gap-2">Gerbage vide max <input type="number" min="1" class="' + NUM + ' w-20" data-ef="emptyStackMax" value="' + (c.emptyStackMax == null ? '' : c.emptyStackMax) + '" placeholder="∞"></label>' +
+        '<button type="button" class="ml-auto text-red-600 text-sm font-bold" data-action="ct-del" data-i="' + i + '">🗑 Supprimer</button></div></div>';
+    });
+    h += '</div><div class="flex flex-wrap gap-3 mt-4">' +
+      '<button type="button" data-action="ct-add" class="text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded-lg">+ Ajouter un contenant</button>' +
+      '<button type="button" data-action="ct-default" class="text-sm font-bold text-slate-700 bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-lg">Rétablir les contenants par défaut</button></div>';
+    $('containers-body').innerHTML = h;
+  }
+  function ef(label, type, f, v, max) {
+    return '<label class="block text-[10px] font-bold uppercase text-slate-500">' + label +
+      '<input type="' + type + '" class="' + INPUT + ' mt-1" data-ef="' + f + '" value="' + esc(v) + '"' + (max ? ' maxlength="' + max + '"' : '') + '></label>';
+  }
+
+  function renderAll() {
+    renderMain(); renderEmpty(); renderGide(); renderMixed(); renderEditor(); recompute();
+  }
+
+  // ------------------------------------------------------------------ calcul + rendu des résultats
+  function buildInput() {
+    var g = state.gide;
+    return {
+      containers: state.containers, truckL: state.truckL, allowRotate: state.allowRotate,
+      qty: state.qty, empty: state.empty, mixedLines: state.mixed,
+      gide: {
+        mode: g.mode, infRef: g.infRef,
+        stock: Object.keys(g.stock).map(function (id) { return { id: id, qty: g.stock[id] }; }),
+        prios: g.prios
+      }
+    };
+  }
+  function nameOf(id) { var c = byId(id); return c ? c.name : id; }
+
+  function recompute() {
+    var r = L.solve(buildInput());
+    var m = function (cm) { return (cm / 100).toFixed(2); };
+
+    $('res-used').textContent = m(r.used) + ' m';
+    $('res-remain').textContent = m(Math.max(0, r.remain)) + ' m';
+    var bar = $('main-progress-bar');
+    bar.style.width = Math.min(100, r.pct) + '%';
+    bar.textContent = Math.round(r.pct) + '%';
+    $('overcapacity-warning').classList.toggle('hidden', !r.overCapacity);
+    var card = $('result-card');
+    card.classList.toggle('from-red-600', r.overCapacity); card.classList.toggle('to-red-800', r.overCapacity);
+    card.classList.toggle('from-emerald-600', !r.overCapacity); card.classList.toggle('to-green-700', !r.overCapacity);
+
+    var ua = $('unplaced-alert');
+    if (r.unplaced.length) {
+      ua.innerHTML = '🚫 Impossible à placer : ' + r.unplaced.map(function (u) { return u.count + ' × ' + esc(u.code); }).join(', ') + ' (hors capacité du camion).';
+      ua.classList.remove('hidden');
+    } else ua.classList.add('hidden');
+
+    var ra = $('rotation-alert'), rk = Object.keys(r.rotatedManual);
+    if (rk.length) {
+      ra.innerHTML = '🔄 Pivotés en fin de camion pour rentrer : ' + rk.map(function (k) { return r.rotatedManual[k] + ' × ' + esc(k); }).join(', ') + '.';
+      ra.classList.remove('hidden');
+    } else ra.classList.add('hidden');
+
+    var mw = $('mixed-line-warning');
+    if (r.unmergeable.length) {
+      mw.innerHTML = r.unmergeable.map(function (u) {
+        return 'Ligne mixte ' + u.num + ' : largeur cumulée ' + u.totalW + ' cm &gt; ' + TRUCK_W + ' cm. Les objets ne peuvent pas rester côte à côte, ils sont placés séparément.';
+      }).join('<br>');
+      mw.classList.remove('hidden');
+    } else mw.classList.add('hidden');
+
+    renderGideSummary(r);
+    $('calc-log').textContent = r.log.join('\n');
+    drawPlan(r);
+    renderChecklist(r);
+    renderPrintHead(r);
+    return r;
+  }
+
+  function renderGideSummary(r) {
+    var box = $('stock-summary'), g = r.gide, html = '';
+    if (!g.active) { box.classList.add('hidden'); return; }
+    if (r.truckFull) {
+      html = '🚫 Le camion est déjà plein : Gidé ne peut rien ajouter (' + (g.mode === 'infinite' ? 'mode théorique' : 'toutes les priorités') + ').';
+    } else if (g.mode === 'infinite') {
+      var ids = Object.keys(g.summary);
+      html = ids.length
+        ? '✨ Gidé peut encore ajouter <span class="text-2xl">' + g.summary[ids[0]] + '</span> × ' + esc(nameOf(ids[0])) + ' dans le reste du camion.'
+        : 'Aucun ' + esc(nameOf(state.gide.infRef)) + ' supplémentaire ne rentre dans l\'espace restant.';
+    } else {
+      var rows = Object.keys(g.summary).map(function (id) { return '<li>' + g.summary[id] + ' × ' + esc(nameOf(id)) + ' placés</li>'; });
+      var lo = Object.keys(g.leftovers).map(function (id) { return '<li class="text-red-700">' + g.leftovers[id] + ' × ' + esc(nameOf(id)) + ' ne rentrent pas (ou sans priorité)</li>'; });
+      html = '✨ Résultat de votre stock :<ul class="list-disc ml-6 mt-2 not-italic">' + (rows.join('') || '<li>Rien n\'a pu être placé.</li>') + lo.join('') + '</ul>';
+    }
+    box.innerHTML = html;
+    box.classList.remove('hidden');
+  }
+
+  // ------------------------------------------------------------------ plan SVG
+  function drawPlan(r) {
+    var Lc = r.truckL, W = TRUCK_W;
+    var s = '<svg viewBox="0 0 ' + Lc + ' ' + W + '" class="w-full" role="img" aria-label="Plan de chargement">' +
+      '<defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>' +
+      '<pattern id="hole" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#facc15"/><line x1="0" y1="0" x2="0" y2="10" stroke="rgba(255,255,255,0.4)" stroke-width="5"/></pattern></defs>' +
+      '<rect width="' + Lc + '" height="' + W + '" fill="url(#grid)"/>';
+    r.placed.forEach(function (p) {
+      var c = byId(p.cid), col = c ? c.color : '#64748b';
+      var y = p.y + (p.sw - p.w) / 2;                 // pièce centrée dans sa largeur réservée
+      var op = p.auto ? 0.5 : (p.stacked ? 0.8 : 1);
+      s += '<rect x="' + p.x + '" y="' + y + '" width="' + (p.d - 1) + '" height="' + (p.w - 1) + '" fill="' + col + '" opacity="' + op + '" stroke="white" rx="2"/>' +
+        '<text x="' + (p.x + p.d / 2) + '" y="' + (y + p.w / 2) + '" font-size="8" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="central" pointer-events="none">' + esc(p.label) + '</text>';
+    });
+    r.blocks.forEach(function (b) {
+      s += '<rect x="' + b.x + '" y="' + b.y + '" width="' + (b.maxD - 1) + '" height="' + (b.totalW - 1) + '" fill="none" stroke="#4f46e5" stroke-width="2" stroke-dasharray="8 4" rx="2" pointer-events="none"/>';
+    });
+    r.free.forEach(function (h) {
+      if (h.d < 5 || h.w < 5) return;
+      var sug = L.suggest(state.containers, h.w, h.d).map(esc).join('<br>');
+      s += '<rect class="hole-rect" data-l="' + (h.d / 100).toFixed(2) + '" data-w="' + (h.w / 100).toFixed(2) + '" data-sugg="' + esc(sug) + '" x="' + h.x + '" y="' + h.y + '" width="' + h.d + '" height="' + (h.w - 1) + '" fill="url(#hole)" opacity="0.5" rx="2"/>';
+    });
+    s += '</svg>';
+    $('svg-container').innerHTML = s;
+  }
+
+  // ------------------------------------------------------------------ événements
+  var tip = $('hole-tooltip');
+  document.addEventListener('mouseover', function (ev) {
+    var t = ev.target;
+    if (t.classList && t.classList.contains('hole-rect')) { tip.innerHTML = '<div class="text-center font-black">L: ' + t.getAttribute('data-l') + 'm | l: ' + t.getAttribute('data-w') + 'm</div>' + (t.getAttribute('data-sugg') ? '<div class="mt-1 text-yellow-400 border-t border-slate-600 pt-1">💡 Suggestions :<br>' + t.getAttribute('data-sugg') + '</div>' : ''); tip.style.position = 'fixed'; tip.classList.remove('hidden'); }
+  });
+  document.addEventListener('mousemove', function (ev) {
+    if (!tip.classList.contains('hidden')) { tip.style.left = ev.clientX + 'px'; tip.style.top = ev.clientY + 'px'; }
+  });
+  document.addEventListener('mouseout', function (ev) {
+    if (ev.target.classList && ev.target.classList.contains('hole-rect')) tip.classList.add('hidden');
+  });
+
+  function onField(t) {
+    var s = t.getAttribute('data-s'), id = t.getAttribute('data-id'), f = t.getAttribute('data-f');
+    if (s === 'qty') q(id)[f] = t.value;
+    else if (s === 'empty') e(id)[f] = t.value;
+    else if (s === 'stock') state.gide.stock[id] = t.value;
+    else if (s === 'gideinf') state.gide.infRef = t.value;
+    else if (s === 'prio') state.gide.prios[+t.getAttribute('data-i')] = t.value;
+    else if (s === 'mixed') {
+      var row = state.mixed[+t.getAttribute('data-l')][+t.getAttribute('data-r')];
+      row[f] = t.value;
+      if (f === 'id') { var c = byId(t.value); if (c && L.isSquare(c)) row.ori = 'long'; renderMixed(); }
+    } else return false;
+    recompute();
+    return true;
+  }
+  document.addEventListener('input', function (ev) { if (ev.target.getAttribute && ev.target.getAttribute('data-s')) onField(ev.target); });
+  document.addEventListener('change', function (ev) {
+    var t = ev.target;
+    if (t.getAttribute && t.getAttribute('data-ef')) return editField(t);
+    if (t.getAttribute && t.getAttribute('data-s') && t.tagName === 'SELECT') onField(t);
+  });
+
+  function uniqueCode(code, selfIndex) {
+    var base = code, n = 2;
+    function taken(c) { return state.containers.some(function (x, i) { return i !== selfIndex && x.code === c; }); }
+    while (taken(code)) { code = base.slice(0, 5) + n; n++; }
+    return code;
+  }
+  function editField(t) {
+    var cardEl = t.closest('[data-ed]'), i = +cardEl.getAttribute('data-ed');
+    var old = state.containers[i], o = {};
+    cardEl.querySelectorAll('[data-ef]').forEach(function (inp) {
+      var f = inp.getAttribute('data-ef');
+      o[f] = inp.type === 'checkbox' ? inp.checked : inp.value;
+    });
+    o.id = old.id;
+    var c = L.sanitizeContainer(o);
+    c.id = old.id; c.code = uniqueCode(c.code, i);
+    state.containers[i] = c;
+    saveContainers();
+    renderAll();
+  }
+
+  document.addEventListener('click', function (ev) {
+    var tg = ev.target.closest ? ev.target.closest('[data-toggle],[data-action]') : null;
+    if (!tg) return;
+    var tog = tg.getAttribute('data-toggle');
+    if (tog) {
+      var block = $('block-' + tog), hid = block.classList.toggle('hidden');
+      tg.setAttribute('aria-expanded', String(!hid));
+      $('icon-' + tog).style.transform = hid ? '' : 'rotate(180deg)';
+      return;
+    }
+    var a = tg.getAttribute('data-action'), i = +tg.getAttribute('data-i'), l = +tg.getAttribute('data-l'), r = +tg.getAttribute('data-r');
+    switch (a) {
+      case 'gide-mode': state.gide.mode = tg.getAttribute('data-mode'); renderGide(); recompute(); break;
+      case 'prio-add': state.gide.prios.push(state.containers.length ? state.containers[0].id : ''); renderGide(); recompute(); break;
+      case 'prio-del': state.gide.prios.splice(i, 1); renderGide(); recompute(); break;
+      case 'mixed-add-line': state.mixed.push([{ id: firstId(), ori: 'long', qty: '' }]); renderMixed(); recompute(); break;
+      case 'mixed-del-line': state.mixed.splice(l, 1); renderMixed(); recompute(); break;
+      case 'mixed-add-row': state.mixed[l].push({ id: firstId(), ori: 'long', qty: '' }); renderMixed(); recompute(); break;
+      case 'mixed-del-row': state.mixed[l].splice(r, 1); if (!state.mixed[l].length) state.mixed.splice(l, 1); renderMixed(); recompute(); break;
+      case 'ct-add':
+        state.containers.push(L.sanitizeContainer({ id: 'c' + Date.now().toString(36), name: 'Nouveau', code: uniqueCode('NEW', -1), length: 100, width: 60, color: '#14b8a6', stackable: true, stackMax: 2, emptyEnabled: true }));
+        saveContainers(); renderAll(); break;
+      case 'ct-del':
+        if (window.confirm('Supprimer le contenant « ' + state.containers[i].name + ' » ?')) {
+          var gone = state.containers.splice(i, 1)[0];
+          cleanupRefs(gone.id); saveContainers(); renderAll();
         }
+        break;
+      case 'ct-default':
+        if (window.confirm('Rétablir les contenants par défaut ? Vos contenants personnalisés seront perdus.')) {
+          state.containers = L.DEFAULT_CONTAINERS.map(L.sanitizeContainer);
+          saveContainers(); renderAll();
+        }
+        break;
+      case 'reset-all': resetAll(); break;
+    }
+  });
+  function firstId() { return state.containers.length ? state.containers[0].id : ''; }
+  function cleanupRefs(id) {
+    delete state.qty[id]; delete state.empty[id]; delete state.gide.stock[id];
+    if (state.gide.infRef === id) state.gide.infRef = '';
+    state.gide.prios = state.gide.prios.filter(function (x) { return x !== id; });
+    state.mixed = state.mixed.map(function (line) { return line.filter(function (row) { return row.id !== id; }); }).filter(function (line) { return line.length; });
+  }
+  function resetAll() {
+    if (!window.confirm('Tout réinitialiser (quantités, Gidé, lignes mixtes) ? Vos contenants sont conservés.')) return;
+    state.qty = {}; state.empty = {}; state.mixed = [];
+    state.gide = { mode: 'infinite', infRef: '', stock: {}, prios: [] };
+    renderAll();
+  }
 
-        window.onload = () => {
-            document.querySelectorAll('.calc-trigger').forEach(el => {
-                el.addEventListener('input', calc);
-                el.addEventListener('change', calc);
-            });
-            calc();
-        };
-    </script>
+  $('truck-type').addEventListener('change', function (ev) {
+    state.truckL = parseInt(ev.target.value, 10);
+    $('porteur-warning').classList.toggle('hidden', state.truckL === 1330);
+    recompute();
+  });
+  $('auto-rotate-toggle').addEventListener('change', function (ev) { state.allowRotate = ev.target.checked; recompute(); });
+  $('btn-scroll-down').addEventListener('click', function () {
+    var c = $('app-content');
+    c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
+  });
+
+  // ------------------------------------------------------------------ checklist de chargement
+  var CHK_KEY = 'lynx.checked.v1';
+  var checked = {};
+  try { checked = JSON.parse(window.localStorage.getItem(CHK_KEY) || '{}') || {}; } catch (err) { checked = {}; }
+  function saveChecked() { try { window.localStorage.setItem(CHK_KEY, JSON.stringify(checked)); } catch (err) { /* ignoré */ } }
+  var lastKeys = [];
+
+  function checklistGroups(r) {
+    var groups = {}, order = [];
+    r.placed.forEach(function (p) {
+      var oriTxt = p.rotated ? 'pivoté' : (p.square ? '' : (p.ori === 'larg' ? 'larg.' : 'long.'));
+      var key = (p.customLine ? 'L' + p.customLine + '|' : '') + p.label + '|' + oriTxt + '|' + (p.auto ? 'ia' : 'ob') + '|' + (p.empty ? 'v' : '');
+      if (!groups[key]) { groups[key] = { key: key, label: p.label, ori: oriTxt, auto: p.auto, line: p.customLine, n: 0, units: 0, x: p.x }; order.push(key); }
+      var g = groups[key]; g.n++; g.units += p.units || 1; if (p.x < g.x) g.x = p.x;
+    });
+    return order.map(function (k) { return groups[k]; }).sort(function (a, b) { return a.x - b.x; });
+  }
+  function renderChecklist(r) {
+    var gs = checklistGroups(r), h = '', done = 0;
+    // la clé inclut le nombre : si la quantité change, la ligne repart décochée
+    gs.forEach(function (g) {
+      var k = g.key + '#' + g.n, on = !!checked[k];
+      if (on) done++;
+      var txt = g.n + ' × ' + g.label + (g.ori ? ' (' + g.ori + ')' : '') + (g.line ? ' · ligne mixte ' + g.line : '') + (g.auto ? ' · ajout Gidé' : '');
+      h += '<li><label class="flex items-start gap-3 p-2 rounded-lg hover:bg-emerald-50 cursor-pointer">' +
+        '<input type="checkbox" class="mt-0.5 w-5 h-5 shrink-0 accent-emerald-600" data-chk="' + esc(k) + '"' + (on ? ' checked' : '') + '>' +
+        '<span class="text-sm ' + (on ? 'line-through text-slate-400' : 'text-slate-800 font-medium') + '">' + esc(txt) +
+        '<span class="block text-[11px] text-slate-400 font-normal no-print">à partir de ' + (g.x / 100).toFixed(2).replace('.', ',') + ' m de la cabine</span></span></label></li>';
+    });
+    if (!gs.length) h = '<li class="text-sm text-slate-400 italic p-2">Saisissez des éléments pour générer la checklist.</li>';
+    $('checklist').innerHTML = h;
+    $('chk-progress').textContent = done + '/' + gs.length;
+    lastKeys = gs.map(function (g) { return g.key + '#' + g.n; });
+  }
+  function renderPrintHead(r) {
+    var d = new Date();
+    $('print-head').innerHTML = '<div style="font:700 18px system-ui">Lynx Chargement — plan de chargement</div>' +
+      '<div style="font:12px system-ui;color:#475569">Camion ' + (r.truckL / 100).toFixed(2).replace('.', ',') + ' m · ' + d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + '</div>';
+  }
+  document.addEventListener('change', function (ev) {
+    var k = ev.target.getAttribute && ev.target.getAttribute('data-chk');
+    if (k == null) return;
+    if (ev.target.checked) checked[k] = true; else delete checked[k];
+    saveChecked();
+    recompute();
+  });
+
+  // ------------------------------------------------------------------ sauvegardes + export / import
+  var CFG_KEY = 'lynx.configs.v1';
+  function readConfigs() {
+    try { var a = JSON.parse(window.localStorage.getItem(CFG_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (err) { return []; }
+  }
+  function writeConfigs(a) { try { window.localStorage.setItem(CFG_KEY, JSON.stringify(a)); return true; } catch (err) { return false; } }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function snapshot() {
+    return clone({ truckL: state.truckL, allowRotate: state.allowRotate, qty: state.qty, empty: state.empty, mixed: state.mixed, gide: state.gide });
+  }
+  function applySnapshot(c) {
+    state.truckL = [1330, 800, 600, 500].indexOf(+c.truckL) >= 0 ? +c.truckL : 1330;
+    state.allowRotate = c.allowRotate !== false;
+    state.qty = c.qty && typeof c.qty === 'object' ? clone(c.qty) : {};
+    state.empty = c.empty && typeof c.empty === 'object' ? clone(c.empty) : {};
+    state.mixed = Array.isArray(c.mixed) ? clone(c.mixed).filter(Array.isArray) : [];
+    var g = c.gide || {};
+    state.gide = {
+      mode: g.mode === 'stock' ? 'stock' : 'infinite', infRef: g.infRef || '',
+      stock: g.stock && typeof g.stock === 'object' ? clone(g.stock) : {}, prios: Array.isArray(g.prios) ? g.prios.slice() : []
+    };
+    $('truck-type').value = String(state.truckL);
+    $('auto-rotate-toggle').checked = state.allowRotate;
+    $('porteur-warning').classList.toggle('hidden', state.truckL === 1330);
+    renderAll();
+  }
+  function msg(t) { var m = $('save-msg'); m.textContent = t; m.classList.remove('hidden'); }
+  function renderSaves() {
+    var list = readConfigs(), h = '';
+    list.forEach(function (c, i) {
+      h += '<div class="flex items-center gap-2 bg-sky-50 border border-sky-100 rounded-lg px-3 py-2"><div class="min-w-0 grow"><div class="font-bold text-sm text-sky-900 truncate">' + esc(c.name) + '</div>' +
+        '<div class="text-[11px] text-slate-500">' + esc(new Date(c.date).toLocaleString('fr-FR')) + ' · camion ' + (c.config.truckL / 100).toFixed(2).replace('.', ',') + ' m</div></div>' +
+        '<button type="button" data-action="load-config" data-i="' + i + '" class="text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 px-3 py-1.5 rounded-lg">Charger</button>' +
+        '<button type="button" data-action="del-config" data-i="' + i + '" class="text-red-600 font-bold px-2" aria-label="Supprimer">✕</button></div>';
+    });
+    $('saves-list').innerHTML = h || '<p class="text-sm text-slate-400 italic">Aucun chargement enregistré.</p>';
+  }
+  function download(name, text, type) {
+    var url = URL.createObjectURL(new Blob([text], { type: type }));
+    var a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 500);
+  }
+  function importPayload(txt) {
+    var data;
+    try { data = JSON.parse(txt); } catch (err) { return msg('❌ Fichier illisible (JSON invalide).'); }
+    if (!data || data.app !== 'lynx-chargement' || !data.config) return msg('❌ Ce fichier n\'est pas un export Lynx Chargement.');
+    if (Array.isArray(data.containers) && data.containers.length &&
+        window.confirm('Ce fichier contient ' + data.containers.length + ' contenants. Les appliquer à votre entrepôt (remplace votre liste actuelle) ?')) {
+      state.containers = data.containers.map(L.sanitizeContainer); saveContainers();
+    }
+    applySnapshot(data.config);
+    msg('✅ Chargement importé.');
+  }
+
+  document.addEventListener('click', function (ev) {
+    var tg = ev.target.closest ? ev.target.closest('[data-action]') : null;
+    if (!tg) return;
+    var a = tg.getAttribute('data-action'), i = +tg.getAttribute('data-i');
+    if (a === 'save-config') {
+      var name = $('save-name').value.trim();
+      if (!name) return msg('Donnez un nom au chargement.');
+      var list = readConfigs().filter(function (c) { return c.name !== name; });
+      list.unshift({ name: name, date: new Date().toISOString(), config: snapshot() });
+      msg(writeConfigs(list.slice(0, 50)) ? '✅ « ' + name + ' » enregistré.' : '❌ Stockage du navigateur indisponible : utilisez l\'export en fichier.');
+      renderSaves();
+    } else if (a === 'load-config') {
+      var c = readConfigs()[i]; if (c) { applySnapshot(c.config); msg('✅ « ' + c.name + ' » chargé.'); }
+    } else if (a === 'del-config') {
+      var l2 = readConfigs(); if (l2[i] && window.confirm('Supprimer « ' + l2[i].name + ' » ?')) { l2.splice(i, 1); writeConfigs(l2); renderSaves(); }
+    } else if (a === 'export-json') {
+      var stamp = new Date().toISOString().slice(0, 10);
+      download('lynx-chargement-' + stamp + '.json', JSON.stringify({ app: 'lynx-chargement', version: 1, date: new Date().toISOString(), containers: state.containers, config: snapshot() }, null, 2), 'application/json');
+      msg('✅ Fichier exporté.');
+    } else if (a === 'import-json') {
+      $('import-file').click();
+    } else if (a === 'print') {
+      window.print();
+    } else if (a === 'chk-reset') {
+      lastKeys.forEach(function (k) { delete checked[k]; }); saveChecked(); recompute();
+    }
+  });
+  $('import-file').addEventListener('change', function (ev) {
+    var f = ev.target.files && ev.target.files[0]; if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () { importPayload(String(rd.result)); ev.target.value = ''; };
+    rd.readAsText(f);
+  });
+  renderSaves();
+
+  window.LynxApp = { state: state, recompute: recompute, renderAll: renderAll };
+  renderAll();
+})();
+/* APP:END */
+
+</script>
 </body>
 </html>
